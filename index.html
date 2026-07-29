@@ -54,7 +54,9 @@ body{
 .fantasma{position:absolute; font-family:Cream,system-ui; font-weight:600; line-height:.8;
   color:transparent; -webkit-text-stroke:1.5px rgba(255,41,255,.16); white-space:nowrap; user-select:none}
 .f1{top:2vh; left:-14vw; font-size:34vw}
-.f2{bottom:8vh; right:-22vw; font-size:34vw}
+/* en movil se sube mucho: la barra de Safari come los ultimos ~90px de pantalla */
+.f2{bottom:30vh; right:-22vw; font-size:34vw}
+@supports (height:100dvh){.f2{bottom:26dvh}}
 @media (min-width:900px){.f2{bottom:4vh; right:-18vw; font-size:30vw;
   -webkit-text-stroke-color:rgba(244,241,241,.05)}}
 
