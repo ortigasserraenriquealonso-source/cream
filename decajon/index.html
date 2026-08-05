@@ -27,40 +27,25 @@
    CONFIGURACIÓN — lo único que se toca para operar día a día.
    ───────────────────────────────────────────────────────────── */
 const CONFIG = {
-
-  // Dónde caen las respuestas: la URL /exec del Apps Script que vive dentro
-  // de la hoja "DE CAJON - RESEÑAS". Si esto queda vacío, la web avisa con
-  // una barra roja y no guarda nada.
-  ENDPOINT: "https://script.google.com/macros/s/AKfycbznkET1poHP26-Wg8sk1Ct7JXMCTJAhD55byiOBJTAWUkSV3K_XIIw6H9rubgQJb7kA/exec",
-
-  // Ficha de Google del cliente. Place ID verificado en Drive (DATOS CLAVE).
-  PLACE_ID: "ChIJF_vt-s3uTJAREaJxvJHeC3g",
-
-  // 'gate'    = 5★ va a Google, 1-4★ solo deja sugerencia privada (elección de Enrique).
-  // 'abierto' = todos ven el link de Google; los de 1-4★ lo ven al pie, tras sugerir.
-  //             Cumple la política de Google al pie de la letra. Cambiar solo esta palabra.
-  MODO_ESTRELLAS: "gate",
-
-  // El beneficio, tal cual lo lee el cliente. Son dos porque uno es
-  // título y el otro va dentro de una frase ("Tu ___ va camino a…").
-  BENEFICIO_TITULO: "Mocktail de cortesía",
-  BENEFICIO_FRASE:  "mocktail de cortesía",
-
-  // Nombres del salón. Si se llena, la pregunta se vuelve botones; vacío = campo libre.
-  MOZOS: [],
-
-  // Segundos que espera la pantalla de gracias antes de mandar a Google.
-  SEGUNDOS_REDIRECT: 3
+  "ENDPOINT": "https://script.google.com/macros/s/AKfycbznkET1poHP26-Wg8sk1Ct7JXMCTJAhD55byiOBJTAWUkSV3K_XIIw6H9rubgQJb7kA/exec",
+  "PLACE_ID": "ChIJF_vt-s3uTJAREaJxvJHeC3g",
+  "MODO_ESTRELLAS": "gate",
+  "BENEFICIO_TITULO": "Mocktail de cortesía",
+  "BENEFICIO_FRASE": "mocktail de cortesía",
+  "MOZOS": [],
+  "SEGUNDOS_REDIRECT": 3,
+  "PIXEL_META": "",
+  "PIXEL_TIKTOK": ""
 };
 </script>
 
 <style>
 :root{
-  --verde:#00392A;
-  --verde-alto:#0A5240;
-  --crema:#FDF9EE;
+  --marca:#00392A;
+  --marca-alto:#0A5240;
+  --sobre-marca:#FDF9EE;
   --fondo:#F3F4F0;
-  --naranja:#FE9E26;
+  --acento:#FE9E26;
   --tinta:#1A1D1A;
   --tinta-suave:#5A6159;
   --linea:#DCDED6;
@@ -85,19 +70,19 @@ body{
 
 /* ── Cabecera de marca ─────────────────────────────────────── */
 header{
-  background:var(--verde);
+  background:var(--marca);
   padding:calc(env(safe-area-inset-top) + 18px) 20px 16px;
   text-align:center;
   position:relative;
 }
-header img{width:150px;max-width:52vw;height:auto;display:inline-block}
+header img{width:150px;max-width:56vw;height:auto;display:inline-block}
 header .respaldo{
-  font-family:var(--serif);font-size:30px;color:var(--crema);
+  font-family:var(--serif);font-size:30px;color:var(--sobre-marca);
   letter-spacing:.5px;display:none
 }
 .progreso{height:3px;background:rgba(253,249,238,.18);position:relative;overflow:hidden}
 .progreso i{
-  display:block;height:100%;width:0%;background:var(--naranja);
+  display:block;height:100%;width:0%;background:var(--acento);
   transition:width .35s cubic-bezier(.4,0,.2,1)
 }
 
@@ -121,28 +106,28 @@ main{
 }
 h1{
   font-family:var(--serif);font-weight:700;font-size:29px;line-height:1.2;
-  margin:0 0 10px;color:var(--verde);letter-spacing:-.01em
+  margin:0 0 10px;color:var(--marca);letter-spacing:-.01em
 }
 h2{
   font-family:var(--serif);font-weight:600;font-size:25px;line-height:1.25;
-  margin:0 0 20px;color:var(--verde)
+  margin:0 0 20px;color:var(--marca)
 }
 p.bajada{margin:0 0 22px;color:var(--tinta-suave);font-size:16px}
 
 /* ── Tarjeta del beneficio ─────────────────────────────────── */
 .beneficio{
-  background:var(--verde);color:var(--crema);
+  background:var(--marca);color:var(--sobre-marca);
   border-radius:var(--radio);padding:19px 20px 17px;margin:0 0 20px;
   position:relative;overflow:hidden
 }
 .beneficio::after{
   content:"";position:absolute;right:-28px;bottom:-34px;
   width:120px;height:120px;border-radius:50%;
-  background:var(--naranja);opacity:.14
+  background:var(--acento);opacity:.14
 }
 .beneficio .rotulo{
   font-family:var(--mono);font-size:11px;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--naranja);display:block;margin-bottom:7px
+  text-transform:uppercase;color:var(--acento);display:block;margin-bottom:7px
 }
 .beneficio strong{
   font-family:var(--serif);font-weight:700;font-size:23px;
@@ -162,7 +147,7 @@ input[type=text],input[type=tel],textarea{
   border:1.5px solid var(--linea);border-radius:var(--radio);
   transition:border-color .15s;-webkit-appearance:none;appearance:none
 }
-input:focus,textarea:focus{outline:none;border-color:var(--verde)}
+input:focus,textarea:focus{outline:none;border-color:var(--marca)}
 input.error,textarea.error{border-color:#C0392B}
 textarea{min-height:130px;resize:vertical;line-height:1.5}
 .prefijo{display:flex;align-items:stretch;gap:8px}
@@ -183,10 +168,10 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
   border:1.5px solid var(--linea);border-radius:6px;background:#fff;
   cursor:pointer;position:relative;transition:.15s
 }
-.acuerdo input[type=checkbox]:checked{background:var(--verde);border-color:var(--verde)}
+.acuerdo input[type=checkbox]:checked{background:var(--marca);border-color:var(--marca)}
 .acuerdo input[type=checkbox]:checked::after{
   content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;
-  border:solid var(--crema);border-width:0 2.5px 2.5px 0;transform:rotate(43deg)
+  border:solid var(--sobre-marca);border-width:0 2.5px 2.5px 0;transform:rotate(43deg)
 }
 .acuerdo input[type=checkbox].error{border-color:#C0392B}
 .acuerdo label{font-size:13.5px;font-weight:400;color:var(--tinta-suave);margin:0;line-height:1.45}
@@ -201,7 +186,7 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
   cursor:pointer;transition:border-color .15s,background .15s,transform .1s
 }
 .opcion:active{transform:scale(.985)}
-.opcion.elegida{border-color:var(--verde);background:#fff;box-shadow:inset 0 0 0 1px var(--verde)}
+.opcion.elegida{border-color:var(--marca);background:#fff;box-shadow:inset 0 0 0 1px var(--marca)}
 .opcion .icono{
   flex:0 0 26px;height:26px;display:grid;place-items:center;
   font-size:17px;line-height:1
@@ -222,10 +207,10 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
 .estrella:active{transform:scale(.9)}
 .estrella svg{width:47px;height:47px;display:block}
 .estrella svg path{
-  fill:none;stroke:var(--verde);stroke-width:1.6;
+  fill:none;stroke:var(--marca);stroke-width:1.6;
   transition:fill .18s,stroke .18s
 }
-.estrella.on svg path{fill:var(--naranja);stroke:var(--naranja)}
+.estrella.on svg path{fill:var(--acento);stroke:var(--acento)}
 .etiquetas{
   display:flex;justify-content:space-between;
   font-family:var(--mono);font-size:11px;letter-spacing:.05em;
@@ -234,7 +219,7 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
 }
 .lectura{
   text-align:center;font-family:var(--serif);font-size:21px;
-  color:var(--verde);min-height:32px
+  color:var(--marca);min-height:32px
 }
 
 /* ── Botones ───────────────────────────────────────────────── */
@@ -247,10 +232,10 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
   transition:background .15s,opacity .15s,transform .1s
 }
 .btn:active{transform:scale(.99)}
-.btn-principal{background:var(--verde);color:var(--crema)}
-.btn-principal:hover{background:var(--verde-alto)}
+.btn-principal{background:var(--marca);color:var(--sobre-marca)}
+.btn-principal:hover{background:var(--marca-alto)}
 .btn-principal:disabled{opacity:.45;cursor:default;transform:none}
-.btn-google{background:var(--naranja);color:#2A1A00}
+.btn-google{background:var(--acento);color:#2A1A00}
 .btn-texto{
   background:none;color:var(--tinta-suave);font-weight:500;font-size:15px;
   min-height:44px;padding:10px;margin-top:4px
@@ -269,7 +254,7 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
 .cierre{text-align:center;padding-top:16px;flex:1;display:flex;flex-direction:column}
 .sello{
   width:78px;height:78px;margin:6px auto 20px;border-radius:50%;
-  background:var(--verde);display:grid;place-items:center
+  background:var(--marca);display:grid;place-items:center
 }
 .sello svg{width:38px;height:38px}
 .cuenta{
@@ -280,7 +265,7 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
   font-size:13px;color:var(--tinta-suave);margin-top:22px;
   padding-top:16px;border-top:1px solid var(--linea)
 }
-.nota-pie a{color:var(--verde)}
+.nota-pie a{color:var(--marca)}
 .firma{
   text-align:center;font-family:var(--mono);font-size:10.5px;
   letter-spacing:.12em;text-transform:uppercase;
@@ -327,7 +312,7 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
 
 /* Android chico (360×640) y iPhone SE: último apretón. */
 @media (max-height:670px){
-  header img{width:100px}
+  header img{width:calc(112px - 12px)}
   header{padding-top:calc(env(safe-area-inset-top) + 9px);padding-bottom:8px}
   h1{font-size:21px}
   .beneficio{padding:10px 13px;margin-bottom:11px}
@@ -422,6 +407,7 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
 
   <!-- ── 6 · Sugerencia (1 a 4 estrellas) ────────────────── -->
   <section class="paso" data-paso="6">
+    <button class="atras" data-atras="5">← Cambiar mi calificación</button>
     <div class="contador">Casi listo</div>
     <h2>¿Cómo podemos mejorar?</h2>
     <p class="bajada">Lo lee el dueño, no se publica en ningún lado. Es lo que nos sirve de verdad.</p>
@@ -434,6 +420,7 @@ textarea{min-height:130px;resize:vertical;line-height:1.5}
 
   <!-- ── 7 · Gracias · 5 estrellas ───────────────────────── -->
   <section class="paso" data-paso="7">
+    <button class="atras" data-atras="5">← Cambiar mi calificación</button>
     <div class="cierre">
       <div class="sello">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -527,10 +514,15 @@ var pasoActual = 0;
 /* Un envío por comensal, y un solo comentario. */
 var enviadoPrincipal = false, enviadaSugerencia = false;
 
-/* Se califica una sola vez. Sin esto, tocar 5 y corregir a 4 mandaba un 5 a
-   la hoja y encima dejaba corriendo la cuenta regresiva que se lleva a la
-   persona a Google mientras está escribiendo su queja. */
+/* Ya salió una fila hacia la hoja con una calificación. Si el comensal vuelve
+   atrás y se corrige, NO se manda otra fila: se corrige la que ya está. */
 var calificado = false;
+
+/* Bloquea el doble toque en las estrellas durante los 300 ms de la animación.
+   Sin esto, tocar 5 y corregir a 4 al instante mandaba un 5 a la hoja y encima
+   dejaba corriendo la cuenta regresiva, que se llevaba a la persona a Google
+   mientras estaba escribiendo su queja. Se libera al volver a esta pantalla. */
+var toqueEnCurso = false;
 
 /* El temporizador vive acá arriba para poder frenarlo desde cualquier lado. */
 var relojGoogle = null;
@@ -591,6 +583,14 @@ function limpiar(){ terminado = true; try{ localStorage.removeItem(LLAVE); }catc
 /* ── Navegación ───────────────────────────────────────────── */
 function irA(n){
   pasoActual = n;
+
+  // Al (re)entrar a las estrellas se libera el bloqueo del doble toque y se
+  // muestra la nota que ya había elegido, para que sepa qué está cambiando.
+  if(n === PASO_ESTRELLAS){
+    toqueEnCurso = false;
+    if(estado.estrellas > 0) marcarEstrellas(estado.estrellas);
+  }
+
   var activa = null;
   $$(".paso").forEach(function(s){
     var esta = Number(s.getAttribute("data-paso")) === n;
@@ -787,30 +787,55 @@ function enviarSugerencia(){
 }
 
 /* Cola de respaldo: último recurso. Si alguien vuelve a abrir la página en
-   ese mismo celular, lo pendiente se reintenta. */
+   ese mismo celular, lo pendiente se reintenta.
+
+   Cada pendiente vive en SU PROPIA clave, no en un array compartido. Con un
+   array, guardar y borrar hacen leer-modificar-escribir sobre lo mismo: si el
+   envío original y una corrección se cruzan, el guardado pisa al borrado y
+   queda un pendiente huérfano que ya se había guardado bien. */
+var PREFIJO_COLA = "decajon_pend_";
+
 function guardarPendiente(cuerpo){
   try{
-    var c = JSON.parse(localStorage.getItem("decajon_cola") || "[]");
-    c.push(cuerpo);
-    localStorage.setItem("decajon_cola", JSON.stringify(c.slice(-20)));
-  }catch(_){}
+    var clave = PREFIJO_COLA + Date.now() + "_" + Math.random().toString(36).slice(2,8);
+    localStorage.setItem(clave, cuerpo);
+    podarCola();
+    return clave;
+  }catch(_){ return null; }
 }
 function borrarPendiente(cuerpo){
   try{
-    var c = JSON.parse(localStorage.getItem("decajon_cola") || "[]");
-    localStorage.setItem("decajon_cola", JSON.stringify(c.filter(function(x){ return x !== cuerpo; })));
+    clavesPendientes().forEach(function(k){
+      if(localStorage.getItem(k) === cuerpo) localStorage.removeItem(k);
+    });
   }catch(_){}
+}
+function clavesPendientes(){
+  var salida = [];
+  try{
+    for(var i = 0; i < localStorage.length; i++){
+      var k = localStorage.key(i);
+      if(k && k.indexOf(PREFIJO_COLA) === 0) salida.push(k);
+    }
+  }catch(_){}
+  return salida.sort();   // el timestamp va en la clave: quedan en orden
+}
+/* Nunca más de 20 pendientes guardados: se tiran los más viejos. */
+function podarCola(){
+  var k = clavesPendientes();
+  while(k.length > 20){ try{ localStorage.removeItem(k.shift()); }catch(_){ break; } }
 }
 /* En serie, no en paralelo: 20 peticiones de golpe hacen que el script de la
    hoja se atore y empiece a rechazar por tiempo de espera. */
 function reintentarCola(){
   if(!CONFIG.ENDPOINT) return;
-  var c;
-  try{ c = JSON.parse(localStorage.getItem("decajon_cola") || "[]"); }catch(_){ return; }
+  var claves = clavesPendientes();
   (function siguiente(i){
-    if(i >= c.length) return;
-    postear(c[i]).then(function(bien){
-      if(bien) borrarPendiente(c[i]);
+    if(i >= claves.length) return;
+    var cuerpo = localStorage.getItem(claves[i]);
+    if(!cuerpo){ return siguiente(i + 1); }
+    postear(cuerpo).then(function(bien){
+      if(bien){ try{ localStorage.removeItem(claves[i]); }catch(_){} }
       esperar(400).then(function(){ siguiente(i + 1); });
     });
   })(0);
@@ -822,26 +847,49 @@ function urlGoogle(){
 
 /* ── Cierre según la calificación ─────────────────────────── */
 function cerrarCon(n){
-  if(calificado) return;   // el segundo toque en las estrellas no vale
-  calificado = true;
+  var esCorreccion = calificado;          // ya hay una fila en la hoja
+  var cambioLaNota = esCorreccion && estado.estrellas !== n;
+
   estado.estrellas = n;
+  calificado = true;
   guardar();
 
+  if(esCorreccion){
+    // No se manda una fila nueva: se corrige la que ya salió.
+    if(cambioLaNota) corregirCalificacion(n === 5);
+  } else {
+    enviar(n === 5);
+  }
+
   if(n === 5){
-    enviar(true);
     limpiar();
     irA(PASO_GRACIAS5);
     arrancarCuentaRegresiva();
     return;
   }
 
-  // 1 a 4 estrellas: se guarda YA, sin esperar a que escriba la sugerencia.
-  enviar(false);
+  // 1 a 4 estrellas: la respuesta ya salió, sin esperar a que escriba nada.
   if(CONFIG.MODO_ESTRELLAS === "abierto"){
     $("#pie-google").hidden = false;
     $("#link-google-pie").href = urlGoogle();
   }
   irA(PASO_SUGERENCIA);
+}
+
+/* El comensal volvió atrás y cambió su nota. Se actualiza la MISMA fila
+   (mismo id), así que en la hoja no aparecen dos respuestas suyas. */
+function corregirCalificacion(navegaEnseguida){
+  if(!CONFIG.ENDPOINT) return;
+  var cuerpo = JSON.stringify(carga(true));
+
+  if(navegaEnseguida && navigator.sendBeacon){
+    try{
+      if(navigator.sendBeacon(CONFIG.ENDPOINT,
+           new Blob([cuerpo], {type:"text/plain;charset=utf-8"}))) return;
+    }catch(_){ }
+  }
+  guardarPendiente(cuerpo);
+  postearConReintentos(cuerpo, 2);
 }
 
 function arrancarCuentaRegresiva(){
@@ -861,8 +909,14 @@ function arrancarCuentaRegresiva(){
   }, 1000);
 }
 
+/* Detiene el reloj Y borra su rastro en pantalla: si solo se para el
+   intervalo, el texto queda congelado en "te llevamos a Google en 3…". */
 function detenerCuentaRegresiva(){
   if(relojGoogle){ clearInterval(relojGoogle); relojGoogle = null; }
+  var caja = $("#cuenta");
+  if(caja) caja.textContent = "";
+  var salida = $("#cancelar-google");
+  if(salida) salida.hidden = true;
 }
 
 /* ── Eventos ──────────────────────────────────────────────── */
@@ -922,7 +976,12 @@ function conectar(){
     if(!t) return;
 
     if(t.hasAttribute("data-atras")){
-      irA(Math.max(0, pasoActual - 1));
+      // Sin valor = la pantalla anterior. Con valor = a esa pantalla exacta
+      // (desde el cajón de sugerencia o desde el "gracias" se vuelve a las
+      // estrellas, no al paso de en medio).
+      var destinoAtras = t.getAttribute("data-atras");
+      detenerCuentaRegresiva();
+      irA(destinoAtras ? Number(destinoAtras) : Math.max(0, pasoActual - 1));
       return;
     }
 
@@ -958,7 +1017,8 @@ function conectar(){
     }
 
     if(t.classList.contains("estrella")){
-      if(calificado) return;
+      if(toqueEnCurso) return;
+      toqueEnCurso = true;
       var n = Number(t.getAttribute("data-n"));
       marcarEstrellas(n);
       setTimeout(function(){ cerrarCon(n); }, 300);
@@ -973,8 +1033,6 @@ function conectar(){
 
     if(t.id === "cancelar-google"){
       detenerCuentaRegresiva();
-      $("#cuenta").textContent = "";
-      t.hidden = true;
       return;
     }
 
