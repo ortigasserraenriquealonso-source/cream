@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>De Cajón · Cuéntanos cómo te fue</title>
+<meta name="description" content="Responde 5 preguntas rápidas y te enviamos un mocktail de cortesía a tu WhatsApp.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#00392A">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preload" as="image" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- La tipografía se carga sin bloquear el dibujado: con el wifi del local
+     lento, un <link> normal deja la pantalla en blanco hasta que responde.
+     Si nunca llega, se ve en Georgia y no pasa nada. -->
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap">
+<noscript>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap">
+</noscript>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   CONFIGURACIÓN — lo único que se toca para operar día a día.
+   ───────────────────────────────────────────────────────────── */
+const CONFIG = {
+
+  // Dónde caen las respuestas: la URL /exec del Apps Script que vive dentro
+  // de la hoja "DE CAJON - RESEÑAS". Si esto queda vacío, la web avisa con
+  // una barra roja y no guarda nada.
+  ENDPOINT: "https://script.google.com/macros/s/AKfycbznkET1poHP26-Wg8sk1Ct7JXMCTJAhD55byiOBJTAWUkSV3K_XIIw6H9rubgQJb7kA/exec",
+
+  // Ficha de Google del cliente. Place ID verificado en Drive (DATOS CLAVE).
+  PLACE_ID: "ChIJF_vt-s3uTJAREaJxvJHeC3g",
+
+  // 'gate'    = 5★ va a Google, 1-4★ solo deja sugerencia privada (elección de Enrique).
+  // 'abierto' = todos ven el link de Google; los de 1-4★ lo ven al pie, tras sugerir.
+  //             Cumple la política de Google al pie de la letra. Cambiar solo esta palabra.
+  MODO_ESTRELLAS: "gate",
+
+  // El beneficio, tal cual lo lee el cliente. Son dos porque uno es
+  // título y el otro va dentro de una frase ("Tu ___ va camino a…").
+  BENEFICIO_TITULO: "Mocktail de cortesía",
+  BENEFICIO_FRASE:  "mocktail de cortesía",
+
+  // Nombres del salón. Si se llena, la pregunta se vuelve botones; vacío = campo libre.
+  MOZOS: [],
+
+  // Segundos que espera la pantalla de gracias antes de mandar a Google.
+  SEGUNDOS_REDIRECT: 3
+};
+</script>
+
+<style>
+:root{
+  --verde:#00392A;
+  --verde-alto:#0A5240;
+  --crema:#FDF9EE;
+  --fondo:#F3F4F0;
+  --naranja:#FE9E26;
+  --tinta:#1A1D1A;
+  --tinta-suave:#5A6159;
+  --linea:#DCDED6;
+  --radio:14px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--fondo);
+  color:var(--tinta);
+  font-family:var(--sans);
+  font-size:17px;
+  line-height:1.5;
+  min-height:100vh;
+  min-height:100svh;   /* los navegadores viejos ignoran esta línea y usan la de arriba */
+  display:flex;
+  flex-direction:column;
+}
+
+/* ── Cabecera de marca ─────────────────────────────────────── */
+header{
+  background:var(--verde);
+  padding:calc(env(safe-area-inset-top) + 18px) 20px 16px;
+  text-align:center;
+  position:relative;
+}
+header img{width:150px;max-width:52vw;height:auto;display:inline-block}
+header .respaldo{
+  font-family:var(--serif);font-size:30px;color:var(--crema);
+  letter-spacing:.5px;display:none
+}
+.progreso{height:3px;background:rgba(253,249,238,.18);position:relative;overflow:hidden}
+.progreso i{
+  display:block;height:100%;width:0%;background:var(--naranja);
+  transition:width .35s cubic-bezier(.4,0,.2,1)
+}
+
+/* ── Contenedor ────────────────────────────────────────────── */
+main{
+  flex:1;width:100%;max-width:520px;margin:0 auto;
+  padding:26px 20px calc(env(safe-area-inset-bottom) + 32px);
+  display:flex;flex-direction:column;
+}
+.paso{display:none;animation:entra .32s ease both}
+.paso.activo{display:flex;flex-direction:column;flex:1}
+@keyframes entra{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){
+  .paso{animation:none}
+  .progreso i{transition:none}
+}
+
+.contador{
+  font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--tinta-suave);margin-bottom:10px
+}
+h1{
+  font-family:var(--serif);font-weight:700;font-size:29px;line-height:1.2;
+  margin:0 0 10px;color:var(--verde);letter-spacing:-.01em
+}
+h2{
+  font-family:var(--serif);font-weight:600;font-size:25px;line-height:1.25;
+  margin:0 0 20px;color:var(--verde)
+}
+p.bajada{margin:0 0 22px;color:var(--tinta-suave);font-size:16px}
+
+/* ── Tarjeta del beneficio ─────────────────────────────────── */
+.beneficio{
+  background:var(--verde);color:var(--crema);
+  border-radius:var(--radio);padding:19px 20px 17px;margin:0 0 20px;
+  position:relative;overflow:hidden
+}
+.beneficio::after{
+  content:"";position:absolute;right:-28px;bottom:-34px;
+  width:120px;height:120px;border-radius:50%;
+  background:var(--naranja);opacity:.14
+}
+.beneficio .rotulo{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--naranja);display:block;margin-bottom:7px
+}
+.beneficio strong{
+  font-family:var(--serif);font-weight:700;font-size:23px;
+  display:block;line-height:1.2;margin-bottom:8px
+}
+.beneficio span.detalle{font-size:14.5px;opacity:.88;position:relative;z-index:1}
+
+/* ── Campos ────────────────────────────────────────────────── */
+.campo{margin-bottom:16px}
+label{
+  display:block;font-size:14px;font-weight:600;
+  margin-bottom:7px;color:var(--tinta)
+}
+input[type=text],input[type=tel],textarea{
+  width:100%;padding:15px 16px;font-size:17px;font-family:inherit;
+  color:var(--tinta);background:#fff;
+  border:1.5px solid var(--linea);border-radius:var(--radio);
+  transition:border-color .15s;-webkit-appearance:none;appearance:none
+}
+input:focus,textarea:focus{outline:none;border-color:var(--verde)}
+input.error,textarea.error{border-color:#C0392B}
+textarea{min-height:130px;resize:vertical;line-height:1.5}
+.prefijo{display:flex;align-items:stretch;gap:8px}
+.prefijo .pais{
+  display:flex;align-items:center;padding:0 14px;font-size:16px;
+  color:var(--tinta-suave);background:#fff;
+  border:1.5px solid var(--linea);border-radius:var(--radio);white-space:nowrap
+}
+.prefijo input{flex:1;min-width:0}
+.aviso{font-size:13px;color:#C0392B;margin-top:6px;display:none}
+.aviso.visible{display:block}
+.pista{font-size:13px;color:var(--tinta-suave);margin-top:6px}
+
+/* ── Consentimiento ────────────────────────────────────────── */
+.acuerdo{display:flex;gap:11px;align-items:flex-start;margin-bottom:13px}
+.acuerdo input[type=checkbox]{
+  -webkit-appearance:none;appearance:none;flex:0 0 22px;width:22px;height:22px;margin-top:1px;
+  border:1.5px solid var(--linea);border-radius:6px;background:#fff;
+  cursor:pointer;position:relative;transition:.15s
+}
+.acuerdo input[type=checkbox]:checked{background:var(--verde);border-color:var(--verde)}
+.acuerdo input[type=checkbox]:checked::after{
+  content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;
+  border:solid var(--crema);border-width:0 2.5px 2.5px 0;transform:rotate(43deg)
+}
+.acuerdo input[type=checkbox].error{border-color:#C0392B}
+.acuerdo label{font-size:13.5px;font-weight:400;color:var(--tinta-suave);margin:0;line-height:1.45}
+
+/* ── Opciones (una pregunta por pantalla) ──────────────────── */
+.opciones{display:flex;flex-direction:column;gap:10px;margin-bottom:6px}
+.opcion{
+  display:flex;align-items:center;gap:13px;width:100%;
+  padding:16px 17px;min-height:56px;
+  font-size:16.5px;font-family:inherit;color:var(--tinta);text-align:left;
+  background:#fff;border:1.5px solid var(--linea);border-radius:var(--radio);
+  cursor:pointer;transition:border-color .15s,background .15s,transform .1s
+}
+.opcion:active{transform:scale(.985)}
+.opcion.elegida{border-color:var(--verde);background:#fff;box-shadow:inset 0 0 0 1px var(--verde)}
+.opcion .icono{
+  flex:0 0 26px;height:26px;display:grid;place-items:center;
+  font-size:17px;line-height:1
+}
+
+/* ── Estrellas ─────────────────────────────────────────────── */
+/* Se centra en el alto disponible: es la pantalla que decide todo,
+   no puede quedar colgada arriba con medio celular en blanco. */
+.bloque-estrellas{margin:auto 0;padding-bottom:8%}
+.estrellas{
+  display:flex;justify-content:space-between;gap:2px;margin:10px auto 8px;
+  max-width:310px;direction:ltr
+}
+.estrella{
+  background:none;border:none;padding:6px 3px;cursor:pointer;
+  line-height:0;transition:transform .12s
+}
+.estrella:active{transform:scale(.9)}
+.estrella svg{width:47px;height:47px;display:block}
+.estrella svg path{
+  fill:none;stroke:var(--verde);stroke-width:1.6;
+  transition:fill .18s,stroke .18s
+}
+.estrella.on svg path{fill:var(--naranja);stroke:var(--naranja)}
+.etiquetas{
+  display:flex;justify-content:space-between;
+  font-family:var(--mono);font-size:11px;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--tinta-suave);
+  max-width:300px;margin:0 auto 14px
+}
+.lectura{
+  text-align:center;font-family:var(--serif);font-size:21px;
+  color:var(--verde);min-height:32px
+}
+
+/* ── Botones ───────────────────────────────────────────────── */
+.acciones{margin-top:auto;padding-top:22px}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;padding:17px 20px;min-height:56px;
+  font-size:17px;font-weight:600;font-family:inherit;
+  border:none;border-radius:var(--radio);cursor:pointer;
+  transition:background .15s,opacity .15s,transform .1s
+}
+.btn:active{transform:scale(.99)}
+.btn-principal{background:var(--verde);color:var(--crema)}
+.btn-principal:hover{background:var(--verde-alto)}
+.btn-principal:disabled{opacity:.45;cursor:default;transform:none}
+.btn-google{background:var(--naranja);color:#2A1A00}
+.btn-texto{
+  background:none;color:var(--tinta-suave);font-weight:500;font-size:15px;
+  min-height:44px;padding:10px;margin-top:4px
+}
+.legal{
+  font-size:11.5px;line-height:1.4;color:var(--tinta-suave);
+  opacity:.8;margin:2px 0 0;padding-left:33px
+}
+.atras{
+  background:none;border:none;padding:8px 2px;margin-bottom:12px;
+  font-family:inherit;font-size:15px;color:var(--tinta-suave);
+  cursor:pointer;align-self:flex-start;min-height:40px
+}
+
+/* ── Pantallas de cierre ───────────────────────────────────── */
+.cierre{text-align:center;padding-top:16px;flex:1;display:flex;flex-direction:column}
+.sello{
+  width:78px;height:78px;margin:6px auto 20px;border-radius:50%;
+  background:var(--verde);display:grid;place-items:center
+}
+.sello svg{width:38px;height:38px}
+.cuenta{
+  font-family:var(--mono);font-size:13px;color:var(--tinta-suave);
+  margin-top:14px;letter-spacing:.04em
+}
+.nota-pie{
+  font-size:13px;color:var(--tinta-suave);margin-top:22px;
+  padding-top:16px;border-top:1px solid var(--linea)
+}
+.nota-pie a{color:var(--verde)}
+.firma{
+  text-align:center;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--tinta-suave);opacity:.6;padding:18px 20px 0
+}
+
+/* Pantalla larga: que el contenido no quede pegado arriba */
+@media (min-height:800px){ main{padding-top:34px} }
+
+/* Celular chico (iPhone SE y similares, y cualquiera con el teclado
+   abierto). Todo se aprieta a la vez para que el botón principal
+   siga siendo visible sin scroll: es el que decide si arranca o no. */
+@media (max-height:760px){
+  main{padding:14px 18px calc(env(safe-area-inset-bottom) + 16px)}
+  header{padding-top:calc(env(safe-area-inset-top) + 11px);padding-bottom:10px}
+  header img{width:112px}
+  h1{font-size:23px;margin-bottom:7px}
+  h2{font-size:22px;margin-bottom:12px}
+  p.bajada{margin-bottom:14px;font-size:15px}
+  .contador{margin-bottom:5px}
+  .beneficio{padding:12px 14px;margin-bottom:13px}
+  .beneficio strong{font-size:18px;margin-bottom:0}
+  .beneficio .rotulo{margin-bottom:5px}
+  /* El detalle repite lo que ya dice el campo de abajo ("¿A qué WhatsApp
+     te lo enviamos?"). En pantalla chica se va, y con él 40 px. */
+  .beneficio .detalle{display:none}
+  .campo{margin-bottom:10px}
+  label{margin-bottom:4px;font-size:13.5px}
+  input[type=text],input[type=tel]{padding:11px 13px;font-size:16px}
+  .prefijo .pais{padding:0 10px;font-size:15px}
+  .acuerdo{margin-bottom:7px;gap:9px}
+  .acuerdo label{font-size:12.5px}
+  .acuerdo input[type=checkbox]{flex-basis:20px;width:20px;height:20px}
+  .acuerdo input[type=checkbox]:checked::after{left:6px;top:2px}
+  .legal{font-size:10.5px;padding-left:29px}
+  .acciones{padding-top:12px}
+  .btn{padding:13px 18px;min-height:48px;font-size:16.5px}
+  .estrella svg{width:42px;height:42px}
+  .bloque-estrellas{padding-bottom:0}
+  textarea{min-height:100px}
+  .sello{width:60px;height:60px;margin-bottom:12px}
+  .firma{display:none}   /* decorativa: es lo primero que se sacrifica */
+}
+
+/* Android chico (360×640) y iPhone SE: último apretón. */
+@media (max-height:670px){
+  header img{width:100px}
+  header{padding-top:calc(env(safe-area-inset-top) + 9px);padding-bottom:8px}
+  h1{font-size:21px}
+  .beneficio{padding:10px 13px;margin-bottom:11px}
+  .beneficio strong{font-size:17px}
+  .campo{margin-bottom:8px}
+  .acuerdo{margin-bottom:6px}
+  .acuerdo label{font-size:12px;line-height:1.35}
+  .legal{font-size:10px}
+  .acciones{padding-top:10px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="De Cajón" width="150" height="69"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+  <div class="respaldo">De Cajón</div>
+</header>
+<div class="progreso"><i id="barra"></i></div>
+
+<main id="app">
+
+  <!-- ── 0 · Portada + datos ─────────────────────────────── -->
+  <section class="paso activo" data-paso="0">
+    <div class="contador">5 preguntas · menos de 1 minuto</div>
+    <h1>Cuéntanos cómo te fue</h1>
+
+    <div class="beneficio">
+      <span class="rotulo">Tu cortesía por responder</span>
+      <strong id="ben-titulo">Mocktail de cortesía</strong>
+      <span class="detalle">Te llega a tu WhatsApp al terminar, para tu próxima visita.</span>
+    </div>
+
+    <div class="campo">
+      <label for="nombre">¿Cómo te llamas?</label>
+      <input type="text" id="nombre" autocomplete="given-name" enterkeyhint="next"
+             placeholder="Tu nombre" maxlength="60">
+      <div class="aviso" id="aviso-nombre" role="alert">Escribe tu nombre para poder enviarte la cortesía.</div>
+    </div>
+
+    <div class="campo">
+      <label for="celular">¿A qué WhatsApp te lo enviamos?</label>
+      <div class="prefijo">
+        <span class="pais">🇵🇪 +51</span>
+        <input type="tel" id="celular" inputmode="numeric" autocomplete="tel-national"
+               enterkeyhint="done" placeholder="999 999 999" maxlength="11">
+      </div>
+      <div class="aviso" id="aviso-celular" role="alert">Necesitamos un celular peruano de 9 dígitos que empiece en 9.</div>
+    </div>
+
+    <!-- Aparece solo si se recuperaron datos de una sesión anterior: puede
+         ser la misma persona que volvió, o el comensal siguiente con el
+         mismo celular. Que lo decida quien lo tiene en la mano. -->
+    <button class="btn btn-texto" id="no-soy-yo" hidden></button>
+
+    <div class="acuerdo">
+      <input type="checkbox" id="ok-contacto">
+      <label for="ok-contacto">Acepto que me escriban por WhatsApp para enviarme mi cortesía.</label>
+    </div>
+    <div class="acuerdo">
+      <input type="checkbox" id="ok-promos">
+      <label for="ok-promos">Quiero recibir sus novedades. <em>(Opcional)</em></label>
+    </div>
+    <p class="legal">Solo De Cajón ve tus datos. Si quieres que los borremos, avísanos.</p>
+    <div class="aviso" id="aviso-ok" role="alert">Marca la primera casilla para poder enviarte la cortesía.</div>
+
+    <div class="acciones">
+      <button class="btn btn-principal" id="btn-empezar">Empezar</button>
+    </div>
+  </section>
+
+  <!-- ── 1..4 · Preguntas (se pintan solas) ──────────────── -->
+  <section class="paso" data-paso="1"></section>
+  <section class="paso" data-paso="2"></section>
+  <section class="paso" data-paso="3"></section>
+  <section class="paso" data-paso="4"></section>
+
+  <!-- ── 5 · Estrellas ───────────────────────────────────── -->
+  <section class="paso" data-paso="5">
+    <button class="atras" data-atras>← Atrás</button>
+    <div class="contador">Pregunta 5 de 5</div>
+    <h2>Califica tu experiencia</h2>
+    <p class="bajada">Toca las estrellas que creas que merecemos.</p>
+
+    <div class="bloque-estrellas">
+      <div class="estrellas" id="estrellas"></div>
+      <div class="etiquetas"><span>Mala</span><span>Excelente</span></div>
+      <div class="lectura" id="lectura" role="status" aria-live="polite">&nbsp;</div>
+    </div>
+  </section>
+
+  <!-- ── 6 · Sugerencia (1 a 4 estrellas) ────────────────── -->
+  <section class="paso" data-paso="6">
+    <div class="contador">Casi listo</div>
+    <h2>¿Cómo podemos mejorar?</h2>
+    <p class="bajada">Lo lee el dueño, no se publica en ningún lado. Es lo que nos sirve de verdad.</p>
+    <textarea id="sugerencia" placeholder="Cuéntanos qué pasó…" maxlength="1000"
+              enterkeyhint="done"></textarea>
+    <div class="acciones">
+      <button class="btn btn-principal" id="btn-enviar-sug">Enviar y recibir mi cortesía</button>
+    </div>
+  </section>
+
+  <!-- ── 7 · Gracias · 5 estrellas ───────────────────────── -->
+  <section class="paso" data-paso="7">
+    <div class="cierre">
+      <div class="sello">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 12.5l5.2 5.2L20 7" stroke="#FE9E26" stroke-width="2.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 id="titulo-5">¡Gracias, de verdad!</h2>
+      <p class="bajada" id="texto-5">Nos alegra un montón. Te llevamos a Google para que lo cuentes ahí — nos ayuda muchísimo.</p>
+      <div class="acciones">
+        <button class="btn btn-google" id="btn-google">Escribir mi reseña en Google</button>
+        <div class="cuenta" id="cuenta" role="status" aria-live="polite">&nbsp;</div>
+        <button class="btn btn-texto" id="cancelar-google" hidden>Quedarme acá</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 8 · Cierre final ────────────────────────────────── -->
+  <section class="paso" data-paso="8">
+    <div class="cierre">
+      <div class="sello">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 12.5l5.2 5.2L20 7" stroke="#FE9E26" stroke-width="2.6"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 id="titulo-fin">Listo, gracias</h2>
+      <p class="bajada" id="texto-fin">Tu cortesía va camino a tu WhatsApp. Nos vemos pronto.</p>
+      <div class="nota-pie" id="pie-google" hidden>
+        Si quieres, también puedes dejarnos tu opinión en Google.
+        <br><a id="link-google-pie" href="#" rel="noopener">Escribir una reseña</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="firma">De Cajón · Comida Fusión</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ── Preguntas ─────────────────────────────────────────────
+   El orden es deliberado: primero adquisición (mide la pauta de
+   TikTok), luego recurrencia, luego fortaleza percibida, y al
+   final el mozo — el dato más incómodo va cuando ya hay inercia.
+   ────────────────────────────────────────────────────────── */
+var PREGUNTAS = [
+  { id:"como_conocio", titulo:"¿Cómo nos conociste?",
+    opciones:[
+      {v:"TikTok",             i:"🎵"},
+      {v:"Instagram",          i:"📸"},
+      {v:"Facebook",           i:"👍"},
+      {v:"Me recomendó un familiar o amigo", i:"💬"},
+      {v:"Pasaba por el local", i:"🚶"},
+      {v:"Buscando en Google",  i:"🔍"},
+      {v:"Otro",                i:"✨"}
+    ]},
+  { id:"primera_vez", titulo:"¿Es tu primera vez en De Cajón?",
+    opciones:[
+      {v:"Sí, es mi primera vez",  i:"🌟"},
+      {v:"Ya había venido antes",  i:"🔁"},
+      {v:"Vengo seguido",          i:"❤️"}
+    ]},
+  { id:"lo_mejor", titulo:"¿Qué fue lo mejor de hoy?",
+    opciones:[
+      {v:"La sazón",        i:"🍽️"},
+      {v:"La atención",     i:"🤝"},
+      {v:"El ambiente",     i:"🪑"},
+      {v:"La rapidez",      i:"⚡"},
+      {v:"La presentación de los platos", i:"🎨"}
+    ]},
+  { id:"atendido_por", titulo:"¿Quién te atendió?",
+    bajada:"Nos sirve para reconocer al equipo.",
+    libre:true, placeholder:"Nombre de quien te atendió", opcional:true }
+];
+
+var PASO_ESTRELLAS = 5, PASO_SUGERENCIA = 6, PASO_GRACIAS5 = 7, PASO_FIN = 8;
+var LECTURAS = ["","Muy mala","Mala","Regular","Buena","¡Excelente!"];
+var LLAVE = "decajon_resenas_v1";
+
+var estado = {
+  id: null, nombre:"", celular:"", ok_promos:false,
+  respuestas:{}, estrellas:0, sugerencia:"",
+  fuente: new URLSearchParams(location.search).get("f") || "",
+  inicio: Date.now()
+};
+var pasoActual = 0;
+
+/* Un envío por comensal, y un solo comentario. */
+var enviadoPrincipal = false, enviadaSugerencia = false;
+
+/* Se califica una sola vez. Sin esto, tocar 5 y corregir a 4 mandaba un 5 a
+   la hoja y encima dejaba corriendo la cuenta regresiva que se lleva a la
+   persona a Google mientras está escribiendo su queja. */
+var calificado = false;
+
+/* El temporizador vive acá arriba para poder frenarlo desde cualquier lado. */
+var relojGoogle = null;
+
+/* Una vez completado, el estado queda sellado: ningún guardado
+   posterior puede resucitarlo. Sin esto, irA() vuelve a escribir
+   lo que limpiar() acaba de borrar, y el siguiente comensal que
+   use el mismo celular hereda el id anterior — el servidor lo
+   tomaría por duplicado y descartaría su respuesta sin avisar. */
+var terminado = false;
+
+var $  = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+/* ── Identificador de envío (evita filas duplicadas) ──────── */
+function nuevoId(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "id-" + Date.now() + "-" + Math.random().toString(36).slice(2,10);
+}
+estado.id = nuevoId();
+
+/* ── Autoguardado: si se va a WhatsApp y vuelve, no pierde ── */
+function guardar(){
+  if(terminado) return;
+  try{ localStorage.setItem(LLAVE, JSON.stringify({e:estado,p:pasoActual,t:Date.now()})); }catch(_){}
+}
+function recuperar(){
+  try{
+    var crudo = localStorage.getItem(LLAVE);
+    if(!crudo) return;
+    var g = JSON.parse(crudo);
+
+    // Media hora. Más que eso ya no es "se me apagó la pantalla": es otra
+    // persona con el mismo equipo, y no puede heredar el nombre ni el
+    // celular del anterior.
+    if(!g || !g.t || Date.now() - g.t > 30*60*1000){ localStorage.removeItem(LLAVE); return; }
+
+    // Si esa respuesta ya salió hacia el servidor, la encuesta terminó:
+    // el siguiente que use este celular empieza de cero y con id propio.
+    // (Cubre el caso de cerrarse la página entre el envío y la limpieza.)
+    if(g.e && g.e.enviadoOk){ localStorage.removeItem(LLAVE); return; }
+
+    // Un estado con otra forma (versión anterior, escritura cortada a la
+    // mitad) tira todo abajo al repoblar. Mejor descartarlo entero.
+    if(!g.e || typeof g.e !== "object" || typeof g.e.respuestas !== "object"){
+      localStorage.removeItem(LLAVE); return;
+    }
+
+    estado = g.e;
+    // El ?f= del QR es del comensal que está escaneando AHORA, no del anterior.
+    estado.fuente = new URLSearchParams(location.search).get("f") || estado.fuente || "";
+  }catch(_){
+    try{ localStorage.removeItem(LLAVE); }catch(__){}
+  }
+}
+function limpiar(){ terminado = true; try{ localStorage.removeItem(LLAVE); }catch(_){} }
+
+/* ── Navegación ───────────────────────────────────────────── */
+function irA(n){
+  pasoActual = n;
+  var activa = null;
+  $$(".paso").forEach(function(s){
+    var esta = Number(s.getAttribute("data-paso")) === n;
+    s.classList.toggle("activo", esta);
+    if(esta) activa = s;
+  });
+  var total = 1 + PREGUNTAS.length + 1;           // datos + preguntas + estrellas
+  var pct = n >= PASO_SUGERENCIA ? 100 : Math.round((n/total)*100);
+  $("#barra").style.width = pct + "%";
+  window.scrollTo(0,0);
+
+  // Al ocultar la pantalla anterior el foco se cae al body y un lector de
+  // pantalla no anuncia nada: el usuario no se entera de que cambió la
+  // pregunta. Se lo mandamos al título de la pantalla nueva.
+  if(activa){
+    var titulo = activa.querySelector("h1, h2");
+    if(titulo){
+      titulo.setAttribute("tabindex","-1");
+      try{ titulo.focus({preventScroll:true}); }catch(_){ titulo.focus(); }
+    }
+  }
+  guardar();
+}
+
+/* Los textos de las preguntas y los nombres de CONFIG.MOZOS se insertan como
+   HTML: si alguno trae comillas o < >, sin esto rompe el marcado. */
+function escapar(s){
+  return String(s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+/* ── Pintado de las preguntas 1..4 ────────────────────────── */
+function pintarPreguntas(){
+  PREGUNTAS.forEach(function(p, idx){
+    var paso = idx + 1;
+    var sec  = $('.paso[data-paso="'+paso+'"]');
+    var html = '<button class="atras" data-atras>← Atrás</button>'
+             + '<div class="contador">Pregunta '+paso+' de 5</div>'
+             + '<h2>'+p.titulo+'</h2>'
+             + (p.bajada ? '<p class="bajada">'+p.bajada+'</p>' : '');
+
+    if(p.libre && (!CONFIG.MOZOS || !CONFIG.MOZOS.length)){
+      html += '<div class="campo"><input type="text" id="libre-'+p.id+'" '
+            + 'placeholder="'+(p.placeholder||"Escribe aquí")+'" maxlength="60" '
+            + 'enterkeyhint="done" autocomplete="off"></div>'
+            + '<div class="acciones">'
+            + '<button class="btn btn-principal" data-sigue="'+p.id+'">Continuar</button>'
+            + (p.opcional ? '<button class="btn btn-texto" data-salta="'+p.id+'">No lo recuerdo</button>' : '')
+            + '</div>';
+    } else {
+      var lista = p.libre ? CONFIG.MOZOS.map(function(m){ return {v:m,i:"🙋"}; }) : p.opciones;
+      html += '<div class="opciones" role="group" aria-label="'+escapar(p.titulo)+'">'
+            + lista.map(function(o){
+                return '<button class="opcion" aria-pressed="false" data-valor="'+escapar(o.v)+'" data-preg="'+p.id+'">'
+                     + '<span class="icono" aria-hidden="true">'+o.i+'</span><span>'+escapar(o.v)+'</span></button>';
+              }).join("")
+            + '</div>'
+            + (p.opcional ? '<div class="acciones"><button class="btn btn-texto" data-salta="'+p.id+'">Prefiero no decirlo</button></div>' : '');
+    }
+    sec.innerHTML = html;
+  });
+}
+
+/* ── Estrellas ────────────────────────────────────────────── */
+var TRAZO = "M12 2.6l2.95 5.98 6.6.96-4.78 4.66 1.13 6.58L12 17.68l-5.9 3.1 1.13-6.58L2.45 9.54l6.6-.96L12 2.6z";
+function pintarEstrellas(){
+  $("#estrellas").innerHTML = [1,2,3,4,5].map(function(n){
+    return '<button class="estrella" aria-pressed="false" data-n="'+n+'" aria-label="'+n+' de 5 estrellas">'
+         + '<svg viewBox="0 0 24 24"><path d="'+TRAZO+'" stroke-linejoin="round"/></svg></button>';
+  }).join("");
+}
+function marcarEstrellas(n){
+  $$("#estrellas .estrella").forEach(function(b){
+    var prendida = Number(b.getAttribute("data-n")) <= n;
+    b.classList.toggle("on", prendida);
+    b.setAttribute("aria-pressed", prendida ? "true" : "false");
+  });
+  $("#lectura").textContent = LECTURAS[n] || " ";
+}
+
+/* ── Validación ───────────────────────────────────────────── */
+function soloDigitos(s){ return (s||"").replace(/\D/g,""); }
+function celularValido(s){ var d = soloDigitos(s); return d.length === 9 && d.charAt(0) === "9"; }
+/* Al menos una letra: "aa", ".." o un emoji suelto no son un nombre. */
+function nombreValido(s){
+  s = (s||"").trim();
+  return s.length >= 2 && /[a-zA-ZÁÉÍÓÚÜÑáéíóúüñ]/.test(s);
+}
+function marcarAviso(sel, mostrar, campo){
+  $(sel).classList.toggle("visible", !!mostrar);
+  if(campo) $(campo).classList.toggle("error", !!mostrar);
+}
+
+/* ── Envío ──────────────────────────────────────────────────
+   La respuesta se manda DOS veces a propósito:
+   1) apenas el comensal califica — así, si abandona la pantalla
+      de sugerencia (que es lo que suele hacer el insatisfecho),
+      su nombre, su celular y sus respuestas ya están guardados;
+   2) otra vez, con el mismo id y `actualizar`, si además escribe
+      la sugerencia. El servidor completa la MISMA fila.
+   ────────────────────────────────────────────────────────── */
+function carga(actualizacion){
+  var d = {
+    id: estado.id,
+    fecha: new Date().toISOString(),
+    nombre: estado.nombre,
+    whatsapp: "51" + soloDigitos(estado.celular),
+    como_conocio: estado.respuestas.como_conocio || "",
+    primera_vez:  estado.respuestas.primera_vez  || "",
+    lo_mejor:     estado.respuestas.lo_mejor     || "",
+    atendido_por: estado.respuestas.atendido_por || "",
+    calificacion: estado.estrellas,
+    sugerencia:   estado.sugerencia,
+    acepta_promos: estado.ok_promos ? "SI" : "NO",
+    fuente: estado.fuente,
+    segundos: Math.round((Date.now() - estado.inicio)/1000)
+  };
+  if(actualizacion) d.actualizar = true;
+  return d;
+}
+
+function esperar(ms){
+  return new Promise(function(ok){ setTimeout(ok, ms); });
+}
+
+/**
+ * Un intento de POST. Solo da por guardada la respuesta si el servidor
+ * contesta {ok:true}.
+ *
+ * Ojo: el script de la hoja responde HTTP 200 incluso cuando falla al
+ * escribir, así que mirar `r.ok` es mirar el semáforo equivocado — la
+ * respuesta se borraba de la cola sin haberse guardado nunca.
+ */
+function postear(cuerpo){
+  return fetch(CONFIG.ENDPOINT, {
+    method:"POST", mode:"cors", keepalive:true,
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body: cuerpo
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(j){ return !!(j && j.ok); })
+  .catch(function(){ return false; });
+}
+
+/* Reintenta dentro de la MISMA sesión. La cola del navegador no sirve de
+   red acá: el comensal escanea una vez y no vuelve a abrir la página. */
+function postearConReintentos(cuerpo, intentos){
+  return postear(cuerpo).then(function(bien){
+    if(bien){ borrarPendiente(cuerpo); return true; }
+    if(intentos <= 0) return false;
+    return esperar(intentos === 3 ? 800 : 2500).then(function(){
+      return postearConReintentos(cuerpo, intentos - 1);
+    });
+  });
+}
+
+/* navegaEnseguida = la página está por irse a Google (caso de 5 estrellas). */
+function enviar(navegaEnseguida){
+  if(enviadoPrincipal) return Promise.resolve(false);
+  enviadoPrincipal = true;
+  estado.enviadoOk = true;   // se marca ANTES de salir: si la página muere
+  guardar();                 // a mitad de camino, no se reusa este id.
+
+  var cuerpo = JSON.stringify(carga(false));
+  guardarPendiente(cuerpo);
+
+  if(!CONFIG.ENDPOINT){
+    console.warn("[De Cajón] CONFIG.ENDPOINT vacío: la respuesta NO se guardó.");
+    return Promise.resolve(false);
+  }
+
+  // Si la página se va a Google en un segundo, sendBeacon es el único envío
+  // que el navegador se compromete a completar después de irse. Safari viejo
+  // y Firefox de Android no respetan keepalive, y ahí el dato se perdía.
+  // El pendiente NO se borra: no hay forma de confirmar un beacon, y si llega
+  // dos veces el servidor lo descarta por el id.
+  if(navegaEnseguida && navigator.sendBeacon){
+    try{
+      var bulto = new Blob([cuerpo], {type:"text/plain;charset=utf-8"});
+      if(navigator.sendBeacon(CONFIG.ENDPOINT, bulto)) return Promise.resolve(true);
+    }catch(_){ /* si falla, sigue por fetch */ }
+  }
+
+  return postearConReintentos(cuerpo, navegaEnseguida ? 0 : 3);
+}
+
+/* Segunda pasada: completa la fila con la sugerencia escrita. */
+function enviarSugerencia(){
+  if(!CONFIG.ENDPOINT) return Promise.resolve(false);
+  var cuerpo = JSON.stringify(carga(true));
+  guardarPendiente(cuerpo);
+  return postearConReintentos(cuerpo, 2);
+}
+
+/* Cola de respaldo: último recurso. Si alguien vuelve a abrir la página en
+   ese mismo celular, lo pendiente se reintenta. */
+function guardarPendiente(cuerpo){
+  try{
+    var c = JSON.parse(localStorage.getItem("decajon_cola") || "[]");
+    c.push(cuerpo);
+    localStorage.setItem("decajon_cola", JSON.stringify(c.slice(-20)));
+  }catch(_){}
+}
+function borrarPendiente(cuerpo){
+  try{
+    var c = JSON.parse(localStorage.getItem("decajon_cola") || "[]");
+    localStorage.setItem("decajon_cola", JSON.stringify(c.filter(function(x){ return x !== cuerpo; })));
+  }catch(_){}
+}
+/* En serie, no en paralelo: 20 peticiones de golpe hacen que el script de la
+   hoja se atore y empiece a rechazar por tiempo de espera. */
+function reintentarCola(){
+  if(!CONFIG.ENDPOINT) return;
+  var c;
+  try{ c = JSON.parse(localStorage.getItem("decajon_cola") || "[]"); }catch(_){ return; }
+  (function siguiente(i){
+    if(i >= c.length) return;
+    postear(c[i]).then(function(bien){
+      if(bien) borrarPendiente(c[i]);
+      esperar(400).then(function(){ siguiente(i + 1); });
+    });
+  })(0);
+}
+
+function urlGoogle(){
+  return "https://search.google.com/local/writereview?placeid=" + encodeURIComponent(CONFIG.PLACE_ID);
+}
+
+/* ── Cierre según la calificación ─────────────────────────── */
+function cerrarCon(n){
+  if(calificado) return;   // el segundo toque en las estrellas no vale
+  calificado = true;
+  estado.estrellas = n;
+  guardar();
+
+  if(n === 5){
+    enviar(true);
+    limpiar();
+    irA(PASO_GRACIAS5);
+    arrancarCuentaRegresiva();
+    return;
+  }
+
+  // 1 a 4 estrellas: se guarda YA, sin esperar a que escriba la sugerencia.
+  enviar(false);
+  if(CONFIG.MODO_ESTRELLAS === "abierto"){
+    $("#pie-google").hidden = false;
+    $("#link-google-pie").href = urlGoogle();
+  }
+  irA(PASO_SUGERENCIA);
+}
+
+function arrancarCuentaRegresiva(){
+  var seg = CONFIG.SEGUNDOS_REDIRECT;
+  var caja = $("#cuenta");
+  var pintar = function(){ caja.textContent = "Te llevamos a Google en " + seg + "…"; };
+  pintar();
+  $("#cancelar-google").hidden = false;
+
+  relojGoogle = setInterval(function(){
+    seg--;
+    if(seg <= 0){
+      detenerCuentaRegresiva();
+      caja.textContent = "Abriendo Google…";
+      location.href = urlGoogle();
+    } else { pintar(); }
+  }, 1000);
+}
+
+function detenerCuentaRegresiva(){
+  if(relojGoogle){ clearInterval(relojGoogle); relojGoogle = null; }
+}
+
+/* ── Eventos ──────────────────────────────────────────────── */
+function conectar(){
+
+  // Formateo del celular mientras escribe: 999 999 999.
+  // Acepta que lo peguen con el prefijo del país, que es como lo copian
+  // de WhatsApp.
+  $("#celular").addEventListener("input", function(e){
+    var d = soloDigitos(e.target.value);
+    if(d.length > 9 && d.indexOf("51") === 0) d = d.slice(2);
+    d = d.slice(0,9);
+    var partes = [d.slice(0,3), d.slice(3,6), d.slice(6,9)].filter(Boolean);
+    e.target.value = partes.join(" ");
+    if(celularValido(d)) marcarAviso("#aviso-celular", false, "#celular");
+  });
+
+  $("#nombre").addEventListener("input", function(e){
+    if(nombreValido(e.target.value)) marcarAviso("#aviso-nombre", false, "#nombre");
+  });
+  $("#nombre").addEventListener("keydown", function(e){
+    if(e.key === "Enter"){ e.preventDefault(); $("#celular").focus(); }
+  });
+  $("#celular").addEventListener("keydown", function(e){
+    if(e.key === "Enter"){ e.preventDefault(); $("#btn-empezar").click(); }
+  });
+  $("#ok-contacto").addEventListener("change", function(){
+    if(this.checked){
+      $("#aviso-ok").classList.remove("visible");
+      this.classList.remove("error");
+    }
+  });
+
+  $("#btn-empezar").addEventListener("click", function(){
+    var nombre = $("#nombre").value.trim();
+    var cel    = $("#celular").value;
+    var malNombre = !nombreValido(nombre);
+    var malCel    = !celularValido(cel);
+    var malOk     = !$("#ok-contacto").checked;
+
+    marcarAviso("#aviso-nombre",  malNombre, "#nombre");
+    marcarAviso("#aviso-celular", malCel,    "#celular");
+    marcarAviso("#aviso-ok",      malOk,     "#ok-contacto");
+    if(malNombre){ $("#nombre").focus(); return; }
+    if(malCel){ $("#celular").focus(); return; }
+    if(malOk){ $("#ok-contacto").focus(); return; }
+
+    estado.nombre    = nombre;
+    estado.celular   = soloDigitos(cel);
+    estado.ok_promos = $("#ok-promos").checked;
+    irA(1);
+  });
+
+  // Delegación para todo lo que se pinta dinámicamente
+  document.addEventListener("click", function(ev){
+    var t = ev.target.closest ? ev.target.closest("button") : null;
+    if(!t) return;
+
+    if(t.hasAttribute("data-atras")){
+      irA(Math.max(0, pasoActual - 1));
+      return;
+    }
+
+    if(t.classList.contains("opcion")){
+      var hermanas = t.parentElement.querySelectorAll(".opcion");
+      Array.prototype.forEach.call(hermanas, function(b){
+        b.classList.remove("elegida");
+        b.setAttribute("aria-pressed", "false");
+      });
+      t.classList.add("elegida");
+      t.setAttribute("aria-pressed", "true");
+      estado.respuestas[t.getAttribute("data-preg")] = t.getAttribute("data-valor");
+      guardar();
+      // El destino se fija ahora: si toca dos veces (o corrige su elección)
+      // antes de que termine la animación, no se salta una pregunta.
+      var destino = pasoActual + 1;
+      setTimeout(function(){ if(pasoActual < destino) irA(destino); }, 220);
+      return;
+    }
+
+    if(t.hasAttribute("data-sigue")){
+      var id = t.getAttribute("data-sigue");
+      var campo = $("#libre-" + id);
+      estado.respuestas[id] = campo ? campo.value.trim() : "";
+      irA(pasoActual + 1);
+      return;
+    }
+
+    if(t.hasAttribute("data-salta")){
+      estado.respuestas[t.getAttribute("data-salta")] = "";
+      irA(pasoActual + 1);
+      return;
+    }
+
+    if(t.classList.contains("estrella")){
+      if(calificado) return;
+      var n = Number(t.getAttribute("data-n"));
+      marcarEstrellas(n);
+      setTimeout(function(){ cerrarCon(n); }, 300);
+      return;
+    }
+
+    if(t.id === "btn-google"){
+      detenerCuentaRegresiva();
+      location.href = urlGoogle();
+      return;
+    }
+
+    if(t.id === "cancelar-google"){
+      detenerCuentaRegresiva();
+      $("#cuenta").textContent = "";
+      t.hidden = true;
+      return;
+    }
+
+    if(t.id === "no-soy-yo"){
+      try{ localStorage.removeItem(LLAVE); }catch(_){}
+      location.replace(location.pathname + location.search);
+      return;
+    }
+  });
+
+  // La sugerencia se guarda mientras escribe: si se le apaga la pantalla
+  // a mitad de la queja, al volver la encuentra escrita.
+  $("#sugerencia").addEventListener("input", function(e){
+    estado.sugerencia = e.target.value;
+    guardar();
+  });
+
+  $("#btn-enviar-sug").addEventListener("click", function(){
+    if(enviadaSugerencia) return;
+    enviadaSugerencia = true;
+    estado.sugerencia = $("#sugerencia").value.trim();
+    this.disabled = true;
+    this.textContent = "Enviando…";
+
+    // Con el wifi del local lento, nadie se queda mirando "Enviando…":
+    // a los 6 segundos se avanza igual. La calificación ya se guardó al
+    // tocar las estrellas, así que en el peor caso solo falta el comentario.
+    Promise.race([enviarSugerencia(), esperar(6000)]).then(function(){
+      limpiar();
+      $("#texto-fin").textContent =
+        "Gracias por decírnoslo. Tu " + CONFIG.BENEFICIO_FRASE + " va camino a tu WhatsApp.";
+      irA(PASO_FIN);
+    });
+  });
+
+  // Si el celular se bloquea o cambia de app, no perder lo escrito
+  document.addEventListener("visibilitychange", function(){
+    if(document.visibilityState === "hidden") guardar();
+  });
+}
+
+/* ── Arranque ─────────────────────────────────────────────── */
+function arrancar(){
+  $("#ben-titulo").textContent = CONFIG.BENEFICIO_TITULO;
+  $("#texto-fin").textContent =
+    "Tu " + CONFIG.BENEFICIO_FRASE + " va camino a tu WhatsApp. Nos vemos pronto.";
+
+  pintarPreguntas();
+  pintarEstrellas();
+  recuperar();
+
+  // Sin id no hay forma de evitar filas repetidas del mismo comensal.
+  if(!estado.id) estado.id = nuevoId();
+
+  try{
+    if(estado.nombre){
+      $("#nombre").value = estado.nombre;
+      var salir = $("#no-soy-yo");
+      salir.textContent = "No soy " + estado.nombre.split(" ")[0] + " · empezar de nuevo";
+      salir.hidden = false;
+    }
+    if(estado.celular){
+      var d = estado.celular;
+      $("#celular").value = [d.slice(0,3), d.slice(3,6), d.slice(6,9)].filter(Boolean).join(" ");
+    }
+    if(estado.sugerencia) $("#sugerencia").value = estado.sugerencia;
+
+    Object.keys(estado.respuestas || {}).forEach(function(id){
+      var v = estado.respuestas[id];
+      var botones = $$('.opcion[data-preg="'+id+'"]');
+      botones.forEach(function(b){
+        if(b.getAttribute("data-valor") === String(v)){
+          b.classList.add("elegida");
+          b.setAttribute("aria-pressed","true");
+        }
+      });
+      var libre = $("#libre-" + id);
+      if(libre && v) libre.value = v;
+    });
+  }catch(err){
+    // Un estado guardado a medias no puede impedir que la página arranque
+    // ni que se reintente lo que quedó pendiente.
+    console.warn("[De Cajón] no se pudo repoblar el formulario:", err);
+  }
+
+  // Siempre se arranca en la portada, aunque haya datos recuperados: si el
+  // celular pasó a otra persona, tiene que ver de quién son esos datos antes
+  // de seguir, en vez de aterrizar en mitad del cuestionario ajeno.
+  irA(0);
+
+  if(!CONFIG.ENDPOINT) avisarSinConexion();
+  reintentarCola();
+}
+
+/* Error de instalación, no de red: si esto se ve en producción, ninguna
+   respuesta se está guardando. Pasó en junio de 2026 y nadie lo notó. */
+function avisarSinConexion(){
+  var barra = document.createElement("div");
+  barra.setAttribute("role","alert");
+  barra.style.cssText =
+    "background:#C0392B;color:#fff;padding:11px 16px;font-size:13.5px;" +
+    "text-align:center;line-height:1.4";
+  barra.textContent =
+    "Falta configurar dónde se guardan las respuestas (CONFIG.ENDPOINT). " +
+    "Nada de lo que se responda acá se está guardando.";
+  document.body.insertBefore(barra, document.body.firstChild);
+}
+
+if(document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", function(){ conectar(); arrancar(); });
+}else{ conectar(); arrancar(); }
+
+})();
+</script>
+</body>
+</html>
