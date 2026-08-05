@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>De Cajón · Lo que dicen tus comensales</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#00392A">
+<link rel="icon" href="../favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap">
+
+<script>
+const PANEL = {
+  ENDPOINT: "https://script.google.com/macros/s/AKfycbznkET1poHP26-Wg8sk1Ct7JXMCTJAhD55byiOBJTAWUkSV3K_XIIw6H9rubgQJb7kA/exec",
+  CLAVE: "ivWd-peWnvoF",
+  NEGOCIO: "De Cajón"
+};
+</script>
+
+<style>
+:root{
+  --marca:#00392A;
+  --sobre-marca:#FDF9EE;
+  --acento:#FE9E26;
+  --fondo:#F3F4F0;
+  --tinta:#1A1D1A;
+  --tinta-suave:#5A6159;
+  --linea:#DCDED6;
+  --panel:#FFFFFF;
+  --serif:"Playfair Display",Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--fondo);color:var(--tinta);
+  font-family:var(--sans);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased
+}
+header{background:var(--marca);color:var(--sobre-marca);padding:calc(env(safe-area-inset-top) + 22px) 22px 20px}
+.cinta{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+header img{height:38px;width:auto;display:block}
+.cuando{font-family:var(--mono);font-size:11px;letter-spacing:.06em;opacity:.82}
+main{max-width:1120px;margin:0 auto;padding:26px 22px 70px}
+
+h1{
+  font-family:var(--serif);font-size:clamp(23px,3.4vw,31px);font-weight:700;
+  letter-spacing:-.02em;margin:0 0 5px;color:var(--marca);text-wrap:balance
+}
+.bajada{color:var(--tinta-suave);margin:0 0 26px;font-size:15.5px}
+
+h2{
+  font-family:var(--sans);font-size:14px;font-weight:650;letter-spacing:.02em;
+  margin:34px 0 12px;color:var(--tinta)
+}
+h2 .de{font-weight:400;color:var(--tinta-suave)}
+
+/* ── Cifras grandes ─────────────────────────── */
+.cifras{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}
+.cifra{background:var(--panel);border:1px solid var(--linea);border-radius:12px;padding:16px 17px}
+.cifra .rot{
+  font-family:var(--mono);font-size:10px;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--tinta-suave);display:block;margin-bottom:8px
+}
+.cifra .val{
+  font-family:var(--serif);font-size:34px;font-weight:700;line-height:1;
+  color:var(--marca);font-variant-numeric:tabular-nums;display:block
+}
+.cifra .pie{font-size:12.5px;color:var(--tinta-suave);margin-top:6px;display:block}
+
+/* ── Barras ─────────────────────────────────── */
+.tarjeta{background:var(--panel);border:1px solid var(--linea);border-radius:12px;padding:18px 19px}
+.rejilla{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.barra{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;margin-bottom:11px}
+.barra:last-child{margin-bottom:0}
+.barra .et{font-size:14.5px;grid-column:1}
+.barra .nu{
+  font-family:var(--mono);font-size:13px;color:var(--tinta-suave);
+  grid-column:2;font-variant-numeric:tabular-nums;white-space:nowrap
+}
+.barra .via{grid-column:1/-1;height:7px;background:var(--linea);border-radius:4px;overflow:hidden}
+.barra .via i{display:block;height:100%;background:var(--marca);border-radius:4px;transition:width .5s ease}
+.barra.suave .via i{background:var(--acento)}
+
+/* ── Estrellas ──────────────────────────────── */
+.estrellas .barra .via i{background:var(--acento)}
+.estrellas .barra .et{font-family:var(--mono);font-size:13px}
+
+.vacio{
+  background:var(--panel);border:1px dashed var(--linea);border-radius:12px;
+  padding:40px 22px;text-align:center;color:var(--tinta-suave)
+}
+.cargando{padding:60px 0;text-align:center;color:var(--tinta-suave);font-family:var(--mono);font-size:13px}
+.error{background:#FDECEC;border:1px solid #F0C0C0;color:#8A2020;border-radius:12px;padding:18px 20px}
+
+.nota{
+  margin-top:34px;padding-top:16px;border-top:1px solid var(--linea);
+  font-size:13px;color:var(--tinta-suave);line-height:1.55
+}
+@media (max-width:560px){
+  .cifra .val{font-size:29px}
+  main{padding:20px 16px 56px}
+  header{padding-left:16px;padding-right:16px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="cinta">
+    <img src="../logo.png" alt="De Cajón" onerror="this.style.display='none'">
+    <span class="cuando" id="cuando"></span>
+  </div>
+</header>
+
+<main>
+  <h1>Lo que dicen tus comensales</h1>
+  <p class="bajada">Se actualiza solo, cada vez que alguien responde el formulario de la mesa.</p>
+  <div id="lienzo"><div class="cargando">Cargando tus datos…</div></div>
+</main>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s){ return document.querySelector(s); };
+
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+                  .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function pct(n, total){ return total ? Math.round(n/total*100) : 0; }
+
+/* Ordena un objeto {etiqueta: conteo} de mayor a menor. */
+function ranking(obj){
+  return Object.keys(obj || {})
+    .map(function(k){ return {et:k, n:obj[k]}; })
+    .sort(function(a,b){ return b.n - a.n; });
+}
+
+function barras(lista, total, suave){
+  if(!lista.length) return '<p style="color:var(--tinta-suave);margin:0">Todavía sin datos.</p>';
+  return lista.map(function(x){
+    return '<div class="barra'+(suave?' suave':'')+'">'
+         +   '<span class="et">'+esc(x.et)+'</span>'
+         +   '<span class="nu">'+x.n+' · '+pct(x.n,total)+'%</span>'
+         +   '<span class="via"><i style="width:'+pct(x.n,total)+'%"></i></span>'
+         + '</div>';
+  }).join("");
+}
+
+function tarjeta(titulo, contenido, deQuien){
+  return '<section><h2>'+titulo+(deQuien?' <span class="de">'+deQuien+'</span>':'')+'</h2>'
+       + '<div class="tarjeta">'+contenido+'</div></section>';
+}
+
+function pintar(d){
+  if(!d.total){
+    $("#lienzo").innerHTML = '<div class="vacio"><strong>Todavía no hay respuestas.</strong><br>'
+      + 'En cuanto el primer comensal escanee el QR de la mesa, sus datos aparecen acá.</div>';
+    return;
+  }
+  $("#cuando").textContent = "Actualizado " + d.actualizado;
+
+  var estrellas = [];
+  for(var i = 4; i >= 0; i--){
+    estrellas.push({et: (i+1) + (i ? " estrellas" : " estrella"), n: d.calificaciones[i]});
+  }
+  var promotores = d.calificaciones[4] + d.calificaciones[3];
+  var canales = ranking(d.canales);
+  var dias = ranking(d.porDia);
+  var horas = Object.keys(d.porHora || {}).sort().map(function(k){ return {et:k, n:d.porHora[k]}; });
+  var primera = 0;
+  Object.keys(d.recurrencia || {}).forEach(function(k){
+    if(k.toLowerCase().indexOf("primera") > -1) primera += d.recurrencia[k];
+  });
+
+  var html = '';
+
+  html += '<div class="cifras">'
+    + '<div class="cifra"><span class="rot">Respuestas</span><span class="val">'+d.total+'</span>'
+    +   '<span class="pie">comensales que te contaron cómo les fue</span></div>'
+    + '<div class="cifra"><span class="rot">Calificación interna</span><span class="val">'+d.promedio.toFixed(2)+'</span>'
+    +   '<span class="pie">'+pct(promotores,d.total)+'% te puso 4 o 5</span></div>'
+    + '<div class="cifra"><span class="rot">Enviados a Google</span><span class="val">'+d.aGoogle+'</span>'
+    +   '<span class="pie">los que calificaron con 5 estrellas</span></div>'
+    + '<div class="cifra"><span class="rot">Contactos con permiso</span><span class="val">'+d.aceptaPromos+'</span>'
+    +   '<span class="pie">aceptaron recibir tus novedades</span></div>'
+    + '</div>';
+
+  html += '<div class="rejilla" style="margin-top:26px">';
+
+  html += tarjeta('Por dónde te conocieron', barras(canales, d.total),
+                  '— dónde vale la pena invertir');
+
+  html += '<div><section><h2>Cómo te calificaron</h2><div class="tarjeta estrellas">'
+        + barras(estrellas, d.total) + '</div></section></div>';
+
+  html += tarjeta('Qué destacan de tu local', barras(ranking(d.destacan), d.total, true),
+                  '— tu fortaleza real');
+
+  html += tarjeta('Primera visita o ya te conocían', barras(ranking(d.recurrencia), d.total, true),
+                  '— ' + pct(primera, d.total) + '% viene por primera vez');
+
+  if(dias.length)  html += tarjeta('Qué días responden más', barras(dias, d.total, true));
+  if(horas.length) html += tarjeta('A qué hora', barras(horas, d.total, true));
+
+  var atencion = ranking(d.atencion);
+  if(atencion.length){
+    html += tarjeta('A quién nombran tus comensales', barras(atencion, d.total, true),
+                    '— solo de quienes lo indicaron');
+  }
+
+  html += '</div>';
+
+  if(d.conSugerencia){
+    html += '<p class="nota"><strong>'+d.conSugerencia+' comensales dejaron un comentario escrito.</strong> '
+          + 'Los comentarios y los datos de contacto están en tu hoja de respuestas, no acá: '
+          + 'esta página no muestra información personal de nadie.</p>';
+  }
+
+  html += '<p class="nota">Los números salen de las respuestas del formulario de la mesa. '
+        + 'Esta página no muestra nombres ni teléfonos.</p>';
+
+  $("#lienzo").innerHTML = html;
+}
+
+fetch(PANEL.ENDPOINT + "?datos=" + encodeURIComponent(PANEL.CLAVE))
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    if(!d || !d.ok) throw new Error("respuesta inesperada");
+    pintar(d);
+  })
+  .catch(function(err){
+    $("#lienzo").innerHTML = '<div class="error"><strong>No pudimos cargar tus datos.</strong><br>'
+      + 'Vuelve a intentarlo en un minuto. Si sigue igual, avísanos.</div>';
+    console.warn("[panel]", err);
+  });
+
+})();
+</script>
+</body>
+</html>
