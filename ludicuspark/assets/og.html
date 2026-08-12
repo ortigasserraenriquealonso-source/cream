@@ -1,0 +1,56 @@
+<!doctype html>
+<!-- Fuente del og.jpg de Ludicus Park. Se captura a 1200x630 con Chrome
+     headless y se convierte a JPG (ver LEER-PRIMERO.md).
+     REGLA: composicion CENTRADA — WhatsApp recorta los lados (y en el
+     thumbnail chico recorta casi a cuadrado), asi que todo lo esencial debe
+     vivir en el centro (~630px centrales). -->
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{
+  font-family:Cream; font-style:normal; font-weight:300 700;
+  src:url("../../assets/cream.woff2") format("woff2");
+}
+*{margin:0; box-sizing:border-box}
+html,body{width:1200px; height:630px; overflow:hidden}
+body{
+  background:#2c2a2b; color:#f4f1f1; position:relative;
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; gap:0;
+}
+/* aura centrada, como la de la pagina */
+.aura{position:absolute; inset:0; pointer-events:none}
+.aura b{position:absolute; display:block; border-radius:50%; filter:blur(30px)}
+.aura b:nth-child(1){width:900px; height:900px; left:150px; top:-420px;
+  background:radial-gradient(closest-side,rgba(255,41,255,.14),transparent 72%)}
+.aura b:nth-child(2){width:700px; height:700px; right:-160px; bottom:-380px;
+  background:radial-gradient(closest-side,rgba(255,41,255,.08),transparent 72%)}
+/* tipografia fantasma detras, centrada */
+.fantasma{position:absolute; left:50%; top:46%; transform:translate(-50%,-50%);
+  font-family:Cream,sans-serif; font-weight:600; font-size:430px; line-height:1;
+  color:transparent; -webkit-text-stroke:2px rgba(255,41,255,.10); white-space:nowrap}
+.logo{font-family:Cream,sans-serif; font-weight:700; font-size:44px; color:#ff29ff;
+  letter-spacing:-.02em; position:relative}
+.logo .est{font-size:.42em; vertical-align:.95em}
+.eyebrow{margin-top:38px; font-size:19px; letter-spacing:.3em; text-transform:uppercase;
+  color:#ff6bff; position:relative}
+h1{margin-top:22px; position:relative; font-weight:400; line-height:1.04; font-size:96px}
+h1 .voz{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  font-style:italic; letter-spacing:-.008em}
+h1 .marca{display:block; font-family:Cream,sans-serif; font-weight:700; color:#ff29ff;
+  letter-spacing:-.03em}
+.pie{margin-top:42px; font-size:18px; letter-spacing:.22em; text-transform:uppercase;
+  color:#8b8586; position:relative}
+</style>
+</head>
+<body>
+<div class="aura"><b></b><b></b></div>
+<span class="fantasma">chiclayo</span>
+<div class="logo">cream<span class="est">&#10022;</span></div>
+<div class="eyebrow">Ludicus Park &middot; Lanzamiento Chiclayo</div>
+<h1><span class="voz">Tu equipo en</span> <span class="marca">Chiclayo</span></h1>
+<div class="pie">Propuesta de servicio</div>
+</body>
+</html>
