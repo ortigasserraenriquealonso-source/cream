@@ -209,9 +209,9 @@ PREGUNTAS.forEach(function(p, i){
              '<span class="marca-op"></span><span>' + o + '</span></button>';
     }).join('') + '</div>';
     html += '<div class="otro" style="margin-top:10px;display:none">' +
-            '<input type="text" placeholder="Cuéntame en tus palabras…"></div>';
+            '<input type="text" maxlength="500" placeholder="Cuéntame en tus palabras…"></div>';
   } else {
-    html += '<input type="text" placeholder="' + (p.ph||'') + '">';
+    html += '<input type="text" maxlength="200" placeholder="' + (p.ph||'') + '">';
   }
 
   html += '<p class="err">Completa este campo para continuar.</p>' +
