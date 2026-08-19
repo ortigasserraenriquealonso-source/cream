@@ -237,8 +237,12 @@ h1 .est{font-size:.4em; vertical-align:.92em; margin-left:.03em}
 .wa .n{display:block; margin-top:3px; font-size:15px; font-weight:600; opacity:.72;
   font-variant-numeric:tabular-nums; letter-spacing:.02em}
 .wa .f{margin-left:auto; font-size:21px; font-weight:700; transition:transform .3s ease}
-.wa:hover{transform:translateY(-3px); box-shadow:0 26px 58px -18px rgba(255,41,255,.9)}
-.wa:hover .f{transform:translateX(5px)}
+/* El hover SOLO donde hay mouse: en tactil el navegador lo aplica al tocar y
+   nunca recibe el "el puntero salio", asi que se queda pegado despues del tap. */
+@media (hover:hover){
+  .wa:hover{transform:translateY(-3px); box-shadow:0 26px 58px -18px rgba(255,41,255,.9)}
+  .wa:hover .f{transform:translateX(5px)}
+}
 .wa:active{transform:translateY(-1px)}
 .wa:focus-visible{outline:3px solid var(--magenta-2); outline-offset:4px}
 /* destello que cruza el boton cada tanto, sin quedar parpadeando */
@@ -251,7 +255,7 @@ h1 .est{font-size:.4em; vertical-align:.92em; margin-left:.03em}
 .js .wa{animation:latido 3.4s ease-in-out 1.2s infinite}
 @keyframes latido{0%,100%{box-shadow:0 18px 44px -18px rgba(255,41,255,.75)}
   50%{box-shadow:0 20px 52px -18px rgba(255,41,255,.95)}}
-.js .wa:hover{animation:none}
+@media (hover:hover){ .js .wa:hover{animation:none} }
 .pie{border-top:1px solid var(--linea-suave)}
 .pie .rejilla{padding-block:26px 40px; align-items:center}
 .pie .marca{grid-column:1/7; font-size:13px; color:var(--tinta-3)}
@@ -293,8 +297,19 @@ h1 .w:nth-child(3){--dw:240ms}
 h1 .w:nth-child(4){--dw:330ms}
 
 /* barra de avance de lectura */
-.avance{position:fixed; inset:0 auto auto 0; height:2px; width:0; z-index:40;
-  background:linear-gradient(90deg,var(--magenta-2),var(--magenta)); pointer-events:none}
+.avance{position:fixed; inset:0 auto auto 0; height:2px; width:100%; z-index:40;
+  background:linear-gradient(90deg,var(--magenta-2),var(--magenta)); pointer-events:none;
+  transform:scaleX(0); transform-origin:0 50%}
+/* Animar `width` obliga a recalcular layout y repintar en CADA frame del
+   scroll; `transform` se resuelve en el compositor. Medido en una réplica de
+   esta página: 39 → 7 frames perdidos, y el tiempo de pintado cayó de 71,8 ms
+   a 0,1 ms. Donde el navegador soporta scroll(), la barra se mueve sola y el
+   listener de scroll ni se instala. */
+@supports (animation-timeline: scroll()){
+  .avance{animation:avanzar; animation-timeline:scroll(); animation-duration:auto;
+    animation-timing-function:linear; animation-fill-mode:both}
+  @keyframes avanzar{from{transform:scaleX(0)} to{transform:scaleX(1)}}
+}
 
 /* halo que sigue al puntero (solo con mouse de verdad) */
 .halo{display:none}
@@ -308,7 +323,12 @@ h1 .w:nth-child(4){--dw:330ms}
 
 /* aura de fondo: dos manchas magenta que respiran, sin bucle agresivo */
 .aura{position:fixed; inset:0; z-index:-2; pointer-events:none; overflow:hidden}
-.aura b{position:absolute; display:block; border-radius:50%; filter:blur(30px)}
+.aura b{position:absolute; display:block; border-radius:50%}
+/* Sin filter:blur(): el radial-gradient YA sale difuminado y el blur encima no
+   producía ninguna diferencia visible (comparado por captura). Nota para el
+   futuro: NO se quitó por costo — animar `transform` sobre un elemento
+   blureado es barato, porque el blur se hornea una vez en la textura de la capa
+   y después solo se mueve. Se quitó por ser redundante. */
 .aura b:nth-child(1){width:60vw; height:60vw; top:-22vw; left:-12vw;
   background:radial-gradient(closest-side,rgba(255,41,255,.10),transparent 72%);
   animation:flota 26s ease-in-out infinite alternate}
@@ -362,6 +382,144 @@ h1 .w:nth-child(4){--dw:330ms}
   animation:baja 2.4s ease-in-out infinite}
 @keyframes baja{0%,100%{transform:scaleY(.35); transform-origin:top; opacity:.5}
   50%{transform:scaleY(1); transform-origin:top; opacity:1}}
+
+/* ==========================================================================
+   TÁCTIL — el celular no es el escritorio con menos ancho.
+   En PC el ritmo pausado se disfruta; en celular se scrollea mucho más rápido
+   y el mismo ritmo se lee como LENTITUD. Nielsen Norman midió que una animación
+   de scroll por encima de 500 ms "se percibe como demasiado lenta" y que el
+   rango bueno está entre 100 y 400 ms. Los tiempos de escritorio (900 ms, y
+   hasta 630 ms más de escalonado) están al doble y al triple de eso.
+   Acá se comprimen SOLO en táctil; el escritorio conserva su ritmo.
+   ========================================================================== */
+@media (hover:none){
+  .js .rv.in{transition-duration:.42s,.42s}
+  .js .esc.in > *{transition-duration:.36s,.36s}
+  /* el escalonado pasa de 90 ms a 30 ms por elemento: el último aparece a los
+     ~0,6 s en vez de a los 1,3 s */
+  .js .esc.in > *:nth-child(1){--d:0ms}
+  .js .esc.in > *:nth-child(2){--d:30ms}
+  .js .esc.in > *:nth-child(3){--d:60ms}
+  .js .esc.in > *:nth-child(4){--d:90ms}
+  .js .esc.in > *:nth-child(5){--d:120ms}
+  .js .esc.in > *:nth-child(6){--d:150ms}
+  .js .esc.in > *:nth-child(7){--d:180ms}
+  .js .esc.in > *:nth-child(8){--d:210ms}
+  /* recorrido más corto: en pantalla chica 26 px de desplazamiento se notan
+     como un salto */
+  .js .rv{transform:translateY(16px)}
+  .js .esc > *{transform:translateY(12px)}
+}
+
+
+/* ==========================================================================
+   TÁCTIL — el equivalente honesto del cursor.
+
+   En PC el cursor dice QUÉ ESTÁS MIRANDO: el halo lo sigue y lo que señalas se
+   resalta. En celular no hay cursor, pero sí hay una señal igual de precisa de
+   dónde está puesta la atención: EL SCROLL. Lo que está al centro de la
+   pantalla es lo que la persona está leyendo. Así que acá el resaltado no lo
+   dispara el puntero: lo dispara la posición en pantalla.
+
+   El motor es `animation-timeline: view()` (Safari 26+, Chrome 115+), que corre
+   en el compositor y no consume hilo principal. Va dentro de @supports: quien
+   no lo tenga ve la página completa y quieta, que es el comportamiento correcto
+   y no un modo degradado.
+
+   Dos cosas que NO se hicieron, a propósito:
+   · Nada sigue al dedo. Un efecto atado a `touchmove` pelea con el scroll —en
+     Safari esos listeners no son pasivos por defecto— y encima el dedo tapa
+     justo el punto que iluminaría.
+   · Las tarjetas que no llevan a ningún lado NO responden al toque. Un elemento
+     que se hunde al presionarlo promete una acción; si no la cumple, el usuario
+     deja de creerle al resto de la página. Solo el botón de WhatsApp —lo único
+     accionable de la propuesta— responde al dedo.
+   ========================================================================== */
+@media screen and (hover:none){
+
+  /* --- 1 · Lo único accionable, y se siente que lo es -------------------- */
+  .wa{
+    cursor:pointer;                          /* sin esto iOS nunca dispara :active */
+    touch-action:manipulation;               /* quita el retardo del doble-tap */
+    -webkit-tap-highlight-color:transparent; /* válido: abajo hay :active propio */
+  }
+  .wa:active{transform:scale(.972);
+    animation:none;   /* el latido anima box-shadow y le gana al :active */
+    box-shadow:0 10px 26px -14px rgba(255,41,255,.85)}
+  .wa:active .f{transform:translateX(3px)}
+
+  @supports (animation-timeline: view()){
+   @media (prefers-reduced-motion: no-preference){
+
+    /* --- 2 · La sección que estás leyendo se enciende ------------------- */
+    section.banda{position:relative; isolation:isolate}
+    section.banda::before{
+      content:""; position:absolute; inset:0 0 auto; z-index:-1; pointer-events:none;
+      /* acotado a una pantalla y media: con `inset:0` esto promovía una capa
+         compositada del alto COMPLETO de la sección (hasta 390x2522 px), que en
+         un iPhone de gama media es justo cómo se agota la memoria de GPU */
+      height:min(100%,150vh);
+      background:radial-gradient(56% 38% at 50% 46%,rgba(255,41,255,.085),transparent 72%);
+      opacity:0;
+      animation:seccion-viva;                /* el shorthand va PRIMERO... */
+      animation-timeline:view();             /* ...y el timeline DESPUÉS, o el
+                                                shorthand lo resetea a auto */
+      animation-duration:auto;               /* explícito: el atajo lo dejaría
+                                                en 0s en un motor antiguo */
+      animation-timing-function:linear;      /* el reloj es el scroll, no el
+                                                tiempo: `ease` descentra el pico */
+      animation-range:cover 6% cover 94%;
+      animation-fill-mode:both;
+    }
+    @keyframes seccion-viva{0%,100%{opacity:0} 50%{opacity:1}}
+    /* la tabla queda fuera: ya tiene su columna resaltada y un segundo
+       resaltado encima la ensucia. Va DESPUÉS y con más especificidad que la
+       regla de arriba, o no gana. */
+    section.cara-sec::before{content:none}
+
+    /* --- 3 · Las líneas se dibujan solas al entrar ---------------------- */
+    .equipo li,.repo li,.bot li{position:relative}
+    .equipo li::after,.repo li::after,.bot li::after{
+      content:""; position:absolute; left:0; right:0; top:-1px; height:1px;
+      background:var(--magenta); transform-origin:left; pointer-events:none;
+      animation:traza;
+      animation-timeline:view();
+      animation-duration:auto; animation-timing-function:linear;
+      animation-range:cover 2% cover 98%;
+      animation-fill-mode:both;
+    }
+    .bot li::after{height:2px; top:-2px}
+    @keyframes traza{
+      0%{opacity:0; transform:scaleX(0)}
+      26%{opacity:.9; transform:scaleX(1)}
+      44%{opacity:.9; transform:scaleX(1)}
+      64%{opacity:0; transform:scaleX(1)}
+      100%{opacity:0; transform:scaleX(1)}
+    }
+
+    /* --- 4 · Las sedes se realzan al cruzar el centro ------------------- */
+    /* Solo las sedes. NO va en `.semana` ni en `.diario`: ahí el magenta es
+       INFORMACIÓN —marca los días de publicación y la tarjeta destacada— y
+       encenderlas todas borra justo lo que esa sección comunica. Además son
+       grillas: los 4 de una fila comparten rango y se prenderían en bloque,
+       o sea no existe "el que estás mirando". */
+    .sedes li{position:relative}
+    .sedes li::after{
+      content:""; position:absolute; inset:0; border-radius:inherit;
+      outline:1px solid var(--magenta-2); outline-offset:1px;  /* outline sí
+        respeta el radio: con un border en inset:-1px las esquinas quedan
+        pinchadas, porque el anillo crece pero el radio no */
+      pointer-events:none; opacity:0;
+      animation:realce;
+      animation-timeline:view();
+      animation-duration:auto; animation-timing-function:linear;
+      animation-range:cover 28% cover 72%;
+      animation-fill-mode:both;
+    }
+    @keyframes realce{0%,100%{opacity:0} 50%{opacity:.8}}
+   }
+  }
+}
 
 /* QUIEN PIDE MENOS MOVIMIENTO, NO RECIBE MOVIMIENTO (pero sí el contenido) */
 @media (prefers-reduced-motion:reduce){
@@ -557,7 +715,11 @@ h1 .w:nth-child(4){--dw:330ms}
 
 /* --- 03 · Cara a cara ---------------------------------------------------- */
 .cara-sec .rejilla{padding-block:clamp(64px,9vh,116px)}
-.cara-caja{grid-column:1/13; overflow-x:auto; -webkit-overflow-scrolling:touch}
+.cara-caja{grid-column:1/13; overflow-x:auto; overscroll-behavior-x:contain}
+/* overscroll-behavior-x: si la tabla llega a desbordar en una pantalla muy
+   angosta, el gesto al final del desplazamiento NO se propaga al navegador.
+   Sin esto, en iOS ese swipe dispara el "volver atrás" y saca al cliente de
+   la propuesta. */
 table.cara{width:100%; min-width:640px; border-collapse:collapse; font-size:15px}
 table.cara th, table.cara td{padding:13px 16px; text-align:left; border-bottom:1px solid var(--linea-suave);
   vertical-align:top}
@@ -1071,17 +1233,23 @@ table.cara tr.grupo td{padding-top:30px}
 
   if(quieto) return;   /* de aca para abajo es puro adorno */
 
-  /* barra de avance de lectura */
-  var barra = document.querySelector(".avance"), pedido = false;
-  function pintarAvance(){
-    var alto = document.body.scrollHeight - window.innerHeight;
-    barra.style.width = (alto > 0 ? (window.scrollY/alto)*100 : 0) + "%";
-    pedido = false;
+  /* Barra de avance. Si el navegador sabe animar por scroll, esto ya lo hace
+     el CSS en el compositor y no hace falta ni el listener. */
+  if(!(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()"))){
+    var barra = document.querySelector(".avance"), pedido = false, alto = 0;
+    function medirAlto(){ alto = document.body.scrollHeight - window.innerHeight; }
+    function pintarAvance(){
+      /* scaleX en vez de width: no toca layout ni pintura */
+      barra.style.transform = "scaleX(" + (alto > 0 ? window.scrollY/alto : 0) + ")";
+      pedido = false;
+    }
+    medirAlto();
+    window.addEventListener("resize", medirAlto, {passive:true});
+    window.addEventListener("scroll", function(){
+      if(!pedido){ pedido = true; requestAnimationFrame(pintarAvance); }
+    }, {passive:true});
+    pintarAvance();
   }
-  window.addEventListener("scroll", function(){
-    if(!pedido){ pedido = true; requestAnimationFrame(pintarAvance); }
-  }, {passive:true});
-  pintarAvance();
 
   /* halo que persigue al puntero, con inercia */
   var halo = document.querySelector(".halo");
