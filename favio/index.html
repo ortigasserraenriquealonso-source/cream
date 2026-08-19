@@ -94,11 +94,11 @@ header{padding-top:clamp(38px,9vh,72px); text-align:center}
   transition:transform .16s ease, background .16s ease, border-color .16s ease;
   -webkit-tap-highlight-color:transparent; cursor:pointer; font-family:inherit; width:100%}
 .b:active{transform:scale(.985)}
-.b:hover{background:rgba(255,255,255,.1); border-color:#9b9697}
+@media (hover:hover){ .b:hover{background:rgba(255,255,255,.1); border-color:#9b9697} }
 .b svg{width:20px; height:20px; fill:currentColor; flex:none}
 .b-pri{min-height:58px; font-size:clamp(14.5px,4.4vw,17px); white-space:nowrap; background:var(--magenta); color:#1b1a1a; border-color:var(--magenta);
   box-shadow:0 12px 30px -12px rgba(255,41,255,.7)}
-.b-pri:hover{background:var(--magenta-2); border-color:var(--magenta-2)}
+@media (hover:hover){ .b-pri:hover{background:var(--magenta-2); border-color:var(--magenta-2)} }
 .par{display:grid; grid-template-columns:1fr 1fr; gap:10px}
 .par .b{font-size:clamp(13px,4vw,14.5px); gap:8px; padding:0 6px; white-space:nowrap}
 .par .b svg{width:18px; height:18px}
@@ -148,7 +148,7 @@ header{padding-top:clamp(38px,9vh,72px); text-align:center}
 
 /* ---------- reels */
 .reels{list-style:none; margin:0; padding:0 var(--pad) 6px; display:flex; gap:11px;
-  overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; scrollbar-width:none}
+  overflow-x:auto; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; scrollbar-width:none}
 .reels::-webkit-scrollbar{display:none}
 .reels li{flex:none; scroll-snap-align:center}
 .reels a{position:relative; display:block; width:min(44vw,168px); text-decoration:none; color:var(--tinta)}
@@ -156,7 +156,7 @@ header{padding-top:clamp(38px,9vh,72px); text-align:center}
   border-radius:13px; border:1px solid var(--linea); background:var(--sup)}
 .reels b{display:block; margin-top:8px; font-size:12.5px; font-weight:600; text-align:center;
   color:var(--tinta-2); letter-spacing:.02em}
-.reels a:hover img{border-color:var(--magenta)}
+@media (hover:hover){ .reels a:hover img{border-color:var(--magenta)} }
 .reels a:focus-visible{outline:2.5px solid var(--magenta-2); outline-offset:3px; border-radius:13px}
 
 /* ---------- cierre: ultimo CTA (solo movil) */
@@ -209,6 +209,61 @@ footer .ruc{text-align:right}
   .rv{opacity:1!important; transform:none!important}
   .amb,.b,.reels{display:none!important}
   body{background:#fff; color:#000}
+}
+
+/* ==========================================================================
+   TÁCTIL — mismo criterio que las proformas de cream.pe.
+   En PC el cursor dice qué está mirando la persona; en celular lo dice el
+   SCROLL. Los efectos se apoyan en `animation-timeline: view()` (Safari 26+,
+   Chrome 115+): corren en el compositor y funcionan aunque el JS falle.
+   Va en @media SCREEN: al imprimir desde un celular `hover:none` sigue siendo
+   verdadero, y una animación de scroll sin scroll resuelve en un punto
+   arbitrario — saldrían trazos a medio dibujar en el papel.
+   ========================================================================== */
+.b{cursor:pointer; touch-action:manipulation; -webkit-tap-highlight-color:transparent}
+/* Estos SÍ son accionables (WhatsApp, guardar contacto, Instagram, compartir),
+   así que responder al dedo es una promesa que se cumple. */
+.b:active{transform:scale(.968)}
+.b-pri:active{transform:scale(.968); box-shadow:0 6px 18px -10px rgba(255,41,255,.9)}
+
+@media screen and (hover:none){
+ @supports (animation-timeline: view()){
+  @media (prefers-reduced-motion: no-preference){
+
+    /* la línea de cada servicio se traza al entrar y se apaga al salir */
+    .serv li{position:relative}
+    .serv li::after{
+      content:""; position:absolute; left:0; right:0; bottom:-1px; height:1px;
+      background:var(--magenta); transform-origin:left; pointer-events:none;
+      animation:tj-traza;
+      animation-timeline:view();
+      animation-duration:auto; animation-timing-function:linear;
+      animation-range:cover 4% cover 96%;
+      animation-fill-mode:both;
+    }
+    @keyframes tj-traza{
+      0%{opacity:0; transform:scaleX(0)}
+      28%{opacity:.9; transform:scaleX(1)}
+      46%{opacity:.9; transform:scaleX(1)}
+      66%{opacity:0; transform:scaleX(1)}
+      100%{opacity:0; transform:scaleX(1)}
+    }
+
+    /* los logos del muro se encienden al cruzar el centro. Sin anillos: se
+       realza el logo mismo, que es lo que el visitante mira. */
+    .marcas .lg{
+      animation:tj-enfoca;
+      animation-timeline:view();
+      animation-duration:auto; animation-timing-function:linear;
+      animation-range:cover 26% cover 74%;
+      animation-fill-mode:both;
+    }
+    @keyframes tj-enfoca{
+      0%,100%{opacity:.85; transform:scale(1)}
+      50%{opacity:1; transform:scale(1.055)}
+    }
+  }
+ }
 }
 </style>
 </head>
