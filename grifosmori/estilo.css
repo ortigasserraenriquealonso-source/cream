@@ -830,3 +830,10 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   position: relative; top: .045em;   /* ajuste óptico contra la línea base */
   margin-inline: .1em;
 }
+
+/* --- La acción de la sección de flotas ------------------------------------
+   Sin tarjeta ni datos repetidos: el teléfono y el horario ya están en la
+   ficha de ubicación, y ahí la sección pedía UNA cosa. Queda solo eso. */
+.flota__accion { display: flex; justify-content: center; }
+.flota__accion .boton { font-size: 1.06rem; padding: 1.1rem 2.2rem; }
+@media (max-width: 899px) { .flota__accion { justify-content: flex-start; } }
