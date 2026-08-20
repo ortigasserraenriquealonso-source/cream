@@ -806,13 +806,17 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   .boton--wa:hover::after { animation-play-state: paused; }
 }
 
-/* --- La marca, con su propia voz dentro de un titular --------------------
-   Contraste de FORMA, no de peso: la condensada contra la geométrica ancha.
-   Usa la familia que la página ya carga para los datos, así no pesa nada. */
-.marca-voz {
-  font-family: var(--fuente-dato);
-  font-weight: 700;
-  letter-spacing: .01em;
-  color: var(--amarillo-texto);
+
+/* --- El nombre de la marca, con las letras de su propio logo --------------
+   No es una fuente parecida: son los trazos del logotipo del cliente,
+   extraídos de su vector y compuestos en una línea. Por eso va como imagen y
+   no como texto — y por eso el `alt` tiene que decir exactamente «Grifos
+   Mori», que es lo que lee quien no ve la imagen. */
+.marca-logo {
+  display: inline-block;      /* la regla global pone los img en block */
+  height: .74em; width: auto; /* al alto de las mayúsculas del titular */
+  max-width: 100%;
+  vertical-align: baseline;
+  position: relative; top: .045em;   /* ajuste óptico contra la línea base */
+  margin-inline: .1em;
 }
-.seccion--navy .marca-voz, .hero .marca-voz { color: var(--amarillo); }
