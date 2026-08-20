@@ -231,8 +231,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   box-shadow: var(--sombra-alta);
 }
 .precios__cab {
-  display: flex; align-items: baseline; justify-content: space-between;
-  gap: 1rem; flex-wrap: wrap; margin-bottom: 1.1rem;
+  display: flex; align-items: center; justify-content: flex-start;
+  gap: .6rem; flex-wrap: wrap; margin-bottom: 1.1rem;
 }
 .precios__cab h2 { font-size: 1.22rem; margin: 0; }
 .precios__lista { display: grid; gap: .7rem; }
@@ -259,10 +259,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 }
 .precio__monto small { font-size: .48em; font-weight: 600; color: var(--texto-suave); }
 
-.frescura {
-  display: flex; align-items: center; gap: .45rem;
-  font-size: .84rem; color: var(--texto-suave);
-}
+/* Sin texto: es solo el punto de color junto al título. Lo que significa vive
+   en su `title` y en su `aria-label`, así que el dato no se pierde. */
+.frescura { display: flex; align-items: center; font-size: 0; cursor: help; }
 .frescura::before {
   content: ""; width: 8px; height: 8px; border-radius: 50%;
   background: #34A853; flex: none;
@@ -391,6 +390,10 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 .reels {
   display: grid; gap: 1.1rem; margin-top: 2.6rem;
   grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  /* Con tres piezas verticales, dejarlas crecer a todo el ancho las vuelve
+     torres de 700 px. Se acota el grupo y el aire sobrante queda a la derecha
+     como margen, no como hueco. */
+  max-width: 880px;
 }
 .reel {
   position: relative; margin: 0; aspect-ratio: 9 / 16;
@@ -404,7 +407,9 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   position: absolute; inset: 0;
   display: flex; flex-direction: column; justify-content: flex-end;
   padding: 1.1rem;
-  background: linear-gradient(transparent 42%, rgba(23,36,67,.88));
+  /* Arranca antes y cierra más opaco: varias portadas son claras y el pie
+     en blanco se perdía sobre ellas. */
+  background: linear-gradient(transparent 34%, rgba(19,29,55,.55) 62%, rgba(19,29,55,.94));
   color: var(--blanco);
 }
 .reel__play {
@@ -583,24 +588,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 }
 @media (max-width: 760px) { .fantasma { font-size: 56vw; right: -22vw; top: -2vh; } }
 
-/* --- Halo que persigue al puntero ---------------------------------------- */
-.halo { display: none; }
-@media (hover: hover) and (pointer: fine) {
-  /* Solo con puntero fino: en una pantalla táctil el dedo tapa justo el punto
-     que iluminaría, y el efecto se paga sin verse. */
-  .js .halo {
-    display: block; position: fixed; top: 0; left: 0;
-    width: 560px; height: 560px; margin: -280px 0 0 -280px;
-    border-radius: 50%; pointer-events: none;
-    /* Por encima de los fondos de sección (que son opacos y lo tapaban) y por
-       debajo de la cabecera. Sin esto solo se veía en 2 de 6 secciones. */
-    z-index: 1;
-    background: radial-gradient(closest-side, rgba(242,186,36,.16), transparent 70%);
-    opacity: 0; transition: opacity .6s ease; will-change: transform;
-  }
-  .js .halo.viva { opacity: 1; }
-}
-
 /* --- Aparición al deslizar ------------------------------------------------ */
 /* Se anima `translate`, no `transform`: son propiedades distintas y se
    componen. Con `transform` el estado final (`none`) le ganaba por
@@ -726,13 +713,13 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
     opacity: 1 !important; translate: none !important; transform: none !important;
     transition: none !important; animation: none !important; will-change: auto !important;
   }
-  .aura, .grano, .halo, .avance, .fantasma { display: none !important; }
+  .aura, .grano, .avance, .fantasma { display: none !important; }
   .seccion::before { animation: none !important; opacity: 0 !important; }
   .boton--wa::after { display: none !important; }
   .aura i { animation: none !important; }
 }
 @media print {
-  .aura, .grano, .halo, .avance, .fantasma { display: none !important; }
+  .aura, .grano, .avance, .fantasma { display: none !important; }
   /* Estas dos faltaban y se imprimían: un halo radial amarillo sobre dos
      secciones y una banda diagonal congelada cruzando el botón. */
   .seccion::before { display: none !important; }
@@ -818,3 +805,14 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   .miga a:hover { text-decoration: underline; }
   .boton--wa:hover::after { animation-play-state: paused; }
 }
+
+/* --- La marca, con su propia voz dentro de un titular --------------------
+   Contraste de FORMA, no de peso: la condensada contra la geométrica ancha.
+   Usa la familia que la página ya carga para los datos, así no pesa nada. */
+.marca-voz {
+  font-family: var(--fuente-dato);
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: var(--amarillo-texto);
+}
+.seccion--navy .marca-voz, .hero .marca-voz { color: var(--amarillo); }

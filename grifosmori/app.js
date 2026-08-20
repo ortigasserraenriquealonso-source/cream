@@ -94,16 +94,18 @@ function pintarPrecios(datos) {
 
   const frescura = document.getElementById("frescura");
   if (frescura) {
-    // Decir «Actualizado hace 5 minutos» sería mentir: hace 5 minutos se
-    // CONSULTÓ a Osinergmin; el precio puede llevar semanas igual. Son dos
-    // datos distintos y la página muestra los dos por separado.
+    // El indicador queda sin texto: es solo el punto de color al lado del
+    // título. La información sigue estando, en el tooltip y para los lectores
+    // de pantalla, para no perder el dato de cuándo se consultó la fuente.
     const consulta = relojCreible
       ? `Consultado a Osinergmin ${haceCuanto(actualizado)}`
       : `Consultado a Osinergmin el ${datos.actualizado_lima}`;
     const vigencia = datos.precios_desde_lima
       ? ` · precio vigente desde el ${datos.precios_desde_lima}`
       : "";
-    frescura.textContent = consulta + vigencia;
+    frescura.textContent = "";
+    frescura.title = consulta + vigencia;
+    frescura.setAttribute("aria-label", consulta + vigencia);
     // Pasadas 12 h el punto verde se vuelve ámbar: sigue siendo válido, pero
     // el visitante merece saber que no es de esta mañana.
     frescura.dataset.estado = relojCreible && horas > 12 ? "viejo" : "fresco";
@@ -359,10 +361,8 @@ fetch(BASE + "reels.json")
       img.width = 540;
       img.height = 960;
 
-      const play = document.createElement("span");
-      play.className = "reel__play";
-      play.setAttribute("aria-hidden", "true");
-      play.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+      // Sin botón de reproducción propio: la portada que sirve Instagram ya
+      // trae el suyo dentro de la imagen, y encimarle otro se ve a dos capas.
 
       const capa = document.createElement("span");
       capa.className = "reel__capa";
@@ -373,7 +373,7 @@ fetch(BASE + "reels.json")
       pie.textContent = reel.texto || "";
       capa.append(cuenta, pie);
 
-      a.append(img, play, capa);
+      a.append(img, capa);
       fig.append(a);
       cont.append(fig);
     }
@@ -451,24 +451,6 @@ fetch(BASE + "reels.json")
     document.querySelectorAll(".hero .rv, .hero .esc, .cabecera .rv")
             .forEach((el) => el.classList.add("in"));
   }, 90);
-
-  /* --- Halo que persigue al puntero -------------------------------------- */
-  const halo = document.querySelector(".halo");
-  if (halo && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
-    let mx = innerWidth / 2, my = innerHeight / 2, hx = mx, hy = my, vivo = false;
-    addEventListener("mousemove", (ev) => {
-      mx = ev.clientX; my = ev.clientY;
-      if (!vivo) { vivo = true; halo.classList.add("viva"); }
-    }, { passive: true });
-    (function seguir() {
-      // Interpolación suave: el halo llega tarde a propósito, esa demora es
-      // la que hace que se sienta un objeto y no un cursor pintado.
-      hx += (mx - hx) * 0.085;
-      hy += (my - hy) * 0.085;
-      halo.style.transform = `translate3d(${hx}px, ${hy}px, 0)`;
-      requestAnimationFrame(seguir);
-    })();
-  }
 
   /* --- La marca de fondo se mueve más lento que la página ---------------- */
   const fantasmas = document.querySelectorAll(".fantasma");
