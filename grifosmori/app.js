@@ -195,15 +195,9 @@ function pintarPremios() {
     meta.className = "premio__meta";
     if (porMes > 0) {
       const meses = Math.ceil(premio.puntos / porMes);
-      if (meses <= 1) {
-        meta.textContent = "Lo alcanzas este mes";
-        card.dataset.alcanzable = "si";
-      } else if (meses <= 3) {
-        meta.textContent = `Lo alcanzas en ${meses} meses`;
-        card.dataset.alcanzable = "si";
-      } else {
-        meta.textContent = `Lo alcanzas en ${meses} meses`;
-      }
+      meta.textContent = meses <= 1
+        ? "Lo alcanzas este mes"
+        : `Lo alcanzas en ${meses} meses`;
     }
 
     card.append(nombre, puntos, meta);
@@ -213,7 +207,7 @@ function pintarPremios() {
   const salida = document.getElementById("salida-simulador");
   if (salida) {
     salida.textContent = porMes > 0
-      ? `Con ${porMes.toLocaleString("es-PE")} galones al mes acumulas ${porMes.toLocaleString("es-PE")} puntos al mes. Abajo te marcamos lo que alcanzas en los próximos tres meses.`
+      ? `Con ${porMes.toLocaleString("es-PE")} galones al mes acumulas ${porMes.toLocaleString("es-PE")} puntos al mes. Cada premio te dice en cuánto tiempo lo alcanzas.`
       : "Escribe cuántos galones cargas al mes y te decimos en cuánto tiempo llegas a cada premio.";
   }
 }

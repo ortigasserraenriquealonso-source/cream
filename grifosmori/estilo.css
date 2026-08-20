@@ -382,18 +382,28 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   font-size: .72rem; font-weight: 500; letter-spacing: .04em;
   color: #9DA9C4; margin-top: .3rem;
 }
-.premio[data-alcanzable="si"] { border-color: rgba(242,186,36,.62); background: rgba(242,186,36,.1); }
 .premio__meta { font-size: .8rem; color: #9DA9C4; margin: 0; }
-.premio[data-alcanzable="si"] .premio__meta { color: var(--amarillo); font-weight: 600; }
+/* Sin resaltado de color en la tarjeta: lo que se alcanza pronto ya lo
+   dice el propio texto, y teñir un tercio de la grilla la ensucia. */
+.premio__meta { color: #9DA9C4; }
 
 /* --- Reels ---------------------------------------------------------------- */
 .reels {
   display: grid; gap: 1.1rem; margin-top: 2.6rem;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  /* Con tres piezas verticales, dejarlas crecer a todo el ancho las vuelve
-     torres de 700 px. Se acota el grupo y el aire sobrante queda a la derecha
-     como margen, no como hueco. */
-  max-width: 880px;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  /* Con piezas verticales, dejarlas crecer a todo el ancho las vuelve torres
+     de 700 px. Se acota el grupo y el aire sobrante queda a la derecha como
+     margen, no como hueco. El mínimo de 190 px hace que cuatro entren en una
+     sola fila dentro de ese ancho. */
+  max-width: 1000px;
+}
+@media (max-width: 700px) {
+  /* Dos por fila: uno debajo de otro obliga a deslizar cuatro pantallas para
+     ver cuatro videos. En rejilla se abarcan de un vistazo. */
+  .reels { grid-template-columns: 1fr 1fr; gap: .7rem; }
+  .reel figcaption { font-size: .82rem; line-height: 1.3; }
+  .reel__cuenta { font-size: .74rem; }
+  .reel__capa { padding: .7rem; }
 }
 .reel {
   position: relative; margin: 0; aspect-ratio: 9 / 16;
