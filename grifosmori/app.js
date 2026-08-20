@@ -216,10 +216,24 @@ function pintarPremios() {
   }
 }
 
-if (document.getElementById("panel-premios")) {
+// El catálogo hace falta en dos sitios: en /puntos/ para pintarlo, y en la
+// portada solo para contar cuántos premios hay en el adelanto.
+if (document.getElementById("panel-premios") || document.getElementById("mas-premios")) {
 fetch(BASE + "premios.json")
   .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
   .then((datos) => {
+    // El adelanto de la portada dice cuántos premios hay: el número sale del
+    // propio catálogo y no escrito a mano, que hoy cuadra y mañana miente.
+    const mas = document.getElementById("mas-premios");
+    if (mas) {
+      const total = (datos.catalogos || [])
+        .filter((c) => c.confirmado !== false)
+        .reduce((n, c) => n + (c.premios || []).length, 0);
+      const enMuestra = document.querySelectorAll(".muestra li").length - 1;
+      const restantes = total - enMuestra;
+      if (restantes > 0) mas.textContent = `y ${restantes} premios más →`;
+    }
+
     // `confirmado: false` significa que esos puntajes todavía no los validó el
     // cliente. Publicar un puntaje sin confirmar obliga igual (Ley 29571
     // art. 14.1), así que esa pestaña no se muestra hasta que lo confirme.
@@ -257,10 +271,14 @@ fetch(BASE + "premios.json")
   });
 }
 
-const TABS = [...document.querySelectorAll(".tab")];
+/* Se consulta el DOM en cada uso y no una sola vez al cargar: el catálogo sin
+   confirmar se borra DESPUÉS, cuando llega premios.json, y una lista guardada
+   antes conservaría un nodo ya desconectado. */
+const tabs = () => [...document.querySelectorAll(".tab")];
 
 function activarTab(tab, moverFoco = false) {
-  for (const t of TABS) {
+  if (!tab || !tab.isConnected) return;
+  for (const t of tabs()) {
     const activa = t === tab;
     t.setAttribute("aria-selected", String(activa));
     // Tabindex rotatorio: dentro de un tablist, Tab entra y sale del grupo una vez
@@ -273,16 +291,21 @@ function activarTab(tab, moverFoco = false) {
   if (moverFoco) tab.focus();
 }
 
-TABS.forEach((tab, i) => {
+tabs().forEach((tab) => {
   tab.tabIndex = tab.getAttribute("aria-selected") === "true" ? 0 : -1;
   tab.addEventListener("click", () => activarTab(tab));
   tab.addEventListener("keydown", (e) => {
     const salto = { ArrowRight: 1, ArrowLeft: -1, Home: -Infinity, End: Infinity }[e.key];
     if (salto === undefined) return;
     e.preventDefault();
+    // La lista se vuelve a leer acá: si quedó una sola pestaña, las flechas
+    // no hacen nada en vez de dejarla deseleccionada y fuera del tabulador.
+    const vivas = tabs();
+    if (vivas.length < 2) return;
+    const i = vivas.indexOf(tab);
     const destino = !Number.isFinite(salto)
-      ? (salto < 0 ? TABS[0] : TABS[TABS.length - 1])
-      : TABS[(i + salto + TABS.length) % TABS.length];
+      ? (salto < 0 ? vivas[0] : vivas[vivas.length - 1])
+      : vivas[(i + salto + vivas.length) % vivas.length];
     activarTab(destino, true);
   });
 });
@@ -466,15 +489,17 @@ fetch(BASE + "reels.json")
   if (!(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()"))) {
     const barra = document.querySelector(".avance");
     if (barra) {
-      let alto = 0, pedido = false;
-      const medir = () => { alto = document.body.scrollHeight - innerHeight; };
+      let pedido = false;
       const pintar = () => {
+        // El alto se mide EN CADA pintado: el contenido se inyecta después de
+        // instalar esto (precios, catálogo, reels) y una medida tomada al
+        // arrancar deja la barra pasada de largo — llegaba a scaleX(1.43).
+        const alto = document.body.scrollHeight - innerHeight;
+        const avance = alto > 0 ? Math.min(scrollY / alto, 1) : 0;
         // scaleX en vez de width: no toca ni el layout ni la pintura.
-        barra.style.transform = `scaleX(${alto > 0 ? scrollY / alto : 0})`;
+        barra.style.transform = `scaleX(${avance})`;
         pedido = false;
       };
-      medir();
-      addEventListener("resize", medir, { passive: true });
       addEventListener("scroll", () => {
         if (!pedido) { pedido = true; requestAnimationFrame(pintar); }
       }, { passive: true });

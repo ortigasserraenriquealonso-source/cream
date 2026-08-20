@@ -121,16 +121,12 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   cursor: pointer; transition: transform var(--transicion), background var(--transicion),
                                box-shadow var(--transicion), border-color var(--transicion);
 }
-.boton:hover  { transform: translateY(-2px); }
 .boton:active { transform: translateY(0); }
 .boton svg { width: 1.15em; height: 1.15em; flex: none; }
 
 .boton--wa      { background: var(--amarillo); color: var(--navy); box-shadow: var(--sombra); }
-.boton--wa:hover{ background: var(--amarillo-osc); box-shadow: var(--sombra-alta); }
 .boton--linea   { background: transparent; color: var(--blanco); border-color: rgba(255,255,255,.45); }
-.boton--linea:hover { border-color: var(--amarillo); color: var(--amarillo); }
 .boton--navy    { background: var(--navy); color: var(--blanco); box-shadow: var(--sombra); }
-.boton--navy:hover { background: var(--azul); }
 
 /* --- Cabecera ------------------------------------------------------------- */
 .cabecera {
@@ -152,7 +148,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   padding: .3rem 0; border-bottom: 2px solid transparent;
   transition: color var(--transicion), border-color var(--transicion);
 }
-.nav a:hover { color: var(--amarillo); border-bottom-color: var(--amarillo); }
 .cabecera .boton { padding: .62rem 1.25rem; font-size: .93rem; flex: none; }
 
 .menu-btn {
@@ -313,7 +308,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   border-radius: var(--radio); box-shadow: var(--sombra);
   transition: transform var(--transicion), box-shadow var(--transicion);
 }
-.servicio:hover { transform: translateY(-3px); box-shadow: var(--sombra-alta); }
 .servicio__icono {
   width: 46px; height: 46px; margin-bottom: 1.1rem;
   display: grid; place-items: center;
@@ -327,7 +321,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   text-decoration: none; border-bottom: 2px solid rgba(50,73,133,.28);
   padding-bottom: 2px;
 }
-.servicio .enlace-wa:hover { color: var(--navy); border-bottom-color: var(--amarillo); }
 
 /* --- Puntos --------------------------------------------------------------- */
 .regla-puntos {
@@ -365,7 +358,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   border: 1px solid rgba(255,255,255,.42); border-radius: 999px;
   transition: all var(--transicion);
 }
-.tab:hover { color: var(--blanco); border-color: rgba(255,255,255,.5); }
 .tab[aria-selected="true"] {
   background: var(--amarillo); color: var(--navy); border-color: var(--amarillo);
 }
@@ -381,7 +373,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   border: 1px solid rgba(255,255,255,.13); border-radius: var(--radio);
   transition: border-color var(--transicion), background var(--transicion);
 }
-.premio:hover { background: rgba(255,255,255,.1); border-color: rgba(242,186,36,.5); }
 .premio__nombre { font-weight: 600; font-size: 1rem; color: var(--blanco); line-height: 1.35; }
 .premio__puntos {
   font-family: var(--fuente-dato); font-weight: 700; font-size: 1.85rem;
@@ -407,7 +398,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   background: var(--navy); box-shadow: var(--sombra);
   transition: transform var(--transicion), box-shadow var(--transicion);
 }
-.reel:hover { transform: translateY(-4px); box-shadow: var(--sombra-alta); }
 .reel a { display: block; width: 100%; height: 100%; text-decoration: none; }
 .reel img { width: 100%; height: 100%; object-fit: cover; }
 .reel__capa {
@@ -469,7 +459,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   font-family: var(--fuente-dato); font-size: 1.75rem; font-weight: 700;
   color: var(--navy); text-decoration: none; display: block; margin-bottom: 1.2rem;
 }
-.tarjeta-contacto__tel:hover { color: var(--azul); }
 
 /* --- Ubicación ------------------------------------------------------------ */
 .ubicacion { display: grid; gap: 2rem; grid-template-columns: 1fr; margin-top: 2.6rem; }
@@ -500,7 +489,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
           font-family: var(--fuente-dato); margin-bottom: .9rem; }
 .pie ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .55rem; }
 .pie a { color: #96A2BD; text-decoration: none; }
-.pie a:hover { color: var(--amarillo); }
 .pie__legal { padding-top: 1.6rem; font-size: .84rem; line-height: 1.6; }
 
 /* --- WhatsApp flotante ---------------------------------------------------- */
@@ -513,7 +501,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   transition: transform var(--transicion);
 }
 .wa-flotante { transition: transform var(--transicion), opacity var(--transicion); }
-.wa-flotante:hover { transform: scale(1.08); }
 /* Arranca escondido mientras el hero está a la vista: ahí ya hay un botón de
    WhatsApp grande, y flotando tapaba el precio del diésel en celular.
    Sin JavaScript el atributo nunca se pone y el botón se ve siempre. */
@@ -581,8 +568,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 /* Grano: le quita el plano digital al degradado. Sobre fondos claros con
    `overlay` se nota apenas; es lo que se busca. */
 .grano {
-  position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  opacity: .22; mix-blend-mode: overlay;
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: .13; mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23r)' opacity='.5'/></svg>");
 }
 
@@ -604,7 +591,10 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   .js .halo {
     display: block; position: fixed; top: 0; left: 0;
     width: 560px; height: 560px; margin: -280px 0 0 -280px;
-    border-radius: 50%; z-index: 0; pointer-events: none;
+    border-radius: 50%; pointer-events: none;
+    /* Por encima de los fondos de sección (que son opacos y lo tapaban) y por
+       debajo de la cabecera. Sin esto solo se veía en 2 de 6 secciones. */
+    z-index: 1;
     background: radial-gradient(closest-side, rgba(242,186,36,.16), transparent 70%);
     opacity: 0; transition: opacity .6s ease; will-change: transform;
   }
@@ -612,13 +602,16 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 }
 
 /* --- Aparición al deslizar ------------------------------------------------ */
-.js .rv { opacity: 0; transform: translateY(26px); will-change: opacity, transform; }
-.js .rv.in { opacity: 1; transform: none;
-             transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+/* Se anima `translate`, no `transform`: son propiedades distintas y se
+   componen. Con `transform` el estado final (`none`) le ganaba por
+   especificidad a los :hover de las tarjetas y les mataba el movimiento. */
+.js .rv { opacity: 0; translate: 0 26px; will-change: opacity, translate; }
+.js .rv.in { opacity: 1; translate: 0 0; will-change: auto;
+             transition: opacity .7s cubic-bezier(.22,1,.36,1), translate .7s cubic-bezier(.22,1,.36,1); }
 
-.js .esc > * { opacity: 0; transform: translateY(18px); }
-.js .esc.in > * { opacity: 1; transform: none;
-                  transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+.js .esc > * { opacity: 0; translate: 0 18px; }
+.js .esc.in > * { opacity: 1; translate: 0 0;
+                  transition: opacity .6s cubic-bezier(.22,1,.36,1), translate .6s cubic-bezier(.22,1,.36,1); }
 /* La escalera: cada hijo entra 70 ms después del anterior. Se corta en el
    octavo para que una grilla larga no termine tardando tres segundos. */
 .js .esc.in > *:nth-child(1) { transition-delay: 0ms; }
@@ -634,8 +627,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
    el mismo ritmo se percibe como lentitud. Se comprimen los tiempos y se
    acortan los recorridos, solo en táctil. */
 @media (hover: none) {
-  .js .rv { transform: translateY(16px); }
-  .js .esc > * { transform: translateY(12px); }
+  .js .rv { translate: 0 16px; }
+  .js .esc > * { translate: 0 12px; }
   .js .rv.in { transition-duration: .42s, .42s; }
   .js .esc.in > * { transition-duration: .36s, .36s; }
   .js .esc.in > *:nth-child(2) { transition-delay: 30ms; }
@@ -711,7 +704,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   }
   .boton:active, .wa-flotante:active { transform: scale(.972); }
   .servicio .enlace-wa:active { opacity: .7; }
-  .muestra li:hover, .premio:hover, .camino:hover { transform: none; }
 }
 
 /* Destello que barre el botón principal. Se apaga al pasar el cursor para no
@@ -724,7 +716,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   animation: gm-destello 5.5s ease-in-out infinite;
   pointer-events: none;
 }
-.boton--wa:hover::after { animation-play-state: paused; }
 
 /* --- Todo lo anterior se apaga si el sistema pide menos movimiento -------
    Va al final y con !important a propósito: tiene que ganarle a cualquier
@@ -732,8 +723,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
    queda visible y quieto, nunca invisible. */
 @media (prefers-reduced-motion: reduce) {
   .js .rv, .js .rv.in, .js .esc > *, .js .esc.in > * {
-    opacity: 1 !important; transform: none !important;
-    transition: none !important; animation: none !important;
+    opacity: 1 !important; translate: none !important; transform: none !important;
+    transition: none !important; animation: none !important; will-change: auto !important;
   }
   .aura, .grano, .halo, .avance, .fantasma { display: none !important; }
   .seccion::before { animation: none !important; opacity: 0 !important; }
@@ -742,7 +733,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 }
 @media print {
   .aura, .grano, .halo, .avance, .fantasma { display: none !important; }
-  .js .rv, .js .esc > * { opacity: 1 !important; transform: none !important; }
+  /* Estas dos faltaban y se imprimían: un halo radial amarillo sobre dos
+     secciones y una banda diagonal congelada cruzando el botón. */
+  .seccion::before { display: none !important; }
+  .boton--wa::after { display: none !important; }
+  .js .rv, .js .esc > * { opacity: 1 !important; translate: none !important; transform: none !important; }
 }
 
 /* --- Adelanto de puntos en la portada ------------------------------------ */
@@ -758,7 +753,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   border: 1px solid rgba(255,255,255,.13); border-radius: var(--radio);
   transition: border-color var(--transicion), background var(--transicion), transform var(--transicion);
 }
-.muestra li:hover { background: rgba(255,255,255,.1); border-color: rgba(242,186,36,.5); transform: translateX(4px); }
 .muestra__p {
   font-family: var(--fuente-dato); font-weight: 700; font-size: 1.55rem;
   color: var(--amarillo); min-width: 3.6ch; text-align: right;
@@ -767,7 +761,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 .muestra__n { color: #DCE3F2; font-size: 1rem; }
 .muestra__mas { background: none; border-style: dashed; justify-content: center; }
 .muestra__mas a { color: var(--amarillo); text-decoration: none; font-weight: 600; font-size: .97rem; }
-.muestra__mas:hover { transform: none; }
 
 /* --- Portada de la página de puntos -------------------------------------- */
 .hero--puntos { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
@@ -780,7 +773,6 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
   text-transform: uppercase; color: #9DA9C4; margin-bottom: 1.6rem;
 }
 .miga a { color: var(--amarillo); text-decoration: none; }
-.miga a:hover { text-decoration: underline; }
 .miga span { margin: 0 .5rem; }
 
 /* La página de puntos abre con secciones claras: el índice de la barra
@@ -801,4 +793,28 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 }
 @media (max-width: 760px) {
   .seccion--marca > .fantasma { font-size: 44vw; right: -20vw; bottom: -6%; }
+}
+
+/* --- Todos los :hover sueltos, acotados a puntero real -------------------
+   En una pantalla táctil el navegador aplica el :hover al tocar y nunca
+   recibe el «el puntero salió»: el efecto se queda pegado después del
+   toque. Y en `.muestra li` ese borde amarillo significa «lo alcanzas»,
+   así que dejarlo pegado no era un artefacto visual: era un dato falso. */
+@media (hover: hover) {
+  .boton:hover  { transform: translateY(-2px); }
+  .boton--wa:hover{ background: var(--amarillo-osc); box-shadow: var(--sombra-alta); }
+  .boton--linea:hover { border-color: var(--amarillo); color: var(--amarillo); }
+  .boton--navy:hover { background: var(--azul); }
+  .nav a:hover { color: var(--amarillo); border-bottom-color: var(--amarillo); }
+  .servicio:hover { transform: translateY(-3px); box-shadow: var(--sombra-alta); }
+  .servicio .enlace-wa:hover { color: var(--navy); border-bottom-color: var(--amarillo); }
+  .tab:hover { color: var(--blanco); border-color: rgba(255,255,255,.5); }
+  .premio:hover { background: rgba(255,255,255,.1); border-color: rgba(242,186,36,.5); }
+  .reel:hover { transform: translateY(-4px); box-shadow: var(--sombra-alta); }
+  .tarjeta-contacto__tel:hover { color: var(--azul); }
+  .pie a:hover { color: var(--amarillo); }
+  .wa-flotante:hover { transform: scale(1.08); }
+  .muestra li:hover { background: rgba(255,255,255,.1); border-color: rgba(242,186,36,.5); transform: translateX(4px); }
+  .miga a:hover { text-decoration: underline; }
+  .boton--wa:hover::after { animation-play-state: paused; }
 }
