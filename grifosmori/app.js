@@ -1,0 +1,372 @@
+/* =============================================================================
+   Grifos Mori — comportamiento de la página.
+   Sin dependencias. Todo lo que se muestra sale de los tres .json de al lado.
+   ========================================================================== */
+
+const WA = "https://wa.me/51978720291";
+
+/* --- Menú en celular ------------------------------------------------------ */
+(() => {
+  const boton = document.querySelector(".menu-btn");
+  const nav = document.getElementById("nav");
+  if (!boton || !nav) return;
+
+  boton.addEventListener("click", () => {
+    const abierto = nav.dataset.abierto === "si";
+    nav.dataset.abierto = abierto ? "no" : "si";
+    boton.setAttribute("aria-expanded", String(!abierto));
+  });
+  // Al elegir una sección el menú se cierra solo.
+  nav.addEventListener("click", (e) => {
+    if (e.target.tagName !== "A") return;
+    nav.dataset.abierto = "no";
+    boton.setAttribute("aria-expanded", "false");
+  });
+})();
+
+/* --- Año del pie ---------------------------------------------------------- */
+(() => {
+  const el = document.getElementById("anio");
+  if (el) el.textContent = String(new Date().getFullYear());
+})();
+
+/* --- Precios del día ------------------------------------------------------
+   Regla dura: la hora que se muestra sale SIEMPRE del campo `actualizado_utc`
+   del JSON, nunca del reloj del visitante. Y si la lectura tiene más de 48 h,
+   no se muestra ningún precio: se ofrece el WhatsApp. Un precio viejo visible
+   es un problema con INDECOPI; un precio ausente, no.
+--------------------------------------------------------------------------- */
+const HORAS_MAXIMAS = 48;
+
+function haceCuanto(fecha) {
+  const min = Math.round((Date.now() - fecha.getTime()) / 60000);
+  if (min < 2) return "recién";
+  if (min < 60) return `hace ${min} minutos`;
+  const horas = Math.round(min / 60);
+  if (horas < 24) return `hace ${horas} ${horas === 1 ? "hora" : "horas"}`;
+  const dias = Math.round(horas / 24);
+  return `hace ${dias} ${dias === 1 ? "día" : "días"}`;
+}
+
+function mostrarCaido() {
+  const cargando = document.getElementById("precios-cargando");
+  if (cargando) cargando.remove();
+  document.getElementById("lista-precios")?.setAttribute("hidden", "");
+  document.getElementById("precios-caido")?.removeAttribute("hidden");
+}
+
+function pintarPrecios(datos) {
+  const lista = document.getElementById("lista-precios");
+  const tpl = document.getElementById("tpl-precio");
+  const cargando = document.getElementById("precios-cargando");
+  if (!lista || !tpl) return;
+
+  const actualizado = new Date(datos.actualizado_utc);
+  const horas = (Date.now() - actualizado.getTime()) / 3.6e6;
+  if (!Number.isFinite(horas)) return mostrarCaido();
+  if (!Array.isArray(datos.combustibles) || !datos.combustibles.length) return mostrarCaido();
+
+  // El único reloj disponible en el navegador es el del visitante, y puede
+  // estar mal puesto. Si la antigüedad que sale de restarlo es imposible
+  // —negativa, o de más de un mes— el reloj no es de fiar: en ese caso se
+  // muestran los precios con su fecha absoluta, que sí es verificable, en vez
+  // de esconderlos por culpa de un celular desincronizado.
+  const relojCreible = horas > -1 && horas < 24 * 30;
+  if (relojCreible && horas > HORAS_MAXIMAS) return mostrarCaido();
+
+  if (cargando) cargando.remove();
+
+  for (const c of datos.combustibles) {
+    const nodo = tpl.content.cloneNode(true);
+    const fila = nodo.querySelector(".precio");
+    if (c.estrella) {
+      fila.classList.add("precio--estrella");
+      nodo.querySelector(".precio__etiqueta").removeAttribute("hidden");
+    }
+    nodo.querySelector(".precio__nombre").textContent = c.producto;
+    nodo.querySelector(".precio__monto span").textContent = c.precio.toFixed(2);
+    lista.append(nodo);
+  }
+
+  const frescura = document.getElementById("frescura");
+  if (frescura) {
+    // Decir «Actualizado hace 5 minutos» sería mentir: hace 5 minutos se
+    // CONSULTÓ a Osinergmin; el precio puede llevar semanas igual. Son dos
+    // datos distintos y la página muestra los dos por separado.
+    const consulta = relojCreible
+      ? `Consultado a Osinergmin ${haceCuanto(actualizado)}`
+      : `Consultado a Osinergmin el ${datos.actualizado_lima}`;
+    const vigencia = datos.precios_desde_lima
+      ? ` · precio vigente desde el ${datos.precios_desde_lima}`
+      : "";
+    frescura.textContent = consulta + vigencia;
+    // Pasadas 12 h el punto verde se vuelve ámbar: sigue siendo válido, pero
+    // el visitante merece saber que no es de esta mañana.
+    frescura.dataset.estado = relojCreible && horas > 12 ? "viejo" : "fresco";
+    frescura.removeAttribute("hidden");
+  }
+
+  enriquecerJsonLd(datos);
+}
+
+/* Mete los mismos precios en el JSON-LD. Si la página dice un número y los
+   datos estructurados dicen otro, Google lo trata como contenido discordante. */
+function enriquecerJsonLd(datos) {
+  const script = document.getElementById("jsonld");
+  if (!script) return;
+  try {
+    const ld = JSON.parse(script.textContent);
+    ld.hasOfferCatalog = {
+      "@type": "OfferCatalog",
+      name: "Combustibles",
+      itemListElement: datos.combustibles.map((c) => ({
+        "@type": "Offer",
+        name: c.producto,
+        url: "https://cream.pe/grifosmori/#precios",
+        price: c.precio.toFixed(2),
+        priceCurrency: "PEN",
+        availability: "https://schema.org/InStock",
+        itemOffered: { "@type": "Product", name: c.producto },
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: c.precio.toFixed(2),
+          priceCurrency: "PEN",
+          unitCode: "GLL",            // UN/CEFACT: galón
+          valueAddedTaxIncluded: true,
+          validFrom: datos.actualizado_utc,
+        },
+      })),
+    };
+    script.textContent = JSON.stringify(ld);
+  } catch {
+    /* Si el JSON-LD no se puede tocar, la página sigue funcionando igual. */
+  }
+}
+
+fetch("precios.json", { cache: "no-cache" })
+  .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+  .then(pintarPrecios)
+  .catch(mostrarCaido);
+
+/* --- Puntos y premios ----------------------------------------------------- */
+let CATALOGOS = [];
+let catalogoActivo = "petroleo";
+
+function galonesAlMes() {
+  const input = document.getElementById("galones");
+  const n = Number(input?.value);
+  return Number.isFinite(n) && n > 0 ? Math.min(n, 20000) : 0;
+}
+
+function pintarPremios() {
+  const panel = document.getElementById("panel-premios");
+  const cat = CATALOGOS.find((c) => c.id === catalogoActivo);
+  if (!panel || !cat) return;
+
+  const porMes = galonesAlMes();
+  panel.textContent = "";
+
+  for (const premio of cat.premios) {
+    const card = document.createElement("article");
+    card.className = "premio";
+
+    const nombre = document.createElement("h3");
+    nombre.className = "premio__nombre";
+    nombre.textContent = premio.nombre;
+
+    const puntos = document.createElement("p");
+    puntos.className = "premio__puntos";
+    puntos.textContent = premio.puntos.toLocaleString("es-PE");
+    // Solo "puntos": como un galón es un punto, repetir la cifra en galones
+    // no agrega nada y la regla ya está en grande arriba del catálogo.
+    const unidad = document.createElement("small");
+    unidad.textContent = "puntos";
+    puntos.append(unidad);
+
+    const meta = document.createElement("p");
+    meta.className = "premio__meta";
+    if (porMes > 0) {
+      const meses = Math.ceil(premio.puntos / porMes);
+      if (meses <= 1) {
+        meta.textContent = "Lo alcanzas este mes";
+        card.dataset.alcanzable = "si";
+      } else if (meses <= 3) {
+        meta.textContent = `Lo alcanzas en ${meses} meses`;
+        card.dataset.alcanzable = "si";
+      } else {
+        meta.textContent = `Lo alcanzas en ${meses} meses`;
+      }
+    }
+
+    card.append(nombre, puntos, meta);
+    panel.append(card);
+  }
+
+  const salida = document.getElementById("salida-simulador");
+  if (salida) {
+    salida.textContent = porMes > 0
+      ? `Con ${porMes.toLocaleString("es-PE")} galones al mes acumulas ${porMes.toLocaleString("es-PE")} puntos al mes. Abajo te marcamos lo que alcanzas en los próximos tres meses.`
+      : "Escribe cuántos galones cargas al mes y te decimos en cuánto tiempo llegas a cada premio.";
+  }
+}
+
+fetch("premios.json")
+  .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+  .then((datos) => {
+    // `confirmado: false` significa que esos puntajes todavía no los validó el
+    // cliente. Publicar un puntaje sin confirmar obliga igual (Ley 29571
+    // art. 14.1), así que esa pestaña no se muestra hasta que lo confirme.
+    const todos = datos.catalogos || [];
+    CATALOGOS = todos.filter((c) => c.confirmado !== false);
+    const ocultos = todos.filter((c) => c.confirmado === false);
+
+    for (const c of ocultos) {
+      const tab = document.querySelector(`.tab[data-catalogo="${c.id}"]`);
+      if (tab) tab.remove();
+    }
+    if (CATALOGOS.length && !CATALOGOS.some((c) => c.id === catalogoActivo)) {
+      catalogoActivo = CATALOGOS[0].id;
+      const tab = document.querySelector(`.tab[data-catalogo="${catalogoActivo}"]`);
+      if (tab) tab.setAttribute("aria-selected", "true");
+    }
+    if (ocultos.length) {
+      const aviso = document.getElementById("vigencia-premios");
+      if (aviso) {
+        aviso.textContent = `${aviso.textContent.trim()} El catálogo de ` +
+          ocultos.map((c) => c.nombre.toLowerCase()).join(" y ") +
+          " lo consultas por WhatsApp o en la estación.";
+      }
+    }
+    pintarPremios();
+  })
+  .catch(() => {
+    const panel = document.getElementById("panel-premios");
+    if (panel) {
+      panel.innerHTML =
+        `<p class="reels__vacio">No pudimos cargar el catálogo de premios.
+         <a href="${WA}?text=Hola%20Grifos%20Mori%2C%20quiero%20ver%20el%20cat%C3%A1logo%20de%20premios.%20%5Bweb-premios%5D"
+            target="_blank" rel="noopener" style="color:var(--amarillo)">Pídelo por WhatsApp</a>.</p>`;
+    }
+  });
+
+const TABS = [...document.querySelectorAll(".tab")];
+
+function activarTab(tab, moverFoco = false) {
+  for (const t of TABS) {
+    const activa = t === tab;
+    t.setAttribute("aria-selected", String(activa));
+    // Tabindex rotatorio: dentro de un tablist, Tab entra y sale del grupo una vez
+    // y las flechas mueven entre pestañas. Sin esto hay que tabular por todas.
+    t.tabIndex = activa ? 0 : -1;
+  }
+  document.getElementById("panel-premios")?.setAttribute("aria-labelledby", tab.id);
+  catalogoActivo = tab.dataset.catalogo;
+  pintarPremios();
+  if (moverFoco) tab.focus();
+}
+
+TABS.forEach((tab, i) => {
+  tab.tabIndex = tab.getAttribute("aria-selected") === "true" ? 0 : -1;
+  tab.addEventListener("click", () => activarTab(tab));
+  tab.addEventListener("keydown", (e) => {
+    const salto = { ArrowRight: 1, ArrowLeft: -1, Home: -Infinity, End: Infinity }[e.key];
+    if (salto === undefined) return;
+    e.preventDefault();
+    const destino = !Number.isFinite(salto)
+      ? (salto < 0 ? TABS[0] : TABS[TABS.length - 1])
+      : TABS[(i + salto + TABS.length) % TABS.length];
+    activarTab(destino, true);
+  });
+});
+
+document.getElementById("galones")?.addEventListener("input", pintarPremios);
+
+/* --- Reels de Instagram ---------------------------------------------------
+   Fachada pura: una portada propia y un enlace. Sin embed.js de Meta, sin
+   iframes y sin re-hospedar nada. El embed oficial de Instagram cuesta unos
+   480 KB comprimidos para cuatro publicaciones; esto cuesta las portadas.
+--------------------------------------------------------------------------- */
+fetch("reels.json")
+  .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+  .then((datos) => {
+    const cont = document.getElementById("reels");
+    if (!cont) return;
+    const reels = (datos.reels || []).filter((r) => r.url && r.portada);
+
+    if (!reels.length) {
+      cont.innerHTML =
+        `<p class="reels__vacio">Estamos preparando esta sección.
+         Mientras tanto, todo está en <a href="https://www.instagram.com/grifosmori/"
+         target="_blank" rel="noopener" style="color:var(--amarillo)">@grifosmori</a>.</p>`;
+      return;
+    }
+
+    for (const reel of reels) {
+      // Todo esto se arma con nodos y textContent, nunca con innerHTML:
+      // reels.json lo edita una persona a mano, y una comilla en un pie de
+      // foto bastaría para romper la tarjeta. Con HTML pegado además se podría
+      // colar un onerror= o un href="javascript:".
+      if (!/^https:\/\//i.test(reel.url) || /^(javascript|data):/i.test(reel.portada)) {
+        console.warn("Reel descartado por enlace no válido:", reel.url);
+        continue;
+      }
+
+      const fig = document.createElement("figure");
+      fig.className = "reel";
+
+      const a = document.createElement("a");
+      a.href = reel.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+
+      const img = document.createElement("img");
+      img.src = reel.portada;
+      img.alt = reel.texto || "Publicación de Grifos Mori";
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.width = 540;
+      img.height = 960;
+
+      const play = document.createElement("span");
+      play.className = "reel__play";
+      play.setAttribute("aria-hidden", "true");
+      play.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+
+      const capa = document.createElement("span");
+      capa.className = "reel__capa";
+      const cuenta = document.createElement("span");
+      cuenta.className = "reel__cuenta";
+      cuenta.textContent = "@grifosmori";
+      const pie = document.createElement("figcaption");
+      pie.textContent = reel.texto || "";
+      capa.append(cuenta, pie);
+
+      a.append(img, play, capa);
+      fig.append(a);
+      cont.append(fig);
+    }
+  })
+  .catch(() => {
+    const cont = document.getElementById("reels");
+    if (cont) {
+      cont.innerHTML =
+        `<p class="reels__vacio">Míranos en <a href="https://www.instagram.com/grifosmori/"
+         target="_blank" rel="noopener" style="color:var(--amarillo)">@grifosmori</a>.</p>`;
+    }
+  });
+
+/* --- Botón flotante de WhatsApp -------------------------------------------
+   Solo aparece cuando el hero ya quedó atrás. Mientras el hero se ve, el CTA
+   grande cumple la función y el flotante solo taparía el precio.
+--------------------------------------------------------------------------- */
+(() => {
+  const boton = document.querySelector(".wa-flotante");
+  const hero = document.getElementById("inicio");
+  if (!boton || !hero || !("IntersectionObserver" in window)) return;
+
+  boton.dataset.oculto = "si";
+  new IntersectionObserver(
+    ([e]) => { boton.dataset.oculto = e.isIntersecting ? "si" : "no"; },
+    { rootMargin: "-40% 0px 0px 0px" }
+  ).observe(hero);
+})();

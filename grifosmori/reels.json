@@ -1,0 +1,4 @@
+{
+  "_como_se_llena": "Un objeto por publicación. 'portada' debe ser una imagen PROPIA guardada en assets/reels/ (exportada del video original, NO descargada del CDN de Instagram: esas URLs vienen firmadas y caducan en horas). 'url' es el permalink del reel. Mientras el arreglo esté vacío, la sección muestra un enlace a la cuenta y nada más.",
+  "reels": []
+}
