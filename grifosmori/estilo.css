@@ -71,7 +71,7 @@ p  { margin: 0 0 1em; }
 
 .contenedor { width: min(100% - 2.5rem, var(--ancho)); margin-inline: auto; }
 
-.seccion { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+.seccion { padding: clamp(3.5rem, 8vw, 6.5rem) 0; position: relative; }
 .seccion--hueso { background: var(--hueso); }
 .seccion--navy  { background: var(--navy); color: #EAEEF7; }
 .seccion--navy h2 { color: var(--blanco); }
@@ -520,3 +520,285 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible, input:focus-vis
 .wa-flotante[data-oculto="si"] { opacity: 0; pointer-events: none; transform: scale(.6); }
 .wa-flotante svg { width: 30px; height: 30px; }
 @media print { .wa-flotante, .cabecera { display: none; } }
+
+/* ==========================================================================
+   SISTEMA DE MOVIMIENTO
+   Mismo esqueleto que la web de Audical, con la identidad de Grifos Mori.
+
+   Regla que gobierna todo lo de abajo: sin JavaScript, `.js` nunca se agrega
+   al <html> y la página se ve ENTERA y QUIETA. Eso no es un modo degradado:
+   es el comportamiento correcto. Las animaciones son un lujo que se suma
+   cuando el navegador puede con ellas, nunca un requisito para leer.
+   ========================================================================== */
+
+@keyframes gm-flota      { from { transform: translate3d(0,0,0) scale(1); }
+                           to   { transform: translate3d(4vw,3vw,0) scale(1.14); } }
+@keyframes gm-avanzar    { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes gm-viva       { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+@keyframes gm-traza      { 0% { opacity:0; transform:scaleX(0); }
+                           26%,44% { opacity:.9; transform:scaleX(1); }
+                           64%,100% { opacity:0; transform:scaleX(1); } }
+@keyframes gm-destello   { 0%,72% { transform: translateX(-140%); }
+                           88%,100% { transform: translateX(140%); } }
+
+/* --- Barra de avance de lectura ------------------------------------------ */
+.avance {
+  position: fixed; inset: 0 auto auto 0;
+  height: 3px; width: 100%; z-index: 80;
+  background: linear-gradient(90deg, var(--azul), var(--amarillo));
+  pointer-events: none;
+  transform: scaleX(0); transform-origin: 0 50%;
+}
+/* Donde el navegador sabe animar con el scroll, lo hace en el compositor y el
+   listener de JavaScript ni se instala. El shorthand `animation` va PRIMERO:
+   si se pone después, pisa a `animation-timeline` y la barra se queda quieta. */
+@supports (animation-timeline: scroll()) {
+  .avance {
+    animation: gm-avanzar;
+    animation-timeline: scroll();
+    animation-duration: auto;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+  }
+}
+
+/* --- Capas de ambiente ---------------------------------------------------- */
+.aura { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+.aura i {
+  position: absolute; display: block; border-radius: 50%;
+  filter: blur(70px); opacity: .5;
+  animation: gm-flota 26s ease-in-out infinite alternate;
+}
+.aura i:nth-child(1) { width: 46vw; height: 46vw; left: -12vw; top: -10vh;
+                       background: rgba(50,73,133,.30); animation-duration: 30s; }
+.aura i:nth-child(2) { width: 38vw; height: 38vw; right: -10vw; top: 32vh;
+                       background: rgba(242,186,36,.20); animation-duration: 38s;
+                       animation-direction: alternate-reverse; }
+.aura i:nth-child(3) { width: 30vw; height: 30vw; left: 24vw; bottom: -12vh;
+                       background: rgba(30,46,85,.22); animation-duration: 34s;
+                       animation-delay: -8s; }
+
+/* Grano: le quita el plano digital al degradado. Sobre fondos claros con
+   `overlay` se nota apenas; es lo que se busca. */
+.grano {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  opacity: .22; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/></filter><rect width='140' height='140' filter='url(%23r)' opacity='.5'/></svg>");
+}
+
+/* --- La marca, enorme y al fondo ----------------------------------------- */
+.fantasma {
+  position: absolute; right: -6vw; top: -7vh;
+  font-family: var(--fuente-titulo); font-weight: 800; font-size: 28vw;
+  line-height: .8; letter-spacing: -.04em;
+  color: transparent; -webkit-text-stroke: 1.5px rgba(242,186,36,.16);
+  white-space: nowrap; user-select: none; pointer-events: none; z-index: 0;
+}
+@media (max-width: 760px) { .fantasma { font-size: 56vw; right: -22vw; top: -2vh; } }
+
+/* --- Halo que persigue al puntero ---------------------------------------- */
+.halo { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  /* Solo con puntero fino: en una pantalla táctil el dedo tapa justo el punto
+     que iluminaría, y el efecto se paga sin verse. */
+  .js .halo {
+    display: block; position: fixed; top: 0; left: 0;
+    width: 560px; height: 560px; margin: -280px 0 0 -280px;
+    border-radius: 50%; z-index: 0; pointer-events: none;
+    background: radial-gradient(closest-side, rgba(242,186,36,.16), transparent 70%);
+    opacity: 0; transition: opacity .6s ease; will-change: transform;
+  }
+  .js .halo.viva { opacity: 1; }
+}
+
+/* --- Aparición al deslizar ------------------------------------------------ */
+.js .rv { opacity: 0; transform: translateY(26px); will-change: opacity, transform; }
+.js .rv.in { opacity: 1; transform: none;
+             transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+
+.js .esc > * { opacity: 0; transform: translateY(18px); }
+.js .esc.in > * { opacity: 1; transform: none;
+                  transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+/* La escalera: cada hijo entra 70 ms después del anterior. Se corta en el
+   octavo para que una grilla larga no termine tardando tres segundos. */
+.js .esc.in > *:nth-child(1) { transition-delay: 0ms; }
+.js .esc.in > *:nth-child(2) { transition-delay: 70ms; }
+.js .esc.in > *:nth-child(3) { transition-delay: 140ms; }
+.js .esc.in > *:nth-child(4) { transition-delay: 210ms; }
+.js .esc.in > *:nth-child(5) { transition-delay: 280ms; }
+.js .esc.in > *:nth-child(6) { transition-delay: 350ms; }
+.js .esc.in > *:nth-child(7) { transition-delay: 420ms; }
+.js .esc.in > *:nth-child(n+8) { transition-delay: 490ms; }
+
+/* El celular no es el escritorio angosto: ahí se desliza mucho más rápido y
+   el mismo ritmo se percibe como lentitud. Se comprimen los tiempos y se
+   acortan los recorridos, solo en táctil. */
+@media (hover: none) {
+  .js .rv { transform: translateY(16px); }
+  .js .esc > * { transform: translateY(12px); }
+  .js .rv.in { transition-duration: .42s, .42s; }
+  .js .esc.in > * { transition-duration: .36s, .36s; }
+  .js .esc.in > *:nth-child(2) { transition-delay: 30ms; }
+  .js .esc.in > *:nth-child(3) { transition-delay: 60ms; }
+  .js .esc.in > *:nth-child(4) { transition-delay: 90ms; }
+  .js .esc.in > *:nth-child(5) { transition-delay: 120ms; }
+  .js .esc.in > *:nth-child(6) { transition-delay: 150ms; }
+  .js .esc.in > *:nth-child(7) { transition-delay: 180ms; }
+  .js .esc.in > *:nth-child(n+8) { transition-delay: 210ms; }
+}
+
+/* --- La sección que estás leyendo se enciende ----------------------------- */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .seccion { position: relative; isolation: isolate; }
+    .seccion::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+      background: radial-gradient(54% 38% at 50% 44%, rgba(242,186,36,.09), transparent 72%);
+      opacity: 0;
+      animation: gm-viva;                 /* el shorthand primero... */
+      animation-timeline: view();         /* ...y el timeline después */
+      animation-duration: auto;
+      animation-timing-function: linear;
+      animation-range: cover 12% cover 88%;
+    }
+    .seccion--navy::before {
+      background: radial-gradient(54% 38% at 50% 44%, rgba(242,186,36,.14), transparent 72%);
+    }
+  }
+}
+
+/* --- Hover: las cosas se iluminan -----------------------------------------
+   TODO va dentro de (hover:hover). En una pantalla táctil el navegador aplica
+   el :hover al tocar y nunca recibe el «el puntero salió»: el efecto se queda
+   pegado después del toque. Y peor: un elemento que se hunde al presionarlo
+   promete una acción. Si no la cumple, la persona deja de creerle al resto de
+   la página. Por eso las tarjetas que no llevan a ningún lado —los caminos,
+   los premios— no reaccionan al dedo. Solo lo hacen los enlaces reales. */
+.servicio { position: relative; overflow: hidden; }
+.servicio::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  border-radius: inherit; opacity: 0;
+  box-shadow: inset 0 0 0 1px rgba(242,186,36,.55);
+  transition: opacity var(--transicion);
+}
+.servicio__icono { transition: background var(--transicion), color var(--transicion); }
+.camino__num { transition: color var(--transicion); }
+.ficha__item svg { transition: transform var(--transicion); }
+
+@media (hover: hover) {
+  .servicio { transition: transform var(--transicion), box-shadow var(--transicion); }
+  .servicio:hover::after { opacity: 1; }
+  .servicio:hover .servicio__icono { background: var(--amarillo); color: var(--navy); }
+  .servicio:hover .enlace-wa { color: var(--navy); border-bottom-color: var(--amarillo); }
+
+  .camino { transition: transform var(--transicion), box-shadow var(--transicion), border-top-color var(--transicion); }
+  .camino:hover { transform: translateY(-4px); box-shadow: var(--sombra-alta); }
+  .camino:hover .camino__num { color: var(--navy); }
+
+  .premio { transition: border-color var(--transicion), background var(--transicion), transform var(--transicion); }
+  .premio:hover { transform: translateY(-3px); }
+
+  .muestra li { transition: border-color var(--transicion), background var(--transicion), transform var(--transicion); }
+  .ficha__item:hover svg { transform: scale(1.15); }
+}
+
+/* En táctil, solo lo accionable responde: se comprime en vez de levantarse,
+   que es la física de algo presionado por un dedo. */
+@media (hover: none) {
+  .boton, .enlace-wa, .wa-flotante, .muestra__mas a {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .boton:active, .wa-flotante:active { transform: scale(.972); }
+  .servicio .enlace-wa:active { opacity: .7; }
+  .muestra li:hover, .premio:hover, .camino:hover { transform: none; }
+}
+
+/* Destello que barre el botón principal. Se apaga al pasar el cursor para no
+   competir con el propio hover. */
+.boton--wa { position: relative; overflow: hidden; }
+.boton--wa::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 45%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: translateX(-140%);
+  animation: gm-destello 5.5s ease-in-out infinite;
+  pointer-events: none;
+}
+.boton--wa:hover::after { animation-play-state: paused; }
+
+/* --- Todo lo anterior se apaga si el sistema pide menos movimiento -------
+   Va al final y con !important a propósito: tiene que ganarle a cualquier
+   regla de arriba, incluidas las de dentro de @supports. Lo que se anima
+   queda visible y quieto, nunca invisible. */
+@media (prefers-reduced-motion: reduce) {
+  .js .rv, .js .rv.in, .js .esc > *, .js .esc.in > * {
+    opacity: 1 !important; transform: none !important;
+    transition: none !important; animation: none !important;
+  }
+  .aura, .grano, .halo, .avance, .fantasma { display: none !important; }
+  .seccion::before { animation: none !important; opacity: 0 !important; }
+  .boton--wa::after { display: none !important; }
+  .aura i { animation: none !important; }
+}
+@media print {
+  .aura, .grano, .halo, .avance, .fantasma { display: none !important; }
+  .js .rv, .js .esc > * { opacity: 1 !important; transform: none !important; }
+}
+
+/* --- Adelanto de puntos en la portada ------------------------------------ */
+.adelanto { display: grid; gap: clamp(2rem, 4vw, 3.4rem); grid-template-columns: 1fr; align-items: center; }
+@media (min-width: 900px) { .adelanto { grid-template-columns: 1.08fr .92fr; } }
+.adelanto__texto .regla-puntos { margin-top: 1.8rem; }
+
+.muestra { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem; }
+.muestra li {
+  display: flex; align-items: baseline; gap: 1rem;
+  padding: .9rem 1.2rem;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.13); border-radius: var(--radio);
+  transition: border-color var(--transicion), background var(--transicion), transform var(--transicion);
+}
+.muestra li:hover { background: rgba(255,255,255,.1); border-color: rgba(242,186,36,.5); transform: translateX(4px); }
+.muestra__p {
+  font-family: var(--fuente-dato); font-weight: 700; font-size: 1.55rem;
+  color: var(--amarillo); min-width: 3.6ch; text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.muestra__n { color: #DCE3F2; font-size: 1rem; }
+.muestra__mas { background: none; border-style: dashed; justify-content: center; }
+.muestra__mas a { color: var(--amarillo); text-decoration: none; font-weight: 600; font-size: .97rem; }
+.muestra__mas:hover { transform: none; }
+
+/* --- Portada de la página de puntos -------------------------------------- */
+.hero--puntos { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+.hero__grid--puntos { grid-template-columns: 1fr; }
+@media (min-width: 980px) { .hero__grid--puntos { grid-template-columns: minmax(0, 46rem); } }
+.hero--puntos .regla-puntos { margin-top: 1.8rem; }
+
+.miga {
+  font-family: var(--fuente-dato); font-size: .9rem; letter-spacing: .1em;
+  text-transform: uppercase; color: #9DA9C4; margin-bottom: 1.6rem;
+}
+.miga a { color: var(--amarillo); text-decoration: none; }
+.miga a:hover { text-decoration: underline; }
+.miga span { margin: 0 .5rem; }
+
+/* La página de puntos abre con secciones claras: el índice de la barra
+   necesita contraste sobre ambas. */
+.hero--puntos .hero__bajada { max-width: 52ch; }
+
+/* La marca de fondo es más alta que su sección a propósito; sin recortarla se
+   derrama sobre la sección de arriba y se lee como un error de maquetación. */
+.seccion--marca { overflow: hidden; isolation: isolate; }
+.seccion--marca > .contenedor { position: relative; z-index: 1; }
+
+/* En el hero la marca asoma por arriba; dentro de una sección tiene que caer
+   en el cuerpo, o el recorte se la come entera y el efecto se paga sin verse. */
+.seccion--marca > .fantasma {
+  top: auto; bottom: -12%; right: -10vw;
+  font-size: 22vw;
+  -webkit-text-stroke-color: rgba(242,186,36,.20);
+}
+@media (max-width: 760px) {
+  .seccion--marca > .fantasma { font-size: 44vw; right: -20vw; bottom: -6%; }
+}

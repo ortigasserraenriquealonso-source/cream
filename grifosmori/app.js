@@ -5,6 +5,10 @@
 
 const WA = "https://wa.me/51978720291";
 
+/* Este archivo lo comparten la portada y /puntos/. Como esa vive una carpeta
+   más abajo, las rutas de los .json salen de <html data-base="../">. */
+const BASE = document.documentElement.dataset.base || "";
+
 /* --- Menú en celular ------------------------------------------------------ */
 (() => {
   const boton = document.querySelector(".menu-btn");
@@ -143,10 +147,12 @@ function enriquecerJsonLd(datos) {
   }
 }
 
-fetch("precios.json", { cache: "no-cache" })
+if (document.getElementById("lista-precios")) {
+fetch(BASE + "precios.json", { cache: "no-cache" })
   .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
   .then(pintarPrecios)
   .catch(mostrarCaido);
+}
 
 /* --- Puntos y premios ----------------------------------------------------- */
 let CATALOGOS = [];
@@ -210,7 +216,8 @@ function pintarPremios() {
   }
 }
 
-fetch("premios.json")
+if (document.getElementById("panel-premios")) {
+fetch(BASE + "premios.json")
   .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
   .then((datos) => {
     // `confirmado: false` significa que esos puntajes todavía no los validó el
@@ -248,6 +255,7 @@ fetch("premios.json")
             target="_blank" rel="noopener" style="color:var(--amarillo)">Pídelo por WhatsApp</a>.</p>`;
     }
   });
+}
 
 const TABS = [...document.querySelectorAll(".tab")];
 
@@ -286,7 +294,8 @@ document.getElementById("galones")?.addEventListener("input", pintarPremios);
    iframes y sin re-hospedar nada. El embed oficial de Instagram cuesta unos
    480 KB comprimidos para cuatro publicaciones; esto cuesta las portadas.
 --------------------------------------------------------------------------- */
-fetch("reels.json")
+if (document.getElementById("reels")) {
+fetch(BASE + "reels.json")
   .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
   .then((datos) => {
     const cont = document.getElementById("reels");
@@ -354,6 +363,7 @@ fetch("reels.json")
          target="_blank" rel="noopener" style="color:var(--amarillo)">@grifosmori</a>.</p>`;
     }
   });
+}
 
 /* --- Botón flotante de WhatsApp -------------------------------------------
    Solo aparece cuando el hero ya quedó atrás. Mientras el hero se ve, el CTA
@@ -369,4 +379,106 @@ fetch("reels.json")
     ([e]) => { boton.dataset.oculto = e.isIntersecting ? "si" : "no"; },
     { rootMargin: "-40% 0px 0px 0px" }
   ).observe(hero);
+})();
+
+/* =============================================================================
+   MOVIMIENTO
+
+   Nada de esto es necesario para leer la página. Si este bloque no corre, el
+   <html> nunca recibe la clase `js`, las reglas de aparición no aplican y la
+   web se ve entera y quieta. Ese es el comportamiento correcto, no una
+   versión degradada.
+   ========================================================================== */
+(() => {
+  const raiz = document.documentElement;
+  const quieto = window.matchMedia &&
+                 window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Navegador viejo o sistema pidiendo menos movimiento: no se instala nada.
+  if (!("IntersectionObserver" in window) || quieto) return;
+  raiz.classList.add("js");
+
+  /* --- Aparición al deslizar --------------------------------------------- */
+  const animables = document.querySelectorAll(".rv, .esc");
+
+  // Red de seguridad: si algo falla, a los 2,5 s se muestra todo igual. Nunca
+  // se puede quedar contenido invisible por culpa de una animación.
+  const salvavidas = setTimeout(() => {
+    animables.forEach((el) => el.classList.add("in"));
+  }, 2500);
+
+  const vigia = new IntersectionObserver((entradas) => {
+    for (const e of entradas) {
+      if (!e.isIntersecting) continue;
+      e.target.classList.add("in");
+      vigia.unobserve(e.target);     // una vez visible, se deja en paz
+    }
+    if (![...animables].some((el) => !el.classList.contains("in"))) {
+      clearTimeout(salvavidas);
+      vigia.disconnect();
+    }
+  }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
+
+  animables.forEach((el) => vigia.observe(el));
+
+  // La portada entra sola: ya está en pantalla y no tiene sentido que espere
+  // a que alguien deslice. Sin esto, el panel de precios —lo que la gente vino
+  // a ver— depende de que el observador responda.
+  setTimeout(() => {
+    document.querySelectorAll(".hero .rv, .hero .esc, .cabecera .rv")
+            .forEach((el) => el.classList.add("in"));
+  }, 90);
+
+  /* --- Halo que persigue al puntero -------------------------------------- */
+  const halo = document.querySelector(".halo");
+  if (halo && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    let mx = innerWidth / 2, my = innerHeight / 2, hx = mx, hy = my, vivo = false;
+    addEventListener("mousemove", (ev) => {
+      mx = ev.clientX; my = ev.clientY;
+      if (!vivo) { vivo = true; halo.classList.add("viva"); }
+    }, { passive: true });
+    (function seguir() {
+      // Interpolación suave: el halo llega tarde a propósito, esa demora es
+      // la que hace que se sienta un objeto y no un cursor pintado.
+      hx += (mx - hx) * 0.085;
+      hy += (my - hy) * 0.085;
+      halo.style.transform = `translate3d(${hx}px, ${hy}px, 0)`;
+      requestAnimationFrame(seguir);
+    })();
+  }
+
+  /* --- La marca de fondo se mueve más lento que la página ---------------- */
+  const fantasmas = document.querySelectorAll(".fantasma");
+  if (fantasmas.length) {
+    let pedido = false;
+    addEventListener("scroll", () => {
+      if (pedido) return;
+      pedido = true;
+      requestAnimationFrame(() => {
+        const y = scrollY * 0.18;
+        fantasmas.forEach((f) => { f.style.transform = `translate3d(0, ${y}px, 0)`; });
+        pedido = false;
+      });
+    }, { passive: true });
+  }
+
+  /* --- Barra de avance, solo donde el navegador no sabe hacerlo solo ------ */
+  if (!(window.CSS && CSS.supports && CSS.supports("animation-timeline: scroll()"))) {
+    const barra = document.querySelector(".avance");
+    if (barra) {
+      let alto = 0, pedido = false;
+      const medir = () => { alto = document.body.scrollHeight - innerHeight; };
+      const pintar = () => {
+        // scaleX en vez de width: no toca ni el layout ni la pintura.
+        barra.style.transform = `scaleX(${alto > 0 ? scrollY / alto : 0})`;
+        pedido = false;
+      };
+      medir();
+      addEventListener("resize", medir, { passive: true });
+      addEventListener("scroll", () => {
+        if (!pedido) { pedido = true; requestAnimationFrame(pintar); }
+      }, { passive: true });
+      pintar();
+    }
+  }
 })();

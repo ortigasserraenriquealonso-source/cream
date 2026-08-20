@@ -27,6 +27,13 @@
 </head>
 <body>
 
+<!-- Capas de ambiente. Ninguna lleva contenido: si el navegador o el sistema
+     piden menos movimiento, se ocultan enteras y no falta nada. -->
+<div class="avance" aria-hidden="true"></div>
+<div class="aura" aria-hidden="true"><i></i><i></i><i></i></div>
+<div class="grano" aria-hidden="true"></div>
+<div class="halo" aria-hidden="true"></div>
+
 <a class="solo-lectores" href="#contenido">Saltar al contenido</a>
 
 <!-- ====================== CABECERA ====================== -->
@@ -45,7 +52,7 @@
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="#precios">Precios</a>
       <a href="#servicios">Servicios</a>
-      <a href="#puntos">Puntos y premios</a>
+      <a href="puntos/">Puntos y premios</a>
       <a href="#flotas">Alto consumo</a>
       <a href="#ubicacion">Ubicación</a>
     </nav>
@@ -61,6 +68,7 @@
 
 <!-- ====================== HERO + PRECIOS ====================== -->
 <section class="hero" id="inicio">
+  <span class="fantasma" aria-hidden="true">MORI</span>
   <div class="contenedor">
     <div class="hero__grid">
 
@@ -82,7 +90,7 @@
 
       <!-- Panel de precios. El JS lo llena desde precios.json; si el archivo
            está viejo o no carga, se muestra el bloque de respaldo. -->
-      <div class="precios" id="precios">
+      <div class="precios rv" id="precios">
         <div class="precios__cab">
           <h2>Precio del día por galón</h2>
           <p class="frescura" id="frescura" hidden></p>
@@ -128,14 +136,14 @@
 <!-- ====================== LOS TRES CAMINOS ====================== -->
 <section class="seccion" aria-labelledby="t-beneficios">
   <div class="contenedor">
-    <p class="rotulo">Siempre ganas algo</p>
+    <p class="rotulo rv">Siempre ganas algo</p>
     <h2 id="t-beneficios">O acumulas puntos, o tienes descuento, o te llevas una oferta inmediata</h2>
     <p class="bajada">
       Difícilmente cargas y ya. Cuando abasteces en Grifos Mori sales con algo más de lo que
       viniste a buscar. Tú eliges por cuál de los tres caminos.
     </p>
 
-    <div class="caminos">
+    <div class="caminos esc">
       <article class="camino">
         <span class="camino__num">01</span>
         <h3>Acumulas puntos</h3>
@@ -158,14 +166,14 @@
 <!-- ====================== SERVICIOS ====================== -->
 <section class="seccion seccion--hueso" id="servicios" aria-labelledby="t-servicios">
   <div class="contenedor">
-    <p class="rotulo">Qué hacemos</p>
+    <p class="rotulo rv">Qué hacemos</p>
     <h2 id="t-servicios">Nuestros servicios</h2>
     <p class="bajada">
       Somos una estación de carretera con perfil de transporte pesado. La mitad de nuestros tanques
       es diésel, y eso define cómo trabajamos.
     </p>
 
-    <div class="servicios">
+    <div class="servicios esc">
 
       <article class="servicio">
         <div class="servicio__icono">
@@ -242,47 +250,35 @@
   </div>
 </section>
 
-<!-- ====================== PUNTOS Y PREMIOS ====================== -->
-<section class="seccion seccion--navy" id="puntos" aria-labelledby="t-puntos">
+<!-- ====================== PUNTOS (adelanto) ====================== -->
+<section class="seccion seccion--navy seccion--marca" id="puntos" aria-labelledby="t-puntos">
+  <span class="fantasma" aria-hidden="true">PUNTOS</span>
   <div class="contenedor">
-    <p class="rotulo">Programa de puntos</p>
-    <h2 id="t-puntos">Cargas, acumulas y te llevas</h2>
-    <p class="bajada">
-      Los puntos de gasolina y los de petróleo son distintos y tienen su propio catálogo. También
-      puedes cambiarlos por vales de consumo y seguir cargando con nosotros.
-    </p>
-
-    <p class="regla-puntos">
-      <span aria-hidden="true">⛽</span> 1 galón = 1 punto
-    </p>
-
-    <!-- Simulador: convierte los puntos, que son abstractos, en una fecha. -->
-    <div class="simulador">
-      <div class="simulador__campo">
-        <label for="galones">¿Cuántos galones cargas al mes?</label>
-        <input type="number" id="galones" min="1" max="20000" step="1" value="200" inputmode="numeric">
-        <span class="simulador__unidad">galones al mes</span>
+    <div class="adelanto">
+      <div class="adelanto__texto rv">
+        <p class="rotulo">Programa de puntos</p>
+        <h2 id="t-puntos">Cargas, acumulas y te llevas</h2>
+        <p class="bajada">
+          Un galón es un punto. Los juntas y los cambias por premios del catálogo o por vales de
+          consumo para seguir cargando acá. Los puntos de gasolina y los de petróleo son
+          distintos y tienen su propio catálogo.
+        </p>
+        <p class="regla-puntos"><span aria-hidden="true">⛽</span> 1 galón = 1 punto</p>
+        <p style="margin-top:2rem">
+          <a class="boton boton--wa" href="puntos/">
+            Ver los premios y calcular los míos
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+          </a>
+        </p>
       </div>
-      <p class="simulador__salida" id="salida-simulador" role="status"></p>
-      <noscript><style>.simulador { display: none; }</style></noscript>
-    </div>
 
-    <div class="tabs" role="tablist" aria-label="Catálogos de premios">
-      <button class="tab" role="tab" id="tab-petroleo" aria-controls="panel-premios" aria-selected="true" data-catalogo="petroleo">Petróleo</button>
-      <button class="tab" role="tab" id="tab-gasolina" aria-controls="panel-premios" aria-selected="false" data-catalogo="gasolina">Gasolina</button>
-    </div>
-
-    <p class="bajada" id="vigencia-premios" style="font-size:.92rem;margin-top:1.4rem">
-      Catálogo vigente al mes en curso, sujeto a las unidades disponibles en la estación.
-      Los premios y sus puntajes pueden cambiar; el catálogo del día es el que exhibimos en pista.
-      Consulta por tu saldo de puntos y por el stock antes de canjear.
-    </p>
-
-    <div class="premios" id="panel-premios" role="tabpanel" aria-labelledby="tab-petroleo">
-      <noscript><p class="reels__vacio">Para ver el catálogo completo de premios necesitas
-        JavaScript. También te lo pasamos por
-        <a href="https://wa.me/51978720291?text=Hola%20Grifos%20Mori%2C%20quiero%20ver%20el%20cat%C3%A1logo%20de%20premios.%20%5Bweb-premios%5D"
-           target="_blank" rel="noopener" style="color:var(--amarillo)">WhatsApp</a>.</p></noscript>
+      <ul class="muestra esc" aria-label="Algunos premios del catálogo">
+        <li><span class="muestra__p">150</span><span class="muestra__n">Linterna</span></li>
+        <li><span class="muestra__p">500</span><span class="muestra__n">Cafetera</span></li>
+        <li><span class="muestra__p">1,300</span><span class="muestra__n">Ventilador</span></li>
+        <li><span class="muestra__p">2,000</span><span class="muestra__n">Olla arrocera</span></li>
+        <li class="muestra__mas"><a href="puntos/">y 18 premios más →</a></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -290,9 +286,9 @@
 <!-- ====================== ALTO CONSUMO / FLOTAS ====================== -->
 <section class="seccion" id="flotas" aria-labelledby="t-flotas">
   <div class="contenedor">
-    <div class="flota">
+    <div class="flota rv">
       <div>
-        <p class="rotulo">Empresas y flotas</p>
+        <p class="rotulo rv">Empresas y flotas</p>
         <h2 id="t-flotas">Tu precio depende de tu consumo, no de la pizarra</h2>
         <p>
           No importa si mueves tres unidades o treinta. Si el combustible es un costo grande en tu
@@ -319,10 +315,10 @@
       </div>
 
       <div class="tarjeta-contacto">
-        <p class="tarjeta-contacto__rol">Tu contacto directo</p>
-        <p class="tarjeta-contacto__nombre">Cinthya Mori</p>
+        <p class="tarjeta-contacto__rol">Línea directa de cotizaciones</p>
+        <p class="tarjeta-contacto__nombre">Hablemos de tu consumo</p>
         <a class="tarjeta-contacto__tel" href="tel:+51978720291">978 720 291</a>
-        <a class="boton boton--wa" style="width:100%" href="https://wa.me/51978720291?text=Hola%20Cinthya%2C%20quiero%20una%20cotizaci%C3%B3n%20por%20alto%20consumo.%20Empresa%3A%20___%20%C2%B7%20RUC%3A%20___%20%C2%B7%20Unidades%3A%20___%20%C2%B7%20Producto%3A%20___%20%C2%B7%20Consumo%20aprox.%20al%20mes%3A%20___%20galones.%20%5Bweb-flotas%5D" target="_blank" rel="noopener">
+        <a class="boton boton--wa" style="width:100%" href="https://wa.me/51978720291?text=Hola%20Grifos%20Mori%2C%20quiero%20una%20cotizaci%C3%B3n%20por%20alto%20consumo.%20Empresa%3A%20___%20%C2%B7%20RUC%3A%20___%20%C2%B7%20Unidades%3A%20___%20%C2%B7%20Producto%3A%20___%20%C2%B7%20Consumo%20aprox.%20al%20mes%3A%20___%20galones.%20%5Bweb-flotas%5D" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor" fill-rule="evenodd" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12 2a10 10 0 0 0-8.6 15.1L2 22l5.05-1.32A10 10 0 1 0 12 2"/></svg>
           Pedir mi cotización
         </a>
@@ -334,14 +330,14 @@
 <!-- ====================== INSTAGRAM ====================== -->
 <section class="seccion seccion--navy" id="comunidad" aria-labelledby="t-comunidad">
   <div class="contenedor">
-    <p class="rotulo">Nuestra comunidad</p>
+    <p class="rotulo rv">Nuestra comunidad</p>
     <h2 id="t-comunidad">Lo que pasa en la estación</h2>
     <p class="bajada">
       Promos, premios y lo que grabamos en pista. Todo lo subimos a
       <a href="https://www.instagram.com/grifosmori/" target="_blank" rel="noopener" style="color:var(--amarillo)">@grifosmori</a>.
     </p>
 
-    <div class="reels" id="reels">
+    <div class="reels esc" id="reels">
       <noscript><p class="reels__vacio">Míranos en
         <a href="https://www.instagram.com/grifosmori/" target="_blank" rel="noopener"
            style="color:var(--amarillo)">@grifosmori</a>.</p></noscript>
@@ -356,10 +352,10 @@
 <!-- ====================== UBICACIÓN ====================== -->
 <section class="seccion seccion--hueso" id="ubicacion" aria-labelledby="t-ubicacion">
   <div class="contenedor">
-    <p class="rotulo">Dónde estamos</p>
+    <p class="rotulo rv">Dónde estamos</p>
     <h2 id="t-ubicacion">Panamericana Norte Km 783, óvalo Bayóvar</h2>
 
-    <div class="ubicacion">
+    <div class="ubicacion esc">
       <div class="ficha">
         <div class="ficha__item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -379,7 +375,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.6a2 2 0 0 1-.5 2.1L8.1 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.6 2.6.7a2 2 0 0 1 1.7 2Z"/></svg>
           <div>
             <h3>Cotizaciones</h3>
-            <p>Cinthya Mori — <a href="tel:+51978720291" style="color:var(--azul);font-weight:600">978 720 291</a></p>
+            <p><a href="tel:+51978720291" style="color:var(--azul);font-weight:600">978 720 291</a></p>
           </div>
         </div>
         <div class="ficha__item">
@@ -409,7 +405,7 @@
 <!-- ====================== PIE ====================== -->
 <footer class="pie">
   <div class="contenedor">
-    <div class="pie__grid">
+    <div class="pie__grid esc">
       <div>
         <img src="assets/logo-oscuro.svg" alt="Grifos Mori" width="190" height="44">
         <p>Orgullosamente lambayecanos. Combustible y servicio con calidez humana desde 1993, en la Panamericana Norte.</p>
@@ -419,7 +415,7 @@
         <ul>
           <li><a href="#precios">Precio del día</a></li>
           <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#puntos">Puntos y premios</a></li>
+          <li><a href="puntos/">Puntos y premios</a></li>
           <li><a href="#flotas">Alto consumo</a></li>
           <li><a href="#ubicacion">Cómo llegar</a></li>
         </ul>
