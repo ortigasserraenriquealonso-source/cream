@@ -28,6 +28,62 @@ const BASE = document.documentElement.dataset.base || "";
   });
 })();
 
+/* --- Llegar bien cuando la página se abre con un ancla ---------------------
+   El navegador salta al ancla apenas tiene el HTML, pero para entonces faltan
+   tres cosas que mueven el suelo: el contenido que pinta el JS, las tipografías
+   —al pasar de la de respaldo a la definitiva cambia la altura de cada bloque
+   de texto— y las portadas de los videos. El resultado es que se ve media
+   sección; y en un celular ni recargando se acomoda, porque todo eso tarda más.
+
+   En vez de adivinar cuántos milisegundos esperar, se vigila la altura del
+   documento y se recoloca cada vez que cambia, hasta que se estabiliza. Y a la
+   primera señal de que la persona quiere moverse ella misma, se deja de
+   insistir: corregir la posición está bien, pelear con el usuario no.
+--------------------------------------------------------------------------- */
+(() => {
+  if (!location.hash) return;
+  const id = decodeURIComponent(location.hash.slice(1));
+  if (!document.getElementById(id)) return;
+
+  // El salto inicial del navegador usa `scroll-behavior: smooth`, así que sigue
+  // animándose mientras nosotros corregimos, y termina pisando la corrección.
+  // Se apaga mientras dura el ajuste y se devuelve al soltar.
+  const raiz = document.documentElement;
+  raiz.style.scrollBehavior = "auto";
+
+  let activo = true;
+  const rendirse = () => {
+    if (!activo) return;
+    activo = false;
+    raiz.style.scrollBehavior = "";
+  };
+  for (const ev of ["wheel", "touchstart", "keydown", "mousedown"]) {
+    addEventListener(ev, rendirse, { passive: true, once: true });
+  }
+  setTimeout(rendirse, 4000);   // techo duro: nunca más allá de esto
+
+  const recolocar = () => {
+    if (!activo) return;
+    // 'auto' y no 'smooth': acá se corrige una posición, no se hace un viaje.
+    document.getElementById(id).scrollIntoView({ behavior: "auto", block: "start" });
+  };
+
+  addEventListener("load", recolocar, { once: true });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => requestAnimationFrame(recolocar));
+  }
+  if ("ResizeObserver" in window) {
+    let alto = document.body.scrollHeight;
+    const vigia = new ResizeObserver(() => {
+      if (!activo) { vigia.disconnect(); return; }
+      if (document.body.scrollHeight === alto) return;
+      alto = document.body.scrollHeight;
+      requestAnimationFrame(recolocar);
+    });
+    vigia.observe(document.body);
+  }
+})();
+
 /* --- Año del pie ---------------------------------------------------------- */
 (() => {
   const el = document.getElementById("anio");

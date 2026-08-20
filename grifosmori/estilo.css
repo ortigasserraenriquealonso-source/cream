@@ -39,7 +39,12 @@
    navegador. Sin esto, la etiqueta "Nuestro fuerte" sale en los tres precios. */
 [hidden] { display: none !important; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* La cabecera es fija y mide 74 px: sin esto, todo salto a un ancla deja el
+     inicio de la sección debajo de la barra. */
+  scroll-padding-top: 92px;
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
