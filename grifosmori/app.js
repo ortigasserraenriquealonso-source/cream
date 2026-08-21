@@ -184,7 +184,7 @@ function enriquecerJsonLd(datos) {
       itemListElement: datos.combustibles.map((c) => ({
         "@type": "Offer",
         name: c.producto,
-        url: "https://grifosmori.com/#precios",
+        url: "https://cream.pe/grifosmori/#precios",
         price: c.precio.toFixed(2),
         priceCurrency: "PEN",
         availability: "https://schema.org/InStock",
