@@ -1,0 +1,400 @@
+/* Cream Digital · página de prueba (estudio de maqueta) — base: tokens, superficies del navegador y componentes.
+   Paleta y escala: referencia/ (Refero) + lo medido en el sitio vivo el 11/09/2026. */
+
+:root {
+  --violeta: #8584bd;
+  --violeta-osc: #61609a;
+  --amarillo: #f4ed36;
+  --mantequilla: #f9cc73;
+  --rosa: #f8c1ba;
+  --verde: #b5c995;
+  --magenta: #ac4f98;
+  --rojo: #c94245;
+  --azul: #a7b5cc;
+  --hueso: #f9f5f2;
+  --tinta: #1a1a1a;
+  --bosque: #375027;
+  --pliegue: #e4d9cc;
+
+  --f-display: "Anybody", "Arial Narrow", system-ui, sans-serif;
+  --f-ui: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  --borde: 3px;
+  --radio: 6px;
+  --radio-pastilla: 100px;
+  --pad-tarjeta: 17px;
+  --sep: 40px;
+
+  --curva-salida: cubic-bezier(.16, 1, .3, 1);
+  --curva-rodar: cubic-bezier(.65, 0, .2, 1);
+  --curva-telon: cubic-bezier(.76, 0, .24, 1);
+
+  --fondo: var(--violeta);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  background-color: var(--fondo);
+  transition: background-color .7s ease;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scrollbar-color: var(--tinta) var(--hueso);
+  scroll-padding-top: 80px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--f-ui);
+  color: var(--tinta);
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  caret-color: var(--magenta);
+}
+
+::selection { background: var(--tinta); color: var(--amarillo); }
+
+img, svg { display: block; max-width: 100%; }
+
+/* Un display propio (flex, grid) le gana a [hidden] del navegador: se blinda la clase entera. */
+[hidden] { display: none !important; }
+
+a { color: inherit; text-underline-offset: .28em; text-decoration-thickness: 2px; }
+
+button { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--tinta);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 7px var(--hueso);
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Tipografía de cartel: Anybody hace de ObviouslyVariable (ancho variable 50–150). */
+.display {
+  font-family: var(--f-display);
+  font-weight: 900;
+  line-height: .85;
+  letter-spacing: .01em;
+  font-feature-settings: "calt" 0;
+  text-wrap: balance;
+}
+
+.mono {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+/* ── Botón apilado: cara con borde de 3 px, desplazada −3/−3 sobre una base tinta ── */
+.boton {
+  --cara: var(--hueso);
+  --texto: var(--tinta);
+  position: relative;
+  display: inline-flex;
+  isolation: isolate;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--texto);
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.boton::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--tinta);
+  border-radius: var(--radio);
+}
+.boton__cara {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 25px 10px;
+  background: var(--cara);
+  border: var(--borde) solid var(--tinta);
+  border-radius: var(--radio);
+  transform: translate(-3px, -3px);
+  transition: transform .22s var(--curva-salida);
+  font-family: var(--f-ui);
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.boton:hover .boton__cara { transform: translate(-5px, -5px); }
+.boton:active .boton__cara { transform: translate(0, 0); transition-duration: .06s; }
+.boton--display .boton__cara {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 18px;
+  font-stretch: 112%;
+  letter-spacing: .03em;
+}
+.boton--pastilla::before,
+.boton--pastilla .boton__cara { border-radius: var(--radio-pastilla); }
+.boton--chico .boton__cara {
+  min-height: 34px;
+  padding: 8px 16px 7px;
+  font-size: 12px;
+}
+
+/* Enlace mono subrayado (declinar, legales). */
+.enlace-mono {
+  padding: 4px 0;
+  border: 0;
+  background: none;
+  font-family: var(--f-mono);
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: .32em;
+  text-decoration-thickness: 2px;
+  cursor: pointer;
+}
+
+/* ── Rótulo que rueda palabra por palabra (lo arma app.js; sin JS queda el texto tal cual) ── */
+.rodar { display: inline-flex; flex-wrap: wrap; justify-content: center; column-gap: .3em; }
+.rodar__p {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  padding-block: .14em;
+  margin-block: -.14em;
+}
+.rodar__a, .rodar__b {
+  display: block;
+  transition: transform .42s var(--curva-rodar);
+  transition-delay: calc(var(--i, 0) * 35ms);
+}
+.rodar__b {
+  position: absolute;
+  inset: .14em 0 auto 0;
+  transform: translateY(230%) rotate(var(--r, 10deg));
+  transform-origin: 50% 0;
+}
+:is(a, button):is(:hover, :focus-visible) .rodar__a { transform: translateY(-140%); }
+:is(a, button):is(:hover, :focus-visible) .rodar__b { transform: none; }
+
+/* ── Cabecera: caja crema fija, centrada ── */
+.cabecera {
+  position: fixed;
+  inset: 15px 0 auto;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.cabecera__caja {
+  position: relative;
+  width: min(345px, calc(100% - 30px));
+  height: 40px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 15px;
+  background: var(--hueso);
+  border: var(--borde) solid var(--tinta);
+  pointer-events: auto;
+}
+.cabecera__boton {
+  justify-self: start;
+  min-height: 34px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--f-mono);
+  font-size: 14px;
+  line-height: 1;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.cabecera__boton--cesta { justify-self: end; }
+.marca {
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 17px;
+  font-stretch: 112%;
+  line-height: 1;
+  letter-spacing: .01em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+/* Palomo se descuelga cabeza abajo desde detrás de la caja. */
+.cabecera__asoma {
+  position: absolute;
+  top: calc(100% + var(--borde));
+  left: 50%;
+  width: 92px;
+  height: 64px;
+  margin-left: -46px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.cabecera__asoma svg {
+  width: 92px;
+  transform: translateY(-104%) rotate(180deg);
+  transition: transform .5s var(--curva-salida);
+}
+.cabecera__caja:is(:hover, :focus-within) .cabecera__asoma svg { transform: translateY(-8%) rotate(180deg); }
+
+/* ── Aviso de edad ── */
+.aviso {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(28px, 4vh, 48px);
+  padding: 96px 16px 40px;
+  overflow: hidden;
+  background: var(--violeta-osc);
+  color: var(--mantequilla);
+  text-align: center;
+}
+.js.aviso-abierto .aviso { display: flex; }
+.aviso.saliendo { transform: translateY(-100%); transition: transform .85s var(--curva-telon); }
+.aviso__marca {
+  position: absolute;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--f-display);
+  font-weight: 900;
+  font-size: 20px;
+  font-stretch: 112%;
+}
+.aviso__titulo {
+  margin: 0;
+  font-size: clamp(60px, 12.9vw, 232px);
+  font-stretch: 62%;
+  text-transform: uppercase;
+  line-height: .8;
+}
+.aviso__linea { display: block; position: relative; }
+.aviso__personaje {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - .06em);
+  width: 1.22em;
+  margin-left: -.61em;
+}
+.aviso__acciones { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.aviso__acciones .enlace-mono { color: var(--hueso); }
+.aviso__nota { margin: 0; font-family: var(--f-ui); font-size: 18px; font-weight: 600; color: var(--hueso); }
+@media (max-width: 599px) { .aviso__titulo { font-size: 19.5vw; } }
+@media (min-width: 600px) { .aviso__titulo { font-stretch: 84%; } }
+@media (min-width: 1024px) { .aviso__titulo { font-stretch: 96%; } }
+
+/* ── Menú a pantalla completa ── */
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 96px clamp(20px, 5vw, 80px) 32px;
+  background: var(--mantequilla);
+  color: var(--tinta);
+  clip-path: inset(0 0 100% 0);
+  visibility: hidden;
+  transition: clip-path .6s var(--curva-telon), visibility 0s linear .6s;
+}
+.menu.abierto { clip-path: inset(0); visibility: visible; transition: clip-path .6s var(--curva-telon); }
+.menu__cerrar { position: absolute; top: 18px; right: clamp(16px, 3vw, 40px); }
+.menu__lista {
+  align-self: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: clamp(44px, 7.2vw, 112px);
+  font-stretch: 118%;
+  text-transform: uppercase;
+}
+.menu__lista a { display: inline-block; text-decoration: none; }
+.menu__lista a:hover { color: var(--magenta); }
+.menu__pie { display: flex; flex-wrap: wrap; gap: 12px 28px; text-transform: none; }
+
+/* ── Cesta: panel lateral ── */
+.cesta { position: fixed; inset: 0; z-index: 55; visibility: hidden; transition: visibility 0s linear .5s; }
+.cesta.abierta { visibility: visible; transition: none; }
+.cesta__velo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: rgb(26 26 26 / .45);
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity .4s ease;
+}
+.cesta.abierta .cesta__velo { opacity: 1; }
+.cesta__panel {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: min(440px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 28px 28px 32px;
+  background: var(--hueso);
+  border-left: var(--borde) solid var(--tinta);
+  transform: translateX(100%);
+  transition: transform .5s var(--curva-telon);
+}
+.cesta.abierta .cesta__panel { transform: none; }
+.cesta__cabeza { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.cesta__titulo { margin: 0; font-size: 44px; font-stretch: 115%; text-transform: uppercase; }
+.cesta__vacia {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+}
+.cesta__vacia svg { width: 170px; }
+.cesta__vacia p { margin: 0; max-width: 24ch; font-size: 19px; font-weight: 600; line-height: 1.35; }
+
+/* ── Secciones: cada una trae su pareja de colores; con JS el fondo lo pinta <html> y vira con el scroll ── */
+.seccion {
+  position: relative;
+  background: var(--seccion-fondo);
+  color: var(--seccion-tinta);
+}
+.coreo .seccion { background: transparent; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { transition: none; }
+  .rodar__b { display: none; }
+  :is(a, button):is(:hover, :focus-visible) .rodar__a { transform: none; }
+  .aviso.saliendo, .menu, .menu.abierto, .cesta__panel, .cesta__velo, .cabecera__asoma svg { transition: none; }
+}

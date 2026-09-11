@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="es" class="sin-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cream Digital · página de prueba</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Página de prueba de Cream Digital: maqueta de estudio con personaje, arte y textos propios.">
+<meta name="theme-color" content="#8584bd">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='3' y='3' width='58' height='58' rx='10' fill='%23f4ed36' stroke='%231a1a1a' stroke-width='5'/%3E%3Cpath d='M12 24h17v7q0 9-8.5 9T12 31zM35 24h17v7q0 9-8.5 9T35 31z' fill='%231a1a1a'/%3E%3Cpath d='M29 27q3-3 6 0' fill='none' stroke='%231a1a1a' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@50..150,100..900&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;600&display=swap">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" href="assets/secciones.css">
+<link rel="stylesheet" href="assets/arte.css">
+<script>
+  // Antes de pintar: clases de estado. Si app.js no llega en 4 s, la página cae a su versión estática.
+  (function () {
+    var d = document.documentElement;
+    d.classList.remove('sin-js');
+    d.classList.add('js');
+    var quieto = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var paso = false;
+    try { paso = sessionStorage.getItem('fp-edad') === 'ok'; } catch (e) {}
+    if (!paso) d.classList.add('aviso-abierto');
+    if (!quieto) d.classList.add('coreo', 'intro-preparada');
+    window.addEventListener('DOMContentLoaded', function () {
+      setTimeout(function () {
+        if (!window.__fpListo) d.classList.remove('aviso-abierto', 'coreo', 'intro-preparada');
+      }, 4000);
+    });
+  })();
+</script>
+<script src="assets/app.js" defer></script>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<svg class="sprite" aria-hidden="true" focusable="false">
+<defs>
+  <!-- Palomo: paloma urbana con gorra al revés, lentes de sol, audífono y hoodie rojo. Piezas con origen al centro. -->
+  <clipPath id="pal-clip-lentes">
+    <path d="M-34 -10 H8 V0 Q8 15 -13 15 Q-34 15 -34 0 Z"/>
+    <path d="M16 -10 H58 V0 Q58 15 37 15 Q16 15 16 0 Z"/>
+  </clipPath>
+  <g id="pal-cabeza" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <circle r="52" fill="#61609a"/>
+    <path d="M48 -6 L86 8 L48 20 Z" fill="#1a1a1a"/>
+    <ellipse cx="48" cy="-1" rx="8" ry="5.5" fill="#f9f5f2" stroke-width="3"/>
+    <g stroke="none">
+      <circle cx="-13" cy="1" r="7" fill="#f9f5f2"/><circle cx="-11" cy="2" r="3.6" fill="#1a1a1a"/>
+      <circle cx="37" cy="1" r="7" fill="#f9f5f2"/><circle cx="39" cy="2" r="3.6" fill="#1a1a1a"/>
+    </g>
+    <g class="f-cejas" fill="none" stroke-width="4"><path d="M-24 -14 Q-13 -21 -3 -15"/><path d="M27 -15 Q37 -21 47 -14"/></g>
+    <g transform="rotate(-10 -4 -38)">
+      <path d="M-50 -30 Q-46 -76 -2 -78 Q42 -76 46 -30 Z" fill="#f9f5f2"/>
+      <path d="M-46 -34 Q-86 -42 -102 -26 Q-84 -12 -42 -22 Z" fill="#f9f5f2"/>
+      <path d="M-2 -76 V-32" fill="none" stroke-width="3.5"/>
+      <circle cx="-2" cy="-78" r="6" fill="#f9f5f2"/>
+    </g>
+    <g class="f-gafas">
+      <path d="M-34 -6 L-50 -10" fill="none"/>
+      <path d="M-34 -10 H8 V0 Q8 15 -13 15 Q-34 15 -34 0 Z" fill="#1a1a1a"/>
+      <path d="M16 -10 H58 V0 Q58 15 37 15 Q16 15 16 0 Z" fill="#1a1a1a"/>
+      <path d="M8 -6 Q12 -10 16 -6" fill="none" stroke-width="4"/>
+      <g clip-path="url(#pal-clip-lentes)" stroke="none"><g transform="rotate(24)"><rect class="f-brillo" x="-40" y="-70" width="9" height="90" fill="#f4ed36"/></g></g>
+      <path d="M-25 7 L-19 -2 M25 7 L31 -2" stroke="#f9f5f2" stroke-width="3"/>
+    </g>
+    <g transform="translate(-44 14) scale(-.8 .8)"><path d="M0 -10 Q-10 -10 -10 0 Q-10 10 0 10 L4 34 Q5 40 10 38 Q14 36 12 30 L10 8 Q14 0 8 -8 Q4 -11 0 -10 Z" fill="#f9f5f2" stroke-width="4"/></g>
+  </g>
+  <g id="pal-cuerpo" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M-88 -6 Q-88 -92 0 -98 Q86 -92 90 -4 Q92 94 0 102 Q-88 96 -88 -6 Z" fill="#c94245"/>
+    <path d="M-58 -72 Q0 -110 58 -72 Q46 -44 0 -42 Q-46 -44 -58 -72 Z" fill="#c94245"/>
+    <path d="M-38 -98 Q0 -84 38 -98 L34 -74 Q0 -62 -34 -74 Z" fill="#b5c995"/>
+    <path d="M-20 -30 L-24 14 M16 -30 L20 14" fill="none" stroke-width="3.5"/>
+    <circle cx="-24" cy="18" r="4.5" fill="#f9f5f2" stroke-width="3"/>
+    <circle cx="20" cy="18" r="4.5" fill="#f9f5f2" stroke-width="3"/>
+  </g>
+  <g id="pal-bolsillo" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round"><path d="M-50 32 H52 L64 80 H-62 Z" fill="#c94245"/></g>
+  <g id="pal-cola" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round"><path d="M-72 44 L-134 86 L-118 100 L-98 92 L-102 110 L-60 74 Z" fill="#61609a"/></g>
+  <!-- Punta de ala (hace de mano): tres plumas, origen en la muñeca, apuntando arriba -->
+  <g id="pal-ala" stroke="#1a1a1a" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M-14 10 Q-20 -6 -14 -20 Q-10 -30 -3 -22 Q0 -36 8 -30 Q14 -38 18 -26 Q26 -22 20 -8 Q18 6 8 12 Q-4 16 -14 10 Z" fill="#61609a"/>
+    <path d="M-4 -14 V2 M8 -18 V2" fill="none" stroke-width="3"/>
+  </g>
+  <!-- Zapatilla blanca (punta a la derecha; origen en el tobillo) -->
+  <g id="pal-zapato" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M-11 -4 Q-13 -15 -2 -15 Q10 -15 14 -7 Q34 -5 36 8 Q37 17 27 17 H-10 Q-19 17 -18 8 Q-17 0 -11 -4 Z" fill="#f9f5f2"/>
+    <path d="M-17 11 H36" fill="none" stroke-width="3"/>
+    <path d="M3 -9 L9 -3 M-3 -9 L3 -2" fill="none" stroke-width="2.5"/>
+  </g>
+
+  <!-- Guante de dibujo animado (dedos hacia arriba; puño abajo) -->
+  <g id="f-guante" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" fill="#f9f5f2">
+    <path d="M-15 12 Q-22 -2 -16 -14 Q-17 -26 -8 -27 Q-6 -36 3 -34 Q10 -38 15 -29 Q24 -30 23 -18 Q27 -6 20 6 Q14 16 0 17 Q-10 18 -15 12 Z"/>
+    <path d="M-6 -23 V-11 M4 -29 V-12 M13 -23 V-11" fill="none" stroke-width="3"/>
+    <rect x="-16" y="12" width="32" height="12" rx="6"/>
+  </g>
+
+  <!-- Zapato tinta de los productos -->
+  <g id="p-zapato" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round">
+    <path d="M-10 -6 Q-10 -14 0 -14 Q10 -14 12 -6 Q30 -4 31 7 Q31 14 23 14 H-10 Q-17 14 -16 6 Q-15 -1 -10 -6 Z" fill="#1a1a1a"/>
+    <path d="M-15 9 H30" fill="none" stroke="#f9f5f2" stroke-width="2.5"/>
+  </g>
+
+  <!-- Carita de producto: ojos de punto y sonrisa corta -->
+  <g id="p-cara" stroke="#1a1a1a" stroke-width="4.5" stroke-linecap="round" fill="none">
+    <ellipse cx="-14" cy="0" rx="5.5" ry="7.5" fill="#1a1a1a" stroke="none"/>
+    <ellipse cx="14" cy="0" rx="5.5" ry="7.5" fill="#1a1a1a" stroke="none"/>
+    <circle cx="-12" cy="-3" r="1.8" fill="#f9f5f2" stroke="none"/>
+    <circle cx="16" cy="-3" r="1.8" fill="#f9f5f2" stroke="none"/>
+    <path d="M-9 13 Q0 21 9 13"/>
+  </g>
+</defs>
+
+<!-- Palomo asomado sobre una repisa, agarrado con las alas (aviso, hueco del titular, cabecera, cesta y pie) -->
+<symbol id="palomo-asoma" viewBox="0 0 240 160" overflow="visible">
+  <clipPath id="c-asoma"><rect x="-40" y="-80" width="320" height="230"/></clipPath>
+  <g clip-path="url(#c-asoma)"><g class="f-cabeceo">
+    <use href="#pal-cuerpo" transform="translate(116 232) scale(.86)"/>
+    <use href="#pal-cabeza" transform="translate(118 96) scale(.86)"/>
+  </g></g>
+  <path d="M6 150 H234" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <use href="#pal-ala" transform="translate(62 146) scale(1.05)"/>
+  <use href="#pal-ala" transform="translate(178 146) scale(-1.05 1.05)"/>
+</symbol>
+<!-- Palomo camina con un jugo (cierre): cabeceo de paloma a cada paso -->
+<symbol id="palomo-camina" viewBox="0 0 300 380" overflow="visible">
+  <use href="#pal-cola" transform="translate(150 226) scale(.72)"/>
+  <g class="f-brazo-a" style="transform-origin:108px 204px"><path d="M108 204 Q88 234 96 262" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M108 204 Q88 234 96 262" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/><use href="#pal-ala" transform="translate(97 274) rotate(180) scale(.7)"/></g>
+  <g class="f-pierna-a" style="transform-origin:136px 288px"><path d="M136 286 L132 342" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M136 286 L132 342" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/><use href="#pal-zapato" transform="translate(134 350) scale(.9)"/></g>
+  <g class="f-rebote"><use href="#pal-cuerpo" transform="translate(150 226) scale(.72)"/><use href="#pal-bolsillo" transform="translate(150 226) scale(.72)"/></g>
+  <g class="f-pierna-b" style="transform-origin:166px 288px"><path d="M166 286 L170 342" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M166 286 L170 342" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/><use href="#pal-zapato" transform="translate(170 350) scale(.9)"/></g>
+  <g class="f-rebote"><g class="f-cabeceo-anda"><use href="#pal-cabeza" transform="translate(154 118) scale(.72)"/></g></g>
+  <g class="f-rebote" stroke="#1a1a1a" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M194 198 Q228 198 236 168" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M194 198 Q228 198 236 168" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/>
+    <path d="M224 104 H254 L248 166 H230 Z" fill="#f9f5f2" stroke-width="5"/>
+    <path d="M225 120 H253 L251 140 H227 Z" fill="#f4ed36" stroke-width="4"/>
+    <path d="M242 104 L250 76 H262" fill="none" stroke-width="5"/>
+    <use href="#pal-ala" transform="translate(238 166) rotate(-10) scale(.75)"/>
+  </g>
+</symbol>
+
+<!-- Palomo con banderín «+1» (promo de invitar a un amigo) -->
+<symbol id="palomo-bandera" viewBox="0 0 330 360" overflow="visible">
+  <use href="#pal-cola" transform="translate(152 214) scale(.72)"/>
+  <path d="M140 272 L136 322" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M140 272 L136 322" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/><path d="M168 272 L174 322" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M168 272 L174 322" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/>
+  <use href="#pal-zapato" transform="translate(132 330) scale(-.9 .9)"/>
+  <use href="#pal-zapato" transform="translate(178 330) scale(.9)"/>
+  <path d="M254 172 V8" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <g class="f-bandera" stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round">
+    <path d="M256 12 L322 34 L256 58 Z" fill="#f4ed36"/>
+    <text x="266" y="43" font-family="Anybody, sans-serif" font-weight="900" font-size="21" fill="#1a1a1a" stroke="none">+1</text>
+  </g>
+  <use href="#pal-cuerpo" transform="translate(152 214) scale(.72)"/>
+  <path d="M100 190 Q80 238 122 262" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M100 190 Q80 238 122 262" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/>
+  <use href="#pal-bolsillo" transform="translate(152 214) scale(.72)"/>
+  <g class="f-cabeceo"><use href="#pal-cabeza" transform="translate(156 106) scale(.72)"/></g>
+  <path d="M202 186 Q238 176 248 116" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M202 186 Q238 176 248 116" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/>
+  <use href="#pal-ala" transform="translate(252 104) rotate(-8) scale(.8)"/>
+</symbol>
+<!-- Palomo tumbado al sol con un jugo (escena «sol») -->
+<symbol id="palomo-tumbado" viewBox="0 0 520 380" overflow="visible">
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M110 348 H500" fill="none"/>
+    <path d="M176 296 L162 346 M458 296 L472 346" fill="none" stroke-width="8"/>
+    <path d="M156 296 L192 280 L104 142 L72 158 Z" fill="#c94245"/>
+    <path d="M150 262 H468 Q480 262 480 274 V284 Q480 296 468 296 H150 Z" fill="#f4ed36"/>
+    <path d="M214 266 V292 M274 266 V292 M334 266 V292 M394 266 V292 M448 266 V292" fill="none" stroke="#f9f5f2" stroke-width="10" stroke-linecap="butt"/>
+  </g>
+  <path d="M86 214 Q58 170 80 132" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M86 214 Q58 170 80 132" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/>
+  <use href="#pal-ala" transform="translate(88 124) rotate(40) scale(.72)"/>
+  <g transform="translate(150 214) rotate(-28) scale(.7)"><use href="#pal-cola"/><use href="#pal-cuerpo"/></g>
+  <path d="M168 276 Q280 262 404 252" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M168 276 Q280 262 404 252" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/><path d="M196 260 Q300 242 424 238" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M196 260 Q300 242 424 238" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/>
+  <use href="#pal-zapato" transform="translate(410 248) rotate(-18)"/>
+  <use href="#pal-zapato" transform="translate(430 232) rotate(-32)"/>
+  <g class="f-cabeceo"><use href="#pal-cabeza" transform="translate(104 118) rotate(-12) scale(.7)"/></g>
+  <g stroke="#1a1a1a" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M188 164 Q232 176 248 138" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M188 164 Q232 176 248 138" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/>
+    <path d="M240 58 H276 L270 132 H246 Z" fill="#f9f5f2" stroke-width="5"/>
+    <path d="M242 76 H274 L271 118 H245 Z" fill="#ac4f98" stroke-width="4"/>
+    <path d="M262 58 L272 24 H284" fill="none" stroke-width="5"/>
+    <path d="M222 40 Q244 14 268 30 Z" fill="#b5c995" stroke-width="4"/>
+    <path d="M246 26 L252 60" fill="none" stroke-width="3.5"/>
+    <circle cx="278" cy="60" r="11" fill="#f4ed36" stroke-width="4"/>
+    <path d="M278 50 V70 M268 60 H288" fill="none" stroke-width="2.5"/>
+    <use href="#pal-ala" transform="translate(252 128) rotate(-16) scale(.78)"/>
+  </g>
+</symbol>
+
+<!-- Palomo medita flotando sobre un cojín (escena «calma») -->
+<symbol id="palomo-medita" viewBox="0 0 420 420" overflow="visible">
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M100 362 Q100 330 210 328 Q320 330 320 362 Q320 394 210 396 Q100 394 100 362 Z" fill="#f9cc73"/>
+    <path d="M128 360 Q210 376 292 360" fill="none" stroke-width="3" stroke-dasharray="2 9"/>
+    <circle cx="210" cy="356" r="6" fill="#1a1a1a" stroke="none"/>
+    <ellipse class="f-sombra" cx="210" cy="332" rx="64" ry="7" fill="#1a1a1a" stroke="none" opacity=".22"/>
+  </g>
+  <g class="f-flota">
+    <use href="#pal-cola" transform="translate(210 222) scale(.72)"/>
+    <use href="#pal-cuerpo" transform="translate(210 222) scale(.72)"/>
+    <use href="#pal-bolsillo" transform="translate(210 222) scale(.72)"/>
+    <path d="M152 196 Q116 240 134 282" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M152 196 Q116 240 134 282" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/><path d="M268 196 Q304 240 286 282" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M268 196 Q304 240 286 282" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/>
+    <path d="M188 286 C140 300 146 330 204 322" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M188 286 C140 300 146 330 204 322" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/><path d="M232 286 C280 300 274 330 216 322" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M232 286 C280 300 274 330 216 322" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/>
+    <use href="#pal-zapato" transform="translate(208 318) scale(.8)"/>
+    <use href="#pal-zapato" transform="translate(212 326) scale(-.8 .8)"/>
+    <use href="#pal-ala" transform="translate(136 298) scale(.72)"/>
+    <use href="#pal-ala" transform="translate(284 298) scale(-.72 .72)"/>
+    <g class="f-cabeceo"><use href="#pal-cabeza" transform="translate(212 114) scale(.72)"/></g>
+    <g stroke="#1a1a1a" stroke-width="3.5" stroke-linejoin="round" fill="#f4ed36">
+      <g transform="translate(78 92)"><path class="f-chispa" d="M0 -16 Q3 -3 16 0 Q3 3 0 16 Q-3 3 -16 0 Q-3 -3 0 -16 Z"/></g>
+      <g transform="translate(344 124)"><path class="f-chispa" style="animation-delay:-.6s" d="M0 -12 Q2 -2 12 0 Q2 2 0 12 Q-2 2 -12 0 Q-2 -2 0 -12 Z"/></g>
+      <g transform="translate(320 44)"><path class="f-chispa" style="animation-delay:-1.2s" d="M0 -16 Q3 -3 16 0 Q3 3 0 16 Q-3 3 -16 0 Q-3 -3 0 -16 Z"/></g>
+    </g>
+  </g>
+</symbol>
+
+<!-- Palomo baila (escena «viaje») -->
+<symbol id="palomo-baila" viewBox="0 0 400 440" overflow="visible">
+  <g class="f-baila">
+    <use href="#pal-cola" transform="translate(206 252) rotate(6) scale(.72)"/>
+    <path d="M196 318 L190 370" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M196 318 L190 370" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/><path d="M226 314 Q262 324 282 302" fill="none" stroke="#1a1a1a" stroke-width="13" stroke-linecap="round"/><path d="M226 314 Q262 324 282 302" fill="none" stroke="#f8c1ba" stroke-width="6" stroke-linecap="round"/>
+    <use href="#pal-zapato" transform="translate(194 378)"/>
+    <use href="#pal-zapato" transform="translate(290 296) rotate(-34)"/>
+    <use href="#pal-cuerpo" transform="translate(206 252) rotate(6) scale(.72)"/>
+    <use href="#pal-bolsillo" transform="translate(206 252) rotate(6) scale(.72)"/>
+    <path d="M166 214 Q124 190 118 138" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M166 214 Q124 190 118 138" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/><path d="M252 208 Q296 186 302 126" fill="none" stroke="#1a1a1a" stroke-width="30" stroke-linecap="round"/><path d="M252 208 Q296 186 302 126" fill="none" stroke="#c94245" stroke-width="19" stroke-linecap="round"/>
+    <use href="#pal-ala" transform="translate(118 130) rotate(-8) scale(.78)"/>
+    <use href="#pal-ala" transform="translate(302 118) rotate(18) scale(.78)"/>
+    <g class="f-cabeceo"><use href="#pal-cabeza" transform="translate(212 146) rotate(8) scale(.72)"/></g>
+  </g>
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <g transform="translate(58 214)"><g class="f-nota"><path d="M0 0 V-32 L20 -38 V-6"/><ellipse cx="-7" cy="0" rx="8" ry="6" fill="#1a1a1a"/><ellipse cx="13" cy="-6" rx="8" ry="6" fill="#1a1a1a"/></g></g>
+    <g transform="translate(346 236)"><g class="f-nota"><path d="M0 0 V-28 L16 -32 V-5"/><ellipse cx="-6" cy="0" rx="7" ry="5.5" fill="#1a1a1a"/><ellipse cx="10" cy="-5" rx="7" ry="5.5" fill="#1a1a1a"/></g></g>
+  </g>
+</symbol>
+<!-- Productos (tarjetas de las vitrinas): caja de 200×200 -->
+<symbol id="prod-rollo" viewBox="0 0 200 200" overflow="visible">
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M138 104 L178 112 L174 178 L136 168 Z" fill="#f9f5f2"/>
+    <path d="M146 118 L170 123" fill="none" stroke-width="2.5" stroke-dasharray="1 7"/>
+    <path d="M60 60 V150 Q60 168 100 168 Q140 168 140 150 V60" fill="#f9f5f2"/>
+    <ellipse cx="100" cy="60" rx="40" ry="14" fill="#f9f5f2"/>
+    <ellipse cx="100" cy="60" rx="26" ry="8.5" fill="none" stroke-width="2.5"/>
+    <ellipse cx="100" cy="60" rx="11" ry="3.8" fill="#1a1a1a"/>
+  </g>
+</symbol>
+<symbol id="prod-cono" viewBox="0 0 200 200" overflow="visible">
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M100 32 Q88 12 104 4 Q116 16 100 32 Z" fill="#f9f5f2"/>
+    <path d="M72 34 Q100 26 128 34 L110 178 H90 Z" fill="#f9f5f2"/>
+    <path d="M92 150 H108 L110 178 H90 Z" fill="#f9cc73"/>
+    <path d="M84 42 L101 148" fill="none" stroke-width="2.5"/>
+  </g>
+</symbol>
+<symbol id="prod-boquillas" viewBox="0 0 200 200" overflow="visible">
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="66" y="28" width="68" height="36" rx="3" fill="#f9f5f2"/>
+    <path d="M83 30 V62 M100 30 V62 M117 30 V62" fill="none" stroke-width="2.5" stroke-dasharray="3 5"/>
+    <rect x="54" y="52" width="92" height="116" rx="7" fill="#f9cc73"/>
+    <rect x="54" y="98" width="92" height="24" fill="#c94245"/>
+    <path d="M68 146 H132" fill="none" stroke-width="3"/>
+  </g>
+</symbol>
+<symbol id="prod-papel" viewBox="0 0 200 200" overflow="visible">
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M64 34 H134 L140 70 H58 Z" fill="#f9f5f2"/>
+    <path d="M70 44 H128" fill="none" stroke-width="2.5" stroke-dasharray="1 7"/>
+    <rect x="50" y="62" width="100" height="106" rx="6" fill="#c94245"/>
+    <path d="M50 88 H150" fill="none"/>
+    <circle cx="100" cy="128" r="20" fill="#f9f5f2"/>
+    <path d="M88 134 L114 120 L100 138 Z" fill="#1a1a1a" stroke-width="2.5"/>
+  </g>
+</symbol>
+<symbol id="prod-grinder" viewBox="0 0 200 200" overflow="visible">
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M46 102 V144 Q100 172 154 144 V102" fill="#b5c995"/>
+    <path d="M44 70 V96 Q100 122 156 96 V70" fill="#f9f5f2"/>
+    <path d="M58 84 V104 M72 88 V109 M86 90 V112 M100 91 V113 M114 90 V112 M128 88 V109 M142 84 V104" fill="none" stroke-width="2.5"/>
+    <ellipse cx="100" cy="70" rx="56" ry="18" fill="#f9f5f2"/>
+    <circle cx="100" cy="70" r="7" fill="#1a1a1a"/>
+  </g>
+</symbol>
+
+<!-- Caminantes del catálogo: producto + carita + piernas (y brazos) con pivote propio; caja 200×300 -->
+<g id="p-piernas" stroke="#1a1a1a" stroke-linecap="round" fill="none">
+  <g class="f-pierna-a" style="transform-origin:86px 200px"><path d="M86 200 V270" stroke-width="8"/><use href="#p-zapato" transform="translate(89 277)"/></g>
+  <g class="f-pierna-b" style="transform-origin:114px 200px"><path d="M114 200 V270" stroke-width="8"/><use href="#p-zapato" transform="translate(117 277)"/></g>
+</g>
+<symbol id="caminante-rollo" viewBox="0 0 200 300" overflow="visible">
+  <use href="#p-piernas"/>
+  <g class="f-rebote">
+    <g stroke="#1a1a1a" stroke-linecap="round" fill="none">
+      <g class="f-brazo-a" style="transform-origin:54px 150px"><path d="M54 150 Q36 172 42 192" stroke-width="7"/><use href="#f-guante" transform="translate(43 199) rotate(175) scale(.55)"/></g>
+      <g class="f-brazo-b" style="transform-origin:146px 150px"><path d="M146 150 Q164 172 158 192" stroke-width="7"/><use href="#f-guante" transform="translate(157 199) rotate(185) scale(.55)"/></g>
+    </g>
+    <use href="#prod-rollo" width="200" height="200" transform="translate(-20 -10) scale(1.2)"/>
+    <use href="#p-cara" transform="translate(100 128)"/>
+  </g>
+</symbol>
+<symbol id="caminante-cono" viewBox="0 0 200 300" overflow="visible">
+  <use href="#p-piernas"/>
+  <g class="f-rebote">
+    <use href="#prod-cono" width="200" height="200" transform="translate(-20 -10) scale(1.2)"/>
+    <use href="#p-cara" transform="translate(100 104) scale(.8)"/>
+  </g>
+</symbol>
+<symbol id="caminante-boquillas" viewBox="0 0 200 300" overflow="visible">
+  <use href="#p-piernas"/>
+  <g class="f-rebote">
+    <g stroke="#1a1a1a" stroke-linecap="round" fill="none">
+      <g class="f-brazo-a" style="transform-origin:48px 160px"><path d="M48 160 Q30 180 36 200" stroke-width="7"/><use href="#f-guante" transform="translate(37 207) rotate(175) scale(.55)"/></g>
+      <g class="f-brazo-b" style="transform-origin:152px 160px"><path d="M152 160 Q170 180 164 200" stroke-width="7"/><use href="#f-guante" transform="translate(163 207) rotate(185) scale(.55)"/></g>
+    </g>
+    <use href="#prod-boquillas" width="200" height="200" transform="translate(-20 -10) scale(1.2)"/>
+    <use href="#p-cara" transform="translate(100 164)"/>
+  </g>
+</symbol>
+<symbol id="caminante-papel" viewBox="0 0 200 300" overflow="visible">
+  <use href="#p-piernas"/>
+  <g class="f-rebote">
+    <g stroke="#1a1a1a" stroke-linecap="round" fill="none">
+      <g class="f-brazo-a" style="transform-origin:42px 150px"><path d="M42 150 Q24 172 30 192" stroke-width="7"/><use href="#f-guante" transform="translate(31 199) rotate(175) scale(.55)"/></g>
+      <g class="f-brazo-b" style="transform-origin:158px 150px"><path d="M158 150 Q176 172 170 192" stroke-width="7"/><use href="#f-guante" transform="translate(169 199) rotate(185) scale(.55)"/></g>
+    </g>
+    <use href="#prod-papel" width="200" height="200" transform="translate(-20 -10) scale(1.2)"/>
+    <use href="#p-cara" transform="translate(100 176) scale(.9)"/>
+  </g>
+</symbol>
+<symbol id="caminante-grinder" viewBox="0 0 200 300" overflow="visible">
+  <use href="#p-piernas"/>
+  <g class="f-rebote">
+    <g stroke="#1a1a1a" stroke-linecap="round" fill="none">
+      <g class="f-brazo-a" style="transform-origin:40px 150px"><path d="M40 150 Q22 172 28 192" stroke-width="7"/><use href="#f-guante" transform="translate(29 199) rotate(175) scale(.55)"/></g>
+      <g class="f-brazo-b" style="transform-origin:160px 150px"><path d="M160 150 Q178 172 172 192" stroke-width="7"/><use href="#f-guante" transform="translate(171 199) rotate(185) scale(.55)"/></g>
+    </g>
+    <use href="#prod-grinder" width="200" height="200" transform="translate(-20 -10) scale(1.2)"/>
+    <use href="#p-cara" transform="translate(100 160)"/>
+  </g>
+</symbol>
+
+<!-- Avión de papel con estela y un sol con lentes (promo del sorteo) -->
+<symbol id="avion-sorteo" viewBox="0 0 320 240" overflow="visible">
+  <g stroke="#1a1a1a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <g class="f-chispa" style="animation-duration:6s"><path d="M68 18 V4 M68 108 V94 M22 62 H8 M128 62 H114 M36 30 L27 21 M100 30 L109 21 M36 94 L27 103 M100 94 L109 103" fill="none"/></g>
+    <circle cx="68" cy="62" r="30" fill="#f4ed36"/>
+    <path d="M50 56 H64 V62 Q64 70 57 70 Q50 70 50 62 Z M72 56 H86 V62 Q86 70 79 70 Q72 70 72 62 Z" fill="#1a1a1a" stroke-width="3"/>
+    <path d="M64 58 H72" fill="none" stroke-width="3"/>
+    <path d="M58 80 Q68 88 78 80" fill="none" stroke-width="3.5"/>
+    <path d="M40 196 C4 186 10 142 52 150 C88 157 76 196 104 188" fill="none" stroke-dasharray="2 13"/>
+    <g class="f-humo">
+      <path d="M108 150 L300 70 L184 176 Z" fill="#f9f5f2"/>
+      <path d="M184 176 L300 70 L206 214 Z" fill="#e4d9cc"/>
+      <path d="M184 176 L206 214" fill="none"/>
+    </g>
+  </g>
+</symbol>
+
+<!-- Redes (trazo de 2 px, color del texto) -->
+<symbol id="red-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></g></symbol>
+<symbol id="red-youtube" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9 L15 12 L10 15 Z" fill="currentColor"/></g></symbol>
+<symbol id="red-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4 L20 20 M20 4 L4 20"/></g></symbol>
+<symbol id="red-facebook" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M13.5 21 V11 Q13.5 8 16.5 8 M10.5 12.5 H16"/></g></symbol>
+</svg>
+
+<!-- Aviso de edad -->
+<div class="aviso" id="aviso" role="dialog" aria-modal="true" aria-labelledby="aviso-titulo">
+  <p class="aviso__marca" aria-hidden="true">Cream Digital</p>
+  <h2 class="aviso__titulo display" id="aviso-titulo">
+    <span class="aviso__linea">¿Cuántos</span>
+    <span class="aviso__linea">años</span>
+    <span class="aviso__linea">tienes?<svg class="aviso__personaje personaje" viewBox="0 0 240 160" aria-hidden="true"><use href="#palomo-asoma"/></svg></span>
+  </h2>
+  <div class="aviso__acciones" data-aviso-preguntar>
+    <button class="boton" type="button" data-aviso-entrar><span class="boton__cara"><span data-rodar>Tengo 18 o más, a despegar</span></span></button>
+    <button class="enlace-mono" type="button" data-aviso-no>Aún no tengo 18</button>
+  </div>
+  <div class="aviso__acciones" data-aviso-esperar hidden>
+    <p class="aviso__nota">Te esperamos cuando cumplas 18. Palomo te guarda el sitio.</p>
+    <button class="enlace-mono" type="button" data-aviso-volver>Volver</button>
+  </div>
+</div>
+
+<!-- Cabecera -->
+<header class="cabecera">
+  <div class="cabecera__caja">
+    <button class="cabecera__boton" type="button" aria-expanded="false" aria-controls="menu" data-abrir-menu><span data-rodar>Menú</span></button>
+    <a class="marca" href="#inicio">Cream Digital</a>
+    <button class="cabecera__boton cabecera__boton--cesta" type="button" aria-expanded="false" aria-controls="cesta" data-abrir-cesta><span data-rodar>Cesta</span></button>
+    <div class="cabecera__asoma" aria-hidden="true"><svg class="personaje" viewBox="0 0 240 160"><use href="#palomo-asoma"/></svg></div>
+  </div>
+</header>
+
+<!-- Menú -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú">
+  <button class="boton boton--chico menu__cerrar" type="button" data-cerrar-menu><span class="boton__cara"><span data-rodar>Cerrar</span></span></button>
+  <nav aria-label="Principal">
+    <ul class="menu__lista display">
+      <li><a href="#catalogo" data-rodar>Tienda</a></li>
+      <li><a href="#catalogo" data-rodar>Rollos</a></li>
+      <li><a href="#catalogo" data-rodar>Conos</a></li>
+      <li><a href="#catalogo" data-rodar>Boquillas</a></li>
+      <li><a href="#catalogo" data-rodar>Papel</a></li>
+      <li><a href="#catalogo" data-rodar>Grinders</a></li>
+      <li><a href="#promos" data-rodar>Afiliados</a></li>
+      <li><a href="#pie" data-rodar>Ayuda</a></li>
+    </ul>
+  </nav>
+  <p class="menu__pie mono">Página de prueba · tienda de ejemplo</p>
+</div>
+
+<!-- Cesta -->
+<div class="cesta" id="cesta" role="dialog" aria-modal="true" aria-labelledby="cesta-titulo">
+  <button class="cesta__velo" type="button" tabindex="-1" aria-label="Cerrar la cesta" data-cerrar-cesta></button>
+  <div class="cesta__panel">
+    <div class="cesta__cabeza">
+      <h2 class="cesta__titulo display" id="cesta-titulo">Tu cesta</h2>
+      <button class="boton boton--chico" type="button" data-cerrar-cesta><span class="boton__cara"><span data-rodar>Cerrar</span></span></button>
+    </div>
+    <div class="cesta__vacia">
+      <svg class="personaje" viewBox="0 0 240 160" aria-hidden="true"><use href="#palomo-asoma"/></svg>
+      <p>Todavía no hay nada acá. Esta tienda es de ejemplo: nada se vende de verdad.</p>
+      <a class="boton boton--display" href="#catalogo" data-cerrar-cesta><span class="boton__cara"><span data-rodar>Ver el catálogo</span></span></a>
+    </div>
+  </div>
+</div>
+
+<main id="contenido">
+
+  <!-- Intro -->
+  <section class="seccion intro" id="inicio" data-fondo="violeta" aria-labelledby="intro-titulo">
+    <p class="intro__saludo display">¡Hola, soy Palomo!</p>
+    <h1 class="intro__titulo display" id="intro-titulo">
+      <span class="intro__linea"><span style="--i:0">Ajústate</span></span>
+      <span class="intro__linea"><span style="--i:1">el cinturón,</span></span>
+      <span class="intro__linea"><span style="--i:2">por <span class="hueco" aria-hidden="true"><svg class="personaje" viewBox="0 0 240 160"><use href="#palomo-asoma"/></svg></span> que</span></span>
+      <span class="intro__linea"><span style="--i:3">tu negocio</span></span>
+      <span class="intro__linea"><span style="--i:4">despega</span></span>
+    </h1>
+  </section>
+
+  <!-- Catálogo -->
+  <section class="seccion catalogo" id="catalogo" data-fondo="rojo" aria-labelledby="catalogo-titulo">
+    <h2 class="catalogo__titulo display" id="catalogo-titulo">Explora<br>nuestros<br>servicios</h2>
+    <ul class="catalogo__fila">
+      <li><a class="caminante" href="#catalogo"><svg viewBox="0 0 200 300" aria-hidden="true" style="--retraso:-.15s"><use href="#caminante-rollo"/></svg><span class="boton boton--pastilla boton--chico"><span class="boton__cara"><span data-rodar>Rollos</span></span></span></a></li>
+      <li><a class="caminante" href="#catalogo"><svg viewBox="0 0 200 300" aria-hidden="true" style="--retraso:-.45s"><use href="#caminante-cono"/></svg><span class="boton boton--pastilla boton--chico"><span class="boton__cara"><span data-rodar>Conos</span></span></span></a></li>
+      <li><a class="caminante" href="#catalogo"><svg viewBox="0 0 200 300" aria-hidden="true" style="--retraso:-.3s"><use href="#caminante-boquillas"/></svg><span class="boton boton--pastilla boton--chico"><span class="boton__cara"><span data-rodar>Boquillas</span></span></span></a></li>
+      <li><a class="caminante" href="#catalogo"><svg viewBox="0 0 200 300" aria-hidden="true" style="--retraso:-.05s"><use href="#caminante-papel"/></svg><span class="boton boton--pastilla boton--chico"><span class="boton__cara"><span data-rodar>Papel</span></span></span></a></li>
+      <li><a class="caminante" href="#catalogo"><svg viewBox="0 0 200 300" aria-hidden="true" style="--retraso:-.5s"><use href="#caminante-grinder"/></svg><span class="boton boton--pastilla boton--chico"><span class="boton__cara"><span data-rodar>Grinders</span></span></span></a></li>
+    </ul>
+  </section>
+
+  <!-- Escenas: app.js muestra dos de tres al azar (o las de ?escenas=sol,calma) -->
+  <section class="seccion escena escena--sol" id="escena-sol" data-escena="sol" data-fondo="mantequilla" aria-labelledby="t-sol">
+    <div class="escena__escenario">
+      <div class="escena__grupo">
+        <h2 class="escena__titulo display" id="t-sol" data-palabras>¿Una tarde de sol sin mirar el reloj?</h2>
+        <svg class="escena__personaje personaje" viewBox="0 0 520 380" aria-hidden="true"><use href="#palomo-tumbado"/></svg>
+      </div>
+      <div class="escena__vitrina vitrina">
+        <ul class="productos">
+          <li><article class="producto"><div class="producto__marco"><h3 class="producto__nombre display">Boquillas</h3><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#prod-boquillas"/></svg><a class="producto__comprar enlace-mono" href="#catalogo" data-comprar>Comprar<span class="sr-only"> boquillas</span></a></div></article></li>
+          <li><article class="producto"><div class="producto__marco"><h3 class="producto__nombre display">Rollos</h3><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#prod-rollo"/></svg><a class="producto__comprar enlace-mono" href="#catalogo" data-comprar>Comprar<span class="sr-only"> rollos</span></a></div></article></li>
+        </ul>
+        <a class="boton boton--display" href="#catalogo"><span class="boton__cara"><span data-rodar>Ver todo</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion escena escena--calma" id="escena-calma" data-escena="calma" data-fondo="violeta-osc" aria-labelledby="t-calma">
+    <div class="escena__escenario">
+      <div class="escena__grupo">
+        <h2 class="escena__titulo display" id="t-calma" data-palabras>¿Te hace falta un rato de calma total?</h2>
+        <svg class="escena__personaje personaje" viewBox="0 0 420 420" aria-hidden="true"><use href="#palomo-medita"/></svg>
+      </div>
+      <div class="escena__vitrina vitrina">
+        <ul class="productos productos--tres">
+          <li><article class="producto"><div class="producto__marco"><h3 class="producto__nombre display">Conos</h3><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#prod-cono"/></svg><a class="producto__comprar enlace-mono" href="#catalogo" data-comprar>Comprar<span class="sr-only"> conos</span></a></div></article></li>
+          <li><article class="producto"><div class="producto__marco"><h3 class="producto__nombre display">Papel</h3><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#prod-papel"/></svg><a class="producto__comprar enlace-mono" href="#catalogo" data-comprar>Comprar<span class="sr-only"> papel</span></a></div></article></li>
+          <li><article class="producto"><div class="producto__marco"><h3 class="producto__nombre display">Grinders</h3><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#prod-grinder"/></svg><a class="producto__comprar enlace-mono" href="#catalogo" data-comprar>Comprar<span class="sr-only"> grinders</span></a></div></article></li>
+        </ul>
+        <a class="boton boton--display" href="#catalogo"><span class="boton__cara"><span data-rodar>Ver todo</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion escena escena--viaje" id="escena-viaje" data-escena="viaje" data-fondo="rosa" aria-labelledby="t-viaje">
+    <div class="escena__escenario">
+      <div class="escena__grupo">
+        <h2 class="escena__titulo display" id="t-viaje" data-palabras>¿Carretera larga y música a todo volumen?</h2>
+        <svg class="escena__personaje personaje" viewBox="0 0 400 440" aria-hidden="true"><use href="#palomo-baila"/></svg>
+      </div>
+      <div class="escena__vitrina vitrina">
+        <ul class="productos">
+          <li><article class="producto"><div class="producto__marco"><h3 class="producto__nombre display">Rollos</h3><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#prod-rollo"/></svg><a class="producto__comprar enlace-mono" href="#catalogo" data-comprar>Comprar<span class="sr-only"> rollos</span></a></div></article></li>
+          <li><article class="producto"><div class="producto__marco"><h3 class="producto__nombre display">Conos</h3><svg viewBox="0 0 200 200" aria-hidden="true"><use href="#prod-cono"/></svg><a class="producto__comprar enlace-mono" href="#catalogo" data-comprar>Comprar<span class="sr-only"> conos</span></a></div></article></li>
+        </ul>
+        <a class="boton boton--display" href="#catalogo"><span class="boton__cara"><span data-rodar>Ver todo</span></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cierre -->
+  <section class="seccion cierre" id="cierre" data-fondo="azul" aria-labelledby="cierre-frase">
+    <div class="cierre__escenario">
+      <p class="cierre__rotulo display">Tú eliges el destino</p>
+      <h2 class="cierre__frase display" id="cierre-frase" data-palabras>
+        <span class="cierre__linea">Nosotros ponemos</span>
+        <span class="cierre__linea">el <span class="cierre__hueco" aria-hidden="true"><svg class="cierre__personaje personaje" viewBox="0 0 300 380"><use href="#palomo-camina"/></svg></span> papel</span>
+      </h2>
+    </div>
+  </section>
+
+  <!-- Promos -->
+  <section class="seccion promos" id="promos" data-fondo="rosa" aria-labelledby="promos-titulo">
+    <h2 class="sr-only" id="promos-titulo">Promociones</h2>
+    <ul class="promos__lista">
+      <li><article class="promo"><h3 class="promo__titulo display">Invita a un amigo</h3><svg viewBox="0 0 300 360" aria-hidden="true" class="personaje"><use href="#palomo-bandera"/></svg><a class="boton boton--pastilla boton--chico" href="#promos"><span class="boton__cara"><span data-rodar>Más información</span><span class="sr-only"> sobre invitar a un amigo</span></span></a></article></li>
+      <li><article class="promo promo--afiliados"><h3 class="promo__titulo display">Hazte afiliado</h3><a class="boton boton--pastilla boton--chico" href="#promos"><span class="boton__cara"><span data-rodar>Más información</span><span class="sr-only"> sobre el programa de afiliados</span></span></a></article></li>
+      <li><article class="promo promo--sorteo"><h3 class="promo__titulo display">Sorteo de verano</h3><svg viewBox="0 0 320 240" aria-hidden="true"><use href="#avion-sorteo"/></svg><a class="boton boton--pastilla boton--chico" href="#promos"><span class="boton__cara"><span data-rodar>Más información</span><span class="sr-only"> sobre el sorteo de verano</span></span></a></article></li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- Pie -->
+<footer class="pie" id="pie" data-fondo="bosque">
+  <div class="pie__cabeza">
+    <p class="pie__titulo display">¡Buen viaje!<br>Vuelve pronto</p>
+    <svg class="pie__personaje personaje" viewBox="0 0 240 160" aria-hidden="true"><use href="#palomo-asoma"/></svg>
+  </div>
+  <nav aria-label="Pie de página">
+    <ul class="pie__nav">
+      <li><a href="#catalogo" data-rodar>Tienda</a></li>
+      <li><a href="#inicio" data-rodar>Nosotros</a></li>
+      <li><a href="#promos" data-rodar>Afiliados</a></li>
+      <li><a href="#promos" data-rodar>Mayoristas</a></li>
+      <li><a href="#pie" data-rodar>Contacto</a></li>
+      <li><a href="#pie" data-rodar>Ayuda</a></li>
+    </ul>
+  </nav>
+  <div class="pie__base">
+    <div class="pie__selectores">
+      <label class="selector"><span>Idioma</span><select><option>Español</option><option>English</option></select></label>
+      <label class="selector"><span>Moneda</span><select><option>USD</option><option>PEN</option><option>EUR</option></select></label>
+    </div>
+    <ul class="pie__legales">
+      <li><a href="#pie">Cookies</a></li>
+      <li><a href="#pie">Privacidad</a></li>
+      <li><a href="#pie">Términos y condiciones</a></li>
+    </ul>
+    <ul class="pie__redes">
+      <li><a href="#pie" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#red-instagram"/></svg></a></li>
+      <li><a href="#pie" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#red-youtube"/></svg></a></li>
+      <li><a href="#pie" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#red-x"/></svg></a></li>
+      <li><a href="#pie" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#red-facebook"/></svg></a></li>
+    </ul>
+  </div>
+  <p class="pie__nota">Página de prueba de Cream Digital: maqueta de estudio con personaje, arte y textos propios. Los productos y las promociones son de ejemplo y no hay tienda detrás.</p>
+</footer>
+
+</body>
+</html>
