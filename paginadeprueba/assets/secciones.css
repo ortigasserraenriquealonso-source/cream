@@ -435,7 +435,8 @@ html:not(.coreo) .escena__titulo { font-size: clamp(40px, 5.4vw, 92px); }
 
 /* ── Impresión: todo estático y con su propio fondo ── */
 @media print {
-  html { background: #fff; }
+  /* En papel no se declara color: ni blanco ni crema son colores del sistema en pantalla. */
+  html { background: none; }
   .cabecera, .aviso, .menu, .cesta { display: none !important; }
   .js .seccion { background: var(--seccion-fondo); }
   .coreo .escena, .coreo .cierre { height: auto; }
