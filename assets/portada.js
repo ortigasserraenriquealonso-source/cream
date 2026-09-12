@@ -215,7 +215,7 @@
     const casos = [...pista.children];
     const puntos = [...carrusel.querySelectorAll('.carrusel__punto')];
     const botonPausa = carrusel.querySelector('[data-carrusel-pausa]');
-    const INTERVALO = 9000;   // más que los 6 s de dayos: acá cada diapositiva es un video
+    const INTERVALO = 4500;   // ahora cada paso mueve una ficha angosta, no un video a pantalla completa
     let indice = 0;
     let pausado = reducido;
     let enVista = false;
@@ -227,10 +227,18 @@
 
     const inicio = (i) => casos[i].offsetLeft - parseFloat(getComputedStyle(pista).paddingLeft);
     const videosCaso = [...pista.querySelectorAll('.caso__video')];
-    function soloCorreElVisible() {
+    const maximo = () => pista.scrollWidth - pista.clientWidth;
+    const paso = () => casos[0].getBoundingClientRect().width + parseFloat(getComputedStyle(pista).columnGap || '0');
+
+    /* Los videos de las fichas que se ven corren a la vez y en bucle; los que quedan fuera se pausan.
+       Cada uno empieza a bajar ANTES de asomarse —por eso el rootMargin— para que nunca se vea el
+       recuadro vacío mientras carga; y de fondo del marco está el póster, así que tampoco hay negro. */
+    const aLaVista = new Set();
+    const cargar = (v) => { if (v && v.preload !== 'auto') { v.preload = 'auto'; v.load(); } };
+    function ajustarVideos() {
       videosCaso.forEach((v, k) => {
-        if (k === indice && enVista && !document.hidden) {
-          if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+        if (aLaVista.has(k) && enVista && !document.hidden && !reducido) {
+          cargar(v);
           const p = v.play(); if (p && p.catch) p.catch(() => {});
         } else if (!v.paused) v.pause();
       });
@@ -244,11 +252,14 @@
         if (esteSi) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current');
       });
       programar();
-      soloCorreElVisible();
     }
     function ir(i) {
-      pista.scrollTo({ left: inicio(i), behavior: reducido ? 'auto' : 'smooth' });
+      pista.scrollTo({ left: Math.min(inicio(i), maximo()), behavior: reducido ? 'auto' : 'smooth' });
       marcar(i);
+    }
+    function avanzar() {
+      if (pista.scrollLeft >= maximo() - 4) ir(0);        // llegó al final: vuelve al principio
+      else pista.scrollBy({ left: paso(), behavior: reducido ? 'auto' : 'smooth' });
     }
     function detenido() { return pausado || !enVista || encima || document.hidden; }
     function programar() {
@@ -257,7 +268,7 @@
       // reinicia el llenado del punto activo
       const activoPunto = puntos[indice];
       activoPunto.classList.remove('es-activo'); void activoPunto.offsetWidth; activoPunto.classList.add('es-activo');
-      if (!detenido()) reloj = setTimeout(() => ir((indice + 1) % casos.length), INTERVALO);
+      if (!detenido()) reloj = setTimeout(avanzar, INTERVALO);
     }
     puntos.forEach((p, i) => p.addEventListener('click', (ev) => { ev.preventDefault(); ir(i); }));
     botonPausa?.addEventListener('click', () => {
@@ -279,9 +290,31 @@
     carrusel.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { encima = false; programar(); } });
     carrusel.addEventListener('focusin', () => { encima = true; programar(); });
     carrusel.addEventListener('focusout', (e) => { if (!carrusel.contains(e.relatedTarget)) { encima = false; programar(); } });
-    document.addEventListener('visibilitychange', programar);
+    document.addEventListener('visibilitychange', () => { programar(); ajustarVideos(); });
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(([e]) => { enVista = e.isIntersecting; programar(); soloCorreElVisible(); }, { threshold: 0.35 }).observe(carrusel);
+      const mirar = new IntersectionObserver((entradas) => {
+        entradas.forEach((e) => {
+          const k = casos.indexOf(e.target);
+          if (e.isIntersecting) aLaVista.add(k); else aLaVista.delete(k);
+        });
+        ajustarVideos();
+      }, { root: pista, threshold: 0.1 });
+      casos.forEach((c) => mirar.observe(c));
+      const acercarse = new IntersectionObserver((entradas) => {
+        entradas.forEach((e) => { if (e.isIntersecting) cargar(e.target.querySelector('.caso__video')); });
+      }, { root: pista, rootMargin: '0px 25%' });
+      casos.forEach((c) => acercarse.observe(c));
+      new IntersectionObserver(([e]) => { enVista = e.isIntersecting; programar(); ajustarVideos(); }, { threshold: 0.2 }).observe(carrusel);
+      // en cuanto la sección se acerca por debajo, las primeras fichas ya empiezan a bajar
+      new IntersectionObserver(([e], obs) => {
+        if (!e.isIntersecting) return;
+        videosCaso.slice(0, 5).forEach(cargar);
+        obs.disconnect();
+      }, { rootMargin: '150% 0px' }).observe(carrusel);
+    } else {
+      enVista = true;
+      videosCaso.forEach((v, k) => { aLaVista.add(k); });
+      ajustarVideos();
     }
   }
 

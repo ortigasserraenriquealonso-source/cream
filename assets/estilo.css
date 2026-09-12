@@ -657,7 +657,7 @@ html.menu-abierto { overflow: hidden; }
 .gcal__evento--dos { background: #7986cb; display: flex; align-items: center; gap: .5rem; }
 .gcal__evento--dos em::before { content: '·'; margin-right: .5rem; }
 .gcal__evento--tres { background: #f6bf26; color: #3c4043; }
-.gcal__evento--nuevo { background: var(--acento); color: var(--negro); }
+.gcal__evento--nuevo { background: var(--acento-palido); color: var(--negro); }
 .gcal__ahora { position: absolute; left: calc(var(--canal) - .5rem); right: 1.2rem; top: calc(.67 * 100% / 6); height: 2px; background: #ea4335; }
 .gcal__ahora::before { content: ''; position: absolute; left: 0; top: -.45rem; width: 1.1rem; height: 1.1rem; border-radius: 50%; background: #ea4335; }
 
@@ -1057,22 +1057,32 @@ html.menu-abierto { overflow: hidden; }
   scrollbar-width: none;
 }
 .carrusel__pista::-webkit-scrollbar { display: none; }
+/* Cada trabajo es una ficha angosta: el nombre arriba y el video vertical debajo. Entran cuatro a la vez en
+   computadora, tres en tableta y dos en celular, así que se ve la cartera completa y no un clip gigante. */
 .caso {
-  flex: 0 0 126.5rem;
+  flex: 0 0 calc((100% - 7.2rem) / 4);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 64.5rem;
-  height: 61.7rem;
-  overflow: hidden;
-  border-radius: 6.4rem;
+  gap: 1.6rem;
+  align-content: start;
+  padding: 2.4rem;
+  border-radius: 3.2rem;
   background: var(--lienzo);
   scroll-snap-align: start;
 }
-.caso--acento { background: var(--acento-palido); }
-.caso__texto { display: flex; flex-direction: column; justify-content: center; padding: 8.3rem; }
-.caso__titulo { margin: 0; font-size: 4.8rem; }
-.caso__resumen { max-width: 36rem; margin: 0 0 3.2rem; font-size: var(--t-16); line-height: 1.25; }
-.caso__imagen { display: grid; place-items: center; }
-.caso__imagen img, .caso__video { width: auto; height: 52rem; border-radius: 2.4rem; object-fit: cover; background: #0d0d0d; }
+.caso__titulo { margin: 0; font-size: 2.4rem; line-height: 1; letter-spacing: -.02em; }
+.caso__marco {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+  border-radius: 2rem;
+  /* El póster va de fondo del marco —puesto en el style del propio elemento— así nunca se ve un
+     rectángulo negro mientras el video carga. */
+  background-color: var(--niebla);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.caso__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .carrusel__controles { display: flex; justify-content: center; gap: .8rem; margin-top: 1.6rem; }
 .carrusel__puntos {
   display: flex;
@@ -1374,6 +1384,12 @@ html.menu-abierto { overflow: hidden; }
   .capacidades > .boton { margin-top: 3.2rem; }
   .capacidades__lista { grid-template-columns: 1fr; row-gap: 4.8rem; margin-top: 4.8rem; }
   .anim { width: 28.1rem; }
+  /* En el ancho de un celular los dos renglones del evento no entran y la hora salía cortada: van en una
+     sola línea, como hace Google Calendar con los eventos cortos. */
+  .gcal__evento { display: flex; align-items: center; gap: .5rem; padding: .3rem .6rem; }
+  .gcal__evento b, .gcal__evento em { font-size: max(1rem, 8px); }
+  .gcal__evento em { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .gcal__evento em::before { content: '·'; margin-right: .5rem; }
   .capacidad__titulo { margin-top: 2.4rem; font-size: 2.8rem; line-height: 1; }
   .capacidad__texto { max-width: 28.1rem; margin-top: 1.6rem; font-size: var(--t-14); line-height: 1.3; }
 
@@ -1387,7 +1403,10 @@ html.menu-abierto { overflow: hidden; }
   .caso__pie { margin-top: 1.6rem; }
   .caso__resumen { margin-bottom: 2rem; font-size: var(--t-14); }
   .caso__imagen { padding: 2.4rem 0; }
-  .caso__imagen img, .caso__video { height: 100%; max-height: 32rem; }
+  .caso { flex: 0 0 calc((100% - 2.4rem) / 2); gap: 1.2rem; padding: 1.6rem; border-radius: 2.4rem; }
+  .caso__titulo { font-size: 1.8rem; }
+  .carrusel__punto { width: max(2.2rem, 22px); }
+  .carrusel__punto.es-activo { width: max(3.6rem, 36px); }
 
   .plataformas { padding: 0 var(--margen) 6.4rem; }
   .plataformas__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; margin-top: 4rem; }
@@ -1438,6 +1457,7 @@ html.menu-abierto { overflow: hidden; }
   .columna__titulo { align-self: end; font-size: 3rem; }
   .columna__texto, .capacidad__texto { max-width: none; }
   .capacidades__lista { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 2.4rem; }
+  .caso { flex: 0 0 calc((100% - 4.8rem) / 3); }
   .anim { width: auto; }
   .capacidad__titulo { font-size: 2.4rem; }
   .plataformas__lista { grid-template-columns: repeat(4, minmax(0, 1fr)); }
