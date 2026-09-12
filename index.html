@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Geist+Mono:wght@400;500&amp;family=Mona+Sans:wdth,wght@75..125,200..900&amp;display=swap">
 <link rel="stylesheet" href="assets/estilo.css">
-<link rel="preload" href="assets/videos/baldoria.webp" as="image" type="image/webp">
+<link rel="preload" href="assets/videos/hero-baldoria.webp" as="image" type="image/webp">
 <script>
   // Antes de pintar: con JS, el titular y los textos esperan su entrada; si portada.js no llega, se muestran igual a los 2,5 s.
   document.documentElement.classList.add('js');
@@ -127,8 +127,30 @@
 
     <div class="portada__medios">
       <div class="portada__videos" aria-hidden="true">
-        <video class="portada__video es-activo" src="assets/videos/baldoria.mp4" poster="assets/videos/baldoria.webp" muted playsinline autoplay loop preload="auto" disablepictureinpicture disableremoteplayback></video>
-        <video class="portada__video" src="assets/videos/baldoria.mp4" poster="assets/videos/baldoria.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video es-activo" src="assets/videos/hero-baldoria.mp4" poster="assets/videos/hero-baldoria.webp" muted playsinline autoplay loop preload="auto" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-flor-de-cana.mp4" poster="assets/videos/hero-flor-de-cana.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-caserio.mp4" poster="assets/videos/hero-caserio.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-dermoplus.mp4" poster="assets/videos/hero-dermoplus.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-corona.mp4" poster="assets/videos/hero-corona.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-night.mp4" poster="assets/videos/hero-night.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-cuneo.mp4" poster="assets/videos/hero-cuneo.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-skinplus.mp4" poster="assets/videos/hero-skinplus.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-pilsen.mp4" poster="assets/videos/hero-pilsen.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-soleil.mp4" poster="assets/videos/hero-soleil.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/hero-vichayo.mp4" poster="assets/videos/hero-vichayo.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+      </div>
+      <div class="portada__puntos" aria-label="Trabajos de CREAM">
+        <button class="portada__punto es-activo" type="button" aria-label="Ver el trabajo de Baldoria, 1 de 11" aria-current="true"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Flor de Caña, 2 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Caserío, 3 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Dermoplus, 4 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Corona, 5 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Night, 6 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Cuneo, 7 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Skinplus, 8 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Pilsen, 9 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Soleil, 10 de 11"></button>
+        <button class="portada__punto" type="button" aria-label="Ver el trabajo de Vichayo, 11 de 11"></button>
       </div>
     </div>
   </section>
@@ -142,21 +164,24 @@
           <li class="columna">
             <a class="columna__enlace" href="https://clinica.cream.pe/">
               <h3 class="columna__titulo" data-revelar="lineas">Agente de ventas.</h3>
-              <p class="columna__texto" data-revelar="subir">Un vendedor que trabaja 24/7 respondiendo, cotizando y cerrando ventas por ti. Monitoriza a tus campañas publicitarias, registra los movimientos de tu empresa y calcula el rendimiento de tu inversión en tu fuerza de ventas.</p>
+              <p class="columna__texto" data-revelar="subir">Responde, cotiza y cierra ventas por ti, mientras monitorea tus campañas y mide cuánto te cuesta conseguir cada cliente.</p>
+              <span class="columna__accion" data-revelar="subir">Explorar el agente de ventas<svg aria-hidden="true" focusable="false"><use href="#flecha-derecha"/></svg></span>
               <span class="columna__flecha" aria-hidden="true"><svg focusable="false"><use href="#flecha-diagonal"/></svg></span>
             </a>
           </li>
           <li class="columna">
             <a class="columna__enlace" href="https://cream.pe/tarjeta/">
               <h3 class="columna__titulo" data-revelar="lineas">Agencia de marketing.</h3>
-              <p class="columna__texto" data-revelar="subir">Creamos y ejecutamos campañas trimestrales de marketing para tu empresa. Ideación, grabación, postproducción y ads. Todo en uno. Escríbenos para consultar disponibilidad en tu región.</p>
+              <p class="columna__texto" data-revelar="subir">Creamos y ejecutamos campañas que atraen clientes: estrategia, contenido, producción y publicidad.</p>
+              <span class="columna__accion" data-revelar="subir">Ver servicios de agencia<svg aria-hidden="true" focusable="false"><use href="#flecha-derecha"/></svg></span>
               <span class="columna__flecha" aria-hidden="true"><svg focusable="false"><use href="#flecha-diagonal"/></svg></span>
             </a>
           </li>
           <li class="columna">
             <a class="columna__enlace" href="https://panel.cream.pe/login">
               <h3 class="columna__titulo" data-revelar="lineas">Ingresar al panel.</h3>
-              <p class="columna__texto" data-revelar="subir">Accede a tu panel personalizado para controlar tu negocio, monitorizar el trabajo de la agencia y realizar seguimiento a tus campañas publicitarias en tiempo real.</p>
+              <p class="columna__texto" data-revelar="subir">Visualiza tus resultados, campañas y avances de la agencia desde un solo lugar.</p>
+              <span class="columna__accion" data-revelar="subir">Iniciar sesión en el panel<svg aria-hidden="true" focusable="false"><use href="#flecha-derecha"/></svg></span>
               <span class="columna__flecha" aria-hidden="true"><svg focusable="false"><use href="#flecha-diagonal"/></svg></span>
             </a>
           </li>
@@ -423,25 +448,6 @@
               </div>
             </li>
           </ul>
-          <div class="carrusel__controles">
-            <button class="boton-redondo boton-redondo--claro" type="button" data-carrusel-pausa aria-pressed="false" aria-label="Pausar el carrusel">
-              <svg class="icono-pausa" aria-hidden="true" focusable="false"><use href="#pausa"/></svg>
-              <svg class="icono-reproducir" aria-hidden="true" focusable="false"><use href="#reproducir"/></svg>
-            </button>
-            <div class="carrusel__puntos">
-              <a class="carrusel__punto es-activo" href="#caso-1" aria-label="Trabajo 1 de 11: Flor de Caña" aria-current="true"></a>
-              <a class="carrusel__punto" href="#caso-2" aria-label="Trabajo 2 de 11: Caserío"></a>
-              <a class="carrusel__punto" href="#caso-3" aria-label="Trabajo 3 de 11: Baldoria"></a>
-              <a class="carrusel__punto" href="#caso-4" aria-label="Trabajo 4 de 11: Dermoplus"></a>
-              <a class="carrusel__punto" href="#caso-5" aria-label="Trabajo 5 de 11: Corona"></a>
-              <a class="carrusel__punto" href="#caso-6" aria-label="Trabajo 6 de 11: Night"></a>
-              <a class="carrusel__punto" href="#caso-7" aria-label="Trabajo 7 de 11: Cuneo"></a>
-              <a class="carrusel__punto" href="#caso-8" aria-label="Trabajo 8 de 11: Skinplus"></a>
-              <a class="carrusel__punto" href="#caso-9" aria-label="Trabajo 9 de 11: Pilsen"></a>
-              <a class="carrusel__punto" href="#caso-10" aria-label="Trabajo 10 de 11: Soleil"></a>
-              <a class="carrusel__punto" href="#caso-11" aria-label="Trabajo 11 de 11: Vichayo"></a>
-            </div>
-          </div>
         </div>
       </section>
 

@@ -10,12 +10,16 @@
   const fuentes = document.fonts ? Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1200))]) : Promise.resolve();
   fuentes.then(() => requestAnimationFrame(() => requestAnimationFrame(() => raiz.classList.add('listo'))));
 
-  /* ── 2. Videos del hero: uno por vez, con fundido, sin marco y sin cortes ──
-     Los tres llevan loop en el HTML: si algo de la rotación falla, el que está a la vista se repite solo y nunca se
-     congela en el último cuadro. Para volver un clip al inicio no se depende de poder adelantarlo: si el servidor no
-     atiende rangos (python -m http.server no los atiende), se recarga. */
+  /* ── 2. Hero: una galería con los once trabajos ──
+     Cada clip dura unos 12 s; cuando termina pasa solo al siguiente, con el mismo fundido de siempre. Los puntos
+     de abajo dicen cuántos hay y dejan saltar, y en el celular se puede deslizar sobre el video.
+     En el HTML los videos llevan `loop`: si el JavaScript no corre, el primero se repite y nunca se queda
+     congelado. Con JavaScript se le quita el loop, porque la vuelta la da la rotación.
+     Para volver un clip al inicio no se depende de poder adelantarlo: si el servidor no atiende rangos
+     (python -m http.server no los atiende), se recarga. */
   const portada = document.querySelector('.portada');
   const videos = [...document.querySelectorAll('.portada__video')];
+  const puntosHero = [...document.querySelectorAll('.portada__punto')];
   const FUNDIDO = 1.4;                  // segundos; igual a la transición de opacidad del CSS
   let actual = 0;
   let heroVisible = true;
@@ -32,42 +36,64 @@
     }
     v.load();
   }
-  function siguienteIndice() {
+  function siguienteIndice(desde) {
     for (let k = 1; k <= videos.length; k++) {
-      const i = (actual + k) % videos.length;
+      const i = (desde + k) % videos.length;
       if (!fallidos.has(i)) return i;
     }
-    return actual;
+    return desde;
   }
-  function pasarAlSiguiente() {
-    if (cambiando) return;
-    const i = siguienteIndice();
-    if (i === actual) return;           // queda un solo clip sano: sigue en bucle
+  function marcarPunto() {
+    puntosHero.forEach((p, k) => {
+      const esteSi = k === actual;
+      p.classList.toggle('es-activo', esteSi);
+      if (esteSi) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current');
+    });
+  }
+  function mostrar(i) {
+    if (cambiando || i === actual || fallidos.has(i)) return;
     cambiando = true;
     const antes = activo();
-    actual = i;
+    actual = (i + videos.length) % videos.length;
     const ahora = activo();
     preparar(ahora);
     alInicio(ahora);
     if (debeSonar()) reproducir(ahora);
     ahora.classList.add('es-activo');
     antes.classList.remove('es-activo');
-    setTimeout(() => { antes.pause(); cambiando = false; }, FUNDIDO * 1000 + 60);
+    marcarPunto();
+    preparar(videos[siguienteIndice(actual)]);   // el que viene, listo antes de que le toque
+    setTimeout(() => { if (antes !== activo()) antes.pause(); cambiando = false; }, FUNDIDO * 1000 + 60);
   }
+  const pasarAlSiguiente = () => mostrar(siguienteIndice(actual));
 
   if (videos.length) {
     videos.forEach((v, i) => {
-      v.loop = true;
+      v.loop = false;
       v.addEventListener('timeupdate', () => {
         if (v !== activo() || !v.duration || cambiando) return;
-        if (v.currentTime > v.duration / 2) preparar(videos[siguienteIndice()]);
-        if (v.currentTime >= v.duration - FUNDIDO - 0.2) pasarAlSiguiente();
+        if (v.currentTime >= v.duration - 0.6) pasarAlSiguiente();
       });
+      v.addEventListener('ended', () => { if (v === activo()) pasarAlSiguiente(); });
       v.addEventListener('error', () => {
         fallidos.add(i);
         if (v === activo()) pasarAlSiguiente();
       });
     });
+    puntosHero.forEach((p, i) => p.addEventListener('click', () => mostrar(i)));
+    // deslizar con el dedo sobre el video
+    const caja = document.querySelector('.portada__videos');
+    if (caja) {
+      let x0 = null, y0 = null;
+      caja.style.pointerEvents = 'auto';
+      caja.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+      caja.addEventListener('touchend', (e) => {
+        if (x0 === null) return;
+        const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) mostrar(dx < 0 ? siguienteIndice(actual) : (actual - 1 + videos.length) % videos.length);
+        x0 = null;
+      }, { passive: true });
+    }
     if (reducido) videos.forEach((v) => { v.autoplay = false; v.pause(); });
     if ('IntersectionObserver' in window && portada) {
       new IntersectionObserver(([e]) => {
@@ -80,6 +106,7 @@
       if (document.hidden) activo().pause();
       else if (debeSonar()) reproducir(activo());
     });
+    preparar(videos[siguienteIndice(0)]);
   }
 
   /* ── 3. Cabecera: su fondo toma el color de la sección que tiene debajo ── */
@@ -213,26 +240,13 @@
   if (carrusel) {
     const pista = carrusel.querySelector('.carrusel__pista');
     const casos = [...pista.children];
-    const puntos = [...carrusel.querySelectorAll('.carrusel__punto')];
-    const botonPausa = carrusel.querySelector('[data-carrusel-pausa]');
-    const INTERVALO = 4500;   // ahora cada paso mueve una ficha angosta, no un video a pantalla completa
-    let indice = 0;
-    let pausado = reducido;
-    let enVista = false;
-    let encima = false;
-    let reloj = null;
-    carrusel.style.setProperty('--intervalo', INTERVALO + 'ms');
-    if (!reducido) carrusel.classList.add('con-autoplay');
-    if (pausado) botonPausa?.setAttribute('aria-pressed', 'true');
-
-    const inicio = (i) => casos[i].offsetLeft - parseFloat(getComputedStyle(pista).paddingLeft);
     const videosCaso = [...pista.querySelectorAll('.caso__video')];
-    const maximo = () => pista.scrollWidth - pista.clientWidth;
-    const paso = () => casos[0].getBoundingClientRect().width + parseFloat(getComputedStyle(pista).columnGap || '0');
+    let enVista = false;
 
-    /* Los videos de las fichas que se ven corren a la vez y en bucle; los que quedan fuera se pausan.
-       Cada uno empieza a bajar ANTES de asomarse —por eso el rootMargin— para que nunca se vea el
-       recuadro vacío mientras carga; y de fondo del marco está el póster, así que tampoco hay negro. */
+    /* La tira no avanza sola: la mueve el visitante. Lo que sí corre solo son los videos de las fichas que se
+       ven, todos a la vez y en bucle. Cada uno empieza a bajar ANTES de asomarse —por eso el rootMargin— para
+       que nunca se vea el recuadro vacío mientras carga; y de fondo del marco está el póster, así que tampoco
+       hay negro. */
     const aLaVista = new Set();
     const cargar = (v) => { if (v && v.preload !== 'auto') { v.preload = 'auto'; v.load(); } };
     function ajustarVideos() {
@@ -243,54 +257,7 @@
         } else if (!v.paused) v.pause();
       });
     }
-    function marcar(i) {
-      if (i === indice && puntos[i].classList.contains('es-activo')) return;
-      indice = i;
-      puntos.forEach((p, k) => {
-        const esteSi = k === i;
-        p.classList.toggle('es-activo', esteSi);
-        if (esteSi) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current');
-      });
-      programar();
-    }
-    function ir(i) {
-      pista.scrollTo({ left: Math.min(inicio(i), maximo()), behavior: reducido ? 'auto' : 'smooth' });
-      marcar(i);
-    }
-    function avanzar() {
-      if (pista.scrollLeft >= maximo() - 4) ir(0);        // llegó al final: vuelve al principio
-      else pista.scrollBy({ left: paso(), behavior: reducido ? 'auto' : 'smooth' });
-    }
-    function detenido() { return pausado || !enVista || encima || document.hidden; }
-    function programar() {
-      clearTimeout(reloj);
-      carrusel.classList.toggle('en-pausa', detenido());
-      // reinicia el llenado del punto activo
-      const activoPunto = puntos[indice];
-      activoPunto.classList.remove('es-activo'); void activoPunto.offsetWidth; activoPunto.classList.add('es-activo');
-      if (!detenido()) reloj = setTimeout(avanzar, INTERVALO);
-    }
-    puntos.forEach((p, i) => p.addEventListener('click', (ev) => { ev.preventDefault(); ir(i); }));
-    botonPausa?.addEventListener('click', () => {
-      pausado = !pausado;
-      botonPausa.setAttribute('aria-pressed', String(pausado));
-      programar();
-    });
-    let esperaScroll = null;
-    pista.addEventListener('scroll', () => {
-      clearTimeout(esperaScroll);
-      esperaScroll = setTimeout(() => {
-        const x = pista.scrollLeft;
-        let cerca = 0;
-        casos.forEach((c, k) => { if (Math.abs(inicio(k) - x) < Math.abs(inicio(cerca) - x)) cerca = k; });
-        marcar(cerca);
-      }, 120);
-    }, { passive: true });
-    carrusel.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { encima = true; programar(); } });
-    carrusel.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { encima = false; programar(); } });
-    carrusel.addEventListener('focusin', () => { encima = true; programar(); });
-    carrusel.addEventListener('focusout', (e) => { if (!carrusel.contains(e.relatedTarget)) { encima = false; programar(); } });
-    document.addEventListener('visibilitychange', () => { programar(); ajustarVideos(); });
+    document.addEventListener('visibilitychange', ajustarVideos);
     if ('IntersectionObserver' in window) {
       const mirar = new IntersectionObserver((entradas) => {
         entradas.forEach((e) => {
@@ -304,7 +271,7 @@
         entradas.forEach((e) => { if (e.isIntersecting) cargar(e.target.querySelector('.caso__video')); });
       }, { root: pista, rootMargin: '0px 25%' });
       casos.forEach((c) => acercarse.observe(c));
-      new IntersectionObserver(([e]) => { enVista = e.isIntersecting; programar(); ajustarVideos(); }, { threshold: 0.2 }).observe(carrusel);
+      new IntersectionObserver(([e]) => { enVista = e.isIntersecting; ajustarVideos(); }, { threshold: 0.2 }).observe(carrusel);
       // en cuanto la sección se acerca por debajo, las primeras fichas ya empiezan a bajar
       new IntersectionObserver(([e], obs) => {
         if (!e.isIntersecting) return;
@@ -313,7 +280,7 @@
       }, { rootMargin: '150% 0px' }).observe(carrusel);
     } else {
       enVista = true;
-      videosCaso.forEach((v, k) => { aLaVista.add(k); });
+      videosCaso.forEach((v, k) => aLaVista.add(k));
       ajustarVideos();
     }
   }
