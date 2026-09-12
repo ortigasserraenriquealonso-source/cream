@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Geist+Mono:wght@400;500&amp;family=Mona+Sans:wdth,wght@75..125,200..900&amp;display=swap">
 <link rel="stylesheet" href="assets/estilo.css">
-<link rel="preload" href="assets/videos/luau.webp" as="image" type="image/webp">
+<link rel="preload" href="assets/videos/baldoria.webp" as="image" type="image/webp">
 <script>
   // Antes de pintar: con JS, el titular y los textos esperan su entrada; si portada.js no llega, se muestran igual a los 2,5 s.
   document.documentElement.classList.add('js');
@@ -53,6 +53,21 @@
   <symbol id="facebook" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.7" stroke="currentColor" stroke-width="1.7"/><path d="M13.1 20.6v-6.9h2.3l.35-2.7h-2.65V9.35c0-.78.22-1.3 1.33-1.3h1.42V5.64a19 19 0 0 0-2.07-.1c-2.05 0-3.45 1.25-3.45 3.55V11H8.02v2.7h2.31v6.9" fill="currentColor"/></symbol>
   <symbol id="tiktok" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 3h-3.1v11.9a2.55 2.55 0 1 1-2.55-2.55c.27 0 .53.04.78.12V9.3a5.7 5.7 0 1 0 4.87 5.64V8.87a7.3 7.3 0 0 0 4.1 1.26V7.05A4.1 4.1 0 0 1 16.6 3Z"/></symbol>
   <symbol id="whatsapp" viewBox="0 0 24 24" fill="none"><path d="M12 3.3a8.7 8.7 0 0 0-7.5 13.1L3.3 20.7l4.4-1.2A8.7 8.7 0 1 0 12 3.3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9.2 7.7c.3-.1.6 0 .7.3l.8 1.8c.1.3 0 .6-.2.8l-.6.6c.6 1.2 1.6 2.2 2.8 2.8l.6-.6c.2-.2.5-.3.8-.2l1.8.8c.3.1.4.4.3.7-.3 1.1-1.2 1.8-2.3 1.7-3-.3-5.9-3.2-6.2-6.2-.1-1.1.6-2 1.5-2.5Z" fill="currentColor"/></symbol>
+  <symbol id="wa-volver" viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z" fill="currentColor"/></symbol>
+  <symbol id="wa-persona" viewBox="0 0 24 24"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-3.6 0-8 1.8-8 4v2h16v-2c0-2.2-4.4-4-8-4Z" fill="currentColor"/></symbol>
+  <symbol id="wa-video" viewBox="0 0 24 24"><path d="M15 8.5V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2v-1.5l5 3.5V5z" fill="currentColor"/></symbol>
+  <symbol id="wa-llamada" viewBox="0 0 24 24"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.24c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" fill="currentColor"/></symbol>
+  <symbol id="wa-mas" viewBox="0 0 24 24"><path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" fill="currentColor"/></symbol>
+  <symbol id="wa-emoji" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm-3.2 6.2a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6Zm6.4 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6ZM12 17.4c-2.2 0-4.1-1.3-4.9-3.2h9.8c-.8 1.9-2.7 3.2-4.9 3.2Z" fill="currentColor"/></symbol>
+  <symbol id="wa-clip" viewBox="0 0 24 24"><path d="M16.5 6.2v9.6a4.5 4.5 0 0 1-9 0V5.5a3 3 0 0 1 6 0v9.8a1.5 1.5 0 0 1-3 0V6.2H9v9.1a3 3 0 0 0 6 0V5.5a4.5 4.5 0 0 0-9 0v10.3a6 6 0 0 0 12 0V6.2z" fill="currentColor"/></symbol>
+  <symbol id="wa-mic" viewBox="0 0 24 24"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5.3-3a5.3 5.3 0 0 1-10.6 0H5a7 7 0 0 0 6 6.9V22h2v-3.1a7 7 0 0 0 6-6.9z" fill="currentColor"/></symbol>
+  <symbol id="wa-check" viewBox="0 0 18 12"><path d="M12.2.6a.7.7 0 0 1 1 1L6.5 10a.7.7 0 0 1-1 .06L1.8 6.6a.7.7 0 1 1 1-1l3.1 2.9z" fill="currentColor"/><path d="M16.9.6a.7.7 0 0 1 1 1L11.2 10a.7.7 0 0 1-1 .06l-.9-.85 1-1.2.42.4z" fill="currentColor"/></symbol>
+  <symbol id="pp-reloj" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm0 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" fill="currentColor"/><path d="M12.8 6.8h-1.6v6l4.8 2.9.8-1.3-4-2.4z" fill="currentColor"/></symbol>
+  <symbol id="gc-menu" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z" fill="currentColor"/></symbol>
+  <symbol id="gc-reloj" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 16.2a7.2 7.2 0 1 1 0-14.4 7.2 7.2 0 0 1 0 14.4Zm.7-11.5h-1.4v5l4.2 2.5.7-1.2-3.5-2.1z" fill="currentColor"/></symbol>
+  <symbol id="gc-persona" viewBox="0 0 24 24"><path d="M12 12a3.6 3.6 0 1 0 0-7.2 3.6 3.6 0 0 0 0 7.2Zm0 1.8c-3.2 0-7.2 1.6-7.2 3.6v1.8h14.4v-1.8c0-2-4-3.6-7.2-3.6Z" fill="currentColor"/></symbol>
+  <symbol id="gc-nota" viewBox="0 0 24 24"><path d="M4 6h16v1.8H4zm0 4.2h16V12H4zm0 4.2h10.5v1.8H4z" fill="currentColor"/></symbol>
+  <symbol id="gc-pago" viewBox="0 0 24 24"><path d="M20 5H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Zm0 12H4v-5h16zm0-8H4V7h16z" fill="currentColor"/></symbol>
 </svg>
 
 <a class="saltar" href="#contenido">Saltar al contenido</a>
@@ -104,7 +119,7 @@
   <section id="inicio" class="portada" data-fondo="lienzo" aria-labelledby="titular">
     <h1 id="titular" class="titular">
       <span class="titular__linea"><span>El aliado</span></span>
-      <span class="titular__linea"><span>estratégico</span></span>
+      <span class="titular__linea"><span class="titular__acento">estratégico</span></span>
       <span class="titular__linea"><span>que tu empresa</span></span>
       <span class="titular__linea"><span>necesita<svg class="titular__destello" viewBox="0 0 46.0626 46.0814" aria-hidden="true" focusable="false"><use href="#destello"/></svg></span></span>
     </h1>
@@ -112,8 +127,8 @@
 
     <div class="portada__medios">
       <div class="portada__videos" aria-hidden="true">
-        <video class="portada__video es-activo" src="assets/videos/luau.mp4" poster="assets/videos/luau.webp" muted playsinline autoplay loop preload="auto" disablepictureinpicture disableremoteplayback></video>
-        <video class="portada__video" src="assets/videos/luau.mp4" poster="assets/videos/luau.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video es-activo" src="assets/videos/baldoria.mp4" poster="assets/videos/baldoria.webp" muted playsinline autoplay loop preload="auto" disablepictureinpicture disableremoteplayback></video>
+        <video class="portada__video" src="assets/videos/baldoria.mp4" poster="assets/videos/baldoria.webp" muted playsinline loop preload="none" disablepictureinpicture disableremoteplayback></video>
       </div>
     </div>
   </section>
@@ -172,15 +187,15 @@
           <div class="panel__barra"><i></i><i></i><i></i><span>Panel de CREAM</span></div>
           <div class="panel__cuerpo">
             <div class="panel__fichas">
-              <div class="panel__ficha"><span>Conversaciones</span><strong data-hasta="1687" data-tiempo="2600">1687</strong></div>
-              <div class="panel__ficha"><span>Citas agendadas</span><strong data-hasta="234" data-tiempo="3400">234</strong></div>
-              <div class="panel__ficha panel__ficha--roi"><span>ROI de la pauta</span><strong data-hasta="9,8×" data-tiempo="4200">9,8×</strong></div>
+              <div class="panel__ficha"><span>Conversaciones</span><strong data-hasta="1687" data-tiempo="9700">1687</strong></div>
+              <div class="panel__ficha"><span>Citas agendadas</span><strong data-hasta="234" data-tiempo="9850">234</strong></div>
+              <div class="panel__ficha panel__ficha--roi"><span>ROI de la pauta</span><strong data-hasta="9,8×" data-tiempo="10000">9,8×</strong></div>
             </div>
             <div class="panel__grafico">
-              <span style="--h: 34%; --i: 0"></span><span style="--h: 52%; --i: 1"></span><span style="--h: 41%; --i: 2"></span><span style="--h: 68%; --i: 3"></span>
-              <span style="--h: 57%; --i: 4"></span><span style="--h: 83%; --i: 5"></span><span style="--h: 74%; --i: 6"></span><span style="--h: 96%; --i: 7"></span>
+              <span style="--h: 20%; --i: 0"></span><span style="--h: 30%; --i: 1"></span><span style="--h: 24%; --i: 2"></span><span style="--h: 39%; --i: 3"></span>
+              <span style="--h: 33%; --i: 4"></span><span style="--h: 48%; --i: 5"></span><span style="--h: 43%; --i: 6"></span><span style="--h: 56%; --i: 7"></span>
               <svg class="panel__linea" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                <polyline points="6.25,66 18.75,48 31.25,59 43.75,32 56.25,43 68.75,17 81.25,26 93.75,4" vector-effect="non-scaling-stroke"/>
+                <polyline points="6.25,58 18.75,48 31.25,54 43.75,39 56.25,45 68.75,30 81.25,35 93.75,22" vector-effect="non-scaling-stroke"/>
               </svg>
               <span class="panel__brillo" aria-hidden="true"></span>
             </div>
@@ -198,15 +213,37 @@
         <ul class="capacidades__lista">
           <li class="capacidad">
             <div class="anim anim--chat anim--responde" data-revelar="subir" aria-hidden="true">
-              <span class="anim__hora">7:42 p. m.</span>
-              <div class="anim__chat">
-                <div class="fila fila--1"><div class="burbuja burbuja--cliente">Hola, buenas noches. ¿Todavía están atendiendo?</div></div>
-                <div class="fila fila--2"><div class="burbuja burbuja--agente">¡Hola! 👋 Soy Sofi, la asistente con IA de Clínica Lumière 💫</div></div>
-                <div class="fila fila--3"><div class="burbuja burbuja--agente">La atención presencial ya cerró, pero yo estoy 24/7 por aquí 😊</div></div>
-                <div class="fila fila--4"><div class="burbuja burbuja--cliente">¿Cuál es su horario?</div></div>
-                <div class="fila fila--5"><div class="burbuja burbuja--agente">Lun a vie 9:00 – 19:00 · Sáb 9:00 – 14:00 · Dom cerrado 😴</div></div>
-                <div class="fila fila--6"><div class="burbuja burbuja--cliente">¿Tendrán espacio el jueves?</div></div>
-                <div class="fila fila--7"><div class="burbuja burbuja--agente">Reviso la agenda… ⏳ Jueves: 10:30 a. m., 1:00 y 5:30 p. m. 🙌</div></div>
+              <div class="wa">
+                <div class="wa__cabeza">
+                  <svg class="wa__volver" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-volver"/></svg>
+                  <span class="wa__avatar"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-persona"/></svg></span>
+                  <span class="wa__quien"><b>Cliente</b><i class="wa__estado r-estado"><s>en línea</s><u>escribiendo…</u></i></span>
+                  <svg class="wa__icono" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-video"/></svg>
+                  <svg class="wa__icono" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-llamada"/></svg>
+                  <svg class="wa__icono wa__icono--mas" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-mas"/></svg>
+                </div>
+                <div class="wa__cuerpo">
+                  <span class="wa__dia">HOY</span>
+                  <span class="wa__cifrado">Los mensajes están cifrados de extremo a extremo.</span>
+                <div class="wa__fila wa__fila--escribe wa__fila--ellos r-e-1"><div class="wa__globo wa__globo--ellos wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--ellos r-m-1"><div class="wa__globo wa__globo--ellos wa__globo--rabo">Hola, buenas noches. ¿Todavía están atendiendo?<em class="wa__hora">7:42 p. m.</em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo r-e-2"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo r-m-2"><div class="wa__globo wa__globo--yo wa__globo--rabo">¡Hola! 👋 Soy Sofi, la asistente con IA de Clínica Lumière 💫<em class="wa__hora">7:42 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo r-e-3"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo r-m-3"><div class="wa__globo wa__globo--yo">La atención presencial ya cerró, pero yo estoy 24/7 por acá 😊<em class="wa__hora">7:42 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--ellos r-e-4"><div class="wa__globo wa__globo--ellos wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--ellos r-m-4"><div class="wa__globo wa__globo--ellos wa__globo--rabo">¿Cuál es su horario?<em class="wa__hora">7:43 p. m.</em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo r-e-5"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo r-m-5"><div class="wa__globo wa__globo--yo wa__globo--rabo">Lun a vie de 9:00 a 19:00 · Sábados de 9:00 a 14:00 · Domingos cerrado<em class="wa__hora">7:43 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--ellos r-e-6"><div class="wa__globo wa__globo--ellos wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--ellos r-m-6"><div class="wa__globo wa__globo--ellos wa__globo--rabo">Ya. ¿Tendrán espacio el jueves?<em class="wa__hora">7:44 p. m.</em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo r-e-7"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo r-m-7"><div class="wa__globo wa__globo--yo wa__globo--rabo">El jueves tengo libre 10:30 a. m., 1:00 p. m. y 5:30 p. m. 🙌<em class="wa__hora">7:44 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                </div>
+                <div class="wa__barra">
+                  <span class="wa__campo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-emoji"/></svg>Escribe un mensaje<svg class="wa__clip" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-clip"/></svg></span>
+                  <span class="wa__enviar"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-mic"/></svg></span>
+                </div>
               </div>
             </div>
             <h3 class="capacidad__titulo" data-revelar="lineas">Responde</h3>
@@ -214,15 +251,39 @@
           </li>
           <li class="capacidad">
             <div class="anim anim--chat anim--vende" data-revelar="subir" aria-hidden="true">
-              <div class="anim__chat">
-                <div class="fila fila--1"><div class="burbuja burbuja--cliente">¿Todavía tienen la promo de bótox de $499?</div></div>
-                <div class="fila fila--2"><div class="burbuja burbuja--agente">¡Sííí! 🎉 $499 en vez de $750 💉</div></div>
-                <div class="fila fila--3"><div class="burbuja burbuja--agente">Quedan 5 cupos de la promo. ¿Te aparto uno? 😍</div></div>
-                <div class="fila fila--4"><div class="burbuja burbuja--cliente">Sí, quiero reservar. ¿Se puede mañana?</div></div>
-                <div class="fila fila--5"><div class="burbuja burbuja--agente">Listo. Para confirmarlo, un adelanto de $50 💳</div></div>
-                <div class="fila fila--6"><div class="burbuja burbuja--cliente burbuja--captura"><div class="paypal"><div class="paypal__marca"><b>Pay</b><i>Pal</i></div><div class="paypal__cuerpo"><span class="paypal__reloj"></span><strong>Pagaste $50.00 USD</strong><em>a Clínica Estética Lumière</em><u>¡Pago completado!</u></div></div></div></div>
-                <div class="fila fila--7"><div class="burbuja burbuja--agente">¡Recibido! ✅ Dame un momentito… ⏳</div></div>
-                <div class="fila fila--8"><div class="burbuja burbuja--agente">📌 Cita confirmada · bótox $499 · adelanto $50 · saldo $449</div></div>
+              <div class="wa">
+                <div class="wa__cabeza">
+                  <svg class="wa__volver" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-volver"/></svg>
+                  <span class="wa__avatar"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-persona"/></svg></span>
+                  <span class="wa__quien"><b>Cliente</b><i class="wa__estado v-estado"><s>en línea</s><u>escribiendo…</u></i></span>
+                  <svg class="wa__icono" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-video"/></svg>
+                  <svg class="wa__icono" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-llamada"/></svg>
+                  <svg class="wa__icono wa__icono--mas" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-mas"/></svg>
+                </div>
+                <div class="wa__cuerpo">
+                  <span class="wa__dia">HOY</span>
+                  <span class="wa__cifrado">Los mensajes están cifrados de extremo a extremo.</span>
+                <div class="wa__fila wa__fila--escribe wa__fila--ellos v-e-1"><div class="wa__globo wa__globo--ellos wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--ellos v-m-1"><div class="wa__globo wa__globo--ellos wa__globo--rabo">¿Todavía tienen la promo de bótox de $499?<em class="wa__hora">7:45 p. m.</em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo v-e-2"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo v-m-2"><div class="wa__globo wa__globo--yo wa__globo--rabo">¡Sí! 🎉 Está en $499 en vez de $750 💉<em class="wa__hora">7:45 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo v-e-3"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo v-m-3"><div class="wa__globo wa__globo--yo">Quedan 5 cupos. ¿Te aparto uno? 😍<em class="wa__hora">7:45 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--ellos v-e-4"><div class="wa__globo wa__globo--ellos wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--ellos v-m-4"><div class="wa__globo wa__globo--ellos wa__globo--rabo">Sí, quiero reservar. ¿Se puede mañana?<em class="wa__hora">7:46 p. m.</em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo v-e-5"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo v-m-5"><div class="wa__globo wa__globo--yo wa__globo--rabo">Perfecto. Para confirmarla dejas un adelanto de $50 💳<em class="wa__hora">7:46 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--ellos v-e-6"><div class="wa__globo wa__globo--ellos wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--ellos v-m-6"><div class="wa__globo wa__globo--ellos wa__globo--captura wa__globo--rabo"><div class="paypal"><div class="paypal__marca"><b>Pay</b><i>Pal</i></div><div class="paypal__cuerpo"><span class="paypal__reloj"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#pp-reloj"/></svg></span><strong>Pagaste $50.00 USD</strong><em>a Clínica Estética Lumière</em><u>¡Pago completado!</u><span class="paypal__fecha">11 sep · Recibo 7KX28401LM</span></div></div><em class="wa__hora">7:48 p. m.</em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo v-e-7"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo v-m-7"><div class="wa__globo wa__globo--yo wa__globo--rabo">¡Recibido! ✅ Dame un momentito…<em class="wa__hora">7:48 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                <div class="wa__fila wa__fila--escribe wa__fila--yo v-e-8"><div class="wa__globo wa__globo--yo wa__globo--puntos"><i></i><i></i><i></i></div></div>
+                <div class="wa__fila wa__fila--yo v-m-8"><div class="wa__globo wa__globo--yo">📌 Cita confirmada · bótox $499 · adelanto $50 · saldo $449<em class="wa__hora">7:49 p. m.<svg class="wa__check" viewBox="0 0 18 12" aria-hidden="true"><use href="#wa-check"/></svg></em></div></div>
+                </div>
+                <div class="wa__barra">
+                  <span class="wa__campo"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-emoji"/></svg>Escribe un mensaje<svg class="wa__clip" viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-clip"/></svg></span>
+                  <span class="wa__enviar"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#wa-mic"/></svg></span>
+                </div>
               </div>
             </div>
             <h3 class="capacidad__titulo" data-revelar="lineas">Vende</h3>
@@ -230,26 +291,56 @@
           </li>
           <li class="capacidad">
             <div class="anim anim--agenda" data-revelar="subir" aria-hidden="true">
-              <div class="agenda">
-                <div class="agenda__cabeza"><span>Jueves 18</span><span>Google Calendar</span></div>
-                <div class="agenda__grilla">
-                  <div class="agenda__hora"><span>2 p. m.</span></div>
-                  <div class="agenda__hora"><span>3 p. m.</span></div>
-                  <div class="agenda__hora"><span>4 p. m.</span></div>
-                  <div class="agenda__cita"><b>María Pérez · Bótox</b><em>3:00 – 3:45 p. m.</em></div>
+              <div class="gcal">
+                <div class="gcal__barra">
+                  <svg class="gcal__menu" viewBox="0 0 24 24" aria-hidden="true"><use href="#gc-menu"/></svg>
+                  <span class="gcal__logo"><i>18</i></span>
+                  <b>Septiembre 2026</b>
+                  <span class="gcal__hoy">Día</span>
                 </div>
-                <div class="dialogo">
-                  <span class="dialogo__campo"><i>María Pérez · Bótox</i></span>
-                  <span class="dialogo__hora">jue 18 · 3:00 – 3:45 p. m. <b>45 min</b></span>
-                  <span class="dialogo__nota dialogo__nota--1">Adelanto de $50 recibido</span>
-                  <span class="dialogo__nota dialogo__nota--2">Promo $499 (regular $750) · saldo $449</span>
-                  <span class="dialogo__guardar">Guardar</span>
+                <div class="gcal__dias">
+                  <span class="gcal__fecha"><s>JUE</s><u>18</u></span>
+                  <span class="gcal__todo">Sin eventos de todo el día</span>
                 </div>
-                <span class="raton"><svg viewBox="0 0 12 18" aria-hidden="true" focusable="false"><path d="M1 1l9.4 8.6-4.2.5 2.5 4.9-1.9.9-2.5-4.9L1 14.3z" fill="#fff" stroke="#000" stroke-width=".9" stroke-linejoin="round"/></svg></span>
+                <div class="gcal__grilla">
+                  <div class="gcal__hora"><span>1 p. m.</span></div>
+                  <div class="gcal__hora"><span>2 p. m.</span></div>
+                  <div class="gcal__hora"><span>3 p. m.</span></div>
+                  <div class="gcal__hora"><span>4 p. m.</span></div>
+                  <div class="gcal__hora"><span>5 p. m.</span></div>
+                  <div class="gcal__hora"><span>6 p. m.</span></div>
+                  <div class="gcal__evento" style="--desde: 0; --alto: .75"><b>Consulta · Ana R.</b><em>1:00 – 1:45 p. m.</em></div>
+                  <div class="gcal__evento gcal__evento--dos" style="--desde: 1.25; --alto: .5"><b>Control · Luis M.</b><em>2:15 – 2:45 p. m.</em></div>
+                  <div class="gcal__evento gcal__evento--nuevo" style="--desde: 2; --alto: .75"><b>Cliente · Bótox</b><em>3:00 – 3:45 p. m.</em></div>
+                  <div class="gcal__evento gcal__evento--tres" style="--desde: 4.25; --alto: .75"><b>Retoque · Carla V.</b><em>5:15 – 6:00 p. m.</em></div>
+                  <div class="gcal__ahora"></div>
+                </div>
+                <div class="gcal__dialogo">
+                  <span class="gcal__campo"><i>Cliente · Bótox</i></span>
+                  <span class="gcal__pestanas"><s>Evento</s><u>Tarea</u></span>
+                  <span class="gcal__fila gcal__fila--hora">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#gc-reloj"/></svg>
+                    jueves, 18 de septiembre · 3:00 – 3:45 p. m. <b>45 min</b>
+                  </span>
+                  <span class="gcal__fila gcal__nota--1">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#gc-persona"/></svg>
+                    Cliente · +51 9•• ••• 470
+                  </span>
+                  <span class="gcal__fila gcal__nota--2">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#gc-nota"/></svg>
+                    Bótox — promoción $499 (regular $750)
+                  </span>
+                  <span class="gcal__fila gcal__nota--3">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#gc-pago"/></svg>
+                    Adelanto de $50 pagado · saldo $449
+                  </span>
+                  <span class="gcal__botones"><s>Más opciones</s><span class="gcal__guardar">Guardar</span></span>
+                </div>
+                <span class="raton"><svg viewBox="0 0 12 18" aria-hidden="true" focusable="false"><path d="M1 1l9.4 8.6-4.2.5 2.5 4.9-1.9.9-2.5-4.9L1 14.3z" fill="#202124" stroke="#fff" stroke-width=".9" stroke-linejoin="round"/></svg></span>
               </div>
             </div>
             <h3 class="capacidad__titulo" data-revelar="lineas">Agenda</h3>
-            <p class="capacidad__texto" data-revelar="subir">Crea la cita en tu Google Calendar con todos los datos.</p>
+            <p class="capacidad__texto" data-revelar="subir">Crea la cita en tu Google Calendar con el horario y todos los datos.</p>
           </li>
         </ul>
       </section>
