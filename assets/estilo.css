@@ -642,6 +642,7 @@ html.menu-abierto { overflow: hidden; }
 .gcal__grilla { position: relative; display: grid; grid-template-rows: repeat(6, 1fr); padding: 0 1.2rem 0 var(--canal); }
 .gcal__hora { border-top: 1px solid #e8eaed; }
 .gcal__hora:first-child { border-top: 0; }
+.gcal__hora:first-child span { margin-top: .2rem; }
 .gcal__hora span { position: absolute; left: 0; width: calc(var(--canal) - 1rem); margin-top: -.7rem; text-align: right; font-size: max(1rem, 8px); color: #70757a; }
 .gcal__evento {
   position: absolute;
@@ -651,9 +652,10 @@ html.menu-abierto { overflow: hidden; }
   overflow: hidden; padding: .4rem .7rem; border-radius: .5rem;
   background: #1a73e8; color: #fff;
 }
-.gcal__evento b { font-size: max(1.15rem, 10px); font-weight: 600; }
+.gcal__evento b { font-size: max(1.15rem, 10px); font-weight: 600; white-space: nowrap; }
 .gcal__evento em { font-size: max(1.05rem, 9px); font-style: normal; opacity: .9; }
-.gcal__evento--dos { background: #7986cb; }
+.gcal__evento--dos { background: #7986cb; display: flex; align-items: center; gap: .5rem; }
+.gcal__evento--dos em::before { content: '·'; margin-right: .5rem; }
 .gcal__evento--tres { background: #f6bf26; color: #3c4043; }
 .gcal__evento--nuevo { background: var(--acento); color: var(--negro); }
 .gcal__ahora { position: absolute; left: calc(var(--canal) - .5rem); right: 1.2rem; top: calc(.67 * 100% / 6); height: 2px; background: #ea4335; }
