@@ -330,7 +330,39 @@
     });
   }
 
-  /* ── 9. Sin cursor (celular): cada columna se enciende cuando cruza el centro de la pantalla ── */
+  /* ── 9. El panel: las tres cifras suben desde cero, cada una a su ritmo ── */
+  const panel = document.querySelector('.panel');
+  if (panel && !reducido && 'IntersectionObserver' in window) {
+    const cifras = [...panel.querySelectorAll('[data-hasta]')].map((el) => {
+      const partes = /^([\d.,]+)(.*)$/.exec(el.dataset.hasta) || [];
+      const crudo = partes[1] || '0';
+      return {
+        el,
+        numero: parseFloat(crudo.replace(',', '.')),
+        decimales: crudo.includes(',') ? (crudo.split(',')[1] || '').length : 0,
+        sufijo: partes[2] || '',
+        tiempo: Number(el.dataset.tiempo) || 2600,
+      };
+    });
+    const pintar = (c, v) => { c.el.textContent = v.toFixed(c.decimales).replace('.', ',') + c.sufijo; };
+    cifras.forEach((c) => pintar(c, 0));
+    const ioPanel = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      ioPanel.disconnect();
+      cifras.forEach((c) => {
+        const arranque = performance.now();
+        const paso = (ahora) => {
+          const t = Math.min(1, (ahora - arranque) / c.tiempo);
+          pintar(c, c.numero * (1 - (1 - t) ** 3));      // frena al final
+          if (t < 1) requestAnimationFrame(paso);
+        };
+        requestAnimationFrame(paso);
+      });
+    }, { threshold: 0.3 });
+    ioPanel.observe(panel);
+  }
+
+  /* ── 10. Sin cursor (celular): cada columna se enciende cuando cruza el centro de la pantalla ── */
   const columnas = [...document.querySelectorAll('.columna__enlace')];
   if (columnas.length && matchMedia('(hover: none)').matches && 'IntersectionObserver' in window) {
     const ioColumnas = new IntersectionObserver(

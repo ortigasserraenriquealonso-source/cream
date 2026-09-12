@@ -518,7 +518,7 @@ html.menu-abierto { overflow: hidden; }
 
 
 /* ───────── Animaciones del agente: chat, agenda y panel. Todo con CSS, sin imágenes ─────────
-   Son ejemplos, y lo dicen: cada caja lleva su rótulo «Ejemplo». Las cifras no son de ningún cliente. */
+   Las conversaciones y las cifras son una simulación para mostrar cómo trabaja el agente. */
 
 .anim, .panel {
   position: relative;
@@ -527,8 +527,7 @@ html.menu-abierto { overflow: hidden; }
   border-radius: 2.4rem;
   background: linear-gradient(#111, #070707);
 }
-.anim { display: flex; align-items: center; aspect-ratio: 1; padding: 2.8rem; }
-.anim--chat { align-items: flex-end; padding-bottom: 3.2rem; }
+.anim { display: flex; align-items: flex-end; aspect-ratio: 4 / 5; padding: 2.4rem; }
 .anim__etiqueta, .anim__hora, .agenda__cabeza, .panel__barra span, .panel__ficha span, .panel__pie {
   font-family: var(--f-mono);
   font-size: max(1.1rem, 10px);
@@ -536,60 +535,72 @@ html.menu-abierto { overflow: hidden; }
   text-transform: uppercase;
   color: var(--humo);
 }
-.anim__etiqueta { position: absolute; top: 1.8rem; left: 2.2rem; }
-.anim__hora { position: absolute; top: 1.8rem; right: 2.2rem; }
+.anim__etiqueta { position: absolute; top: 1.8rem; left: 2.2rem; z-index: 2; }
+.anim__hora { position: absolute; top: 1.8rem; right: 2.2rem; z-index: 2; }
 
-/* Chat */
-.anim__chat { display: flex; flex-direction: column; gap: 1.2rem; width: 100%; }
+/* Chat: los mensajes entran de abajo y empujan a los de arriba, como en el teléfono */
+.anim__chat { display: flex; flex-direction: column; justify-content: flex-end; width: 100%; height: 100%; overflow: hidden; }
+.fila { display: flex; overflow: hidden; margin-bottom: 1rem; }
+.fila:last-child { margin-bottom: 0; }
+.fila:has(.burbuja--agente) { justify-content: flex-end; }
 .burbuja {
-  align-self: flex-start;
-  max-width: 84%;
-  padding: 1.3rem 1.7rem;
-  border-radius: 1.8rem 1.8rem 1.8rem .6rem;
+  max-width: 88%;
+  padding: 1.1rem 1.5rem;
+  border-radius: 1.6rem 1.6rem 1.6rem .5rem;
   background: #1d1d1d;
   color: var(--blanco);
-  font-size: max(1.4rem, 12px);
-  line-height: 1.3;
+  font-size: max(1.25rem, 11px);
+  line-height: 1.35;
 }
 .burbuja--agente {
-  align-self: flex-end;
-  border-radius: 1.8rem 1.8rem .6rem;
+  border-radius: 1.6rem 1.6rem .5rem;
   background: var(--acento);
   color: var(--negro);
 }
-.burbuja--archivo { display: grid; gap: .2rem; }
-.burbuja--archivo b { font-size: max(1.3rem, 11px); font-weight: 600; }
-.burbuja--archivo em {
-  font-family: var(--f-mono); font-size: max(1.1rem, 10px); font-style: normal;
-  letter-spacing: -.03em; color: var(--humo);
-}
-.burbuja--puntos { display: flex; gap: .5rem; overflow: hidden; padding: 1.6rem 1.7rem; }
-.burbuja--puntos i { width: .7rem; height: .7rem; border-radius: 50%; background: var(--negro); opacity: .35; }
+.burbuja--captura { padding: .6rem; background: #1d1d1d; }
 
-/* Agenda */
-.agenda { width: 100%; display: grid; gap: 1.6rem; }
+/* El comprobante de PayPal que manda la clienta */
+.paypal { width: 19rem; max-width: 100%; overflow: hidden; border-radius: 1rem; background: #fff; color: #2c2e2f; }
+.paypal__marca { display: flex; gap: .1rem; padding: .8rem 1rem; border-bottom: 1px solid #e6e9ec; font-family: var(--f-texto); font-size: max(1.4rem, 12px); font-weight: 700; font-style: italic; }
+.paypal__marca b { color: #253b80; }
+.paypal__marca i { color: #179bd7; font-style: italic; }
+.paypal__cuerpo { display: grid; justify-items: center; gap: .3rem; padding: 1.2rem 1rem 1.4rem; background: #f7f9fa; text-align: center; }
+.paypal__reloj { width: 2.6rem; height: 2.6rem; margin-bottom: .4rem; border: 1.5px solid #179bd7; border-radius: 50%; position: relative; }
+.paypal__reloj::before { content: ''; position: absolute; left: 50%; top: 22%; width: 1.5px; height: 30%; background: #179bd7; transform-origin: bottom; transform: rotate(32deg); }
+.paypal__cuerpo strong { font-size: max(1.3rem, 11px); font-weight: 700; }
+.paypal__cuerpo em { font-size: max(1.05rem, 9px); font-style: normal; color: #6c7378; }
+.paypal__cuerpo u { margin-top: .4rem; font-size: max(1.05rem, 9px); text-decoration: none; color: #2c9c4a; }
+
+/* Agenda: el ratón crea la cita en Google Calendar */
+.agenda { position: relative; width: 100%; display: grid; gap: 1.4rem; }
 .agenda__cabeza { display: flex; justify-content: space-between; }
-.agenda__grilla { position: relative; display: grid; gap: 0; }
-.agenda__hora { position: relative; height: 5.2rem; padding-left: 7rem; border-top: 1px solid #242424; }
+.agenda__grilla { position: relative; }
+.agenda__hora { position: relative; height: 4.2rem; padding-left: 6.4rem; border-top: 1px solid #242424; }
 .agenda__hora:last-child { border-bottom: 1px solid #242424; }
-.agenda__hora span {
-  position: absolute; left: 0; top: -.7rem;
-  font-family: var(--f-mono); font-size: max(1.1rem, 10px); letter-spacing: -.03em; color: var(--humo);
-}
+.agenda__hora span { position: absolute; left: 0; top: -.7rem; font-family: var(--f-mono); font-size: max(1.05rem, 9px); letter-spacing: -.03em; color: var(--humo); }
 .agenda__cita {
-  position: absolute; left: 7rem; right: 0; top: 5.2rem; height: 4rem;
-  display: grid; align-content: center; gap: .2rem;
-  padding: 0 1.4rem;
-  border-left: .3rem solid var(--acento);
-  border-radius: .6rem;
-  background: color-mix(in srgb, var(--acento) 22%, #101010);
-  color: var(--blanco);
+  position: absolute; left: 6.4rem; right: 0; top: 4.2rem; height: 3.2rem;
+  display: grid; align-content: center; gap: .1rem; padding: 0 1.2rem;
+  border-left: .3rem solid var(--acento); border-radius: .5rem;
+  background: color-mix(in srgb, var(--acento) 24%, #101010); color: var(--blanco);
 }
-.agenda__cita b { font-size: max(1.3rem, 11px); font-weight: 600; }
-.agenda__cita em {
-  font-family: var(--f-mono); font-size: max(1.1rem, 10px); font-style: normal;
-  letter-spacing: -.03em; color: var(--ceniza);
+.agenda__cita b { font-size: max(1.15rem, 10px); font-weight: 600; }
+.agenda__cita em { font-family: var(--f-mono); font-size: max(1rem, 9px); font-style: normal; letter-spacing: -.03em; color: var(--ceniza); }
+.dialogo {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 3;
+  display: grid; gap: .6rem; padding: 1.3rem;
+  border: 1px solid #2f2f2f; border-radius: 1.2rem;
+  background: #171717; box-shadow: 0 2rem 4rem rgba(0, 0, 0, .6);
+  font-size: max(1.15rem, 10px); color: var(--blanco);
 }
+.dialogo__campo { border-bottom: 1px solid var(--acento); padding-bottom: .4rem; }
+.dialogo__campo i { display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; font-style: normal; }
+.dialogo__hora { font-family: var(--f-mono); font-size: max(1rem, 9px); letter-spacing: -.03em; color: var(--ceniza); }
+.dialogo__hora b { color: var(--acento); }
+.dialogo__nota { font-family: var(--f-mono); font-size: max(1rem, 9px); letter-spacing: -.03em; color: var(--humo); }
+.dialogo__guardar { justify-self: end; margin-top: .2rem; padding: .5rem 1.2rem; border-radius: .6rem; background: var(--acento); color: var(--negro); font-weight: 600; }
+.raton { position: absolute; left: 72%; top: 88%; z-index: 4; width: 1.4rem; }
+.raton svg { width: 100%; height: auto; }
 
 /* Panel */
 .panel { width: 80.8rem; aspect-ratio: 808 / 701; display: grid; grid-template-rows: auto 1fr; }
@@ -600,65 +611,127 @@ html.menu-abierto { overflow: hidden; }
 .panel__cuerpo { display: grid; grid-template-rows: auto 1fr auto; gap: 2.4rem; padding: 2.8rem 2.2rem 2.2rem; }
 .panel__fichas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.6rem; }
 .panel__ficha { display: grid; gap: .8rem; padding: 1.8rem; border: 1px solid #242424; border-radius: 1.6rem; }
-.panel__ficha strong { font-size: max(3.2rem, 24px); font-weight: 600; letter-spacing: -.03em; color: var(--blanco); }
+.panel__ficha strong { font-size: max(3.2rem, 24px); font-weight: 600; letter-spacing: -.03em; color: var(--blanco); font-variant-numeric: tabular-nums; }
 .panel__ficha--roi strong { color: var(--acento); }
-.panel__grafico {
-  display: flex;
-  align-items: flex-end;
-  align-self: end;
-  gap: 1.2rem;
-  height: min(100%, 22rem);
-  padding-bottom: 1.4rem;
-  border-bottom: 1px solid #242424;
-}
-.panel__grafico span {
+.panel__grafico { position: relative; display: flex; align-items: flex-end; align-self: end; gap: 1.2rem; height: min(100%, 22rem); }
+.panel__grafico > span:not([class]) {
   flex: 1;
   height: var(--h);
   border-radius: .6rem .6rem .2rem .2rem;
   background: linear-gradient(color-mix(in srgb, var(--acento) 82%, #0d0d0d), color-mix(in srgb, var(--acento) 14%, #0d0d0d));
   transform-origin: bottom;
 }
-.panel__pie { display: flex; justify-content: space-between; }
+.panel__linea { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.panel__linea polyline { fill: none; stroke: #35f39a; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 .6rem rgba(53, 243, 154, .5)); }
+.panel__brillo {
+  position: absolute; right: 6.25%; bottom: 96%; width: 1rem; height: 1rem; margin: 0 -.5rem -.5rem 0;
+  border-radius: 50%; background: #35f39a; box-shadow: 0 0 1.4rem .25rem rgba(53, 243, 154, .55);
+}
+.panel__pie { display: flex; justify-content: space-between; padding-top: 1.4rem; border-top: 1px solid #242424; }
 
 @media (prefers-reduced-motion: no-preference) {
-  .con-movimiento .anim .burbuja, .con-movimiento .anim .agenda__cita { opacity: 0; }
-  .anim.visto .burbuja, .anim.visto .agenda__cita { animation: 9s var(--curva) infinite both; }
-  .anim.visto .burbuja:nth-child(1) { animation-name: burbuja-1; }
-  .anim.visto .burbuja:nth-child(2) { animation-name: burbuja-2; }
-  .anim.visto .burbuja:nth-child(3) { animation-name: burbuja-3; }
-  .anim.visto .burbuja--puntos:nth-child(2) { animation-name: puntos; }   /* «escribiendo» se encoge cuando llega la respuesta */
-  .anim.visto .agenda__cita { animation-name: cita; }
-  .anim.visto .burbuja--puntos i { animation: punto 1.2s ease-in-out infinite; }
-  .anim.visto .burbuja--puntos i:nth-child(2) { animation-delay: .15s; }
-  .anim.visto .burbuja--puntos i:nth-child(3) { animation-delay: .3s; }
-  .panel.visto .panel__grafico span { animation: barra 1.1s var(--curva) both; animation-delay: calc(var(--i, 0) * 70ms); }
+  .con-movimiento .fila { max-height: 0; opacity: 0; margin-bottom: 0; }
+  .anim.visto .fila { animation: 18s var(--curva) infinite both; }
+  .anim.visto .fila--1 { animation-name: abre-1; }
+  .anim.visto .fila--2 { animation-name: abre-2; }
+  .anim.visto .fila--3 { animation-name: abre-3; }
+  .anim.visto .fila--4 { animation-name: abre-4; }
+  .anim.visto .fila--5 { animation-name: abre-5; }
+  .anim.visto .fila--6 { animation-name: abre-6; }
+  .anim.visto .fila--7 { animation-name: abre-7; }
+  .anim.visto .fila--8 { animation-name: abre-8; }
+  .con-movimiento .agenda__cita, .con-movimiento .dialogo, .con-movimiento .raton { opacity: 0; }
+  .anim--agenda.visto .agenda__cita { animation: cita 16s var(--curva) infinite both; }
+  .anim--agenda.visto .dialogo { animation: dialogo 16s var(--curva) infinite both; }
+  .anim--agenda.visto .dialogo__campo i { animation: escribe 16s steps(24) infinite both; }
+  .anim--agenda.visto .dialogo__hora { animation: aparece-dato 16s var(--curva) infinite both; animation-delay: 0s; }
+  .anim--agenda.visto .dialogo__nota--1 { animation: aparece-dato-2 16s var(--curva) infinite both; }
+  .anim--agenda.visto .dialogo__nota--2 { animation: aparece-dato-3 16s var(--curva) infinite both; }
+  .anim--agenda.visto .dialogo__guardar { animation: guardar 16s var(--curva) infinite both; }
+  .anim--agenda.visto .raton { animation: raton 16s var(--curva) infinite both; }
+  .con-movimiento .panel__linea polyline { stroke-dasharray: 300; stroke-dashoffset: 300; }
+  .con-movimiento .panel__brillo { opacity: 0; }
+  .panel.visto .panel__linea polyline { animation: dibujar 1.9s var(--curva) .2s both; }
+  .panel.visto .panel__brillo { animation: brota .5s ease 1.9s both, latido 2.6s ease-in-out 2.4s infinite; }
+  .panel.visto .panel__grafico > span:not([class]) { animation: barra 1.1s var(--curva) both; animation-delay: calc(var(--i, 0) * 210ms); }
 }
-@keyframes burbuja-1 {
-  0%, 4% { opacity: 0; transform: translateY(1.2rem) scale(.97); }
-  10%, 90% { opacity: 1; transform: none; }
-  97%, 100% { opacity: 0; transform: translateY(-.6rem); }
+@keyframes abre-1 {
+  0%, 3% { max-height: 0; opacity: 0; margin-bottom: 0; }
+  8%, 95% { max-height: 24rem; opacity: 1; margin-bottom: 1rem; }
+  99%, 100% { max-height: 0; opacity: 0; margin-bottom: 0; }
 }
-@keyframes burbuja-2 {
-  0%, 20% { opacity: 0; transform: translateY(1.2rem) scale(.97); }
-  26%, 90% { opacity: 1; transform: none; }
-  97%, 100% { opacity: 0; transform: translateY(-.6rem); }
+@keyframes abre-2 {
+  0%, 11% { max-height: 0; opacity: 0; margin-bottom: 0; }
+  16%, 95% { max-height: 24rem; opacity: 1; margin-bottom: 1rem; }
+  99%, 100% { max-height: 0; opacity: 0; margin-bottom: 0; }
 }
-@keyframes burbuja-3 {
-  0%, 44% { opacity: 0; transform: translateY(1.2rem) scale(.97); }
-  50%, 90% { opacity: 1; transform: none; }
-  97%, 100% { opacity: 0; transform: translateY(-.6rem); }
+@keyframes abre-3 {
+  0%, 19% { max-height: 0; opacity: 0; margin-bottom: 0; }
+  24%, 95% { max-height: 24rem; opacity: 1; margin-bottom: 1rem; }
+  99%, 100% { max-height: 0; opacity: 0; margin-bottom: 0; }
 }
-@keyframes puntos {
-  0%, 16% { opacity: 0; max-height: 0; padding-block: 0; margin-bottom: -1.2rem; }
-  22%, 40% { opacity: 1; max-height: 6rem; padding-block: 1.6rem; margin-bottom: 0; }
-  46%, 100% { opacity: 0; max-height: 0; padding-block: 0; margin-bottom: -1.2rem; }
+@keyframes abre-4 {
+  0%, 27% { max-height: 0; opacity: 0; margin-bottom: 0; }
+  32%, 95% { max-height: 24rem; opacity: 1; margin-bottom: 1rem; }
+  99%, 100% { max-height: 0; opacity: 0; margin-bottom: 0; }
+}
+@keyframes abre-5 {
+  0%, 35% { max-height: 0; opacity: 0; margin-bottom: 0; }
+  40%, 95% { max-height: 24rem; opacity: 1; margin-bottom: 1rem; }
+  99%, 100% { max-height: 0; opacity: 0; margin-bottom: 0; }
+}
+@keyframes abre-6 {
+  0%, 43% { max-height: 0; opacity: 0; margin-bottom: 0; }
+  48%, 95% { max-height: 24rem; opacity: 1; margin-bottom: 1rem; }
+  99%, 100% { max-height: 0; opacity: 0; margin-bottom: 0; }
+}
+@keyframes abre-7 {
+  0%, 51% { max-height: 0; opacity: 0; margin-bottom: 0; }
+  56%, 95% { max-height: 24rem; opacity: 1; margin-bottom: 1rem; }
+  99%, 100% { max-height: 0; opacity: 0; margin-bottom: 0; }
+}
+@keyframes abre-8 {
+  0%, 59% { max-height: 0; opacity: 0; margin-bottom: 0; }
+  64%, 95% { max-height: 24rem; opacity: 1; margin-bottom: 1rem; }
+  99%, 100% { max-height: 0; opacity: 0; margin-bottom: 0; }
 }
 @keyframes cita {
-  0%, 22% { opacity: 0; transform: translateY(1.4rem) scaleY(.7); }
-  32%, 88% { opacity: 1; transform: none; }
-  95%, 100% { opacity: 0; transform: translateY(-.6rem); }
+  0%, 70% { opacity: 0; transform: translateY(1rem) scaleY(.7); }
+  76%, 95% { opacity: 1; transform: none; }
+  99%, 100% { opacity: 0; }
 }
-@keyframes punto { 0%, 100% { opacity: .3; transform: none; } 50% { opacity: .9; transform: translateY(-.3rem); } }
+@keyframes dialogo {
+  0%, 9% { opacity: 0; transform: translateY(1.2rem) scale(.97); }
+  14%, 68% { opacity: 1; transform: none; }
+  74%, 100% { opacity: 0; transform: translateY(-.6rem) scale(.98); }
+}
+@keyframes escribe { 0%, 16% { width: 0; } 32%, 100% { width: 100%; } }
+@keyframes aparece-dato { 0%, 34% { opacity: 0; } 38%, 68% { opacity: 1; } 74%, 100% { opacity: 0; } }
+@keyframes aparece-dato-2 { 0%, 44% { opacity: 0; } 48%, 68% { opacity: 1; } 74%, 100% { opacity: 0; } }
+@keyframes aparece-dato-3 { 0%, 52% { opacity: 0; } 56%, 68% { opacity: 1; } 74%, 100% { opacity: 0; } }
+@keyframes guardar {
+  0%, 56% { opacity: 0; transform: none; }
+  60%, 63% { opacity: 1; transform: none; }
+  66% { opacity: 1; transform: scale(.92); }
+  69%, 72% { opacity: 1; transform: none; }
+  78%, 100% { opacity: 0; }
+}
+@keyframes raton {
+  0% { opacity: 0; left: 80%; top: 96%; transform: none; }
+  4% { opacity: 1; left: 76%; top: 88%; transform: none; }
+  9% { opacity: 1; left: 46%; top: 34%; transform: none; }
+  11% { opacity: 1; left: 46%; top: 34%; transform: scale(.78); }
+  13%, 30% { opacity: 1; left: 44%; top: 40%; transform: none; }
+  40% { opacity: 1; left: 40%; top: 66%; transform: none; }
+  55% { opacity: 1; left: 52%; top: 78%; transform: none; }
+  64% { opacity: 1; left: 80%; top: 92%; transform: none; }
+  67% { opacity: 1; left: 80%; top: 92%; transform: scale(.78); }
+  70%, 78% { opacity: 1; left: 80%; top: 92%; transform: none; }
+  86%, 100% { opacity: 0; left: 80%; top: 96%; transform: none; }
+}
+@keyframes dibujar { to { stroke-dashoffset: 0; } }
+@keyframes brota { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: none; } }
+@keyframes latido { 0%, 100% { box-shadow: 0 0 1.4rem .25rem rgba(53, 243, 154, .55); } 50% { box-shadow: 0 0 2.2rem .4rem rgba(53, 243, 154, .8); } }
 @keyframes barra { from { transform: scaleY(.05); opacity: 0; } to { transform: none; opacity: 1; } }
 
 /* ───────── Trabajos (carrusel) ───────── */

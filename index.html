@@ -172,13 +172,17 @@
           <div class="panel__barra"><i></i><i></i><i></i><span>Panel de CREAM</span></div>
           <div class="panel__cuerpo">
             <div class="panel__fichas">
-              <div class="panel__ficha"><span>Conversaciones</span><strong>128</strong></div>
-              <div class="panel__ficha"><span>Citas agendadas</span><strong>37</strong></div>
-              <div class="panel__ficha panel__ficha--roi"><span>ROI de la pauta</span><strong>3,4×</strong></div>
+              <div class="panel__ficha"><span>Conversaciones</span><strong data-hasta="1687" data-tiempo="2600">1687</strong></div>
+              <div class="panel__ficha"><span>Citas agendadas</span><strong data-hasta="234" data-tiempo="3400">234</strong></div>
+              <div class="panel__ficha panel__ficha--roi"><span>ROI de la pauta</span><strong data-hasta="9,8×" data-tiempo="4200">9,8×</strong></div>
             </div>
             <div class="panel__grafico">
               <span style="--h: 34%; --i: 0"></span><span style="--h: 52%; --i: 1"></span><span style="--h: 41%; --i: 2"></span><span style="--h: 68%; --i: 3"></span>
               <span style="--h: 57%; --i: 4"></span><span style="--h: 83%; --i: 5"></span><span style="--h: 74%; --i: 6"></span><span style="--h: 96%; --i: 7"></span>
+              <svg class="panel__linea" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                <polyline points="6.25,66 18.75,48 31.25,59 43.75,32 56.25,43 68.75,17 81.25,26 93.75,4" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <span class="panel__brillo" aria-hidden="true"></span>
             </div>
             <div class="panel__pie"><span>Campañas activas</span><span>Meta · TikTok</span></div>
           </div>
@@ -193,45 +197,59 @@
         </a>
         <ul class="capacidades__lista">
           <li class="capacidad">
-            <div class="anim anim--chat" data-revelar="subir" aria-hidden="true">
-              <span class="anim__etiqueta">Ejemplo</span>
-              <span class="anim__hora">2:14 a. m.</span>
+            <div class="anim anim--chat anim--responde" data-revelar="subir" aria-hidden="true">
+              <span class="anim__hora">7:42 p. m.</span>
               <div class="anim__chat">
-                <div class="burbuja burbuja--cliente" style="--t: 0s">Hola, ¿siguen atendiendo?</div>
-                <div class="burbuja burbuja--agente burbuja--puntos" style="--t: 1.1s"><i></i><i></i><i></i></div>
-                <div class="burbuja burbuja--agente" style="--t: 2.2s">Sí. Te respondo ahora mismo: atendemos de lunes a domingo.</div>
+                <div class="fila fila--1"><div class="burbuja burbuja--cliente">Hola, buenas noches. ¿Todavía están atendiendo?</div></div>
+                <div class="fila fila--2"><div class="burbuja burbuja--agente">¡Hola! 👋 Soy Sofi, la asistente con IA de Clínica Lumière 💫</div></div>
+                <div class="fila fila--3"><div class="burbuja burbuja--agente">La atención presencial ya cerró, pero yo estoy 24/7 por aquí 😊</div></div>
+                <div class="fila fila--4"><div class="burbuja burbuja--cliente">¿Cuál es su horario?</div></div>
+                <div class="fila fila--5"><div class="burbuja burbuja--agente">Lun a vie 9:00 – 19:00 · Sáb 9:00 – 14:00 · Dom cerrado 😴</div></div>
+                <div class="fila fila--6"><div class="burbuja burbuja--cliente">¿Tendrán espacio el jueves?</div></div>
+                <div class="fila fila--7"><div class="burbuja burbuja--agente">Reviso la agenda… ⏳ Jueves: 10:30 a. m., 1:00 y 5:30 p. m. 🙌</div></div>
               </div>
             </div>
             <h3 class="capacidad__titulo" data-revelar="lineas">Responde</h3>
             <p class="capacidad__texto" data-revelar="subir">Contesta en segundos, también de noche y los domingos.</p>
           </li>
           <li class="capacidad">
-            <div class="anim anim--chat" data-revelar="subir" aria-hidden="true">
-              <span class="anim__etiqueta">Ejemplo</span>
+            <div class="anim anim--chat anim--vende" data-revelar="subir" aria-hidden="true">
               <div class="anim__chat">
-                <div class="burbuja burbuja--agente" style="--t: 0s">Para reservar tu bótox, el abono es de $500.</div>
-                <div class="burbuja burbuja--cliente burbuja--archivo" style="--t: 1.4s"><b>Constancia de pago</b><em>$500 · recibido</em></div>
-                <div class="burbuja burbuja--agente" style="--t: 2.6s">¡Gracias! Pago confirmado. Te agendo la cita.</div>
+                <div class="fila fila--1"><div class="burbuja burbuja--cliente">¿Todavía tienen la promo de bótox de $499?</div></div>
+                <div class="fila fila--2"><div class="burbuja burbuja--agente">¡Sííí! 🎉 $499 en vez de $750 💉</div></div>
+                <div class="fila fila--3"><div class="burbuja burbuja--agente">Quedan 5 cupos de la promo. ¿Te aparto uno? 😍</div></div>
+                <div class="fila fila--4"><div class="burbuja burbuja--cliente">Sí, quiero reservar. ¿Se puede mañana?</div></div>
+                <div class="fila fila--5"><div class="burbuja burbuja--agente">Listo. Para confirmarlo, un adelanto de $50 💳</div></div>
+                <div class="fila fila--6"><div class="burbuja burbuja--cliente burbuja--captura"><div class="paypal"><div class="paypal__marca"><b>Pay</b><i>Pal</i></div><div class="paypal__cuerpo"><span class="paypal__reloj"></span><strong>Pagaste $50.00 USD</strong><em>a Clínica Estética Lumière</em><u>¡Pago completado!</u></div></div></div></div>
+                <div class="fila fila--7"><div class="burbuja burbuja--agente">¡Recibido! ✅ Dame un momentito… ⏳</div></div>
+                <div class="fila fila--8"><div class="burbuja burbuja--agente">📌 Cita confirmada · bótox $499 · adelanto $50 · saldo $449</div></div>
               </div>
             </div>
             <h3 class="capacidad__titulo" data-revelar="lineas">Vende</h3>
-            <p class="capacidad__texto" data-revelar="subir">Cobra el abono, confirma el pago y cierra la venta.</p>
+            <p class="capacidad__texto" data-revelar="subir">Cobra el adelanto, confirma el pago y cierra la venta.</p>
           </li>
           <li class="capacidad">
             <div class="anim anim--agenda" data-revelar="subir" aria-hidden="true">
-              <span class="anim__etiqueta">Ejemplo</span>
               <div class="agenda">
                 <div class="agenda__cabeza"><span>Jueves 18</span><span>Google Calendar</span></div>
                 <div class="agenda__grilla">
                   <div class="agenda__hora"><span>2 p. m.</span></div>
                   <div class="agenda__hora"><span>3 p. m.</span></div>
                   <div class="agenda__hora"><span>4 p. m.</span></div>
-                  <div class="agenda__cita"><b>Bótox</b><em>3:00 – 3:45 p. m.</em></div>
+                  <div class="agenda__cita"><b>María Pérez · Bótox</b><em>3:00 – 3:45 p. m.</em></div>
                 </div>
+                <div class="dialogo">
+                  <span class="dialogo__campo"><i>María Pérez · Bótox</i></span>
+                  <span class="dialogo__hora">jue 18 · 3:00 – 3:45 p. m. <b>45 min</b></span>
+                  <span class="dialogo__nota dialogo__nota--1">Adelanto de $50 recibido</span>
+                  <span class="dialogo__nota dialogo__nota--2">Promo $499 (regular $750) · saldo $449</span>
+                  <span class="dialogo__guardar">Guardar</span>
+                </div>
+                <span class="raton"><svg viewBox="0 0 12 18" aria-hidden="true" focusable="false"><path d="M1 1l9.4 8.6-4.2.5 2.5 4.9-1.9.9-2.5-4.9L1 14.3z" fill="#fff" stroke="#000" stroke-width=".9" stroke-linejoin="round"/></svg></span>
               </div>
             </div>
             <h3 class="capacidad__titulo" data-revelar="lineas">Agenda</h3>
-            <p class="capacidad__texto" data-revelar="subir">Pone la cita en tu Google Calendar y la confirma.</p>
+            <p class="capacidad__texto" data-revelar="subir">Crea la cita en tu Google Calendar con todos los datos.</p>
           </li>
         </ul>
       </section>
