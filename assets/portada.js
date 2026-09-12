@@ -99,19 +99,26 @@
   /* ── 4. La frase del bloque negro se llena de blanco palabra por palabra al bajar ── */
   const relleno = document.querySelector('[data-relleno]');
   if (relleno && !reducido) {
-    // se respetan los saltos de línea del marcado: cada <br> separa una línea
-    const lineas = [...relleno.childNodes].map((n) => (n.nodeName === 'BR' ? '\n' : n.textContent)).join('').split('\n');
-    const palabras = lineas.join(' ').trim().split(/\s+/);
+    // Se respetan los saltos de línea del marcado y el color de cada tramo: la segunda línea va en magenta.
+    const tramos = [];
+    [...relleno.childNodes].forEach((n) => {
+      if (n.nodeName === 'BR') { tramos.push({ salto: true }); return; }
+      const texto = (n.textContent || '').trim();
+      if (!texto) return;
+      tramos.push({ texto, color: n.nodeType === 1 ? getComputedStyle(n).color : null });
+    });
+    const palabras = tramos.filter((t) => t.texto).map((t) => t.texto).join(' ').split(/\s+/);
     relleno.setAttribute('aria-label', palabras.join(' '));
     relleno.textContent = '';
     let i = 0;
-    lineas.forEach((linea, li) => {
-      if (li) relleno.append(document.createElement('br'));
-      linea.trim().split(/\s+/).filter(Boolean).forEach((p) => {
+    tramos.forEach((tramo) => {
+      if (tramo.salto) { relleno.append(document.createElement('br')); return; }
+      tramo.texto.split(/\s+/).filter(Boolean).forEach((p) => {
         const s = document.createElement('span');
         s.className = 'relleno__palabra';
         s.setAttribute('aria-hidden', 'true');
         s.style.setProperty('--n', (i / palabras.length).toFixed(4));
+        if (tramo.color) s.style.setProperty('--relleno-fin', tramo.color);
         s.textContent = p;
         relleno.append(s, ' ');
         i += 1;
@@ -208,7 +215,7 @@
     const casos = [...pista.children];
     const puntos = [...carrusel.querySelectorAll('.carrusel__punto')];
     const botonPausa = carrusel.querySelector('[data-carrusel-pausa]');
-    const INTERVALO = 6000;
+    const INTERVALO = 9000;   // más que los 6 s de dayos: acá cada diapositiva es un video
     let indice = 0;
     let pausado = reducido;
     let enVista = false;
@@ -219,6 +226,15 @@
     if (pausado) botonPausa?.setAttribute('aria-pressed', 'true');
 
     const inicio = (i) => casos[i].offsetLeft - parseFloat(getComputedStyle(pista).paddingLeft);
+    const videosCaso = [...pista.querySelectorAll('.caso__video')];
+    function soloCorreElVisible() {
+      videosCaso.forEach((v, k) => {
+        if (k === indice && enVista && !document.hidden) {
+          if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); }
+          const p = v.play(); if (p && p.catch) p.catch(() => {});
+        } else if (!v.paused) v.pause();
+      });
+    }
     function marcar(i) {
       if (i === indice && puntos[i].classList.contains('es-activo')) return;
       indice = i;
@@ -228,6 +244,7 @@
         if (esteSi) p.setAttribute('aria-current', 'true'); else p.removeAttribute('aria-current');
       });
       programar();
+      soloCorreElVisible();
     }
     function ir(i) {
       pista.scrollTo({ left: inicio(i), behavior: reducido ? 'auto' : 'smooth' });
@@ -264,7 +281,7 @@
     carrusel.addEventListener('focusout', (e) => { if (!carrusel.contains(e.relatedTarget)) { encima = false; programar(); } });
     document.addEventListener('visibilitychange', programar);
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(([e]) => { enVista = e.isIntersecting; programar(); }, { threshold: 0.35 }).observe(carrusel);
+      new IntersectionObserver(([e]) => { enVista = e.isIntersecting; programar(); soloCorreElVisible(); }, { threshold: 0.35 }).observe(carrusel);
     }
   }
 
