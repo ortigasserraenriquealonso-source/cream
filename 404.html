@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Esta página no existe · CREAM</title>
+<meta name="robots" content="noindex">
+<!-- La página de «no existe» de cream.pe (se publica en la raíz como 404.html).
+     Además, la dirección corta de un cliente del agente de ventas que todavía no tiene su página
+     (/agentedeventas/<cliente> o /agentedeventas<cliente>) lleva a la puerta de su panel: así un cliente
+     nuevo tiene su dirección desde el primer día, aunque la vista previa no diga su nombre hasta que
+     se sume a la lista. El destino es fijo y el nombre solo admite letras, números y guiones. -->
+<script>
+(function () {
+  var m = /^\/agentedeventas\/?([a-z0-9][a-z0-9-]{0,60})\/?$/i.exec(location.pathname);
+  if (m) location.replace('https://clinica.cream.pe/agentedeventas/' + m[1].toLowerCase() + location.search + location.hash);
+})();
+</script>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;font:16px/1.4 system-ui,sans-serif;background:#f4f1f1;color:#2c2a2b;text-align:center;padding:0 16px}h1{font-size:22px;font-weight:600;margin:0 0 8px}p{margin:0}a{color:#b800b8}</style>
+</head>
+<body>
+<main>
+<h1>Esta página no existe.</h1>
+<p><a href="https://cream.pe/">Ir a cream.pe</a></p>
+</main>
+</body>
+</html>
