@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bendita Comida · ¿Cómo te fue hoy?</title>
+<meta name="description" content="4 preguntas, menos de un minuto. Lo lee el dueño.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#D40013">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preload" as="image" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- La tipografía no bloquea el dibujado: con el wifi del local lento, un
+     <link> normal deja la pantalla en blanco. Si nunca llega, no pasa nada. -->
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
+
+<script>
+/* Encuesta v2 · generada por resenas-qr/construir.py — no editar a mano. */
+const CONFIG = {
+  "ENDPOINT": "",
+  "PLACE_ID": "",
+  "BUSQUEDA_GOOGLE": "La Bendita Comida, Los Pinos 236, Chiclayo",
+  "MODO_ESTRELLAS": "todos",
+  "MOZOS": [],
+  "PAIS": {
+    "prefijo": "51",
+    "bandera": "🇵🇪",
+    "digitos": 9,
+    "empieza": "9",
+    "ejemplo": "999 999 999"
+  }
+};
+</script>
+
+<style>
+:root{
+  --marca:#D40013;
+  --marca-alto:#A8000F;
+  --sobre-marca:#FFFFFF;
+  --fondo:#FBF8F6;
+  --acento:#FFD9A0;
+  --tinta:#1D1716;
+  --tinta-suave:#5F5655;
+  --linea:#ECE3E0;
+  --radio:14px;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --titular:"Anton","Arial Narrow",Impact,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--fondo);color:var(--tinta);font-family:var(--sans);
+  font-size:17px;line-height:1.5;min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;-webkit-font-smoothing:antialiased
+}
+
+header{
+  background:var(--marca);text-align:center;
+  padding:calc(env(safe-area-inset-top) + 16px) 20px 14px
+}
+header img{width:168px;max-width:56vw;height:auto;display:inline-block}
+header .respaldo{font-family:var(--titular);font-size:28px;color:var(--sobre-marca);display:none}
+.progreso{height:3px;background:var(--linea)}
+.progreso i{display:block;height:100%;width:0;background:var(--marca);transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+.preparacion{
+  background:var(--tinta);color:var(--fondo);font-size:13px;line-height:1.4;
+  text-align:center;padding:9px 16px
+}
+
+main{
+  flex:1;width:100%;max-width:520px;margin:0 auto;
+  padding:26px 20px calc(env(safe-area-inset-bottom) + 28px);
+  display:flex;flex-direction:column
+}
+.paso{display:none;animation:entra .3s ease both}
+.paso.activo{display:flex;flex-direction:column;flex:1}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.paso{animation:none}.progreso i{transition:none}}
+
+.contador{font-size:13px;font-weight:600;color:var(--tinta-suave);margin-bottom:8px;font-variant-numeric:tabular-nums}
+h1,h2{font-family:var(--titular);color:var(--marca);font-weight:400;text-wrap:balance;margin:0}
+h1{font-size:34px;line-height:1.1;margin-bottom:12px;letter-spacing:-.005em}
+h2{font-size:27px;line-height:1.15;margin-bottom:20px}
+h1:focus,h2:focus{outline:none}
+p.bajada{margin:0 0 22px;color:var(--tinta-suave);font-size:16px}
+
+.portada{margin:auto 0;padding-bottom:10%}
+.portada .datos{display:flex;gap:18px;margin:4px 0 0;padding:0;list-style:none;color:var(--tinta-suave);font-size:15px}
+.portada .datos li{display:flex;align-items:center;gap:7px}
+.portada .datos svg{width:18px;height:18px;flex:none}
+
+.opciones{display:flex;flex-direction:column;gap:10px}
+.opcion{
+  display:flex;align-items:center;width:100%;padding:15px 17px;min-height:56px;
+  font:inherit;font-size:17px;color:var(--tinta);text-align:left;background:#fff;
+  border:1.5px solid var(--linea);border-radius:var(--radio);cursor:pointer;
+  transition:border-color .15s,box-shadow .15s,transform .1s
+}
+.opcion:active{transform:scale(.985)}
+.opcion.elegida{border-color:var(--marca);box-shadow:inset 0 0 0 1px var(--marca)}
+
+.campo{margin-bottom:14px}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:7px;color:var(--tinta)}
+label .opc{font-weight:400;color:var(--tinta-suave)}
+input[type=text],input[type=tel],textarea{
+  width:100%;padding:14px 16px;font:inherit;font-size:17px;color:var(--tinta);background:#fff;
+  border:1.5px solid var(--linea);border-radius:var(--radio);-webkit-appearance:none;appearance:none;
+  transition:border-color .15s
+}
+input:focus,textarea:focus{outline:none;border-color:var(--marca)}
+input.error,.acuerdo input.error{border-color:#B3261E}
+textarea{min-height:128px;resize:vertical;line-height:1.5}
+.prefijo{display:flex;gap:8px}
+.prefijo .pais{
+  display:flex;align-items:center;padding:0 13px;font-size:16px;color:var(--tinta-suave);
+  background:#fff;border:1.5px solid var(--linea);border-radius:var(--radio);white-space:nowrap
+}
+.prefijo input{flex:1;min-width:0}
+.aviso{font-size:13.5px;color:#B3261E;margin-top:6px;display:none}
+.aviso.visible{display:block}
+
+.acuerdo{display:flex;gap:11px;align-items:flex-start;margin:4px 0 8px}
+.acuerdo input{
+  -webkit-appearance:none;appearance:none;flex:0 0 22px;width:22px;height:22px;margin:1px 0 0;
+  border:1.5px solid var(--linea);border-radius:6px;background:#fff;cursor:pointer;position:relative
+}
+.acuerdo input:checked{background:var(--marca);border-color:var(--marca)}
+.acuerdo input:checked::after{
+  content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;
+  border:solid var(--sobre-marca);border-width:0 2.5px 2.5px 0;transform:rotate(43deg)
+}
+.acuerdo label{font-size:14px;font-weight:400;color:var(--tinta);margin:0;line-height:1.45}
+details.privacidad{font-size:13px;color:var(--tinta-suave);margin:0 0 4px 33px;line-height:1.45}
+details.privacidad summary{cursor:pointer;text-decoration:underline;text-underline-offset:2px;list-style:none}
+details.privacidad summary::-webkit-details-marker{display:none}
+details.privacidad p{margin:8px 0 0}
+
+.bloque-estrellas{margin:auto 0;padding-bottom:8%}
+.estrellas{display:flex;justify-content:space-between;gap:2px;margin:6px auto 8px;max-width:316px}
+.estrella{background:none;border:none;padding:6px 3px;cursor:pointer;line-height:0;transition:transform .12s}
+.estrella:active{transform:scale(.9)}
+.estrella svg{width:48px;height:48px;display:block}
+.estrella svg path{fill:none;stroke:var(--marca);stroke-width:1.6;transition:fill .18s}
+.estrella.on svg path{fill:var(--marca)}
+.etiquetas{display:flex;justify-content:space-between;font-size:13px;color:var(--tinta-suave);max-width:304px;margin:0 auto 12px}
+.lectura{text-align:center;font-family:var(--titular);font-size:22px;color:var(--marca);min-height:32px}
+
+.acciones{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:6px}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:16px 20px;min-height:56px;font:inherit;font-size:17px;font-weight:600;
+  border:none;border-radius:var(--radio);cursor:pointer;transition:background .15s,opacity .15s,transform .1s
+}
+.btn:active{transform:scale(.99)}
+.btn-principal{background:var(--marca);color:var(--sobre-marca)}
+.btn-principal:hover{background:var(--marca-alto)}
+.btn-principal:disabled{opacity:.45;cursor:default}
+.btn-google{background:#fff;color:var(--tinta);border:1.5px solid var(--linea)}
+.btn-google svg{width:20px;height:20px;flex:none}
+.btn-texto{background:none;color:var(--tinta-suave);font-weight:500;font-size:15.5px;min-height:46px;padding:10px}
+.atras{
+  background:none;border:none;padding:8px 2px;margin-bottom:10px;font:inherit;font-size:15px;
+  color:var(--tinta-suave);cursor:pointer;align-self:flex-start;min-height:40px
+}
+
+.cierre{text-align:center;flex:1;display:flex;flex-direction:column}
+.cierre .centro{margin:auto 0;padding-bottom:6%}
+.sello{width:72px;height:72px;margin:0 auto 20px;border-radius:50%;background:var(--marca);display:grid;place-items:center}
+.sello svg{width:34px;height:34px}
+.invitacion{border-top:1px solid var(--linea);padding-top:20px;margin-top:8px}
+.invitacion p{margin:0 0 14px;color:var(--tinta-suave);font-size:15.5px}
+.firma{
+  text-align:center;font-size:12px;letter-spacing:.04em;color:var(--tinta-suave);
+  opacity:.75;padding:14px 20px calc(env(safe-area-inset-bottom) + 14px)
+}
+
+@media (max-height:740px){
+  header{padding-top:calc(env(safe-area-inset-top) + 10px);padding-bottom:9px}
+  header img{width:132px}
+  main{padding:16px 18px calc(env(safe-area-inset-bottom) + 14px)}
+  h1{font-size:29px}
+  h2{font-size:23px;margin-bottom:14px}
+  p.bajada{margin-bottom:14px;font-size:15px}
+  .opcion{min-height:50px;padding:12px 15px;font-size:16px}
+  .opciones{gap:8px}
+  .acciones{padding-top:12px}
+  .btn{min-height:50px;padding:13px 18px}
+  .estrella svg{width:43px;height:43px}
+  textarea{min-height:96px}
+  input[type=text],input[type=tel]{padding:11px 14px;font-size:16px}
+  .campo{margin-bottom:10px}
+  .sello{width:58px;height:58px;margin-bottom:12px}
+  .firma{display:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="Bendita Comida" width="168" height="68"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+  <div class="respaldo">Bendita Comida</div>
+</header>
+<div class="progreso" aria-hidden="true"><i id="barra"></i></div>
+
+<main id="app">
+
+  <!-- 0 · Portada -->
+  <section class="paso activo" data-paso="0">
+    <div class="portada">
+      <h1>¿Cómo te fue hoy?</h1>
+      <p class="bajada">Cuéntanos en menos de un minuto. Lo lee el dueño, no se publica.</p>
+      <ul class="datos">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>45 segundos</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5 toques</li>
+      </ul>
+    </div>
+    <div class="acciones">
+      <button class="btn btn-principal" id="btn-empezar">Empezar</button>
+    </div>
+  </section>
+
+  <!-- 1..4 · Preguntas (se pintan solas) -->
+  <section class="paso" data-paso="1"></section>
+  <section class="paso" data-paso="2"></section>
+  <section class="paso" data-paso="3"></section>
+  <section class="paso" data-paso="4"></section>
+
+  <!-- 5 · Estrellas -->
+  <section class="paso" data-paso="5">
+    <button class="atras" data-atras>← Atrás</button>
+    <div class="contador">5 de 5</div>
+    <h2>¿Cuántas estrellas nos das?</h2>
+    <div class="bloque-estrellas">
+      <div class="estrellas" id="estrellas"></div>
+      <div class="etiquetas"><span>Mala</span><span>Excelente</span></div>
+      <div class="lectura" id="lectura" role="status" aria-live="polite">&nbsp;</div>
+    </div>
+  </section>
+
+  <!-- 6 · Comentario privado (1 a 4 estrellas) -->
+  <section class="paso" data-paso="6">
+    <button class="atras" data-atras="5">← Cambiar mi calificación</button>
+    <h2 id="titulo-comentario">¿Qué pasó?</h2>
+    <p class="bajada">Le llega directo al dueño. No se publica en ningún lado.</p>
+    <textarea id="comentario" maxlength="1000" placeholder="Cuéntanos con confianza…" enterkeyhint="done"></textarea>
+    <div class="acciones">
+      <button class="btn btn-principal" id="btn-comentario">Enviar</button>
+      <button class="btn btn-texto" id="btn-sin-comentario">Prefiero no escribir</button>
+    </div>
+  </section>
+
+  <!-- 7 · Contacto opcional, con consentimiento expreso -->
+  <section class="paso" data-paso="7">
+    <h2 id="titulo-contacto">¿Te avisamos cuando haya algo nuevo?</h2>
+    <p class="bajada" id="bajada-contacto">Opcional. Solo si quieres que te escribamos por WhatsApp.</p>
+    <div class="campo">
+      <label for="nombre">Tu nombre</label>
+      <input type="text" id="nombre" autocomplete="given-name" maxlength="60" enterkeyhint="next" placeholder="Nombre">
+    </div>
+    <div class="campo">
+      <label for="celular">Tu WhatsApp</label>
+      <div class="prefijo">
+        <span class="pais" id="pais"></span>
+        <input type="tel" id="celular" inputmode="numeric" autocomplete="tel-national" maxlength="14" enterkeyhint="done">
+      </div>
+      <div class="aviso" id="aviso-celular" role="alert"></div>
+    </div>
+    <div class="acuerdo">
+      <input type="checkbox" id="acepta">
+      <label for="acepta" id="texto-acepta"></label>
+    </div>
+    <details class="privacidad">
+      <summary>Cómo cuidamos tus datos</summary>
+      <p>Bendita Comida es responsable de tu nombre y tu WhatsApp, y solo los usa para escribirte.
+      CREAM, su agencia, los guarda por encargo y no los comparte con nadie. Los conservamos
+      mientras no pidas lo contrario: para verlos, corregirlos o borrarlos, responde
+      «BORRAR» a cualquier mensaje nuestro. Si no marcas la casilla, no guardamos tu número.</p>
+    </details>
+    <div class="aviso" id="aviso-acepta" role="alert">Marca la casilla para que podamos guardar tu WhatsApp.</div>
+    <div class="acciones">
+      <button class="btn btn-principal" id="btn-contacto">Guardar</button>
+      <button class="btn btn-texto" id="btn-sin-contacto">Ahora no</button>
+    </div>
+  </section>
+
+  <!-- 8 · Cierre: la invitación a Google es IGUAL para todos -->
+  <section class="paso" data-paso="8">
+    <div class="cierre">
+      <div class="centro">
+        <div class="sello">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 12.5l5.2 5.2L20 7" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 id="titulo-fin">¡Gracias!</h2>
+        <p class="bajada" id="texto-fin">Nos ayuda muchísimo saber cómo te fue.</p>
+      </div>
+      <div class="invitacion">
+        <p>¿Nos dejas tu opinión en Google? Buena o mala, a otros les sirve.</p>
+        <button class="btn btn-google" id="btn-google">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.7z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6h-4a12 12 0 0 0 0 10.8l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1c.9-2.8 3.6-4.9 6.7-4.9z"/></svg>
+          Escribir una reseña en Google
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="firma">Bendita Comida · Chiclayo</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ── Preguntas ─────────────────────────────────────────────
+   Primero lo más fácil y lo que el contrato promete medir (cliente nuevo o
+   recompra), después adquisición y fortaleza, y al final el mozo: el dato más
+   incómodo va cuando ya hay inercia. */
+var NOMBRE = "Bendita Comida";
+var PREGUNTAS = [
+  { id:"primera_vez", titulo:"¿Es tu primera vez en " + NOMBRE + "?",
+    opciones:["Sí, es mi primera vez", "Ya había venido antes", "Vengo seguido"] },
+  { id:"como_conocio", titulo:"¿Cómo nos conociste?",
+    opciones:["Instagram", "TikTok", "Facebook", "Me lo recomendaron", "Pasaba por aquí", "Google o Maps", "Otro"] },
+  { id:"lo_mejor", titulo:"¿Qué fue lo mejor de hoy?",
+    opciones:["La sazón", "La atención", "El ambiente", "La rapidez", "El precio"] },
+  { id:"atendido_por", titulo:"¿Quién te atendió?", bajada:"Nos sirve para reconocer al equipo.",
+    libre:true, placeholder:"Nombre de quien te atendió" }
+];
+
+var PASO_ESTRELLAS = 5, PASO_COMENTARIO = 6, PASO_CONTACTO = 7, PASO_FIN = 8;
+var LECTURAS = ["", "Muy mala", "Mala", "Regular", "Buena", "¡Excelente!"];
+var LLAVE = "benditacomida_encuesta_v2";
+var PREFIJO_COLA = "benditacomida_pend2_";
+var PAIS = CONFIG.PAIS || { prefijo:"51", bandera:"🇵🇪", digitos:9, empieza:"9", ejemplo:"999 999 999" };
+
+var estado = {
+  id:null, respuestas:{}, estrellas:0, comentario:"", nombre:"", celular:"", acepta:false,
+  fueAGoogle:false, enviadoOk:false,
+  fuente: new URLSearchParams(location.search).get("f") || "", inicio: Date.now()
+};
+var pasoActual = 0;
+var calificado = false;    // ya salió la fila: lo demás corrige la MISMA fila
+var toqueEnCurso = false;  // evita el doble toque en las estrellas
+var terminado = false;     // estado sellado: el siguiente comensal arranca de cero
+
+var $ = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+function nuevoId(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "id-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+}
+function escapar(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+                  .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function esperar(ms){ return new Promise(function(ok){ setTimeout(ok, ms); }); }
+function insatisfecho(){ return estado.estrellas > 0 && estado.estrellas <= 3; }
+
+/* ── Autoguardado: si se le apaga la pantalla, no pierde nada ── */
+function guardar(){
+  if (terminado) return;
+  try { localStorage.setItem(LLAVE, JSON.stringify({ e:estado, p:pasoActual, t:Date.now() })); } catch(_){}
+}
+function recuperar(){
+  try {
+    var g = JSON.parse(localStorage.getItem(LLAVE) || "null");
+    if (!g) return;
+    // Más de media hora ya no es "se apagó la pantalla": es otra persona.
+    // Y una encuesta que ya salió no se retoma: el siguiente empieza de cero.
+    if (!g.t || Date.now() - g.t > 30*60*1000 || !g.e || g.e.enviadoOk ||
+        typeof g.e.respuestas !== "object") { localStorage.removeItem(LLAVE); return; }
+    estado = g.e;
+    estado.fuente = new URLSearchParams(location.search).get("f") || estado.fuente || "";
+  } catch(_) { try { localStorage.removeItem(LLAVE); } catch(__){} }
+}
+function sellar(){ terminado = true; try { localStorage.removeItem(LLAVE); } catch(_){} }
+
+/* ── Navegación ───────────────────────────────────────────── */
+function irA(n){
+  pasoActual = n;
+  if (n === PASO_ESTRELLAS){ toqueEnCurso = false; if (estado.estrellas) marcarEstrellas(estado.estrellas); }
+  var activa = null;
+  $$(".paso").forEach(function(s){
+    var esta = Number(s.getAttribute("data-paso")) === n;
+    s.classList.toggle("activo", esta);
+    if (esta) activa = s;
+  });
+  $("#barra").style.width = Math.min(100, Math.round(n / PASO_FIN * 100)) + "%";
+  window.scrollTo(0, 0);
+  // Sin esto, un lector de pantalla no anuncia que cambió la pregunta.
+  var titulo = activa && activa.querySelector("h1, h2");
+  if (titulo){ titulo.setAttribute("tabindex", "-1"); try { titulo.focus({ preventScroll:true }); } catch(_){ titulo.focus(); } }
+  guardar();
+}
+
+function pintarPreguntas(){
+  PREGUNTAS.forEach(function(p, i){
+    var paso = i + 1, html = '<button class="atras" data-atras>← Atrás</button>'
+      + '<div class="contador">' + paso + ' de 5</div><h2>' + escapar(p.titulo) + '</h2>'
+      + (p.bajada ? '<p class="bajada">' + escapar(p.bajada) + '</p>' : '');
+    var mozos = CONFIG.MOZOS || [];
+    if (p.libre && !mozos.length){
+      html += '<div class="campo"><input type="text" id="libre-' + p.id + '" maxlength="60" autocomplete="off" '
+            + 'enterkeyhint="done" placeholder="' + escapar(p.placeholder) + '" aria-label="' + escapar(p.titulo) + '"></div>'
+            + '<div class="acciones"><button class="btn btn-principal" data-sigue="' + p.id + '">Continuar</button>'
+            + '<button class="btn btn-texto" data-salta="' + p.id + '">No lo recuerdo</button></div>';
+    } else {
+      var lista = p.libre ? mozos : p.opciones;
+      html += '<div class="opciones" role="group" aria-label="' + escapar(p.titulo) + '">'
+            + lista.map(function(v){
+                return '<button class="opcion" aria-pressed="false" data-preg="' + p.id + '" data-valor="' + escapar(v) + '">' + escapar(v) + '</button>';
+              }).join("") + '</div>'
+            + (p.libre ? '<div class="acciones"><button class="btn btn-texto" data-salta="' + p.id + '">No lo recuerdo</button></div>' : '');
+    }
+    $('.paso[data-paso="' + paso + '"]').innerHTML = html;
+  });
+}
+
+var TRAZO = "M12 2.6l2.95 5.98 6.6.96-4.78 4.66 1.13 6.58L12 17.68l-5.9 3.1 1.13-6.58L2.45 9.54l6.6-.96L12 2.6z";
+function pintarEstrellas(){
+  $("#estrellas").innerHTML = [1,2,3,4,5].map(function(n){
+    return '<button class="estrella" aria-pressed="false" data-n="' + n + '" aria-label="' + n + ' de 5 estrellas">'
+         + '<svg viewBox="0 0 24 24"><path d="' + TRAZO + '" stroke-linejoin="round"/></svg></button>';
+  }).join("");
+}
+function marcarEstrellas(n){
+  $$("#estrellas .estrella").forEach(function(b){
+    var on = Number(b.getAttribute("data-n")) <= n;
+    b.classList.toggle("on", on);
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+  $("#lectura").textContent = LECTURAS[n] || " ";
+}
+
+/* ── Envío ──────────────────────────────────────────────────
+   La primera vez sale apenas califica (si se va sin escribir, lo esencial ya
+   está guardado). Lo que agregue después —comentario, contacto, el clic a
+   Google— viaja con el mismo id y `actualizar`: el servidor completa la MISMA
+   fila. Cada envío lleva el estado entero, así el orden en que lleguen no
+   importa. */
+function soloDigitos(s){ return (s || "").replace(/\D/g, ""); }
+function celularValido(d){
+  return d.length === PAIS.digitos && (!PAIS.empieza || d.indexOf(PAIS.empieza) === 0);
+}
+function carga(actualizar){
+  var d = {
+    id: estado.id, fecha: new Date().toISOString(),
+    primera_vez: estado.respuestas.primera_vez || "", como_conocio: estado.respuestas.como_conocio || "",
+    lo_mejor: estado.respuestas.lo_mejor || "", atendido_por: estado.respuestas.atendido_por || "",
+    calificacion: estado.estrellas, comentario: estado.comentario,
+    fue_a_google: estado.fueAGoogle ? "SI" : "", fuente: estado.fuente,
+    segundos: Math.round((Date.now() - estado.inicio) / 1000)
+  };
+  // El número solo viaja si aceptó que se lo guarden.
+  if (estado.acepta && estado.celular){
+    d.nombre = estado.nombre; d.whatsapp = PAIS.prefijo + estado.celular; d.acepta_contacto = "SI";
+  }
+  if (actualizar) d.actualizar = true;
+  return d;
+}
+
+/* Solo cuenta como guardado un {ok:true}: el script responde 200 aunque falle. */
+function postear(cuerpo){
+  return fetch(CONFIG.ENDPOINT, {
+    method:"POST", mode:"cors", keepalive:true,
+    headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:cuerpo
+  }).then(function(r){ return r.json(); })
+    .then(function(j){ return !!(j && j.ok); })
+    .catch(function(){ return false; });
+}
+function postearConReintentos(cuerpo, intentos){
+  return postear(cuerpo).then(function(bien){
+    if (bien){ borrarPendiente(cuerpo); return true; }
+    if (intentos <= 0) return false;
+    return esperar(intentos === 3 ? 800 : 2500).then(function(){ return postearConReintentos(cuerpo, intentos - 1); });
+  });
+}
+/* navegaEnseguida: la página se va a Google. sendBeacon es lo único que el
+   navegador termina de enviar después de irse. */
+function mandar(actualizar, navegaEnseguida){
+  var cuerpo = JSON.stringify(carga(actualizar));
+  guardarPendiente(cuerpo);
+  if (!CONFIG.ENDPOINT) return Promise.resolve(false);
+  if (navegaEnseguida && navigator.sendBeacon){
+    try {
+      if (navigator.sendBeacon(CONFIG.ENDPOINT, new Blob([cuerpo], { type:"text/plain;charset=utf-8" }))) return Promise.resolve(true);
+    } catch(_){}
+  }
+  return postearConReintentos(cuerpo, navegaEnseguida ? 0 : (actualizar ? 2 : 3));
+}
+
+/* Cola de respaldo: cada pendiente en su propia clave (con un array
+   compartido, guardar y borrar se pisan y quedan huérfanos). */
+function guardarPendiente(cuerpo){
+  try {
+    localStorage.setItem(PREFIJO_COLA + Date.now() + "_" + Math.random().toString(36).slice(2, 8), cuerpo);
+    var k = clavesPendientes();
+    while (k.length > 20) localStorage.removeItem(k.shift());
+  } catch(_){}
+}
+function borrarPendiente(cuerpo){
+  try { clavesPendientes().forEach(function(k){ if (localStorage.getItem(k) === cuerpo) localStorage.removeItem(k); }); } catch(_){}
+}
+function clavesPendientes(){
+  var s = [];
+  try { for (var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if (k && k.indexOf(PREFIJO_COLA) === 0) s.push(k); } } catch(_){}
+  return s.sort();
+}
+/* En serie: veinte peticiones de golpe atoran el script de la hoja. */
+function reintentarCola(){
+  if (!CONFIG.ENDPOINT) return;
+  var claves = clavesPendientes();
+  (function siguiente(i){
+    if (i >= claves.length) return;
+    var cuerpo = localStorage.getItem(claves[i]);
+    if (!cuerpo) return siguiente(i + 1);
+    postear(cuerpo).then(function(bien){
+      if (bien){ try { localStorage.removeItem(claves[i]); } catch(_){} }
+      esperar(400).then(function(){ siguiente(i + 1); });
+    });
+  })(0);
+}
+
+function urlGoogle(){
+  if (CONFIG.PLACE_ID) return "https://search.google.com/local/writereview?placeid=" + encodeURIComponent(CONFIG.PLACE_ID);
+  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.BUSQUEDA_GOOGLE || NOMBRE);
+}
+
+/* ── Después de las estrellas ─────────────────────────────── */
+function calificar(n){
+  var correccion = calificado, cambio = correccion && estado.estrellas !== n;
+  estado.estrellas = n;
+  calificado = true;
+  if (!correccion){ estado.enviadoOk = true; mandar(false); }   // enviadoOk antes de salir: el id no se reusa
+  else if (cambio) mandar(true);
+  guardar();
+
+  if (n === 5){ prepararContacto(); irA(PASO_CONTACTO); return; }
+  $("#titulo-comentario").textContent = n === 4 ? "¿Qué nos faltó para el 5?" : "¿Qué pasó?";
+  $("#btn-sin-comentario").textContent = n === 4 ? "Nada, todo bien" : "Prefiero no escribir";
+  irA(PASO_COMENTARIO);
+}
+
+function prepararContacto(){
+  if (insatisfecho()){
+    $("#titulo-contacto").textContent = "¿Quieres que el dueño te escriba?";
+    $("#bajada-contacto").textContent = "Opcional. Para disculparse y arreglarlo contigo.";
+    $("#texto-acepta").textContent = "Acepto que " + NOMBRE + " guarde mi nombre y WhatsApp para escribirme sobre mi visita y con novedades.";
+  } else {
+    $("#titulo-contacto").textContent = "¿Te avisamos cuando haya algo nuevo?";
+    $("#bajada-contacto").textContent = "Opcional. Solo si quieres que te escribamos por WhatsApp.";
+    $("#texto-acepta").textContent = "Acepto que " + NOMBRE + " guarde mi nombre y WhatsApp para invitarme y enviarme novedades.";
+  }
+}
+
+function terminar(){
+  if (insatisfecho()){
+    $("#titulo-fin").textContent = "Gracias por decírnoslo";
+    $("#texto-fin").textContent = "Ya le llegó al dueño. Queremos que tu próxima visita sea mejor.";
+  } else {
+    $("#titulo-fin").textContent = "¡Gracias!";
+    $("#texto-fin").textContent = "Nos ayuda muchísimo saber cómo te fue.";
+  }
+  irA(PASO_FIN);
+  sellar();
+}
+
+/* ── Eventos ──────────────────────────────────────────────── */
+function conectar(){
+  $("#pais").textContent = PAIS.bandera + " +" + PAIS.prefijo;
+  $("#celular").placeholder = PAIS.ejemplo || "";
+  $("#aviso-celular").textContent = "Revisa el número: deben ser " + PAIS.digitos + " dígitos" +
+    (PAIS.empieza ? " y empezar en " + PAIS.empieza : "") + ".";
+
+  $("#btn-empezar").addEventListener("click", function(){ irA(1); });
+
+  $("#celular").addEventListener("input", function(e){
+    var d = soloDigitos(e.target.value);
+    if (d.length > PAIS.digitos && d.indexOf(PAIS.prefijo) === 0) d = d.slice(PAIS.prefijo.length);
+    d = d.slice(0, PAIS.digitos);
+    e.target.value = d.replace(/(\d{3})(?=\d)/g, "$1 ").trim();
+    if (celularValido(d)){ $("#aviso-celular").classList.remove("visible"); e.target.classList.remove("error"); }
+  });
+  $("#acepta").addEventListener("change", function(){
+    if (this.checked){ $("#aviso-acepta").classList.remove("visible"); this.classList.remove("error"); }
+  });
+
+  document.addEventListener("click", function(ev){
+    var t = ev.target.closest ? ev.target.closest("button") : null;
+    if (!t) return;
+
+    if (t.hasAttribute("data-atras")){
+      var a = t.getAttribute("data-atras");
+      irA(a ? Number(a) : Math.max(0, pasoActual - 1));
+      return;
+    }
+    if (t.classList.contains("opcion")){
+      $$('.opcion[data-preg="' + t.getAttribute("data-preg") + '"]').forEach(function(b){
+        b.classList.remove("elegida"); b.setAttribute("aria-pressed", "false");
+      });
+      t.classList.add("elegida"); t.setAttribute("aria-pressed", "true");
+      estado.respuestas[t.getAttribute("data-preg")] = t.getAttribute("data-valor");
+      guardar();
+      // El destino se fija ahora: un doble toque no salta una pregunta.
+      var destino = pasoActual + 1;
+      setTimeout(function(){ if (pasoActual < destino) irA(destino); }, 200);
+      return;
+    }
+    if (t.hasAttribute("data-sigue")){
+      var campo = $("#libre-" + t.getAttribute("data-sigue"));
+      estado.respuestas[t.getAttribute("data-sigue")] = campo ? campo.value.trim() : "";
+      irA(pasoActual + 1);
+      return;
+    }
+    if (t.hasAttribute("data-salta")){
+      estado.respuestas[t.getAttribute("data-salta")] = "";
+      irA(pasoActual + 1);
+      return;
+    }
+    if (t.classList.contains("estrella")){
+      if (toqueEnCurso) return;
+      toqueEnCurso = true;
+      var n = Number(t.getAttribute("data-n"));
+      marcarEstrellas(n);
+      setTimeout(function(){ calificar(n); }, 280);
+      return;
+    }
+  });
+
+  $("#comentario").addEventListener("input", function(e){ estado.comentario = e.target.value; guardar(); });
+  $("#btn-comentario").addEventListener("click", function(){
+    estado.comentario = $("#comentario").value.trim();
+    if (estado.comentario) mandar(true);
+    prepararContacto(); irA(PASO_CONTACTO);
+  });
+  $("#btn-sin-comentario").addEventListener("click", function(){ prepararContacto(); irA(PASO_CONTACTO); });
+
+  $("#btn-contacto").addEventListener("click", function(){
+    var d = soloDigitos($("#celular").value), acepta = $("#acepta").checked;
+    if (!d){ terminar(); return; }   // sin número no hay nada que guardar
+    var malCel = !celularValido(d);
+    $("#aviso-celular").classList.toggle("visible", malCel);
+    $("#celular").classList.toggle("error", malCel);
+    if (malCel){ $("#celular").focus(); return; }
+    $("#aviso-acepta").classList.toggle("visible", !acepta);
+    $("#acepta").classList.toggle("error", !acepta);
+    if (!acepta){ $("#acepta").focus(); return; }
+    estado.nombre = $("#nombre").value.trim().slice(0, 60);
+    estado.celular = d; estado.acepta = true;
+    var boton = this; boton.disabled = true; boton.textContent = "Guardando…";
+    // Con el wifi lento nadie se queda mirando "Guardando…": a los 5 s sigue.
+    Promise.race([mandar(true), esperar(5000)]).then(terminar);
+  });
+  $("#btn-sin-contacto").addEventListener("click", terminar);
+
+  $("#btn-google").addEventListener("click", function(){
+    estado.fueAGoogle = true;
+    mandar(true, true);
+    location.href = urlGoogle();
+  });
+
+  document.addEventListener("visibilitychange", function(){ if (document.visibilityState === "hidden") guardar(); });
+}
+
+function arrancar(){
+  pintarPreguntas();
+  pintarEstrellas();
+  recuperar();
+  if (!estado.id) estado.id = nuevoId();
+  try {
+    Object.keys(estado.respuestas || {}).forEach(function(id){
+      $$('.opcion[data-preg="' + id + '"]').forEach(function(b){
+        if (b.getAttribute("data-valor") === String(estado.respuestas[id])){ b.classList.add("elegida"); b.setAttribute("aria-pressed", "true"); }
+      });
+      var libre = $("#libre-" + id); if (libre && estado.respuestas[id]) libre.value = estado.respuestas[id];
+    });
+    if (estado.comentario) $("#comentario").value = estado.comentario;
+  } catch(err){ console.warn("[" + NOMBRE + "] no se pudo repoblar:", err); }
+
+  // Siempre desde la portada: si el celular pasó a otra persona, que no
+  // aterrice en mitad del cuestionario ajeno. Lo elegido queda marcado.
+  irA(0);
+  if (!CONFIG.ENDPOINT) avisarPreparacion();
+  reintentarCola();
+}
+
+/* Sin ENDPOINT la encuesta se ve, pero no guarda: se dice, discreto. */
+function avisarPreparacion(){
+  var b = document.createElement("div");
+  b.className = "preparacion"; b.setAttribute("role", "status");
+  b.textContent = "Vista previa: esta encuesta todavía no guarda respuestas.";
+  document.body.insertBefore(b, document.body.firstChild);
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function(){ conectar(); arrancar(); });
+else { conectar(); arrancar(); }
+})();
+</script>
+</body>
+</html>
