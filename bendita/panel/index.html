@@ -80,6 +80,19 @@ h2{font-size:16px;font-weight:600;margin:0 0 12px;display:flex;align-items:basel
 h2 .de{font-weight:400;font-size:13px;color:var(--tinta-3)}
 section{margin-bottom:30px}
 
+.respuestas{display:grid;grid-template-columns:minmax(0,1fr);gap:24px 30px;margin-bottom:30px}
+@media(min-width:720px){.respuestas{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.respuestas section{margin:0;min-width:0}
+.respuestas h2{display:block;margin-bottom:4px}
+.respuestas .base{font-size:12.5px;color:var(--tinta-2);margin:0 0 13px}
+.desglose{list-style:none;padding:0;margin:0}
+.desglose li{margin:0 0 12px}
+.desglose .fila{display:flex;align-items:baseline;gap:12px;font-size:14px}
+.desglose .etiqueta{flex:1;min-width:0;overflow-wrap:anywhere}
+.desglose .valor{white-space:nowrap;font-variant-numeric:tabular-nums;display:flex;gap:12px}
+.desglose .valor span{min-width:40px;text-align:right}
+.desglose .pista{height:3px;background:var(--linea);margin-top:5px;border-radius:2px;overflow:hidden}
+.desglose .pista i{display:block;height:100%;background:var(--marca)}
 /* ── Tendencia ────────────────────────────────── */
 .tendencia{position:relative}
 .tendencia svg{display:block;width:100%;height:150px;overflow:visible}
@@ -229,6 +242,8 @@ function pintar(){
     +   '<span class="reparto" aria-hidden="true"><i style="flex:' + (d.nuevos || 0) + ';background:var(--marca)"></i><i style="flex:' + (d.recompra || 0) + ';background:var(--linea)"></i></span></div>'
     + '</div>';
 
+  html += respuestas(d);
+
   html += '<section><h2>Respuestas por semana <span class="de">últimas 12</span></h2>' + grafico(d.semanas) + '</section>';
 
   var lista = d.comentarios.slice().sort(function(a, b){
@@ -249,6 +264,43 @@ function pintar(){
   conectarGrafico();
   var m = $("#mas"); if (m) m.onclick = function(){ mostrar += 10; pintar(); };
   if (destacado){ var e = document.getElementById("c-" + destacado); if (e) e.scrollIntoView({ block:"center" }); }
+}
+
+/* El denominador es propio de cada pregunta; campos ausentes = endpoint anterior. */
+function respuestas(d){
+  var html = '<div class="respuestas">';
+  if (d.personal) html += equipo(d.personal);
+  [["visitas", "¿Primera vez?", ["Sí, es mi primera vez", "Ya había venido antes", "Vengo seguido"]],
+   ["canales", "Cómo nos conocieron", ["Instagram", "TikTok", "Facebook", "Me lo recomendaron", "Pasaba por aquí", "Google o Maps", "Otro"]],
+   ["destacan", "Lo que más les gustó", ["La sazón", "La atención", "El ambiente", "La rapidez", "El precio"]]].forEach(function(p){
+    if (!d[p[0]]) return;
+    var etiquetas = p[2].concat(Object.keys(d[p[0]]).filter(function(k){return p[2].indexOf(k)===-1;}));
+    var opciones = etiquetas.map(function(k){return {nombre:k,n:Object.prototype.hasOwnProperty.call(d[p[0]],k) ? d[p[0]][k] : 0};})
+      .sort(function(a,b){return b.n-a.n || a.nombre.localeCompare(b.nombre,"es");});
+    var total = opciones.reduce(function(n,x){return n+x.n;},0);
+    html += '<section><h2>' + esc(p[1]) + '</h2><p class="base">de ' + total + ' que respondieron</p>';
+    html += total ? '<ul class="desglose">' + opciones.map(function(x){return filaOpcion(x.nombre,x.n,pct(x.n,total)+'%',pct(x.n,total));}).join("") + '</ul>' : '<p class="base">Sin respuestas todavía.</p>';
+    html += '</section>';
+  });
+  return html + '</div>';
+}
+function filaOpcion(nombre,n,valor,ancho){
+  return '<li><div class="fila"><span class="etiqueta">'+esc(nombre)+'</span><span class="valor"><span>'+n+'</span><span>'+esc(valor)+'</span></span></div><div class="pista" aria-hidden="true"><i style="width:'+ancho+'%"></i></div></li>';
+}
+function equipo(personal){
+  var lista=Object.keys(personal).map(function(k){return {nombre:k,n:personal[k].n,promedio:personal[k].promedio};})
+    .sort(function(a,b){return (a.nombre==="Sin dato")-(b.nombre==="Sin dato") || b.n-a.n || b.promedio-a.promedio || a.nombre.localeCompare(b.nombre,"es");});
+  var conocidos=lista.filter(function(x){return x.nombre!=="Sin dato";}), lider=conocidos[0];
+  var mejores=conocidos.slice().sort(function(a,b){return b.promedio-a.promedio || b.n-a.n;});
+  var total=lista.reduce(function(n,x){return n+x.n;},0), max=lista.reduce(function(n,x){return Math.max(n,x.n);},1);
+  var html='<section><h2>Tu equipo</h2><p class="base">Cantidad · promedio de estrellas</p>';
+  if (lider) {
+    var mas=conocidos.filter(function(x){return x.n===lider.n;}).map(function(x){return x.nombre;});
+    var mejor=mejores.filter(function(x){return x.promedio===mejores[0].promedio;}).map(function(x){return x.nombre;});
+    html+='<p class="base">Más calificaciones: '+esc(mas.join(", "))+'<br>Mejor promedio: '+esc(mejor.join(", "))+'</p>';
+  }
+  html+=total ? '<ul class="desglose">'+lista.map(function(x){return filaOpcion(x.nombre,x.n,coma(x.promedio.toFixed(1))+' ★',pct(x.n,max));}).join("")+'</ul>' : '<p class="base">Sin respuestas todavía.</p>';
+  return html+'</section>';
 }
 
 function cifra(rot, val, pie){

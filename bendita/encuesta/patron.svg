@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 840 840" width="840" height="840" fill="none" stroke="#D50013" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.07">
+<title>Bendita: tinta de cocina, cielo y cuernitos</title>
+<defs>
+<!-- Dibujos originales: pequeñas asimetrías en curvas y encuentros, sin filtros. -->
+<g id="alitas">
+<path d="M9 47C6 39 12 33 21 31L39 10C46 4 53 7 51 15L43 30L64 18C72 15 78 18 73 25L54 47C48 56 39 59 30 56L18 59C12 57 9 53 9 47Z"/>
+<path d="M22 31C30 30 38 36 40 44M42 30L51 21M48 41L65 25M27 45L33 48M16 42L18 46M21 51L24 52"/>
+<path d="M13 54L7 62C1 59-2 65 1 68C-2 74 4 77 8 72C14 74 17 69 12 66L20 58"/>
+</g>
+<g id="aureola">
+<path d="M5 29C4 17 22 11 42 12C64 11 81 19 80 29C79 41 60 46 40 45C19 44 6 39 5 29ZM12 29C13 22 26 18 42 19C59 18 73 23 73 29C72 36 58 39 40 38C24 38 12 34 12 29Z"/>
+<path d="M22 4L20 0M64 6L68 1M40 52L39 56"/>
+</g>
+<g id="cuernitos">
+<path d="M37 48C23 51 9 47 6 35C2 24 7 12 16 3C12 18 14 27 21 31C27 34 33 32 38 32M43 48C57 51 72 46 75 34C79 22 73 11 65 2C70 17 67 27 61 31C55 34 49 32 43 32"/>
+<path d="M9 39C5 34 5 27 7 23M72 38C75 32 75 25 73 21M36 32L38 48M43 32L42 48"/>
+</g>
+<g id="hamburguesa">
+<path d="M8 33C9 15 24 7 41 8C59 7 75 17 76 33C54 35 31 32 8 33ZM7 56L77 56C77 66 71 70 63 70L22 71C12 71 7 65 7 56Z"/>
+<path d="M7 40L19 37L29 41L41 37L53 41L65 37L78 41M9 46L29 45L41 51L52 45L76 46M8 51C24 54 54 49 77 51M25 20L28 18M43 16L45 19M58 22L61 21"/>
+</g>
+<g id="papas">
+<path d="M17 34L11 8L20 5L29 33M31 31L28 2L38 1L41 31M46 32L49 6L58 8L56 33M60 35L68 17L76 20L69 38"/>
+<path d="M9 32L24 37C33 42 49 43 60 38L77 33L67 77C52 81 34 81 19 77L9 32ZM22 48L26 69M63 49L59 71M35 52L49 53L48 65L37 66Z"/>
+</g>
+<g id="tequeno">
+<path d="M13 56L51 10C57 3 68 7 72 15C75 20 74 24 70 29L31 72C24 80 11 72 10 65C9 61 10 59 13 56Z"/>
+<path d="M44 19L67 32M35 29L59 42M27 39L50 52M18 49L41 62M12 59L31 71M55 11L66 17M17 64L22 67"/>
+</g>
+<g id="vaso">
+<path d="M14 27L70 28L63 78C49 82 34 80 23 77L14 27ZM12 24C12 19 29 17 43 18C61 18 74 21 73 25C72 30 57 32 42 31C26 31 11 28 12 24Z"/>
+<path d="M47 24L54 4L72 1M54 26L61 10L73 8M22 45C36 41 51 49 67 44M30 51L38 49L42 58L33 61ZM49 60L57 56L61 65L53 69Z"/>
+</g>
+<g id="ala">
+<path d="M11 72C10 51 23 46 34 35C44 24 48 11 50 2C61 16 62 31 56 42C64 35 70 28 74 18C80 35 70 51 57 59C65 58 72 56 78 51C75 68 61 74 45 74C32 73 25 78 20 82L11 72Z"/>
+<path d="M19 69C32 52 45 46 50 25M27 70C43 57 56 57 66 42M34 72C45 66 52 67 59 65M20 80L18 71"/>
+</g>
+</defs>
+<use xlink:href="#alitas" transform="translate(54 56) rotate(-19 40 40) scale(1.13)"/>
+<use xlink:href="#aureola" transform="translate(258 34) rotate(16 40 30) scale(.9)"/>
+<use xlink:href="#hamburguesa" transform="translate(460 87) rotate(-11 40 40) scale(.88)"/>
+<use xlink:href="#ala" transform="translate(701 37) rotate(24 40 40) scale(.96)"/>
+<use xlink:href="#vaso" transform="translate(169 225) rotate(13 40 40) scale(.83)"/>
+<use xlink:href="#tequeno" transform="translate(354 231) rotate(28 40 40) scale(1.12)"/>
+<use xlink:href="#cuernitos" transform="translate(572 238) rotate(-16 40 30) scale(1.04)"/>
+<use xlink:href="#papas" transform="translate(736 291) rotate(-9 40 40) scale(.77)"/>
+<use xlink:href="#ala" transform="translate(40 430) rotate(-31 40 40) scale(.85)"/>
+<use xlink:href="#papas" transform="translate(244 440) rotate(18 40 40) scale(1.08)"/>
+<use xlink:href="#alitas" transform="translate(467 417) rotate(31 40 40) scale(.85)"/>
+<use xlink:href="#aureola" transform="translate(678 495) rotate(-24 40 30) scale(1.15)"/>
+<use xlink:href="#hamburguesa" transform="translate(111 663) rotate(12 40 40) scale(1.03)"/>
+<use xlink:href="#cuernitos" transform="translate(331 691) rotate(21 40 30) scale(.82)"/>
+<use xlink:href="#vaso" transform="translate(540 660) rotate(-17 40 40) scale(.98)"/>
+<use xlink:href="#tequeno" transform="translate(747 729) rotate(-22 40 40) scale(.71)"/>
+</svg>
