@@ -9,7 +9,7 @@
 <meta property="og:url" content="https://cream.pe/bendita/panel/">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#FFF9F5">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="../encuesta/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="../encuesta/favicon.png">
 
@@ -38,26 +38,27 @@ const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycby23FSsmUVx
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:#F7F7F9;color:var(--tinta);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#FFFFFF;color:var(--tinta);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 button,a{font:inherit}button{color:inherit;cursor:pointer}a{color:var(--marca)}
 .barra{padding:calc(env(safe-area-inset-top) + 12px) 20px 12px;background:var(--superficie)}
-.cinta{max-width:1120px;margin:auto;display:flex;align-items:center;gap:16px}.barra img{height:44px;max-width:160px;object-fit:contain}.respaldo{display:none;font-weight:700}.cuando{margin-left:auto;font-size:13px;color:var(--tinta-2);text-align:right}
+.cinta{max-width:1120px;margin:auto;display:flex;align-items:center;gap:16px}.barra img{height:44px;max-width:160px;object-fit:contain}.respaldo{display:none;font-weight:700}
 main{max-width:1120px;margin:auto;padding:24px 16px calc(env(safe-area-inset-bottom) + 40px)}
-.historia{display:grid;gap:20px;align-items:start}.tarjeta{background:#fff;border-radius:24px;padding:24px;box-shadow:0 4px 24px #20202006;min-width:0}.ancha{grid-column:1/-1}
+.historia{display:grid;gap:20px;align-items:start}.tarjeta{background:#fff;border-radius:24px;padding:24px;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A;min-width:0}.ancha{grid-column:1/-1}
 h2{font-size:23px;line-height:1.25;margin:0 0 22px;display:flex;align-items:center;gap:10px}h2 svg{width:24px;height:24px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 p{margin:10px 0}.base,.pie,.meta,.detalle{color:var(--tinta-2)}.heroe{display:flex;align-items:center;gap:20px}.numero{font-size:72px;line-height:1;letter-spacing:-3px}.estrellas{color:var(--marca);font-size:23px;letter-spacing:2px}.frase{font-weight:600;margin:8px 0 24px}.detalle{font-size:16px}
-.desglose{list-style:none;padding:0;margin:0}.desglose li{margin-top:18px}.fila{display:flex;align-items:center;gap:12px}.etiqueta{flex:1;overflow-wrap:anywhere}.valor{white-space:nowrap;display:flex;gap:10px;font-variant-numeric:tabular-nums}.valor span:last-child{color:var(--tinta-2)}.pista{height:12px;background:#F0F0F3;border-radius:99px;overflow:hidden;margin-top:8px}.pista i{display:block;height:100%;background:var(--marca);border-radius:99px}
-.accion{background:#FFF6E9}.accion h2{color:#784600}.accion a{display:inline-block;padding:12px 20px;background:var(--marca);color:var(--sobre-marca);border-radius:99px;text-decoration:none;font-weight:600;margin-top:8px}.orden{color:var(--bien);margin:0}.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cifra{border-radius:24px;padding:22px;background:#fff;box-shadow:0 4px 24px #20202006}.rot,.val,.pie{display:block}.rot{font-weight:600}.val{font-size:38px;font-weight:650;margin:6px 0}.pie{font-size:16px}
-.equipo{list-style:none;padding:0;margin:0;display:grid;gap:12px}.persona{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:#F8F8FA}.avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--marca) 10%,white);color:var(--marca);font-weight:700}.persona .nombre{flex:1;min-width:0;overflow-wrap:anywhere}.persona small{display:block;font-size:16px;color:var(--tinta-2)}.persona.lider{background:color-mix(in srgb,var(--marca) 6%,white)}.sin-dato{color:var(--tinta-2)}.persona strong{white-space:nowrap}.medalla{color:var(--marca)}
+.desglose{list-style:none;padding:0;margin:0}.desglose li{margin-top:18px}.fila{display:flex;align-items:center;gap:12px}.etiqueta{flex:1;overflow-wrap:anywhere}.valor{white-space:nowrap;display:flex;gap:10px;font-variant-numeric:tabular-nums}.valor span:last-child{color:var(--tinta-2)}.pista{height:12px;background:#F1F3F4;border-radius:99px;overflow:hidden;margin-top:8px}.pista i{display:block;height:100%;background:var(--marca);border-radius:99px}
+.aviso-pendientes{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding:14px 20px;border:1px solid var(--linea);border-radius:18px;background:#F6F7F8}.aviso-pendientes a{padding:10px 16px;background:var(--marca);color:var(--sobre-marca);border-radius:99px;text-decoration:none;font-weight:600}.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cifra{border-radius:24px;padding:22px;background:#fff;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A}.rot,.val,.pie{display:block}.rot{font-weight:600}.val{font-size:38px;font-weight:650;margin:6px 0}.pie{font-size:16px}
+.equipo{list-style:none;padding:0;margin:0;display:grid;gap:12px}.persona{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:#F8F9FA}.avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--marca) 10%,white);color:var(--marca);font-weight:700}.persona .nombre{flex:1;min-width:0;overflow-wrap:anywhere}.persona small{display:block;font-size:16px;color:var(--tinta-2)}.persona.lider{background:color-mix(in srgb,var(--marca) 6%,white)}.sin-dato{color:var(--tinta-2)}.persona strong{white-space:nowrap}.medalla{color:var(--marca)}
 .segmentos{display:flex;height:22px;overflow:hidden;border-radius:99px;margin:22px 0}.segmentos i{background:var(--marca)}.segmentos i:nth-child(2){background:#6A627D}.segmentos i:nth-child(3){background:#26736C}.leyenda{list-style:none;padding:0;margin:0;display:grid;gap:12px}.leyenda li{display:flex;align-items:center;gap:10px}.punto{width:12px;height:12px;border-radius:50%;flex-shrink:0}.leyenda strong{margin-left:auto;white-space:nowrap}.leyenda small{font-size:16px;color:var(--tinta-2)}
 .tendencia{position:relative}.tendencia svg{display:block;width:100%;height:150px}.eje{display:flex;justify-content:space-between;color:var(--tinta-2);margin-top:12px}.globo{position:absolute;pointer-events:none;background:var(--tinta);color:white;padding:8px 12px;border-radius:12px;transform:translate(-50%,-100%);opacity:0;font-size:14px}.globo.visible{opacity:1}.tabla-oculta{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-.lista{list-style:none;margin:0;padding:0;display:grid;gap:16px}.item{display:grid;grid-template-columns:auto 1fr;gap:12px;background:#F5F5F8;border-radius:20px 20px 20px 6px;padding:20px;scroll-margin-top:20px}.nota{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#fff;font-weight:600;color:var(--marca)}.texto{overflow-wrap:anywhere}.meta{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:16px}.chip{border-radius:99px;padding:3px 10px;background:#fff}.hecho{color:var(--bien)}.atender{border:0;border-radius:99px;padding:12px 16px;min-height:44px;background:white;color:var(--marca);font-weight:600}.atender:disabled{opacity:.6}.item.malo{background:#FFF6E9}.item.destacado{outline:2px solid var(--marca)}.mas{display:block;margin:16px auto 0;border:0;background:transparent;padding:12px;color:var(--marca)}
-.estado{text-align:center;padding:40px 24px;max-width:620px;margin:auto;background:#fff;border-radius:24px}.estado strong{display:block;font-size:24px;margin-bottom:12px}.cargando{display:grid;gap:20px}.esqueleto{height:180px;border-radius:24px;background:#ECECEF;animation:late 1.2s ease-in-out infinite}.pie-pagina{color:var(--tinta-2);font-size:16px;margin:24px 4px}button:focus-visible,a:focus-visible{outline:3px solid var(--marca);outline-offset:4px}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:16px}.item{display:grid;grid-template-columns:auto 1fr;gap:12px;background:#F6F7F8;border-radius:20px 20px 20px 6px;padding:20px;scroll-margin-top:20px}.nota{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#fff;font-weight:600;color:var(--marca)}.texto{overflow-wrap:anywhere}.meta{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:16px}.chip{border-radius:99px;padding:3px 10px;background:#fff}.hecho{color:var(--bien)}.atender{border:0;border-radius:99px;padding:12px 16px;min-height:44px;background:white;color:var(--marca);font-weight:600}.atender:disabled{opacity:.6}.item.malo{background:#F6F7F8}.item.destacado{outline:2px solid var(--marca)}.mas{display:block;margin:16px auto 0;border:0;background:transparent;padding:12px;color:var(--marca)}
+.estado{text-align:center;padding:40px 24px;max-width:620px;margin:auto;background:#fff;border-radius:24px}.estado strong{display:block;font-size:24px;margin-bottom:12px}.cargando{display:grid;gap:20px}.esqueleto{height:180px;border-radius:24px;background:#ECEFF1;animation:late 1.2s ease-in-out infinite}.pie-pagina{background:#FFFFFF;border-radius:12px;padding:8px 12px;color:var(--tinta-2);font-size:16px;margin:24px 4px}button:focus-visible,a:focus-visible{outline:3px solid var(--marca);outline-offset:4px}
 @keyframes late{50%{opacity:.5}}@media(prefers-reduced-motion:reduce){.esqueleto{animation:none}}@media(min-width:800px){.historia{grid-template-columns:repeat(2,minmax(0,1fr))}.cifras{grid-template-columns:repeat(4,minmax(0,1fr))}.tarjeta{padding:30px}.cargando{grid-template-columns:1fr 1fr}}
 @font-face{font-family:"Alfa Slab One";src:url("../encuesta/alfaslabone.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-:root{--superficie:#FFFFFF;--fondo:#FFF9F5;--tinta:#2B201D;--tinta-2:#69554F;--tinta-3:#69554F;--tinta-suave:#69554F;--linea:#E7D8D2;--fondo-suave:#FFFFFF;--titular:"Alfa Slab One",Georgia,serif;color-scheme:light}
+:root{--superficie:#FFFFFF;--fondo:#FFFFFF;--tinta:#2B201D;--tinta-2:#69554F;--tinta-3:#69554F;--tinta-suave:#69554F;--linea:#E5E7EB;--fondo-suave:#FFFFFF;--titular:"Alfa Slab One",Georgia,serif;color-scheme:light}
 body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:400}h1,h2{text-transform:uppercase}
 header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--marca)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais{background:var(--superficie)}.globo{color:var(--fondo)}
+body{background-image:url("../encuesta/patron.svg");background-repeat:repeat;background-size:560px 560px}header{background:transparent}
 header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
 .item.malo .nota,.item.destacado{background:var(--superficie)}
 </style>
@@ -68,7 +69,6 @@ header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:1
   <div class="cinta">
     <img src="../encuesta/logo-claro.png" alt="Bendita Comida" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
     <span class="respaldo">Bendita Comida</span>
-    <span class="cuando" id="cuando"></span>
   </div>
 </div>
 
@@ -144,14 +144,13 @@ function tarjeta(id, texto, contenido, icono, clases){return '<section id="'+id+
 function fraseNota(n){return n>=4.5?'¡Excelente! Tus clientes están felices':n>=4?'Muy bien':n>=3?'Hay cosas por mejorar':'Atención: hay clientes molestos';}
 function pintar(){
   var d=datos;
-  $("#cuando").innerHTML=esc('Actualizado '+ultimaActualizacion);
   if (!d.total){estado('Todavía no hay respuestas.','Aparecen aquí apenas el primer cliente escanee el QR.');return;}
   var llenas=Math.round(d.promedio), distribucion='';
   for(var n=5;n>=1;n--){var cantidad=(d.estrellas||[])[n-1]||0;distribucion+=filaOpcion(n+' ★',cantidad,pct(cantidad,d.total)+'%',pct(cantidad,d.total));}
-  var html='<div class="historia">'+tarjeta('calificacion','¿Cómo te califican?',
-    '<div class="heroe"><span class="numero">'+coma(d.promedio.toFixed(1))+'</span><div><div class="estrellas" aria-label="'+coma(d.promedio)+' de 5 estrellas">'+'★'.repeat(llenas)+'☆'.repeat(5-llenas)+'</div><span class="detalle">'+d.total+' respuestas</span></div></div><p class="frase">'+fraseNota(d.promedio)+'</p><ul class="desglose">'+distribucion+'</ul>','nota');
   var pendientes=Math.max(0,(d.insatisfechos||0)-(d.atendidos||0));
-  html+=tarjeta('hoy','¿Qué tienes que hacer hoy?',pendientes?'<p><strong>'+pendientes+(pendientes===1?' cliente necesita':' clientes necesitan')+' tu atención</strong></p><p>Escucharlos puede hacer la diferencia.</p><a href="#comentarios">Ver '+(pendientes===1?'comentario pendiente':'comentarios pendientes')+'</a>':'<p class="orden">Todo en orden ✓</p>','hoy',pendientes?'accion':'');
+  var html=pendientes?'<aside class="aviso-pendientes" aria-label="Clientes por atender"><strong>'+pendientes+(pendientes===1?' cliente necesita':' clientes necesitan')+' tu atención</strong><a href="#comentarios">Ver comentario</a></aside>':'';
+  html+='<div class="historia">'+tarjeta('calificacion','¿Cómo te califican?',
+    '<div class="heroe"><span class="numero">'+coma(d.promedio.toFixed(1))+'</span><div><div class="estrellas" aria-label="'+coma(d.promedio)+' de 5 estrellas">'+'★'.repeat(llenas)+'☆'.repeat(5-llenas)+'</div><span class="detalle">'+d.total+' respuestas</span></div></div><p class="frase">'+fraseNota(d.promedio)+'</p><ul class="desglose">'+distribucion+'</ul>','nota','ancha');
   html+='<div class="cifras ancha" aria-label="Números clave">'+cifra('Felices',d.felices||0,'Con 4 o 5 estrellas')+cifra('Fueron a Google',d.aGoogle||0,'Abrieron el enlace de reseña')+cifra('Clientes nuevos',d.nuevos||0,'Vinieron por primera vez')+cifra('Dejaron su WhatsApp',d.conContacto||0,'Para seguir en contacto')+'</div>';
   if(d.personal) html+=equipo(d.personal);
   if(d.visitas) html+=visitas(d.visitas);
@@ -261,7 +260,7 @@ document.addEventListener("click", function(e){
   }).catch(function(){ b.disabled = false; b.textContent = "No se guardó, reintentar"; });
 });
 
-var cargando = false, ultimaActualizacion = "";
+var cargando = false;
 function cargar(){
   if (cargando) return Promise.resolve();
   cargando = true;
@@ -275,7 +274,6 @@ function cargar(){
       }
       if (!d || !d.ok) throw new Error("respuesta inesperada");
       datos = d;
-      ultimaActualizacion = new Date().toLocaleTimeString("es-PE", {timeZone:"America/Lima",hour:"2-digit",minute:"2-digit",hour12:false});
       pintar();
     })
     .catch(function(err){
