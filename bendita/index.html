@@ -22,6 +22,7 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" as="image" href="portada.webp" fetchpriority="high">
 <link rel="preload" as="font" type="font/woff2" href="t-alfaslabone-400.woff2" crossorigin>
+<link rel="preconnect" href="https://connect.facebook.net">
 <style>
 @font-face{font-family:'Alfa Slab One';font-style:normal;font-weight:400;font-display:swap;src:url(t-alfaslabone-400.woff2) format('woff2')}
 :root{
@@ -137,6 +138,8 @@ a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
     <li><a href="https://www.facebook.com/labenditacomida.cix/" data-boton="red-facebook" data-evento="" aria-label="La Bendita Comida en Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
   </ul>
   <footer class="pie">
+    <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=955850295646281&amp;ev=PageView&amp;noscript=1"></noscript>
+    <p>Esta página cuenta visitas y clics con el píxel de Meta.</p>
     <p>Calle Los Pinos 236, Urb. Santa Victoria, Chiclayo</p>
     <p class="firma"><a href="https://cream.pe/" data-boton="cream" data-evento="">hecho por CREAM</a></p>
   </footer>
@@ -146,7 +149,7 @@ a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
   // Medición con el píxel de Meta: PageView al abrir y un evento por botón.
   // El script de Meta se descarga después de pintar la página (o al primer
   // toque) para no frenar la carga; mientras tanto los eventos esperan en cola.
-  var C = {"pixel": "", "slug": "bendita"};
+  var C = {"pixel": "955850295646281", "slug": "bendita"};
   if (!C.pixel) return;
   var cargado = false, pedido = false;
 

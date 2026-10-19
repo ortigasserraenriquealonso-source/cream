@@ -24,6 +24,7 @@
 <link rel="preload" as="font" type="font/woff2" href="t-fraunces-600.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="x-montserrat-500.woff2" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="x-montserrat-700.woff2" crossorigin>
+<link rel="preconnect" href="https://connect.facebook.net">
 <style>
 @font-face{font-family:'Fraunces';font-style:normal;font-weight:600;font-display:swap;src:url(t-fraunces-600.woff2) format('woff2')}
 @font-face{font-family:'Montserrat';font-style:normal;font-weight:500;font-display:swap;src:url(x-montserrat-500.woff2) format('woff2')}
@@ -139,6 +140,8 @@ a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
   </nav>
 
   <footer class="pie">
+    <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=971993575367997&amp;ev=PageView&amp;noscript=1"></noscript>
+    <p>Esta página cuenta visitas y clics con el píxel de Meta.</p>
     <p>Calle Los Pinos 236, Urb. Santa Victoria, Chiclayo</p>
     <p class="firma"><a href="https://cream.pe/" data-boton="cream" data-evento="">hecho por CREAM</a></p>
   </footer>
@@ -148,7 +151,7 @@ a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
   // Medición con el píxel de Meta: PageView al abrir y un evento por botón.
   // El script de Meta se descarga después de pintar la página (o al primer
   // toque) para no frenar la carga; mientras tanto los eventos esperan en cola.
-  var C = {"pixel": "", "slug": "donamartha"};
+  var C = {"pixel": "971993575367997", "slug": "donamartha"};
   if (!C.pixel) return;
   var cargado = false, pedido = false;
 
