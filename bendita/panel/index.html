@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bendita Comida · Tu encuesta</title>
+<link rel="canonical" href="https://cream.pe/bendita/panel/">
+<meta property="og:url" content="https://cream.pe/bendita/panel/">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="../encuesta/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../encuesta/favicon.png">
+
+<script>
+/* Tablero v2 · generado por resenas-qr/construir.py — no editar a mano.
+   La clave NO está escrita acá (este archivo vive en un repositorio
+   público): llega en el enlace del dueño, después del #, que el navegador
+   nunca envía a ningún servidor. */
+const TABLERO = { ENDPOINT: "", NEGOCIO: "Bendita Comida", SLUG: "bendita" };
+</script>
+
+<style>
+:root{
+  --marca:#D40013;
+  --sobre-marca:#FFFFFF;
+  --tinta:#1F1F1F;
+  --tinta-2:#5F6368;
+  --tinta-3:#80868B;
+  --linea:#E3E3E3;
+  --superficie:#FFFFFF;
+  --fondo-suave:#F6F7F8;
+  --bien:#137333;
+  --mal:#B3261E;
+  --sans:"Google Sans Text","Google Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--superficie);color:var(--tinta);font-family:var(--sans);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+
+.barra{
+  position:sticky;top:0;z-index:2;background:rgba(255,255,255,.94);
+  -webkit-backdrop-filter:saturate(1.4) blur(10px);backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--linea);
+  padding:calc(env(safe-area-inset-top) + 10px) 16px 10px
+}
+.barra .cinta{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.barra img{height:30px;width:auto;display:block}
+.barra .respaldo{font-weight:600;font-size:17px;display:none}
+.barra .cuando{margin-left:auto;font-size:12.5px;color:var(--tinta-3);text-align:right;white-space:nowrap}
+.barra .cuando i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--bien);margin-right:6px;vertical-align:1px}
+
+main{max-width:960px;margin:0 auto;padding:20px 16px calc(env(safe-area-inset-bottom) + 48px)}
+
+/* ── Héroe: el promedio ───────────────────────── */
+.heroe{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin:4px 0 22px}
+.heroe .numero{font-size:64px;font-weight:600;line-height:.95;letter-spacing:-.02em}
+.heroe .estrellas{font-size:22px;color:#E8A100;letter-spacing:2px;line-height:1;margin-bottom:6px}
+.heroe .detalle{flex-basis:100%;color:var(--tinta-2);font-size:14.5px;margin-top:2px}
+.delta{font-weight:600}
+.delta.sube{color:var(--bien)}
+.delta.baja{color:var(--mal)}
+
+/* ── Cifras ───────────────────────────────────── */
+.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--linea);border:1px solid var(--linea);border-radius:16px;overflow:hidden;margin-bottom:28px}
+@media (min-width:720px){.cifras{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.cifra{background:var(--superficie);padding:14px 16px 15px;min-width:0}
+.cifra .rot{font-size:13px;color:var(--tinta-2);display:block;margin-bottom:4px}
+.cifra .val{font-size:30px;font-weight:600;line-height:1.1;display:block;letter-spacing:-.01em}
+.cifra .pie{font-size:12.5px;color:var(--tinta-3);display:block;margin-top:3px}
+.cifra .pie b{font-weight:600;color:var(--mal)}
+.cifra .pie b.ok{color:var(--bien)}
+.reparto{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:9px;gap:2px}
+.reparto i{display:block;height:100%;border-radius:3px}
+
+h2{font-size:16px;font-weight:600;margin:0 0 12px;display:flex;align-items:baseline;gap:8px}
+h2 .de{font-weight:400;font-size:13px;color:var(--tinta-3)}
+section{margin-bottom:30px}
+
+/* ── Tendencia ────────────────────────────────── */
+.tendencia{position:relative}
+.tendencia svg{display:block;width:100%;height:150px;overflow:visible}
+.tendencia .eje{display:flex;justify-content:space-between;font-size:12px;color:var(--tinta-3);margin-top:6px}
+.globo{
+  position:absolute;pointer-events:none;background:var(--tinta);color:#fff;font-size:12.5px;line-height:1.4;
+  padding:7px 10px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-100%);opacity:0;transition:opacity .1s
+}
+.globo.visible{opacity:1}
+.tabla-oculta{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ── Comentarios ──────────────────────────────── */
+.lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
+.item{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:13px 2px;border-bottom:1px solid var(--linea)}
+.item .nota{grid-row:span 2;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:14px;background:var(--fondo-suave);color:var(--tinta)}
+.item.malo .nota{background:#FCE8E6;color:var(--mal)}
+.item .texto{font-size:15.5px;line-height:1.45;overflow-wrap:anywhere}
+.item .texto.vacio{color:var(--tinta-3);font-style:italic}
+.item .meta{font-size:12.5px;color:var(--tinta-3);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.item .meta .chip{padding:1px 8px;border-radius:10px;background:var(--fondo-suave);color:var(--tinta-2)}
+.item .meta .hecho{color:var(--bien)}
+.atender{
+  margin-left:auto;border:1px solid var(--linea);background:var(--superficie);border-radius:18px;
+  padding:6px 13px;font-size:13px;font-weight:600;cursor:pointer;min-height:34px
+}
+.atender:hover{background:var(--fondo-suave)}
+.atender:disabled{opacity:.5;cursor:default}
+.item.destacado{background:#FFF8E1;border-radius:10px;padding-left:10px;padding-right:10px}
+.mas{display:block;width:100%;margin-top:10px;border:none;background:none;color:var(--tinta-2);font-weight:600;padding:10px;cursor:pointer}
+
+.estado{padding:64px 8px;text-align:center;color:var(--tinta-2);max-width:420px;margin:0 auto}
+.estado strong{display:block;color:var(--tinta);font-size:18px;font-weight:600;margin-bottom:6px}
+.cargando .esqueleto{height:16px;border-radius:8px;background:var(--fondo-suave);margin:14px 0;animation:late 1.2s ease-in-out infinite}
+@keyframes late{50%{opacity:.5}}
+@media (prefers-reduced-motion:reduce){.cargando .esqueleto{animation:none}}
+.pie-pagina{margin-top:10px;font-size:12.5px;color:var(--tinta-3);line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="barra">
+  <div class="cinta">
+    <img src="../encuesta/logo-claro.png" alt="Bendita Comida" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="respaldo">Bendita Comida</span>
+    <span class="cuando" id="cuando"></span>
+  </div>
+</div>
+
+<main id="lienzo">
+  <div class="cargando" aria-label="Cargando">
+    <div class="esqueleto" style="width:40%;height:56px"></div>
+    <div class="esqueleto"></div><div class="esqueleto" style="width:70%"></div>
+  </div>
+</main>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s){ return document.querySelector(s); };
+var lienzo = $("#lienzo");
+var LLAVE = TABLERO.SLUG + "_tablero_clave";
+var datos = null, mostrar = 6, destacado = null, reloj = null;
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function pct(n, t){ return t ? Math.round(n / t * 100) : 0; }
+function coma(n){ return String(n).replace(".", ","); }
+
+/* La clave llega en #k=… la primera vez; después se recuerda en este celular
+   y se borra de la barra de direcciones para que no quede a la vista. */
+function leerHash(){
+  var h = new URLSearchParams(location.hash.slice(1));
+  if (h.get("k")) { try { localStorage.setItem(LLAVE, h.get("k")); } catch(_){} }
+  destacado = h.get("atender");
+  if (h.get("k") || h.get("atender")) history.replaceState(null, "", location.pathname + location.search);
+}
+function clave(){ try { return localStorage.getItem(LLAVE) || ""; } catch(_){ return ""; } }
+
+function estado(titulo, texto){
+  lienzo.innerHTML = '<div class="estado"><strong>' + esc(titulo) + '</strong>' + esc(texto) + '</div>';
+}
+
+/* "hace 2 h", "ayer 20:15", "12 oct" — como lo diría una persona. */
+var MESES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+function cuando(fecha, hora){
+  if (!fecha) return "";
+  var p = fecha.split("-").map(Number), h = (hora || "00:00").split(":").map(Number);
+  var f = new Date(p[0], p[1] - 1, p[2], h[0], h[1]), ahora = new Date();
+  var min = Math.round((ahora - f) / 60000);
+  var hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
+  var dias = Math.round((hoy - new Date(p[0], p[1] - 1, p[2])) / 86400000);
+  if (min >= 0 && min < 60) return min <= 1 ? "recién" : "hace " + min + " min";
+  if (dias === 0) return "hoy " + hora;
+  if (dias === 1) return "ayer " + hora;
+  if (dias < 7) return "hace " + dias + " días";
+  return p[2] + " " + MESES[p[1] - 1];
+}
+function semanaTexto(desde){
+  var p = desde.split("-").map(Number);
+  return p[2] + " " + MESES[p[1] - 1];
+}
+
+/* Promedio de las últimas 4 semanas frente a las 4 anteriores. */
+function delta(semanas){
+  function prom(lista){
+    var s = 0, n = 0;
+    lista.forEach(function(x){ if (x.promedio !== null){ s += x.promedio * x.n; n += x.n; } });
+    return n ? s / n : null;
+  }
+  var a = prom(semanas.slice(-4)), b = prom(semanas.slice(-8, -4));
+  if (a === null || b === null) return null;
+  return Math.round((a - b) * 10) / 10;
+}
+
+function pintar(){
+  var d = datos;
+  $("#cuando").innerHTML = '<i aria-hidden="true"></i>' + esc(d.actualizado.slice(0, 5) + " · " + d.actualizado.slice(-5));
+  if (!d.total){
+    estado("Todavía no hay respuestas", "Aparecen aquí apenas el primer cliente escanee el QR de la mesa. No tienes que hacer nada.");
+    return;
+  }
+
+  var html = "";
+  var dl = delta(d.semanas);
+  var llenas = Math.round(d.promedio);
+  html += '<div class="heroe"><span class="numero">' + coma(d.promedio.toFixed(1)) + '</span>'
+        + '<span class="estrellas" aria-hidden="true">' + "★★★★★".slice(0, llenas) + '<span style="color:var(--linea)">' + "★★★★★".slice(0, 5 - llenas) + '</span></span>'
+        + '<span class="detalle">Promedio de ' + d.total + (d.total === 1 ? ' respuesta' : ' respuestas')
+        + (dl ? ' · <span class="delta ' + (dl > 0 ? 'sube' : 'baja') + '">' + (dl > 0 ? '↑ ' : '↓ ') + coma(Math.abs(dl).toFixed(1)) + '</span> frente al mes anterior' : '')
+        + '</span></div>';
+
+  var pendientes = d.insatisfechos - d.atendidos;
+  var conVisita = d.nuevos + d.recompra;
+  html += '<div class="cifras">'
+    + cifra("Quedaron felices", pct(d.felices, d.total) + "%", d.felices + " con 4 o 5 estrellas")
+    + cifra("Fueron a Google", d.aGoogle, pct(d.aGoogle, d.total) + "% de los que respondieron")
+    + cifra("Insatisfechos", d.insatisfechos,
+            d.insatisfechos ? (pendientes ? '<b>' + pendientes + ' por atender</b>' : '<b class="ok">Todos atendidos</b>') : "Ninguno, bien",
+            true)
+    + '<div class="cifra"><span class="rot">Clientes nuevos</span><span class="val">' + pct(d.nuevos, conVisita) + '%</span>'
+    +   '<span class="pie">' + pct(d.recompra, conVisita) + '% ya había venido</span>'
+    +   '<span class="reparto" aria-hidden="true"><i style="flex:' + (d.nuevos || 0) + ';background:var(--marca)"></i><i style="flex:' + (d.recompra || 0) + ';background:var(--linea)"></i></span></div>'
+    + '</div>';
+
+  html += '<section><h2>Respuestas por semana <span class="de">últimas 12</span></h2>' + grafico(d.semanas) + '</section>';
+
+  var lista = d.comentarios.slice().sort(function(a, b){
+    return (b.insatisfecho && !b.atendida) - (a.insatisfecho && !a.atendida);   // lo pendiente primero
+  });
+  html += '<section><h2>Lo que te dijeron <span class="de">lo pendiente, primero</span></h2>';
+  if (!lista.length) html += '<p class="pie-pagina">Todavía nadie dejó un comentario escrito.</p>';
+  else {
+    html += '<ul class="lista">' + lista.slice(0, mostrar).map(item).join("") + '</ul>';
+    if (lista.length > mostrar) html += '<button class="mas" id="mas">Ver más</button>';
+  }
+  html += '</section>';
+
+  html += '<p class="pie-pagina">Se actualiza solo. Los nombres y teléfonos de tus clientes no aparecen aquí: están en tu hoja de respuestas'
+        + (d.conContacto ? ', donde ' + d.conContacto + (d.conContacto === 1 ? ' cliente dejó' : ' clientes dejaron') + ' su WhatsApp para que lo invites de nuevo' : '') + '.</p>';
+
+  lienzo.innerHTML = html;
+  conectarGrafico();
+  var m = $("#mas"); if (m) m.onclick = function(){ mostrar += 10; pintar(); };
+  if (destacado){ var e = document.getElementById("c-" + destacado); if (e) e.scrollIntoView({ block:"center" }); }
+}
+
+function cifra(rot, val, pie){
+  return '<div class="cifra"><span class="rot">' + esc(rot) + '</span><span class="val">' + esc(val) + '</span><span class="pie">' + pie + '</span></div>';
+}
+
+function item(c){
+  var malo = c.insatisfecho;
+  var meta = '<span>' + esc(cuando(c.fecha, c.hora)) + '</span>'
+    + (c.primera ? '<span class="chip">Primera vez</span>' : '')
+    + (c.contacto ? '<span class="chip">Dejó WhatsApp</span>' : '');
+  if (malo) meta += c.atendida
+    ? '<span class="hecho">✓ Atendido</span><button class="atender" data-id="' + esc(c.id) + '" data-deshacer="1">Deshacer</button>'
+    : '<button class="atender" data-id="' + esc(c.id) + '">Ya lo atendí</button>';
+  return '<li class="item' + (malo ? ' malo' : '') + (c.id === destacado ? ' destacado' : '') + '" id="c-' + esc(c.id) + '">'
+    + '<span class="nota" aria-label="' + c.nota + ' de 5 estrellas">' + (c.nota || "–") + '★</span>'
+    + (c.texto ? '<span class="texto">' + esc(c.texto) + '</span>' : '<span class="texto vacio">Sin comentario escrito</span>')
+    + '<span class="meta">' + meta + '</span></li>';
+}
+
+/* Columnas de una sola serie: sin leyenda, el título dice qué es. Etiqueta
+   solo en la semana actual; el resto va en el globo y en la tabla oculta. */
+function grafico(semanas){
+  var W = 600, H = 150, base = H - 4, alto = H - 26;
+  var max = Math.max(1, Math.max.apply(null, semanas.map(function(s){ return s.n; })));
+  var paso = W / semanas.length, ancho = Math.min(24, paso * 0.56);
+  var barras = semanas.map(function(s, i){
+    var h = s.n ? Math.max(4, s.n / max * alto) : 0;
+    var x = i * paso + (paso - ancho) / 2, y = base - h, r = Math.min(4, h);
+    var forma = h ? '<path d="M' + x + ' ' + base + 'V' + (y + r) + 'Q' + x + ' ' + y + ' ' + (x + r) + ' ' + y
+      + 'H' + (x + ancho - r) + 'Q' + (x + ancho) + ' ' + y + ' ' + (x + ancho) + ' ' + (y + r) + 'V' + base + 'Z" fill="var(--marca)"'
+      + (i === semanas.length - 1 ? '' : ' fill-opacity=".55"') + '/>' : '';
+    var etiqueta = i === semanas.length - 1 && s.n
+      ? '<text x="' + (x + ancho / 2) + '" y="' + (y - 6) + '" text-anchor="middle" font-size="13" font-weight="600" fill="var(--tinta)">' + s.n + '</text>' : '';
+    return forma + etiqueta + '<rect class="blanco" data-i="' + i + '" x="' + (i * paso) + '" y="0" width="' + paso + '" height="' + H + '" fill="transparent"/>';
+  }).join("");
+  var tabla = '<table class="tabla-oculta"><caption>Respuestas por semana</caption><tr><th>Semana del</th><th>Respuestas</th><th>Promedio</th><th>Insatisfechos</th></tr>'
+    + semanas.map(function(s){ return '<tr><td>' + semanaTexto(s.desde) + '</td><td>' + s.n + '</td><td>' + (s.promedio === null ? "–" : coma(s.promedio)) + '</td><td>' + s.malas + '</td></tr>'; }).join("") + '</table>';
+  return '<div class="tendencia"><svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Respuestas por semana, últimas 12 semanas">'
+    + '<line x1="0" x2="' + W + '" y1="' + base + '" y2="' + base + '" stroke="var(--linea)" stroke-width="1" vector-effect="non-scaling-stroke"/>'
+    + barras + '</svg><div class="globo" id="globo"></div>'
+    + '<div class="eje"><span>' + semanaTexto(semanas[0].desde) + '</span><span>Esta semana</span></div>' + tabla + '</div>';
+}
+
+function conectarGrafico(){
+  var svg = document.querySelector(".tendencia svg"), globo = $("#globo");
+  if (!svg) return;
+  function mostrarGlobo(e){
+    var t = e.target.closest ? e.target.closest(".blanco") : null;
+    if (!t){ globo.classList.remove("visible"); return; }
+    var s = datos.semanas[Number(t.getAttribute("data-i"))];
+    var caja = svg.getBoundingClientRect(), x = (Number(t.getAttribute("x")) + Number(t.getAttribute("width")) / 2) / 600 * caja.width;
+    globo.innerHTML = '<b>Semana del ' + semanaTexto(s.desde) + '</b><br>' + s.n + (s.n === 1 ? ' respuesta' : ' respuestas')
+      + (s.promedio !== null ? ' · ' + coma(s.promedio) + '★' : '') + (s.malas ? '<br>' + s.malas + ' insatisfecho' + (s.malas > 1 ? 's' : '') : '');
+    globo.style.left = Math.max(70, Math.min(caja.width - 70, x)) + "px";
+    globo.style.top = "8px";
+    globo.classList.add("visible");
+  }
+  svg.addEventListener("pointermove", mostrarGlobo);
+  svg.addEventListener("pointerdown", mostrarGlobo);
+  svg.addEventListener("pointerleave", function(){ globo.classList.remove("visible"); });
+}
+
+/* Marcar atendido: el botón se apaga hasta que la hoja confirma. */
+document.addEventListener("click", function(e){
+  var b = e.target.closest ? e.target.closest(".atender") : null;
+  if (!b) return;
+  b.disabled = true; b.textContent = "Guardando…";
+  fetch(TABLERO.ENDPOINT, {
+    method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+    body: JSON.stringify({ accion:"atender", clave:clave(), id:b.getAttribute("data-id"), deshacer: !!b.getAttribute("data-deshacer") })
+  }).then(function(r){ return r.json(); }).then(function(j){
+    if (!j.ok) throw new Error(j.error || "no se guardó");
+    return cargar();
+  }).catch(function(){ b.disabled = false; b.textContent = "No se guardó, reintentar"; });
+});
+
+function cargar(){
+  return fetch(TABLERO.ENDPOINT + "?datos=" + encodeURIComponent(clave()))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.error === "clave"){
+        try { localStorage.removeItem(LLAVE); } catch(_){}
+        estado("Este enlace ya no sirve", "Pídele a CREAM el enlace nuevo de tu panel.");
+        return;
+      }
+      if (!d || !d.ok) throw new Error("respuesta inesperada");
+      datos = d; pintar();
+    })
+    .catch(function(err){
+      if (!datos) estado("No pudimos cargar tus datos", "Revisa tu conexión y vuelve a abrir esta página en un minuto.");
+      console.warn("[tablero]", err);
+    });
+}
+
+function arrancar(){
+  leerHash();
+  if (!TABLERO.ENDPOINT){ estado("Tu panel está casi listo", "Se activa cuando la encuesta de la mesa empiece a guardar respuestas."); return; }
+  if (!clave()){ estado("Abre el enlace que te enviamos", "Tu panel es privado: entra con el enlace completo que te pasó CREAM."); return; }
+  cargar();
+  // Se refresca solo cada minuto mientras está a la vista.
+  reloj = setInterval(function(){ if (document.visibilityState === "visible") cargar(); }, 60000);
+  window.addEventListener("hashchange", function(){ leerHash(); cargar(); });
+}
+arrancar();
+})();
+</script>
+</body>
+</html>
