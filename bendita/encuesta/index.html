@@ -8,17 +8,12 @@
 <link rel="canonical" href="https://cream.pe/bendita/encuesta/">
 <meta property="og:url" content="https://cream.pe/bendita/encuesta/">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#D40013">
+<meta name="theme-color" content="#D50013">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="favicon.png">
 <link rel="preload" as="image" href="logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- La tipografía no bloquea el dibujado: con el wifi del local lento, un
      <link> normal deja la pantalla en blanco. Si nunca llega, no pasa nada. -->
-<link rel="stylesheet" media="print" onload="this.media='all'"
-      href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
-
 <script>
 /* Encuesta v2 · generada por resenas-qr/construir.py — no editar a mano. */
 const CONFIG = {
@@ -39,17 +34,17 @@ const CONFIG = {
 
 <style>
 :root{
-  --marca:#D40013;
-  --marca-alto:#A8000F;
+  --marca:#D50013;
+  --marca-alto:#B00010;
   --sobre-marca:#FFFFFF;
-  --fondo:#FBF8F6;
-  --acento:#FFD9A0;
-  --tinta:#1D1716;
-  --tinta-suave:#5F5655;
-  --linea:#ECE3E0;
+  --fondo:#141311;
+  --acento:#FFFFFF;
+  --tinta:#FFFFFF;
+  --tinta-suave:#BDB6AE;
+  --linea:#38332E;
   --radio:14px;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --titular:"Anton","Arial Narrow",Impact,sans-serif;
+  --titular:"Alfa Slab One",Georgia,serif;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
@@ -198,12 +193,28 @@ details.privacidad p{margin:8px 0 0}
   .sello{width:58px;height:58px;margin-bottom:12px}
   .firma{display:none}
 }
+@font-face{font-family:"Alfa Slab One";src:url("alfaslabone.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+:root{--superficie:#201E1B;--fondo:#141311;--tinta:#FFFFFF;--tinta-2:#BDB6AE;--tinta-3:#BDB6AE;--tinta-suave:#BDB6AE;--linea:#38332E;--fondo-suave:#201E1B;--titular:"Alfa Slab One",Georgia,serif;color-scheme:dark}
+body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:400}h1,h2{text-transform:uppercase}
+header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--tinta)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais,.acuerdo input,.btn-google{background:var(--superficie)}.globo{color:var(--fondo)}
+header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
+.item.malo .nota,.item.destacado{background:var(--superficie)}
+:root{--bien:#83D69B;--mal:#FFB4AB}.aviso{color:#FFB4AB}input.error,.acuerdo input.error{border-color:#FFB4AB}
+body:has([data-paso="0"].activo) header,body:has([data-paso="0"].activo) .progreso{display:none}
+body:has([data-paso="0"].activo) main{padding-top:0}
+.marca-portada{position:relative;margin:0 -20px;text-align:center}
+.foto-marca{display:block;width:100%;height:260px;object-fit:cover;object-position:50% 55%;mask-image:linear-gradient(#000 60%,transparent)}
+.logo-marca{position:relative;display:block;width:180px;max-height:145px;object-fit:contain;margin:-28px auto 20px}
+.portada{margin:8px 0 0;padding:0;text-align:center}.portada .datos{display:none}
+[data-paso="0"] .acciones{margin-top:24px;padding-top:0}
+body:has([data-paso="0"].activo) .firma{margin-top:auto}
+@media(max-height:740px){.foto-marca{height:190px}.logo-marca{max-height:100px;margin-bottom:12px}.marca-portada{margin:0 -18px}}
 </style>
 </head>
 <body>
 
 <header>
-  <img src="logo.png" alt="Bendita Comida" width="168" height="68"
+  <img src="logo.png" alt="Bendita Comida" width="168" height="62"
        onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
   <div class="respaldo">Bendita Comida</div>
 </header>
@@ -213,9 +224,10 @@ details.privacidad p{margin:8px 0 0}
 
   <!-- 0 · Portada -->
   <section class="paso activo" data-paso="0">
+    <div class="marca-portada"><img class="foto-marca" src="portada.webp" alt="" fetchpriority="high"><img class="logo-marca" src="logo.png" alt="Bendita Comida"></div>
     <div class="portada">
       <h1>¿Cómo te fue hoy?</h1>
-      <p class="bajada">Cuéntanos en menos de un minuto. Lo lee el dueño, no se publica.</p>
+      <p class="bajada">Menos de un minuto. Solo para nosotros.</p>
       <ul class="datos">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>45 segundos</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5 toques</li>

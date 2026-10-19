@@ -8,7 +8,7 @@
 <meta property="og:url" content="https://cream.pe/bendita/panel/">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#141311">
 <link rel="icon" href="../encuesta/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="../encuesta/favicon.png">
 
@@ -22,7 +22,7 @@ const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycby23FSsmUVx
 
 <style>
 :root{
-  --marca:#D40013;
+  --marca:#D50013;
   --sobre-marca:#FFFFFF;
   --tinta:#1F1F1F;
   --tinta-2:#5F6368;
@@ -115,6 +115,13 @@ section{margin-bottom:30px}
 @keyframes late{50%{opacity:.5}}
 @media (prefers-reduced-motion:reduce){.cargando .esqueleto{animation:none}}
 .pie-pagina{margin-top:10px;font-size:12.5px;color:var(--tinta-3);line-height:1.5}
+@font-face{font-family:"Alfa Slab One";src:url("../encuesta/alfaslabone.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+:root{--superficie:#201E1B;--fondo:#141311;--tinta:#FFFFFF;--tinta-2:#BDB6AE;--tinta-3:#BDB6AE;--tinta-suave:#BDB6AE;--linea:#38332E;--fondo-suave:#201E1B;--titular:"Alfa Slab One",Georgia,serif;color-scheme:dark}
+body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:400}h1,h2{text-transform:uppercase}
+header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--tinta)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais,.acuerdo input,.btn-google{background:var(--superficie)}.globo{color:var(--fondo)}
+header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
+.item.malo .nota,.item.destacado{background:var(--superficie)}
+:root{--bien:#83D69B;--mal:#FFB4AB}.aviso{color:#FFB4AB}input.error,.acuerdo input.error{border-color:#FFB4AB}
 </style>
 </head>
 <body>

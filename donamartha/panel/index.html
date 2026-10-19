@@ -8,7 +8,7 @@
 <meta property="og:url" content="https://cream.pe/donamartha/panel/">
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#F5E9D9">
 <link rel="icon" href="../encuesta/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="../encuesta/favicon.png">
 
@@ -22,8 +22,8 @@ const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycbzzHsVS9FGd
 
 <style>
 :root{
-  --marca:#701B20;
-  --sobre-marca:#F7EAD9;
+  --marca:#711A21;
+  --sobre-marca:#FBF4EA;
   --tinta:#1F1F1F;
   --tinta-2:#5F6368;
   --tinta-3:#80868B;
@@ -115,6 +115,14 @@ section{margin-bottom:30px}
 @keyframes late{50%{opacity:.5}}
 @media (prefers-reduced-motion:reduce){.cargando .esqueleto{animation:none}}
 .pie-pagina{margin-top:10px;font-size:12.5px;color:var(--tinta-3);line-height:1.5}
+@font-face{font-family:"Fraunces";src:url("../encuesta/fraunces-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("../encuesta/montserrat-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+:root{--superficie:#FBF4EA;--fondo:#F5E9D9;--tinta:#3B1A1C;--tinta-2:#6B4A45;--tinta-3:#6B4A45;--tinta-suave:#6B4A45;--linea:#E4D3BE;--fondo-suave:#FBF4EA;--titular:"Fraunces",Georgia,serif;color-scheme:light}
+body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:600}
+header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--tinta)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais,.acuerdo input,.btn-google{background:var(--superficie)}.globo{color:var(--fondo)}
+header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
+.item.malo .nota,.item.destacado{background:var(--superficie)}
+:root{--sans:"Montserrat",system-ui,sans-serif}
 </style>
 </head>
 <body>

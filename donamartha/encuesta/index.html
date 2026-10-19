@@ -8,17 +8,12 @@
 <link rel="canonical" href="https://cream.pe/donamartha/encuesta/">
 <meta property="og:url" content="https://cream.pe/donamartha/encuesta/">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#701B20">
+<meta name="theme-color" content="#711A21">
 <link rel="icon" href="favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="favicon.png">
 <link rel="preload" as="image" href="logo.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- La tipografía no bloquea el dibujado: con el wifi del local lento, un
      <link> normal deja la pantalla en blanco. Si nunca llega, no pasa nada. -->
-<link rel="stylesheet" media="print" onload="this.media='all'"
-      href="https://fonts.googleapis.com/css2?family=Young+Serif&display=swap">
-
 <script>
 /* Encuesta v2 · generada por resenas-qr/construir.py — no editar a mano. */
 const CONFIG = {
@@ -39,17 +34,17 @@ const CONFIG = {
 
 <style>
 :root{
-  --marca:#701B20;
-  --marca-alto:#551418;
-  --sobre-marca:#F7EAD9;
-  --fondo:#FBF5EC;
-  --acento:#D5B6AB;
-  --tinta:#2A1416;
-  --tinta-suave:#6B5153;
-  --linea:#EBDCCB;
+  --marca:#711A21;
+  --marca-alto:#57121A;
+  --sobre-marca:#FBF4EA;
+  --fondo:#F5E9D9;
+  --acento:#D49A68;
+  --tinta:#3B1A1C;
+  --tinta-suave:#6B4A45;
+  --linea:#E4D3BE;
   --radio:14px;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  --titular:"Young Serif",Georgia,"Times New Roman",serif;
+  --titular:"Fraunces",Georgia,serif;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;padding:0}
@@ -198,12 +193,29 @@ details.privacidad p{margin:8px 0 0}
   .sello{width:58px;height:58px;margin-bottom:12px}
   .firma{display:none}
 }
+@font-face{font-family:"Fraunces";src:url("fraunces-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("montserrat-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+:root{--superficie:#FBF4EA;--fondo:#F5E9D9;--tinta:#3B1A1C;--tinta-2:#6B4A45;--tinta-3:#6B4A45;--tinta-suave:#6B4A45;--linea:#E4D3BE;--fondo-suave:#FBF4EA;--titular:"Fraunces",Georgia,serif;color-scheme:light}
+body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:600}
+header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--tinta)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais,.acuerdo input,.btn-google{background:var(--superficie)}.globo{color:var(--fondo)}
+header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
+.item.malo .nota,.item.destacado{background:var(--superficie)}
+:root{--sans:"Montserrat",system-ui,sans-serif}
+body:has([data-paso="0"].activo) header,body:has([data-paso="0"].activo) .progreso{display:none}
+body:has([data-paso="0"].activo) main{padding-top:0}
+.marca-portada{position:relative;margin:0 -20px;text-align:center}
+.foto-marca{display:block;width:100%;height:260px;object-fit:cover;object-position:50% 55%;mask-image:linear-gradient(#000 60%,transparent)}
+.logo-marca{position:relative;display:block;width:180px;max-height:145px;object-fit:contain;margin:-28px auto 20px}
+.portada{margin:8px 0 0;padding:0;text-align:center}.portada .datos{display:none}
+[data-paso="0"] .acciones{margin-top:24px;padding-top:0}
+body:has([data-paso="0"].activo) .firma{margin-top:auto}
+@media(max-height:740px){.foto-marca{height:190px}.logo-marca{max-height:100px;margin-bottom:12px}.marca-portada{margin:0 -18px}}
 </style>
 </head>
 <body>
 
 <header>
-  <img src="logo.png" alt="Doña Martha" width="150" height="64"
+  <img src="logo.png" alt="Doña Martha" width="150" height="184"
        onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
   <div class="respaldo">Doña Martha</div>
 </header>
@@ -213,9 +225,10 @@ details.privacidad p{margin:8px 0 0}
 
   <!-- 0 · Portada -->
   <section class="paso activo" data-paso="0">
+    <div class="marca-portada"><img class="foto-marca" src="portada.webp" alt="" fetchpriority="high"><img class="logo-marca" src="logo.png" alt="Doña Martha"></div>
     <div class="portada">
       <h1>¿Cómo te fue hoy?</h1>
-      <p class="bajada">Cuéntanos en menos de un minuto. Lo lee el dueño, no se publica.</p>
+      <p class="bajada">Menos de un minuto. Solo para nosotros.</p>
       <ul class="datos">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>45 segundos</li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5 toques</li>
@@ -296,7 +309,7 @@ details.privacidad p{margin:8px 0 0}
       <div class="centro">
         <div class="sello">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4 12.5l5.2 5.2L20 7" stroke="#F7EAD9" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 12.5l5.2 5.2L20 7" stroke="#FBF4EA" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <h2 id="titulo-fin">¡Gracias!</h2>
