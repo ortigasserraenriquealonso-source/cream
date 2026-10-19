@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<!-- link-bio CREAM · generado por construir.py; no editar a mano -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Doña Martha · Menú de hoy y reservas</title>
+<meta name="description" content="Comida casera y generosa, como en casa de mamá. Pide el menú de hoy, reserva tu mesa o pide para llevar por WhatsApp.">
+<meta name="theme-color" content="#F5E9D9">
+<link rel="canonical" href="https://cream.pe/donamarta/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PE">
+<meta property="og:site_name" content="Doña Martha">
+<meta property="og:title" content="Doña Martha · Menú de hoy y reservas">
+<meta property="og:description" content="Comida casera y generosa, como en casa de mamá. Pide el menú de hoy, reserva tu mesa o pide para llevar por WhatsApp.">
+<meta property="og:url" content="https://cream.pe/donamarta/">
+<meta property="og:image" content="https://cream.pe/donamarta/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" as="image" href="portada-480.webp" imagesrcset="portada-480.webp 480w, portada-960.webp 960w" imagesizes="(min-width: 472px) 472px, 100vw" fetchpriority="high">
+<link rel="preload" as="font" type="font/woff2" href="t-fraunces-600.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="x-montserrat-500.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="x-montserrat-700.woff2" crossorigin>
+<style>
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:600;font-display:swap;src:url(t-fraunces-600.woff2) format('woff2')}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:500;font-display:swap;src:url(x-montserrat-500.woff2) format('woff2')}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url(x-montserrat-700.woff2) format('woff2')}
+:root{
+  --fondo:#F5E9D9;--superficie:#FBF4EA;--tinta:#3B1A1C;--tinta-suave:#6B4A45;
+  --marca:#711A21;--marca-ico:#711A21;--marca-alto:#57121A;--sobre-marca:#FBF4EA;--acento:#B5651A;--linea:#E4D3BE;
+  --radio:22px;--titulos:'Fraunces',Georgia, "Times New Roman", serif;--texto:'Montserrat',system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;background:var(--fondo);color:var(--tinta);
+  font:500 16px/1.4 var(--texto);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+img{display:block;max-width:100%}
+a{color:inherit}
+.pagina{width:100%;max-width:440px;margin:0 auto;padding:0 16px calc(28px + env(safe-area-inset-bottom))}
+
+/* Cabecera */
+.cabecera{text-align:center}
+.titulo{margin:0;line-height:0}
+.logo{margin:0 auto;height:auto}
+.lema{margin:12px 0 0;font:400 clamp(23px,6.6vw,28px)/1.08 var(--titulos);letter-spacing:-.01em;text-transform:none;text-wrap:balance}
+.lema em{font-style:normal;color:var(--acento)}
+.lugar{margin:6px 0 0;color:var(--tinta-suave);font-size:14px}
+
+/* Portada recortada (plato sin fondo sobre el color de la marca) */
+.recorte .cabecera{position:relative;padding-top:18px}
+.recorte .cabecera::before{content:"";position:absolute;inset:-40px -16px auto;height:420px;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 52% at 50% 58%,color-mix(in srgb,var(--marca) 46%,transparent),transparent 72%)}
+.recorte .plato{width:auto;height:clamp(148px,27vh,236px);margin:6px auto 0;filter:drop-shadow(0 18px 22px rgba(0,0,0,.55))}
+.recorte .logo{margin-top:6px}
+
+/* Portada con foto (plato servido) y panel que la monta */
+.foto .cabecera{margin:0 -16px;padding:0 16px}
+.foto .plato{width:calc(100% + 32px);max-width:none;margin:0 -16px;height:clamp(150px,27vh,280px);object-fit:cover;object-position:50% 55%}
+.foto .panel{position:relative;margin:-30px -16px 0;padding:0 16px;background:var(--fondo);border-radius:30px 30px 0 0}
+.foto .logo{position:relative;top:-50px;margin-bottom:-50px}
+
+/* Acciones */
+.acciones{margin-top:20px}
+.principales{display:grid;gap:10px}
+.boton{display:flex;align-items:center;gap:14px;min-height:58px;padding:10px 18px;border-radius:var(--radio);text-decoration:none;
+  transition:transform .12s ease,background-color .15s ease,box-shadow .15s ease;touch-action:manipulation}
+.boton:active{transform:scale(.98)}
+.boton svg{flex:none;width:24px;height:24px}
+.boton .texto{display:grid;text-align:left;flex:1;min-width:0}
+.boton b{font:700 17px/1.2 var(--texto)}
+.boton small{font-size:13px;line-height:1.25;opacity:.82}
+.lleno{background:var(--marca);color:var(--sobre-marca);box-shadow:0 8px 20px -10px var(--marca)}
+.lleno:hover{background:var(--marca-alto)}
+.borde{border:1.5px solid color-mix(in srgb,var(--tinta) 32%,transparent);color:var(--tinta)}
+.borde:hover{border-color:var(--tinta)}
+.claro .borde{border-color:var(--marca);color:var(--marca)}
+.claro .borde small{color:var(--tinta-suave);opacity:1}
+
+.lista{list-style:none;margin:16px 0 0;padding:0 16px;background:var(--superficie);border-radius:var(--radio)}
+.lista li+li{border-top:1px solid var(--linea)}
+.fila{display:flex;align-items:center;gap:14px;min-height:64px;padding:10px 0;text-decoration:none;touch-action:manipulation}
+.fila:active{opacity:.7}
+.fila .ico{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;
+  background:color-mix(in srgb,var(--marca) 14%,transparent);color:var(--marca-ico)}
+.fila .ico svg{width:20px;height:20px}
+.fila .texto{display:grid;flex:1;min-width:0}
+.fila b{font:700 16px/1.25 var(--texto)}
+.fila small{color:var(--tinta-suave);font-size:13px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fila .flecha{flex:none;width:18px;height:18px;color:var(--tinta-suave)}
+
+a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.claro a:focus-visible{outline-color:var(--marca)}
+
+/* Redes y pie */
+.redes{display:flex;justify-content:center;gap:12px;margin:22px 0 0;padding:0;list-style:none}
+.redes a{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid var(--linea);color:var(--tinta);text-decoration:none}
+.redes a:active{transform:scale(.94)}
+.redes svg{width:21px;height:21px}
+.pie{margin-top:26px;text-align:center;color:var(--tinta-suave);font-size:12px;line-height:1.5}
+.pie p{margin:0}
+.pie .firma{margin-top:6px;opacity:.8}
+.pie a{text-decoration:none;border-bottom:1px solid var(--linea)}
+
+/* Entrada: solo si el usuario no pidió reducir el movimiento */
+/* El plato y el logo no se animan: son lo primero que se pinta y no deben esperar. */
+@media (prefers-reduced-motion:no-preference){
+  .principales>*,.lista,.redes{animation:sube .32s cubic-bezier(.2,.7,.2,1) both}
+  .principales>:nth-child(2){animation-delay:.04s}.lista{animation-delay:.08s}.redes{animation-delay:.12s}
+  @keyframes sube{from{opacity:.001;transform:translateY(8px)}}
+}
+.icono-sprite{position:absolute;width:0;height:0;overflow:hidden}
+</style>
+
+</head>
+<body class="claro foto">
+<svg class="icono-sprite" aria-hidden="true" focusable="false"><symbol id="i-bolsa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 8h13l-1 12h-11z"/><path d="M9 8V6.5a3 3 0 0 1 6 0V8"/></symbol><symbol id="i-calendario" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol><symbol id="i-carta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h10.5A2.5 2.5 0 0 1 18 7v12.5H7.5A2.5 2.5 0 0 1 5 17z"/><path d="M8.5 9h6M8.5 12.5h6M8.5 16h3.5"/></symbol><symbol id="i-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"/></symbol><symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol></svg>
+<main class="pagina">
+  <header class="cabecera">
+    <img class="plato" src="portada-480.webp" srcset="portada-480.webp 480w, portada-960.webp 960w" sizes="(min-width: 472px) 472px, 100vw" width="480" height="326" alt="Ají de gallina con arroz, aceituna y huevo" fetchpriority="high">
+    <div class="panel">
+      <h1 class="titulo"><img class="logo" src="logo.webp" width="200" height="246" alt="Doña Martha y su bendita comida"></h1>
+      <p class="lema">El sabor que <em>no falla nunca</em></p>
+      <p class="lugar">Comida casera · Santa Victoria, Chiclayo</p>
+    </div>
+  </header>
+  <nav class="acciones" aria-label="Enlaces de Doña Martha">
+    <div class="principales">
+      <a class="boton lleno" href="https://wa.me/51938572949?text=Hola%2C%20Do%C3%B1a%20Martha.%20%C2%BFCu%C3%A1l%20es%20el%20men%C3%BA%20de%20hoy%3F" data-boton="menu" data-evento="ViewContent"><svg aria-hidden="true"><use href="#i-carta"/></svg><span class="texto"><b>Ver el menú de hoy</b><small>Te lo enviamos por WhatsApp</small></span></a>
+      <a class="boton borde" href="https://wa.me/51938572949?text=Hola%2C%20Do%C3%B1a%20Martha.%20Quiero%20reservar%20una%20mesa%20para%20___%20personas%20el%20d%C3%ADa%20___%20a%20las%20___." data-boton="reservar" data-evento="Lead"><svg aria-hidden="true"><use href="#i-calendario"/></svg><span class="texto"><b>Reservar mesa</b><small>Te confirmamos por WhatsApp</small></span></a>
+    </div>
+    <ul class="lista">
+      <li><a class="fila" href="https://wa.me/51938572949?text=Hola%2C%20Do%C3%B1a%20Martha.%20Quiero%20pedir%20para%20llevar." data-boton="llevar" data-evento="Contact"><span class="ico"><svg aria-hidden="true"><use href="#i-bolsa"/></svg></span><span class="texto"><b>Pedir para llevar</b><small>O delivery a tu casa</small></span><svg class="flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></li>
+      <li><a class="fila" href="https://www.google.com/maps/search/?api=1&amp;query=Calle%20Los%20Pinos%20236%2C%20Santa%20Victoria%2C%20Chiclayo" data-boton="ubicacion" data-evento="FindLocation"><span class="ico"><svg aria-hidden="true"><use href="#i-pin"/></svg></span><span class="texto"><b>Cómo llegar</b><small>Calle Los Pinos 236, Santa Victoria</small></span><svg class="flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></li>
+    </ul>
+  </nav>
+
+  <footer class="pie">
+    <p>Calle Los Pinos 236, Urb. Santa Victoria, Chiclayo</p>
+    <p class="firma"><a href="https://cream.pe/" data-boton="cream" data-evento="">hecho por CREAM</a></p>
+  </footer>
+</main>
+<script>
+(function () {
+  // Medición con el píxel de Meta: PageView al abrir y un evento por botón.
+  // El script de Meta se descarga después de pintar la página (o al primer
+  // toque) para no frenar la carga; mientras tanto los eventos esperan en cola.
+  var C = {"pixel": "", "slug": "donamarta"};
+  if (!C.pixel) return;
+  var cargado = false, pedido = false;
+
+  !function (f) {
+    if (f.fbq) return;
+    var n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+    if (!f._fbq) f._fbq = n;
+    n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
+  }(window);
+  fbq('init', C.pixel);
+  fbq('track', 'PageView');
+
+  function cargar() {
+    if (pedido) return;
+    pedido = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    s.onload = s.onerror = function () { cargado = true; };
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') setTimeout(cargar, 0);
+  else addEventListener('load', function () { (window.requestIdleCallback || setTimeout)(cargar, { timeout: 1500 }); });
+  addEventListener('pointerdown', cargar, { once: true, passive: true });
+
+  document.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a[data-boton]');
+    if (!a) return;
+    var boton = a.getAttribute('data-boton'), evento = a.getAttribute('data-evento');
+    if (evento) fbq('track', evento, { content_name: boton, content_category: 'link-bio' });
+    fbq('trackCustom', 'ClicLinkBio', { boton: boton, pagina: C.slug });
+    if (ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey || ev.button) return;
+    // Damos al píxel un instante para salir antes de dejar la página.
+    ev.preventDefault();
+    cargar();
+    var destino = a.href, t0 = Date.now();
+    (function ir() {
+      var t = Date.now() - t0;
+      if ((cargado && t >= 250) || t >= 900) location.href = destino;
+      else setTimeout(ir, 40);
+    })();
+  });
+})();
+
+</script>
+</body>
+</html>
