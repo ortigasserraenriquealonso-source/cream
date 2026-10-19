@@ -38,97 +38,22 @@ const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycbzzHsVS9FGd
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--superficie);color:var(--tinta);font-family:var(--sans);font-size:15px;line-height:1.45;-webkit-font-smoothing:antialiased}
-button{font:inherit;color:inherit}
-
-.barra{
-  position:sticky;top:0;z-index:2;background:rgba(255,255,255,.94);
-  -webkit-backdrop-filter:saturate(1.4) blur(10px);backdrop-filter:saturate(1.4) blur(10px);
-  border-bottom:1px solid var(--linea);
-  padding:calc(env(safe-area-inset-top) + 10px) 16px 10px
-}
-.barra .cinta{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:12px}
-.barra img{height:30px;width:auto;display:block}
-.barra .respaldo{font-weight:600;font-size:17px;display:none}
-.barra .cuando{margin-left:auto;font-size:12.5px;color:var(--tinta-3);text-align:right;white-space:nowrap}
-.barra .cuando i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--bien);margin-right:6px;vertical-align:1px}
-
-main{max-width:960px;margin:0 auto;padding:20px 16px calc(env(safe-area-inset-bottom) + 48px)}
-
-/* ── Héroe: el promedio ───────────────────────── */
-.heroe{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin:4px 0 22px}
-.heroe .numero{font-size:64px;font-weight:600;line-height:.95;letter-spacing:-.02em}
-.heroe .estrellas{font-size:22px;color:#E8A100;letter-spacing:2px;line-height:1;margin-bottom:6px}
-.heroe .detalle{flex-basis:100%;color:var(--tinta-2);font-size:14.5px;margin-top:2px}
-.delta{font-weight:600}
-.delta.sube{color:var(--bien)}
-.delta.baja{color:var(--mal)}
-
-/* ── Cifras ───────────────────────────────────── */
-.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--linea);border:1px solid var(--linea);border-radius:16px;overflow:hidden;margin-bottom:28px}
-@media (min-width:720px){.cifras{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.cifra{background:var(--superficie);padding:14px 16px 15px;min-width:0}
-.cifra .rot{font-size:13px;color:var(--tinta-2);display:block;margin-bottom:4px}
-.cifra .val{font-size:30px;font-weight:600;line-height:1.1;display:block;letter-spacing:-.01em}
-.cifra .pie{font-size:12.5px;color:var(--tinta-3);display:block;margin-top:3px}
-.cifra .pie b{font-weight:600;color:var(--mal)}
-.cifra .pie b.ok{color:var(--bien)}
-.reparto{display:flex;height:6px;border-radius:3px;overflow:hidden;margin-top:9px;gap:2px}
-.reparto i{display:block;height:100%;border-radius:3px}
-
-h2{font-size:16px;font-weight:600;margin:0 0 12px;display:flex;align-items:baseline;gap:8px}
-h2 .de{font-weight:400;font-size:13px;color:var(--tinta-3)}
-section{margin-bottom:30px}
-
-.respuestas{display:grid;grid-template-columns:minmax(0,1fr);gap:24px 30px;margin-bottom:30px}
-@media(min-width:720px){.respuestas{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.respuestas section{margin:0;min-width:0}
-.respuestas h2{display:block;margin-bottom:4px}
-.respuestas .base{font-size:12.5px;color:var(--tinta-2);margin:0 0 13px}
-.desglose{list-style:none;padding:0;margin:0}
-.desglose li{margin:0 0 12px}
-.desglose .fila{display:flex;align-items:baseline;gap:12px;font-size:14px}
-.desglose .etiqueta{flex:1;min-width:0;overflow-wrap:anywhere}
-.desglose .valor{white-space:nowrap;font-variant-numeric:tabular-nums;display:flex;gap:12px}
-.desglose .valor span{min-width:40px;text-align:right}
-.desglose .pista{height:3px;background:var(--linea);margin-top:5px;border-radius:2px;overflow:hidden}
-.desglose .pista i{display:block;height:100%;background:var(--marca)}
-/* ── Tendencia ────────────────────────────────── */
-.tendencia{position:relative}
-.tendencia svg{display:block;width:100%;height:150px;overflow:visible}
-.tendencia .eje{display:flex;justify-content:space-between;font-size:12px;color:var(--tinta-3);margin-top:6px}
-.globo{
-  position:absolute;pointer-events:none;background:var(--tinta);color:#fff;font-size:12.5px;line-height:1.4;
-  padding:7px 10px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-100%);opacity:0;transition:opacity .1s
-}
-.globo.visible{opacity:1}
-.tabla-oculta{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-
-/* ── Comentarios ──────────────────────────────── */
-.lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
-.item{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:13px 2px;border-bottom:1px solid var(--linea)}
-.item .nota{grid-row:span 2;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:600;font-size:14px;background:var(--fondo-suave);color:var(--tinta)}
-.item.malo .nota{background:#FCE8E6;color:var(--mal)}
-.item .texto{font-size:15.5px;line-height:1.45;overflow-wrap:anywhere}
-.item .texto.vacio{color:var(--tinta-3);font-style:italic}
-.item .meta{font-size:12.5px;color:var(--tinta-3);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.item .meta .chip{padding:1px 8px;border-radius:10px;background:var(--fondo-suave);color:var(--tinta-2)}
-.item .meta .hecho{color:var(--bien)}
-.atender{
-  margin-left:auto;border:1px solid var(--linea);background:var(--superficie);border-radius:18px;
-  padding:6px 13px;font-size:13px;font-weight:600;cursor:pointer;min-height:34px
-}
-.atender:hover{background:var(--fondo-suave)}
-.atender:disabled{opacity:.5;cursor:default}
-.item.destacado{background:#FFF8E1;border-radius:10px;padding-left:10px;padding-right:10px}
-.mas{display:block;width:100%;margin-top:10px;border:none;background:none;color:var(--tinta-2);font-weight:600;padding:10px;cursor:pointer}
-
-.estado{padding:64px 8px;text-align:center;color:var(--tinta-2);max-width:420px;margin:0 auto}
-.estado strong{display:block;color:var(--tinta);font-size:18px;font-weight:600;margin-bottom:6px}
-.cargando .esqueleto{height:16px;border-radius:8px;background:var(--fondo-suave);margin:14px 0;animation:late 1.2s ease-in-out infinite}
-@keyframes late{50%{opacity:.5}}
-@media (prefers-reduced-motion:reduce){.cargando .esqueleto{animation:none}}
-.pie-pagina{margin-top:10px;font-size:12.5px;color:var(--tinta-3);line-height:1.5}
+body{margin:0;background:#F7F7F9;color:var(--tinta);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,a{font:inherit}button{color:inherit;cursor:pointer}a{color:var(--marca)}
+.barra{padding:calc(env(safe-area-inset-top) + 12px) 20px 12px;background:var(--superficie)}
+.cinta{max-width:1120px;margin:auto;display:flex;align-items:center;gap:16px}.barra img{height:44px;max-width:160px;object-fit:contain}.respaldo{display:none;font-weight:700}.cuando{margin-left:auto;font-size:13px;color:var(--tinta-2);text-align:right}
+main{max-width:1120px;margin:auto;padding:24px 16px calc(env(safe-area-inset-bottom) + 40px)}
+.historia{display:grid;gap:20px;align-items:start}.tarjeta{background:#fff;border-radius:24px;padding:24px;box-shadow:0 4px 24px #20202006;min-width:0}.ancha{grid-column:1/-1}
+h2{font-size:23px;line-height:1.25;margin:0 0 22px;display:flex;align-items:center;gap:10px}h2 svg{width:24px;height:24px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+p{margin:10px 0}.base,.pie,.meta,.detalle{color:var(--tinta-2)}.heroe{display:flex;align-items:center;gap:20px}.numero{font-size:72px;line-height:1;letter-spacing:-3px}.estrellas{color:var(--marca);font-size:23px;letter-spacing:2px}.frase{font-weight:600;margin:8px 0 24px}.detalle{font-size:16px}
+.desglose{list-style:none;padding:0;margin:0}.desglose li{margin-top:18px}.fila{display:flex;align-items:center;gap:12px}.etiqueta{flex:1;overflow-wrap:anywhere}.valor{white-space:nowrap;display:flex;gap:10px;font-variant-numeric:tabular-nums}.valor span:last-child{color:var(--tinta-2)}.pista{height:12px;background:#F0F0F3;border-radius:99px;overflow:hidden;margin-top:8px}.pista i{display:block;height:100%;background:var(--marca);border-radius:99px}
+.accion{background:#FFF6E9}.accion h2{color:#784600}.accion a{display:inline-block;padding:12px 20px;background:var(--marca);color:var(--sobre-marca);border-radius:99px;text-decoration:none;font-weight:600;margin-top:8px}.orden{color:var(--bien);margin:0}.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cifra{border-radius:24px;padding:22px;background:#fff;box-shadow:0 4px 24px #20202006}.rot,.val,.pie{display:block}.rot{font-weight:600}.val{font-size:38px;font-weight:650;margin:6px 0}.pie{font-size:16px}
+.equipo{list-style:none;padding:0;margin:0;display:grid;gap:12px}.persona{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:#F8F8FA}.avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--marca) 10%,white);color:var(--marca);font-weight:700}.persona .nombre{flex:1;min-width:0;overflow-wrap:anywhere}.persona small{display:block;font-size:16px;color:var(--tinta-2)}.persona.lider{background:color-mix(in srgb,var(--marca) 6%,white)}.sin-dato{color:var(--tinta-2)}.persona strong{white-space:nowrap}.medalla{color:var(--marca)}
+.segmentos{display:flex;height:22px;overflow:hidden;border-radius:99px;margin:22px 0}.segmentos i{background:var(--marca)}.segmentos i:nth-child(2){background:#6A627D}.segmentos i:nth-child(3){background:#26736C}.leyenda{list-style:none;padding:0;margin:0;display:grid;gap:12px}.leyenda li{display:flex;align-items:center;gap:10px}.punto{width:12px;height:12px;border-radius:50%;flex-shrink:0}.leyenda strong{margin-left:auto;white-space:nowrap}.leyenda small{font-size:16px;color:var(--tinta-2)}
+.tendencia{position:relative}.tendencia svg{display:block;width:100%;height:150px}.eje{display:flex;justify-content:space-between;color:var(--tinta-2);margin-top:12px}.globo{position:absolute;pointer-events:none;background:var(--tinta);color:white;padding:8px 12px;border-radius:12px;transform:translate(-50%,-100%);opacity:0;font-size:14px}.globo.visible{opacity:1}.tabla-oculta{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:16px}.item{display:grid;grid-template-columns:auto 1fr;gap:12px;background:#F5F5F8;border-radius:20px 20px 20px 6px;padding:20px;scroll-margin-top:20px}.nota{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#fff;font-weight:600;color:var(--marca)}.texto{overflow-wrap:anywhere}.meta{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:16px}.chip{border-radius:99px;padding:3px 10px;background:#fff}.hecho{color:var(--bien)}.atender{border:0;border-radius:99px;padding:12px 16px;min-height:44px;background:white;color:var(--marca);font-weight:600}.atender:disabled{opacity:.6}.item.malo{background:#FFF6E9}.item.destacado{outline:2px solid var(--marca)}.mas{display:block;margin:16px auto 0;border:0;background:transparent;padding:12px;color:var(--marca)}
+.estado{text-align:center;padding:40px 24px;max-width:620px;margin:auto;background:#fff;border-radius:24px}.estado strong{display:block;font-size:24px;margin-bottom:12px}.cargando{display:grid;gap:20px}.esqueleto{height:180px;border-radius:24px;background:#ECECEF;animation:late 1.2s ease-in-out infinite}.pie-pagina{color:var(--tinta-2);font-size:16px;margin:24px 4px}button:focus-visible,a:focus-visible{outline:3px solid var(--marca);outline-offset:4px}
+@keyframes late{50%{opacity:.5}}@media(prefers-reduced-motion:reduce){.esqueleto{animation:none}}@media(min-width:800px){.historia{grid-template-columns:repeat(2,minmax(0,1fr))}.cifras{grid-template-columns:repeat(4,minmax(0,1fr))}.tarjeta{padding:30px}.cargando{grid-template-columns:1fr 1fr}}
 @font-face{font-family:"Fraunces";src:url("../encuesta/fraunces-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 @font-face{font-family:"Montserrat";src:url("../encuesta/montserrat-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 :root{--superficie:#FBF4EA;--fondo:#F5E9D9;--tinta:#3B1A1C;--tinta-2:#6B4A45;--tinta-3:#6B4A45;--tinta-suave:#6B4A45;--linea:#E4D3BE;--fondo-suave:#FBF4EA;--titular:"Fraunces",Georgia,serif;color-scheme:light}
@@ -151,8 +76,7 @@ header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:1
 
 <main id="lienzo">
   <div class="cargando" aria-label="Cargando">
-    <div class="esqueleto" style="width:40%;height:56px"></div>
-    <div class="esqueleto"></div><div class="esqueleto" style="width:70%"></div>
+    <div class="esqueleto"></div><div class="esqueleto"></div><div class="esqueleto"></div>
   </div>
 </main>
 
@@ -214,95 +138,55 @@ function delta(semanas){
   return Math.round((a - b) * 10) / 10;
 }
 
-function pintar(){
-  var d = datos;
-  $("#cuando").innerHTML = '<i aria-hidden="true"></i>' + esc("Actualizado " + ultimaActualizacion);
-  if (!d.total){
-    estado("Todavía no hay respuestas", "Aparecen aquí apenas el primer cliente escanee el QR de la mesa. No tienes que hacer nada.");
-    return;
-  }
-
-  var html = "";
-  var dl = delta(d.semanas);
-  var llenas = Math.round(d.promedio);
-  html += '<div class="heroe"><span class="numero">' + coma(d.promedio.toFixed(1)) + '</span>'
-        + '<span class="estrellas" aria-hidden="true">' + "★★★★★".slice(0, llenas) + '<span style="color:var(--linea)">' + "★★★★★".slice(0, 5 - llenas) + '</span></span>'
-        + '<span class="detalle">Promedio de ' + d.total + (d.total === 1 ? ' respuesta' : ' respuestas')
-        + (dl ? ' · <span class="delta ' + (dl > 0 ? 'sube' : 'baja') + '">' + (dl > 0 ? '↑ ' : '↓ ') + coma(Math.abs(dl).toFixed(1)) + '</span> frente al mes anterior' : '')
-        + '</span></div>';
-
-  var pendientes = d.insatisfechos - d.atendidos;
-  var conVisita = d.nuevos + d.recompra;
-  html += '<div class="cifras">'
-    + cifra("Quedaron felices", pct(d.felices, d.total) + "%", d.felices + " con 4 o 5 estrellas")
-    + cifra("Fueron a Google", d.aGoogle, pct(d.aGoogle, d.total) + "% de los que respondieron")
-    + cifra("Insatisfechos", d.insatisfechos,
-            d.insatisfechos ? (pendientes ? '<b>' + pendientes + ' por atender</b>' : '<b class="ok">Todos atendidos</b>') : "Ninguno, bien",
-            true)
-    + '<div class="cifra"><span class="rot">Clientes nuevos</span><span class="val">' + pct(d.nuevos, conVisita) + '%</span>'
-    +   '<span class="pie">' + pct(d.recompra, conVisita) + '% ya había venido</span>'
-    +   '<span class="reparto" aria-hidden="true"><i style="flex:' + (d.nuevos || 0) + ';background:var(--marca)"></i><i style="flex:' + (d.recompra || 0) + ';background:var(--linea)"></i></span></div>'
-    + '</div>';
-
-  html += respuestas(d);
-
-  html += '<section><h2>Respuestas por semana <span class="de">últimas 12</span></h2>' + grafico(d.semanas) + '</section>';
-
-  var lista = d.comentarios.slice().sort(function(a, b){
-    return (b.insatisfecho && !b.atendida) - (a.insatisfecho && !a.atendida);   // lo pendiente primero
-  });
-  html += '<section><h2>Lo que te dijeron <span class="de">lo pendiente, primero</span></h2>';
-  if (!lista.length) html += '<p class="pie-pagina">Todavía nadie dejó un comentario escrito.</p>';
-  else {
-    html += '<ul class="lista">' + lista.slice(0, mostrar).map(item).join("") + '</ul>';
-    if (lista.length > mostrar) html += '<button class="mas" id="mas">Ver más</button>';
-  }
-  html += '</section>';
-
-  html += '<p class="pie-pagina">Se actualiza solo. Los nombres y teléfonos de tus clientes no aparecen aquí: están en tu hoja de respuestas'
-        + (d.conContacto ? ', donde ' + d.conContacto + (d.conContacto === 1 ? ' cliente dejó' : ' clientes dejaron') + ' su WhatsApp para que lo invites de nuevo' : '') + '.</p>';
-
-  lienzo.innerHTML = html;
-  conectarGrafico();
-  var m = $("#mas"); if (m) m.onclick = function(){ mostrar += 10; pintar(); };
-  if (destacado){ var e = document.getElementById("c-" + destacado); if (e) e.scrollIntoView({ block:"center" }); }
+function titulo(texto, icono){
+  var trazos={nota:'M12 3l3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z',hoy:'M9 12l2 2 4-4 M5 4h14v17H5z',equipo:'M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M2 21v-3a6 6 0 0 1 12 0v3 M17 5a3 3 0 0 1 0 6 M18 15a4 4 0 0 1 4 4v2',visitas:'M3 11l9-8 9 8 M5 10v11h14V10 M10 21v-7h4v7',barras:'M4 20V10 M12 20V4 M20 20v-7',comentarios:'M4 4h16v13H9l-5 4z'};
+  return '<h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(trazos[icono]||trazos.barras)+'"/></svg>'+esc(texto)+'</h2>';
 }
-
-/* El denominador es propio de cada pregunta; campos ausentes = endpoint anterior. */
-function respuestas(d){
-  var html = '<div class="respuestas">';
-  if (d.personal) html += equipo(d.personal);
-  [["visitas", "¿Primera vez?", ["Sí, es mi primera vez", "Ya había venido antes", "Vengo seguido"]],
-   ["canales", "Cómo nos conocieron", ["Instagram", "TikTok", "Facebook", "Me lo recomendaron", "Pasaba por aquí", "Google o Maps", "Otro"]],
-   ["destacan", "Lo que más les gustó", ["La sazón", "La atención", "El ambiente", "La rapidez", "El precio"]]].forEach(function(p){
-    if (!d[p[0]]) return;
-    var etiquetas = p[2].concat(Object.keys(d[p[0]]).filter(function(k){return p[2].indexOf(k)===-1;}));
-    var opciones = etiquetas.map(function(k){return {nombre:k,n:Object.prototype.hasOwnProperty.call(d[p[0]],k) ? d[p[0]][k] : 0};})
-      .sort(function(a,b){return b.n-a.n || a.nombre.localeCompare(b.nombre,"es");});
-    var total = opciones.reduce(function(n,x){return n+x.n;},0);
-    html += '<section><h2>' + esc(p[1]) + '</h2><p class="base">de ' + total + ' que respondieron</p>';
-    html += total ? '<ul class="desglose">' + opciones.map(function(x){return filaOpcion(x.nombre,x.n,pct(x.n,total)+'%',pct(x.n,total));}).join("") + '</ul>' : '<p class="base">Sin respuestas todavía.</p>';
-    html += '</section>';
-  });
-  return html + '</div>';
+function tarjeta(id, texto, contenido, icono, clases){return '<section id="'+id+'" class="tarjeta '+(clases||'')+'">'+titulo(texto,icono)+contenido+'</section>';}
+function fraseNota(n){return n>=4.5?'¡Excelente! Tus clientes están felices':n>=4?'Muy bien':n>=3?'Hay cosas por mejorar':'Atención: hay clientes molestos';}
+function pintar(){
+  var d=datos;
+  $("#cuando").innerHTML=esc('Actualizado '+ultimaActualizacion);
+  if (!d.total){estado('Todavía no hay respuestas.','Aparecen aquí apenas el primer cliente escanee el QR.');return;}
+  var llenas=Math.round(d.promedio), distribucion='';
+  for(var n=5;n>=1;n--){var cantidad=(d.estrellas||[])[n-1]||0;distribucion+=filaOpcion(n+' ★',cantidad,pct(cantidad,d.total)+'%',pct(cantidad,d.total));}
+  var html='<div class="historia">'+tarjeta('calificacion','¿Cómo te califican?',
+    '<div class="heroe"><span class="numero">'+coma(d.promedio.toFixed(1))+'</span><div><div class="estrellas" aria-label="'+coma(d.promedio)+' de 5 estrellas">'+'★'.repeat(llenas)+'☆'.repeat(5-llenas)+'</div><span class="detalle">'+d.total+' respuestas</span></div></div><p class="frase">'+fraseNota(d.promedio)+'</p><ul class="desglose">'+distribucion+'</ul>','nota');
+  var pendientes=Math.max(0,(d.insatisfechos||0)-(d.atendidos||0));
+  html+=tarjeta('hoy','¿Qué tienes que hacer hoy?',pendientes?'<p><strong>'+pendientes+(pendientes===1?' cliente necesita':' clientes necesitan')+' tu atención</strong></p><p>Escucharlos puede hacer la diferencia.</p><a href="#comentarios">Ver '+(pendientes===1?'comentario pendiente':'comentarios pendientes')+'</a>':'<p class="orden">Todo en orden ✓</p>','hoy',pendientes?'accion':'');
+  html+='<div class="cifras ancha" aria-label="Números clave">'+cifra('Felices',d.felices||0,'Con 4 o 5 estrellas')+cifra('Fueron a Google',d.aGoogle||0,'Abrieron el enlace de reseña')+cifra('Clientes nuevos',d.nuevos||0,'Vinieron por primera vez')+cifra('Dejaron su WhatsApp',d.conContacto||0,'Para seguir en contacto')+'</div>';
+  if(d.personal) html+=equipo(d.personal);
+  if(d.visitas) html+=visitas(d.visitas);
+  html+=opciones('canales','¿Cómo te encontraron?',d.canales,'trae al');
+  html+=opciones('destacan','¿Qué es lo que más les gusta?',d.destacan,'destaca para el');
+  if((d.semanas||[]).length) html+=tarjeta('semanas','Respuestas por semana',grafico(d.semanas),'barras');
+  var lista=(d.comentarios||[]).slice().sort(function(a,b){return Number(!!b.insatisfecho&&!b.atendida)-Number(!!a.insatisfecho&&!a.atendida);});
+  if(lista.length) html+=tarjeta('comentarios','Lo que te dijeron','<ul class="lista">'+lista.slice(0,mostrar).map(item).join('')+'</ul>'+(lista.length>mostrar?'<button class="mas" id="mas">Ver más</button>':''),'comentarios','ancha');
+  html+='</div><p class="pie-pagina">Los nombres y teléfonos de tus clientes están solo en tu hoja de respuestas.</p>';
+  lienzo.innerHTML=html;conectarGrafico();
+  var m=$('#mas');if(m)m.onclick=function(){mostrar+=10;pintar();};
+  if(destacado){var e=document.getElementById('c-'+destacado);if(e)e.scrollIntoView({block:'center'});}
 }
 function filaOpcion(nombre,n,valor,ancho){
   return '<li><div class="fila"><span class="etiqueta">'+esc(nombre)+'</span><span class="valor"><span>'+n+'</span><span>'+esc(valor)+'</span></span></div><div class="pista" aria-hidden="true"><i style="width:'+ancho+'%"></i></div></li>';
 }
+function opciones(id,tituloTexto,valores,verbo){
+  var lista=Object.keys(valores||{}).map(function(k){return {nombre:k,n:valores[k]};}).filter(function(x){return x.n>0;}).sort(function(a,b){return b.n-a.n||a.nombre.localeCompare(b.nombre,'es');});
+  var total=lista.reduce(function(n,x){return n+x.n;},0);if(!total)return '';
+  var ganador=lista[0];
+  return tarjeta(id,tituloTexto,'<p class="frase">'+esc(ganador.nombre)+' '+verbo+' '+pct(ganador.n,total)+' %</p><ul class="desglose">'+lista.map(function(x){return filaOpcion(x.nombre,x.n,pct(x.n,total)+'%',pct(x.n,total));}).join('')+'</ul>','barras');
+}
 function equipo(personal){
-  var lista=Object.keys(personal).map(function(k){return {nombre:k,n:personal[k].n,promedio:personal[k].promedio};})
-    .sort(function(a,b){return (a.nombre==="Sin dato")-(b.nombre==="Sin dato") || b.n-a.n || b.promedio-a.promedio || a.nombre.localeCompare(b.nombre,"es");});
-  var conocidos=lista.filter(function(x){return x.nombre!=="Sin dato";}), lider=conocidos[0];
-  var mejores=conocidos.slice().sort(function(a,b){return b.promedio-a.promedio || b.n-a.n;});
-  var total=lista.reduce(function(n,x){return n+x.n;},0), max=lista.reduce(function(n,x){return Math.max(n,x.n);},1);
-  var html='<section><h2>Tu equipo</h2><p class="base">Cantidad · promedio de estrellas</p>';
-  if (lider) {
-    var mas=conocidos.filter(function(x){return x.n===lider.n;}).map(function(x){return x.nombre;});
-    var mejor=mejores.filter(function(x){return x.promedio===mejores[0].promedio;}).map(function(x){return x.nombre;});
-    html+='<p class="base">Más calificaciones: '+esc(mas.join(", "))+'<br>Mejor promedio: '+esc(mejor.join(", "))+'</p>';
-  }
-  html+=total ? '<ul class="desglose">'+lista.map(function(x){return filaOpcion(x.nombre,x.n,coma(x.promedio.toFixed(1))+' ★',pct(x.n,max));}).join("")+'</ul>' : '<p class="base">Sin respuestas todavía.</p>';
-  return html+'</section>';
+  var lista=Object.keys(personal).map(function(k){return {nombre:k,n:personal[k].n,promedio:personal[k].promedio};}).filter(function(x){return x.n>0;}).sort(function(a,b){return (a.nombre==='Sin dato')-(b.nombre==='Sin dato')||b.promedio-a.promedio||b.n-a.n||a.nombre.localeCompare(b.nombre,'es');});
+  if(!lista.length)return '';
+  return tarjeta('equipo','Tu equipo','<ol class="equipo">'+lista.map(function(x,i){var sin=x.nombre==='Sin dato';return '<li class="persona '+(sin?'sin-dato':i===0?'lider':'')+'">'+(sin?'':'<span class="avatar" aria-hidden="true">'+esc(x.nombre.charAt(0))+'</span>')+'<span class="nombre">'+esc(x.nombre)+(i===0&&!sin?' <span class="medalla" aria-label="Mejor promedio">♛</span>':'')+'<small>'+x.n+(x.n===1?' calificación':' calificaciones')+'</small></span><strong>'+coma(x.promedio.toFixed(1))+' ★</strong></li>';}).join('')+'</ol>','equipo');
+}
+function visitas(valores){
+  var etiquetas=['Sí, es mi primera vez','Ya había venido antes','Vengo seguido'];
+  var nombres=['Primera vez','Ya habían venido','Vienen seguido'],colores=['var(--marca)','#6A627D','#26736C'];
+  var total=etiquetas.reduce(function(n,k){return n+(valores[k]||0);},0);if(!total)return '';
+  var nuevos=pct(valores[etiquetas[0]]||0,total),frase=nuevos===50?'La mitad viene por primera vez':nuevos>50?'La mayoría viene por primera vez':'La mayoría ya te conoce';
+  return tarjeta('visitas','¿Quiénes te visitan?','<p class="frase">'+frase+'</p><div class="segmentos" aria-hidden="true">'+etiquetas.map(function(k){return '<i style="flex:'+(valores[k]||0)+'"></i>';}).join('')+'</div><ul class="leyenda">'+etiquetas.map(function(k,i){var n=valores[k]||0;return n?'<li><i class="punto" aria-hidden="true" style="background:'+colores[i]+'"></i>'+nombres[i]+'<strong>'+n+' <small>· '+pct(n,total)+'%</small></strong></li>':'';}).join('')+'</ul>','visitas');
 }
 
 function cifra(rot, val, pie){
@@ -342,7 +226,6 @@ function grafico(semanas){
   var tabla = '<table class="tabla-oculta"><caption>Respuestas por semana</caption><tr><th>Semana del</th><th>Respuestas</th><th>Promedio</th><th>Insatisfechos</th></tr>'
     + semanas.map(function(s){ return '<tr><td>' + semanaTexto(s.desde) + '</td><td>' + s.n + '</td><td>' + (s.promedio === null ? "–" : coma(s.promedio)) + '</td><td>' + s.malas + '</td></tr>'; }).join("") + '</table>';
   return '<div class="tendencia"><svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Respuestas por semana, últimas 12 semanas">'
-    + '<line x1="0" x2="' + W + '" y1="' + base + '" y2="' + base + '" stroke="var(--linea)" stroke-width="1" vector-effect="non-scaling-stroke"/>'
     + barras + '</svg><div class="globo" id="globo"></div>'
     + '<div class="eje"><span>' + semanaTexto(semanas[0].desde) + '</span><span>Esta semana</span></div>' + tabla + '</div>';
 }
@@ -394,7 +277,7 @@ function cargar(){
       }
       if (!d || !d.ok) throw new Error("respuesta inesperada");
       datos = d;
-      ultimaActualizacion = new Date().toLocaleTimeString("es-PE", {timeZone:"America/Lima",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+      ultimaActualizacion = new Date().toLocaleTimeString("es-PE", {timeZone:"America/Lima",hour:"2-digit",minute:"2-digit",hour12:false});
       pintar();
     })
     .catch(function(err){
