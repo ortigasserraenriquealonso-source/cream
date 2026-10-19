@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<meta name="color-scheme" content="light">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bendita Comida · ¿Cómo te fue hoy?</title>
@@ -18,9 +19,7 @@
 /* Encuesta v2 · generada por resenas-qr/construir.py — no editar a mano. */
 const CONFIG = {
   "ENDPOINT": "https://script.google.com/macros/s/AKfycby23FSsmUVxzYUka3YUSxo2OMC_vmFA8KGn39OJCyK7wcVtrWTIDJRi0732oU5L3IWoMg/exec",
-  "PLACE_ID": "",
-  "BUSQUEDA_GOOGLE": "La Bendita Comida, Los Pinos 236, Chiclayo",
-  "MODO_ESTRELLAS": "todos",
+  "PLACE_ID": "ChIJcRqdqnbvTJARWwrVxdNI7L8",
   "MOZOS": [],
   "PAIS": {
     "prefijo": "51",
@@ -34,14 +33,15 @@ const CONFIG = {
 
 <style>
 :root{
+  color-scheme: light;
   --marca:#D50013;
   --marca-alto:#B00010;
   --sobre-marca:#FFFFFF;
-  --fondo:#141311;
+  --fondo:#FFF9F5;
   --acento:#FFFFFF;
-  --tinta:#FFFFFF;
-  --tinta-suave:#BDB6AE;
-  --linea:#38332E;
+  --tinta:#2B201D;
+  --tinta-suave:#69554F;
+  --linea:#E7D8D2;
   --radio:14px;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   --titular:"Alfa Slab One",Georgia,serif;
@@ -85,10 +85,13 @@ h2{font-size:27px;line-height:1.15;margin-bottom:20px}
 h1:focus,h2:focus{outline:none}
 p.bajada{margin:0 0 22px;color:var(--tinta-suave);font-size:16px}
 
-.portada{margin:auto 0;padding-bottom:10%}
-.portada .datos{display:flex;gap:18px;margin:4px 0 0;padding:0;list-style:none;color:var(--tinta-suave);font-size:15px}
-.portada .datos li{display:flex;align-items:center;gap:7px}
-.portada .datos svg{width:18px;height:18px;flex:none}
+/* D2: bienvenida sin foto, decisión de Enrique 19/10/2026. */
+body:has([data-paso="0"].activo) header,body:has([data-paso="0"].activo) .progreso{display:none}
+[data-paso="0"].activo{flex:initial;margin:auto 0;gap:28px;text-align:center;padding:20px 0 50px}
+.bienvenida{display:flex;flex-direction:column;align-items:center;gap:24px}
+.logo-bienvenida{width:180px;max-height:180px;object-fit:contain}
+.bienvenida h1{margin:0}.bienvenida .bajada{margin:0;max-width:310px}
+[data-paso="0"] .acciones{margin:0;padding:0}
 
 .opciones{display:flex;flex-direction:column;gap:10px}
 .opcion{
@@ -109,7 +112,7 @@ input[type=text],input[type=tel],textarea{
   transition:border-color .15s
 }
 input:focus,textarea:focus{outline:none;border-color:var(--marca)}
-input.error,.acuerdo input.error{border-color:#B3261E}
+input.error{border-color:#B3261E}
 textarea{min-height:128px;resize:vertical;line-height:1.5}
 .prefijo{display:flex;gap:8px}
 .prefijo .pais{
@@ -119,22 +122,6 @@ textarea{min-height:128px;resize:vertical;line-height:1.5}
 .prefijo input{flex:1;min-width:0}
 .aviso{font-size:13.5px;color:#B3261E;margin-top:6px;display:none}
 .aviso.visible{display:block}
-
-.acuerdo{display:flex;gap:11px;align-items:flex-start;margin:4px 0 8px}
-.acuerdo input{
-  -webkit-appearance:none;appearance:none;flex:0 0 22px;width:22px;height:22px;margin:1px 0 0;
-  border:1.5px solid var(--linea);border-radius:6px;background:#fff;cursor:pointer;position:relative
-}
-.acuerdo input:checked{background:var(--marca);border-color:var(--marca)}
-.acuerdo input:checked::after{
-  content:"";position:absolute;left:7px;top:3px;width:5px;height:10px;
-  border:solid var(--sobre-marca);border-width:0 2.5px 2.5px 0;transform:rotate(43deg)
-}
-.acuerdo label{font-size:14px;font-weight:400;color:var(--tinta);margin:0;line-height:1.45}
-details.privacidad{font-size:13px;color:var(--tinta-suave);margin:0 0 4px 33px;line-height:1.45}
-details.privacidad summary{cursor:pointer;text-decoration:underline;text-underline-offset:2px;list-style:none}
-details.privacidad summary::-webkit-details-marker{display:none}
-details.privacidad p{margin:8px 0 0}
 
 .bloque-estrellas{margin:auto 0;padding-bottom:8%}
 .estrellas{display:flex;justify-content:space-between;gap:2px;margin:6px auto 8px;max-width:316px}
@@ -156,8 +143,6 @@ details.privacidad p{margin:8px 0 0}
 .btn-principal{background:var(--marca);color:var(--sobre-marca)}
 .btn-principal:hover{background:var(--marca-alto)}
 .btn-principal:disabled{opacity:.45;cursor:default}
-.btn-google{background:#fff;color:var(--tinta);border:1.5px solid var(--linea)}
-.btn-google svg{width:20px;height:20px;flex:none}
 .btn-texto{background:none;color:var(--tinta-suave);font-weight:500;font-size:15.5px;min-height:46px;padding:10px}
 .atras{
   background:none;border:none;padding:8px 2px;margin-bottom:10px;font:inherit;font-size:15px;
@@ -168,8 +153,6 @@ details.privacidad p{margin:8px 0 0}
 .cierre .centro{margin:auto 0;padding-bottom:6%}
 .sello{width:72px;height:72px;margin:0 auto 20px;border-radius:50%;background:var(--marca);display:grid;place-items:center}
 .sello svg{width:34px;height:34px}
-.invitacion{border-top:1px solid var(--linea);padding-top:20px;margin-top:8px}
-.invitacion p{margin:0 0 14px;color:var(--tinta-suave);font-size:15.5px}
 .firma{
   text-align:center;font-size:12px;letter-spacing:.04em;color:var(--tinta-suave);
   opacity:.75;padding:14px 20px calc(env(safe-area-inset-bottom) + 14px)
@@ -194,21 +177,11 @@ details.privacidad p{margin:8px 0 0}
   .firma{display:none}
 }
 @font-face{font-family:"Alfa Slab One";src:url("alfaslabone.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
-:root{--superficie:#201E1B;--fondo:#141311;--tinta:#FFFFFF;--tinta-2:#BDB6AE;--tinta-3:#BDB6AE;--tinta-suave:#BDB6AE;--linea:#38332E;--fondo-suave:#201E1B;--titular:"Alfa Slab One",Georgia,serif;color-scheme:dark}
+:root{--superficie:#FFFFFF;--fondo:#FFF9F5;--tinta:#2B201D;--tinta-2:#69554F;--tinta-3:#69554F;--tinta-suave:#69554F;--linea:#E7D8D2;--fondo-suave:#FFFFFF;--titular:"Alfa Slab One",Georgia,serif;color-scheme:light}
 body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:400}h1,h2{text-transform:uppercase}
-header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--tinta)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais,.acuerdo input,.btn-google{background:var(--superficie)}.globo{color:var(--fondo)}
+header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--marca)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais{background:var(--superficie)}.globo{color:var(--fondo)}
 header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
 .item.malo .nota,.item.destacado{background:var(--superficie)}
-:root{--bien:#83D69B;--mal:#FFB4AB}.aviso{color:#FFB4AB}input.error,.acuerdo input.error{border-color:#FFB4AB}
-body:has([data-paso="0"].activo) header,body:has([data-paso="0"].activo) .progreso{display:none}
-body:has([data-paso="0"].activo) main{padding-top:0}
-.marca-portada{position:relative;margin:0 -20px;text-align:center}
-.foto-marca{display:block;width:100%;height:260px;object-fit:cover;object-position:50% 55%;mask-image:linear-gradient(#000 60%,transparent)}
-.logo-marca{position:relative;display:block;width:180px;max-height:145px;object-fit:contain;margin:-28px auto 20px}
-.portada{margin:8px 0 0;padding:0;text-align:center}.portada .datos{display:none}
-[data-paso="0"] .acciones{margin-top:24px;padding-top:0}
-body:has([data-paso="0"].activo) .firma{margin-top:auto}
-@media(max-height:740px){.foto-marca{height:190px}.logo-marca{max-height:100px;margin-bottom:12px}.marca-portada{margin:0 -18px}}
 </style>
 </head>
 <body>
@@ -222,16 +195,12 @@ body:has([data-paso="0"].activo) .firma{margin-top:auto}
 
 <main id="app">
 
-  <!-- 0 · Portada -->
+  <!-- 0 · Bienvenida -->
   <section class="paso activo" data-paso="0">
-    <div class="marca-portada"><img class="foto-marca" src="portada.webp" alt="" fetchpriority="high"><img class="logo-marca" src="logo.png" alt="Bendita Comida"></div>
-    <div class="portada">
+    <div class="bienvenida">
+      <img class="logo-bienvenida" src="logo.png" alt="Bendita Comida">
       <h1>¿Cómo te fue hoy?</h1>
       <p class="bajada">Menos de un minuto. Solo para nosotros.</p>
-      <ul class="datos">
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg>45 segundos</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5 toques</li>
-      </ul>
     </div>
     <div class="acciones">
       <button class="btn btn-principal" id="btn-empezar">Empezar</button>
@@ -271,7 +240,6 @@ body:has([data-paso="0"].activo) .firma{margin-top:auto}
   <!-- 7 · Contacto opcional, con consentimiento expreso -->
   <section class="paso" data-paso="7">
     <h2 id="titulo-contacto">¿Te avisamos cuando haya algo nuevo?</h2>
-    <p class="bajada" id="bajada-contacto">Opcional. Solo si quieres que te escribamos por WhatsApp.</p>
     <div class="campo">
       <label for="nombre">Tu nombre</label>
       <input type="text" id="nombre" autocomplete="given-name" maxlength="60" enterkeyhint="next" placeholder="Nombre">
@@ -284,25 +252,13 @@ body:has([data-paso="0"].activo) .firma{margin-top:auto}
       </div>
       <div class="aviso" id="aviso-celular" role="alert"></div>
     </div>
-    <div class="acuerdo">
-      <input type="checkbox" id="acepta">
-      <label for="acepta" id="texto-acepta"></label>
-    </div>
-    <details class="privacidad">
-      <summary>Cómo cuidamos tus datos</summary>
-      <p>Bendita Comida es responsable de tu nombre y tu WhatsApp, y solo los usa para escribirte.
-      CREAM, su agencia, los guarda por encargo y no los comparte con nadie. Los conservamos
-      mientras no pidas lo contrario: para verlos, corregirlos o borrarlos, responde
-      «BORRAR» a cualquier mensaje nuestro. Si no marcas la casilla, no guardamos tu número.</p>
-    </details>
-    <div class="aviso" id="aviso-acepta" role="alert">Marca la casilla para que podamos guardar tu WhatsApp.</div>
     <div class="acciones">
       <button class="btn btn-principal" id="btn-contacto">Guardar</button>
       <button class="btn btn-texto" id="btn-sin-contacto">Ahora no</button>
     </div>
   </section>
 
-  <!-- 8 · Cierre: la invitación a Google es IGUAL para todos -->
+  <!-- 8 · Cierre sin invitación a Google (D4, decisión de Enrique 19/10/2026) -->
   <section class="paso" data-paso="8">
     <div class="cierre">
       <div class="centro">
@@ -314,13 +270,7 @@ body:has([data-paso="0"].activo) .firma{margin-top:auto}
         <h2 id="titulo-fin">¡Gracias!</h2>
         <p class="bajada" id="texto-fin">Nos ayuda muchísimo saber cómo te fue.</p>
       </div>
-      <div class="invitacion">
-        <p>¿Nos dejas tu opinión en Google? Buena o mala, a otros les sirve.</p>
-        <button class="btn btn-google" id="btn-google">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.7z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-2.9l-3.9-3c-1.1.7-2.5 1.2-4.1 1.2-3.1 0-5.8-2.1-6.7-5H1.3v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6h-4a12 12 0 0 0 0 10.8l4-3.1z"/><path fill="#EA4335" d="M12 4.8c1.8 0 3.3.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1c.9-2.8 3.6-4.9 6.7-4.9z"/></svg>
-          Escribir una reseña en Google
-        </button>
-      </div>
+
     </div>
   </section>
 
@@ -473,7 +423,7 @@ function carga(actualizar){
     fue_a_google: estado.fueAGoogle ? "SI" : "", fuente: estado.fuente,
     segundos: Math.round((Date.now() - estado.inicio) / 1000)
   };
-  // El número solo viaja si aceptó que se lo guarden.
+  // D3: Guardar con número válido expresa aceptación; mantiene contrato del Apps Script.
   if (estado.acepta && estado.celular){
     d.nombre = estado.nombre; d.whatsapp = PAIS.prefijo + estado.celular; d.acepta_contacto = "SI";
   }
@@ -497,8 +447,8 @@ function postearConReintentos(cuerpo, intentos){
     return esperar(intentos === 3 ? 800 : 2500).then(function(){ return postearConReintentos(cuerpo, intentos - 1); });
   });
 }
-/* navegaEnseguida: la página se va a Google. sendBeacon es lo único que el
-   navegador termina de enviar después de irse. */
+/* Al salir, Beacon encola el envío; fetch keepalive es el respaldo.
+   El servidor actualiza por id sin borrar un SI recibido antes. */
 function mandar(actualizar, navegaEnseguida){
   var cuerpo = JSON.stringify(carga(actualizar));
   guardarPendiente(cuerpo);
@@ -544,8 +494,19 @@ function reintentarCola(){
 }
 
 function urlGoogle(){
-  if (CONFIG.PLACE_ID) return "https://search.google.com/local/writereview?placeid=" + encodeURIComponent(CONFIG.PLACE_ID);
-  return "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.BUSQUEDA_GOOGLE || NOMBRE);
+  return CONFIG.PLACE_ID ? "https://search.google.com/local/writereview?placeid=" + encodeURIComponent(CONFIG.PLACE_ID) : "";
+}
+/* D4, decisión de Enrique 19/10/2026: solo 5 estrellas van a Google.
+   Enrique conoce que Google desaconseja pedir reseñas solo a los felices
+   y asume ese riesgo: «es mi decisión, está decidido».
+   Mismo camino para el salto automático y cualquier botón de Google.
+   Beacon encola antes de navegar; no equivale a confirmación de la hoja.
+   Si no se puede encolar, fetch keepalive completa su intento antes del salto. */
+function irAGoogle(){
+  if (estado.estrellas !== 5 || !CONFIG.PLACE_ID) return;
+  estado.fueAGoogle = true;
+  guardar();
+  return mandar(true, true).then(function(){ sellar(); location.href = urlGoogle(); });
 }
 
 /* ── Después de las estrellas ─────────────────────────────── */
@@ -553,12 +514,15 @@ function calificar(n){
   var correccion = calificado, cambio = correccion && estado.estrellas !== n;
   estado.estrellas = n;
   calificado = true;
+  // Marcar antes del primer envío evita una fila inicial sin la señal Google.
+  if (n === 5 && CONFIG.PLACE_ID) estado.fueAGoogle = true;
   if (!correccion){ estado.enviadoOk = true; mandar(false); }   // enviadoOk antes de salir: el id no se reusa
   else if (cambio) mandar(true);
   guardar();
 
+  if (n === 5 && CONFIG.PLACE_ID){ irAGoogle(); return; }
   if (n === 5){ prepararContacto(); irA(PASO_CONTACTO); return; }
-  $("#titulo-comentario").textContent = n === 4 ? "¿Qué nos faltó para el 5?" : "¿Qué pasó?";
+  $("#titulo-comentario").textContent = n === 4 ? "¿Cómo podemos mejorar?" : "¿Qué pasó?";
   $("#btn-sin-comentario").textContent = n === 4 ? "Nada, todo bien" : "Prefiero no escribir";
   irA(PASO_COMENTARIO);
 }
@@ -566,23 +530,14 @@ function calificar(n){
 function prepararContacto(){
   if (insatisfecho()){
     $("#titulo-contacto").textContent = "¿Quieres que el dueño te escriba?";
-    $("#bajada-contacto").textContent = "Opcional. Para disculparse y arreglarlo contigo.";
-    $("#texto-acepta").textContent = "Acepto que " + NOMBRE + " guarde mi nombre y WhatsApp para escribirme sobre mi visita y con novedades.";
   } else {
     $("#titulo-contacto").textContent = "¿Te avisamos cuando haya algo nuevo?";
-    $("#bajada-contacto").textContent = "Opcional. Solo si quieres que te escribamos por WhatsApp.";
-    $("#texto-acepta").textContent = "Acepto que " + NOMBRE + " guarde mi nombre y WhatsApp para invitarme y enviarme novedades.";
   }
 }
 
 function terminar(){
-  if (insatisfecho()){
-    $("#titulo-fin").textContent = "Gracias por decírnoslo";
-    $("#texto-fin").textContent = "Ya le llegó al dueño. Queremos que tu próxima visita sea mejor.";
-  } else {
-    $("#titulo-fin").textContent = "¡Gracias!";
-    $("#texto-fin").textContent = "Nos ayuda muchísimo saber cómo te fue.";
-  }
+  $("#titulo-fin").textContent = "¡Gracias!";
+  $("#texto-fin").textContent = "Nos ayuda muchísimo saber cómo te fue.";
   irA(PASO_FIN);
   sellar();
 }
@@ -603,9 +558,7 @@ function conectar(){
     e.target.value = d.replace(/(\d{3})(?=\d)/g, "$1 ").trim();
     if (celularValido(d)){ $("#aviso-celular").classList.remove("visible"); e.target.classList.remove("error"); }
   });
-  $("#acepta").addEventListener("change", function(){
-    if (this.checked){ $("#aviso-acepta").classList.remove("visible"); this.classList.remove("error"); }
-  });
+
 
   document.addEventListener("click", function(ev){
     var t = ev.target.closest ? ev.target.closest("button") : null;
@@ -658,15 +611,12 @@ function conectar(){
   $("#btn-sin-comentario").addEventListener("click", function(){ prepararContacto(); irA(PASO_CONTACTO); });
 
   $("#btn-contacto").addEventListener("click", function(){
-    var d = soloDigitos($("#celular").value), acepta = $("#acepta").checked;
+    var d = soloDigitos($("#celular").value);
     if (!d){ terminar(); return; }   // sin número no hay nada que guardar
     var malCel = !celularValido(d);
     $("#aviso-celular").classList.toggle("visible", malCel);
     $("#celular").classList.toggle("error", malCel);
     if (malCel){ $("#celular").focus(); return; }
-    $("#aviso-acepta").classList.toggle("visible", !acepta);
-    $("#acepta").classList.toggle("error", !acepta);
-    if (!acepta){ $("#acepta").focus(); return; }
     estado.nombre = $("#nombre").value.trim().slice(0, 60);
     estado.celular = d; estado.acepta = true;
     var boton = this; boton.disabled = true; boton.textContent = "Guardando…";
@@ -675,11 +625,8 @@ function conectar(){
   });
   $("#btn-sin-contacto").addEventListener("click", terminar);
 
-  $("#btn-google").addEventListener("click", function(){
-    estado.fueAGoogle = true;
-    mandar(true, true);
-    location.href = urlGoogle();
-  });
+  var botonGoogle = $("#btn-google");
+  if (botonGoogle) botonGoogle.addEventListener("click", irAGoogle);
 
   document.addEventListener("visibilitychange", function(){ if (document.visibilityState === "hidden") guardar(); });
 }
@@ -699,7 +646,7 @@ function arrancar(){
     if (estado.comentario) $("#comentario").value = estado.comentario;
   } catch(err){ console.warn("[" + NOMBRE + "] no se pudo repoblar:", err); }
 
-  // Siempre desde la portada: si el celular pasó a otra persona, que no
+  // Siempre desde la bienvenida: si el celular pasó a otra persona, que no
   // aterrice en mitad del cuestionario ajeno. Lo elegido queda marcado.
   irA(0);
   if (!CONFIG.ENDPOINT) avisarPreparacion();

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<meta name="color-scheme" content="light">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Doña Martha · Tu encuesta</title>
@@ -119,7 +120,7 @@ section{margin-bottom:30px}
 @font-face{font-family:"Montserrat";src:url("../encuesta/montserrat-variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
 :root{--superficie:#FBF4EA;--fondo:#F5E9D9;--tinta:#3B1A1C;--tinta-2:#6B4A45;--tinta-3:#6B4A45;--tinta-suave:#6B4A45;--linea:#E4D3BE;--fondo-suave:#FBF4EA;--titular:"Fraunces",Georgia,serif;color-scheme:light}
 body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:600}
-header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--tinta)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais,.acuerdo input,.btn-google{background:var(--superficie)}.globo{color:var(--fondo)}
+header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--marca)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais{background:var(--superficie)}.globo{color:var(--fondo)}
 header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
 .item.malo .nota,.item.destacado{background:var(--superficie)}
 :root{--sans:"Montserrat",system-ui,sans-serif}
@@ -202,7 +203,7 @@ function delta(semanas){
 
 function pintar(){
   var d = datos;
-  $("#cuando").innerHTML = '<i aria-hidden="true"></i>' + esc(d.actualizado.slice(0, 5) + " · " + d.actualizado.slice(-5));
+  $("#cuando").innerHTML = '<i aria-hidden="true"></i>' + esc("Actualizado " + ultimaActualizacion);
   if (!d.total){
     estado("Todavía no hay respuestas", "Aparecen aquí apenas el primer cliente escanee el QR de la mesa. No tienes que hacer nada.");
     return;
@@ -327,7 +328,10 @@ document.addEventListener("click", function(e){
   }).catch(function(){ b.disabled = false; b.textContent = "No se guardó, reintentar"; });
 });
 
+var cargando = false, ultimaActualizacion = "";
 function cargar(){
+  if (cargando) return Promise.resolve();
+  cargando = true;
   return fetch(TABLERO.ENDPOINT + "?datos=" + encodeURIComponent(clave()))
     .then(function(r){ return r.json(); })
     .then(function(d){
@@ -337,12 +341,14 @@ function cargar(){
         return;
       }
       if (!d || !d.ok) throw new Error("respuesta inesperada");
-      datos = d; pintar();
+      datos = d;
+      ultimaActualizacion = new Date().toLocaleTimeString("es-PE", {timeZone:"America/Lima",hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+      pintar();
     })
     .catch(function(err){
       if (!datos) estado("No pudimos cargar tus datos", "Revisa tu conexión y vuelve a abrir esta página en un minuto.");
-      console.warn("[tablero]", err);
-    });
+      // Conserva los datos pintados si falla un refresco.
+    }).finally(function(){ cargando = false; });
 }
 
 function arrancar(){
@@ -352,6 +358,7 @@ function arrancar(){
   cargar();
   // Se refresca solo cada minuto mientras está a la vista.
   reloj = setInterval(function(){ if (document.visibilityState === "visible") cargar(); }, 60000);
+  document.addEventListener("visibilitychange", function(){ if (document.visibilityState === "visible") cargar(); });
   window.addEventListener("hashchange", function(){ leerHash(); cargar(); });
 }
 arrancar();
