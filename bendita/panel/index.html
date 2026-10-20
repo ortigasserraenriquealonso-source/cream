@@ -200,7 +200,8 @@ function tarjetaConclusiones(d){
 
 
 function limitarFilas(){
-  document.querySelectorAll('.tarjeta ul, .tarjeta ol, .cupones').forEach(function(lista){
+  // D13: listas que crecen con los datos. La escala de 5★ a 1★ es fija y se ve completa.
+  document.querySelectorAll('.tarjeta ul:not(.escala-fija), .tarjeta ol, .cupones').forEach(function(lista){
     var filas=Array.prototype.slice.call(lista.children);
     if(filas.length<=3 || !lista.getBoundingClientRect().width)return;
     var anterior=lista.scrollTop;
@@ -232,7 +233,7 @@ function pintar(){
   var html=pendientes?'<aside class="aviso-pendientes" aria-label="Clientes por atender"><strong>'+pendientes+(pendientes===1?' cliente necesita':' clientes necesitan')+' tu atención</strong><a href="#por-atender">Ver comentario</a></aside>':'';
   html+=avisoCupones(d.cuponesPendientes);
   html+='<div class="historia">'+tarjeta('calificacion','¿Cómo te califican?',
-    '<div class="heroe"><span class="numero">'+coma(d.promedio.toFixed(1))+'</span><div><div class="estrellas" aria-label="'+coma(d.promedio)+' de 5 estrellas">'+'★'.repeat(llenas)+'☆'.repeat(5-llenas)+'</div><span class="detalle">'+d.total+' respuestas</span></div></div><p class="frase">'+fraseNota(d.promedio)+'</p><ul class="desglose">'+distribucion+'</ul>','nota','ancha');
+    '<div class="heroe"><span class="numero">'+coma(d.promedio.toFixed(1))+'</span><div><div class="estrellas" aria-label="'+coma(d.promedio)+' de 5 estrellas">'+'★'.repeat(llenas)+'☆'.repeat(5-llenas)+'</div><span class="detalle">'+d.total+' respuestas</span></div></div><p class="frase">'+fraseNota(d.promedio)+'</p><ul class="desglose escala-fija">'+distribucion+'</ul>','nota','ancha');
   html+='<div class="cifras ancha" aria-label="Números clave">'+cifra('Felices',d.felices||0,'Con 4 o 5 estrellas')+cifra('Fueron a Google',d.aGoogle||0,'Abrieron el enlace de reseña')+cifra('Clientes nuevos',d.nuevos||0,'Vinieron por primera vez')+cifra('Dejaron su WhatsApp',d.conContacto||0,'Para seguir en contacto')+'</div>';
   if(d.personal) html+=equipo(d.personal);
   if(d.visitas) html+=visitas(d.visitas);
