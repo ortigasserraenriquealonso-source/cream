@@ -35,7 +35,8 @@ const CONFIG = {
     "vigencia_dias": 15,
     "imagen": "assets-bendita/cupon.png",
     "ilustracion": "assets-bendita/premio.svg"
-  }
+  },
+  "CUMPLE": true
 };
 </script>
 
@@ -128,6 +129,7 @@ textarea{min-height:128px;resize:vertical;line-height:1.5}
   background:#fff;border:1.5px solid var(--linea);border-radius:var(--radio);white-space:nowrap
 }
 .prefijo input{flex:1;min-width:0}
+.nota-cumple{font-size:13.5px;color:var(--tinta-suave);margin:7px 2px 0;font-style:italic}
 .aviso{font-size:13.5px;color:#B3261E;margin-top:6px;display:none}
 .aviso.visible{display:block}
 
@@ -269,6 +271,12 @@ header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:1
       </div>
       <div class="aviso" id="aviso-celular" role="alert"></div>
     </div>
+    <div class="campo" id="campo-cumple">
+      <label for="cumple">¿Cuándo es tu cumpleaños?</label>
+      <input type="text" id="cumple" inputmode="numeric" autocomplete="bday" maxlength="10" enterkeyhint="done" placeholder="dd/mm/aaaa">
+      <p class="nota-cumple">Aquí los cumpleañeros siempre tienen sorpresa 🎂</p>
+      <div class="aviso" id="aviso-cumple" role="alert">Revisa tu cumpleaños: día, mes y año, como 14/03/1992.</div>
+    </div>
     <div class="acciones">
       <button class="btn btn-principal" id="btn-contacto">Guardar</button>
       <button class="btn btn-texto" id="btn-sin-contacto">Ahora no</button>
@@ -324,7 +332,7 @@ var PREFIJO_COLA = "bendita_pend2_";
 var PAIS = CONFIG.PAIS || { prefijo:"51", bandera:"🇵🇪", digitos:9, empieza:"9", ejemplo:"999 999 999" };
 
 var estado = {
-  id:null, respuestas:{}, estrellas:0, comentario:"", nombre:"", celular:"", acepta:false,
+  id:null, respuestas:{}, estrellas:0, comentario:"", nombre:"", celular:"", cumple:"", acepta:false,
   fueAGoogle:false, enviadoOk:false,
   fuente: new URLSearchParams(location.search).get("f") || "", inicio: Date.now()
 };
@@ -475,6 +483,25 @@ function soloDigitos(s){ return (s || "").replace(/\D/g, ""); }
 function celularValido(d){
   return d.length === PAIS.digitos && (!PAIS.empieza || d.indexOf(PAIS.empieza) === 0);
 }
+/* "14/03/1992" (o "1992-03-14" del autocompletado) → "1992-03-14"; inválida → "". */
+function cumpleISO(valor){
+  var v = String(valor || "").trim(), m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v);
+  var a, mes, dia;
+  if (m){ a = +m[1]; mes = +m[2]; dia = +m[3]; }
+  else {
+    m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(v);
+    if (!m) return "";
+    dia = +m[1]; mes = +m[2]; a = +m[3];
+  }
+  var f = new Date(a, mes - 1, dia), hoy = new Date();
+  if (f.getFullYear() !== a || f.getMonth() !== mes - 1 || f.getDate() !== dia) return "";
+  if (a < hoy.getFullYear() - 110 || a > hoy.getFullYear() - 5) return "";
+  return a + "-" + ("0" + mes).slice(-2) + "-" + ("0" + dia).slice(-2);
+}
+function cumpleVisible(iso){
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+  return m ? m[3] + "/" + m[2] + "/" + m[1] : "";
+}
 function carga(actualizar){
   var d = {
     id: estado.id, fecha: estado.fechaFinal || new Date().toISOString(),
@@ -487,6 +514,7 @@ function carga(actualizar){
   // D3: Guardar con número válido expresa aceptación; mantiene contrato del Apps Script.
   if (estado.acepta && estado.celular){
     d.nombre = estado.nombre; d.whatsapp = PAIS.prefijo + estado.celular; d.acepta_contacto = "SI";
+    if (estado.cumple) d.cumpleanos = estado.cumple;
   }
   if (estado.final) d.final = true;
   if (actualizar) d.actualizar = true;
@@ -592,7 +620,7 @@ function calificar(n){
 }
 
 function prepararContacto(){
-  $("#titulo-contacto").textContent = INCENTIVO ? "¿A nombre de quién " + (INCENTIVO.singular ? "va el " : "van las ") + INCENTIVO.corto + "?" : "¿Seguimos en contacto?";
+  $("#titulo-contacto").textContent = INCENTIVO ? "¿A nombre de quién " + (INCENTIVO.singular ? "va " : "van ") + (INCENTIVO.articulo || (INCENTIVO.singular ? "el" : "las")) + " " + INCENTIVO.corto + "?" : "¿Seguimos en contacto?";
 }
 function siguienteAlContacto(){
   if (INCENTIVO){ terminar(); return; }
@@ -621,6 +649,13 @@ function conectar(){
     d = d.slice(0, PAIS.digitos);
     e.target.value = d.replace(/(\d{3})(?=\d)/g, "$1 ").trim();
     if (celularValido(d)){ $("#aviso-celular").classList.remove("visible"); e.target.classList.remove("error"); }
+  });
+  // Se escribe solo con números; las barras salen solas.
+  $("#cumple").addEventListener("input", function(e){
+    if (/^\d{4}-\d{2}-\d{2}$/.test(e.target.value)) e.target.value = cumpleVisible(e.target.value);
+    var d = soloDigitos(e.target.value).slice(0, 8);
+    e.target.value = d.length > 4 ? d.slice(0,2) + "/" + d.slice(2,4) + "/" + d.slice(4) : d.length > 2 ? d.slice(0,2) + "/" + d.slice(2) : d;
+    if (cumpleISO(e.target.value)){ $("#aviso-cumple").classList.remove("visible"); e.target.classList.remove("error"); }
   });
 
 
@@ -671,6 +706,7 @@ function conectar(){
     estado.comentario = $("#comentario").value.trim();
     $("#nombre").value = estado.nombre || "";
     $("#celular").value = estado.celular || "";
+    $("#cumple").value = cumpleVisible(estado.cumple);
     finalizar();
     mandar(true);
     siguienteAlContacto();
@@ -690,6 +726,12 @@ function conectar(){
     $("#aviso-celular").classList.toggle("visible", malCel);
     $("#celular").classList.toggle("error", malCel);
     if (malCel){ $("#celular").focus(); return; }
+    var cumple = cumpleISO($("#cumple").value);
+    var malCumple = !cumple && (INCENTIVO || $("#cumple").value.trim());
+    $("#aviso-cumple").classList.toggle("visible", !!malCumple);
+    $("#cumple").classList.toggle("error", !!malCumple);
+    if (malCumple){ $("#cumple").focus(); return; }
+    estado.cumple = cumple;
     estado.nombre = $("#nombre").value.trim().slice(0, 60);
     estado.celular = d; estado.acepta = true;
     if (INCENTIVO){ guardar(); irA(PRIMERA_PREGUNTA); return; }
@@ -721,6 +763,8 @@ function arrancar(){
     $("#btn-contacto").textContent="Seguir";
     $("#btn-sin-contacto").remove();
   }
+  // La sorpresa de cumpleaños solo se promete si el cliente definió su regalo.
+  if (!CONFIG.CUMPLE){ var nota = $(".nota-cumple"); if (nota) nota.remove(); }
   prepararContacto();
   pintarPreguntas();
   pintarEstrellas();
@@ -735,6 +779,7 @@ function arrancar(){
     });
     $("#nombre").value = estado.nombre || "";
     $("#celular").value = estado.celular || "";
+    $("#cumple").value = cumpleVisible(estado.cumple);
     if (estado.comentario) $("#comentario").value = estado.comentario;
   } catch(err){ console.warn("[" + NOMBRE + "] no se pudo repoblar:", err); }
 

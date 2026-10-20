@@ -18,7 +18,7 @@
    La clave NO está escrita acá (este archivo vive en un repositorio
    público): llega en el enlace del dueño, después del #, que el navegador
    nunca envía a ningún servidor. */
-const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycbzzHsVS9FGdRrVbpAGHfy2OKnNR57IHpB8z4qwf-KQJRJxOGhZiYdbqIhTQdN-3s7HZAQ/exec", NEGOCIO: "Doña Martha", SLUG: "donamartha", INCENTIVO: {"premio": "una porción extra de arroz", "corto": "arrocito", "singular": true, "estado": "PROPUESTA", "emoji": "🍚", "vigencia_dias": 15, "imagen": "assets-donamartha/cupon.png", "ilustracion": "assets-donamartha/premio.svg"} };
+const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycbzzHsVS9FGdRrVbpAGHfy2OKnNR57IHpB8z4qwf-KQJRJxOGhZiYdbqIhTQdN-3s7HZAQ/exec", NEGOCIO: "Doña Martha", SLUG: "donamartha", INCENTIVO: {"premio": "una bebida de cortesía", "corto": "bebida", "singular": true, "articulo": "la", "emoji": "🥤", "vigencia_dias": 15, "imagen": "assets-donamartha/cupon.png", "ilustracion": "assets-donamartha/premio.svg"}, CUMPLE: null };
 </script>
 
 <style>
@@ -47,7 +47,7 @@ main{max-width:1120px;margin:auto;padding:24px 16px calc(env(safe-area-inset-bot
 h2{font-size:23px;line-height:1.25;margin:0 0 22px;display:flex;align-items:center;gap:10px}h2 svg{width:24px;height:24px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 p{margin:10px 0}.base,.pie,.meta,.detalle{color:var(--tinta-2)}.heroe{display:flex;align-items:center;gap:20px}.numero{font-size:72px;line-height:1;letter-spacing:-3px}.estrellas{color:var(--marca);font-size:23px;letter-spacing:2px}.frase{font-weight:600;margin:8px 0 24px}.detalle{font-size:16px}
 .desglose{list-style:none;padding:0;margin:0}.desglose li{margin-top:18px}.fila{display:flex;align-items:center;gap:12px}.etiqueta{flex:1;overflow-wrap:anywhere}.valor{white-space:nowrap;display:flex;gap:10px;font-variant-numeric:tabular-nums}.valor span:last-child{color:var(--tinta-2)}.pista{height:12px;background:#F1F3F4;border-radius:99px;overflow:hidden;margin-top:8px}.pista i{display:block;height:100%;background:var(--marca);border-radius:99px}
-.aviso-pendientes{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding:14px 20px;border:1px solid var(--linea);border-radius:18px;background:#F6F7F8}.aviso-pendientes a{padding:10px 16px;background:var(--marca);color:var(--sobre-marca);border-radius:99px;text-decoration:none;font-weight:600}.aviso-cupones{display:block}.aviso-cupones summary{cursor:pointer;font-weight:600}.cupones{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}.cupones li{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}.enviar-cupon{border:0;border-radius:99px;background:var(--marca);color:var(--sobre-marca);padding:10px 16px;min-height:44px;font-weight:600}.enviar-cupon:disabled{opacity:.6}.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cifra{border-radius:24px;padding:22px;background:#fff;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A}.rot,.val,.pie{display:block}.rot{font-weight:600}.val{font-size:38px;font-weight:650;margin:6px 0}.pie{font-size:16px}
+.aviso-pendientes{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding:14px 20px;border:1px solid var(--linea);border-radius:18px;background:#F6F7F8}.aviso-pendientes a{padding:10px 16px;background:var(--marca);color:var(--sobre-marca);border-radius:99px;text-decoration:none;font-weight:600}.aviso-cupones{display:block}.aviso-cupones summary{cursor:pointer;font-weight:600}.cupones{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}.cupones li{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}.enviar-cupon{border:0;border-radius:99px;background:var(--marca);color:var(--sobre-marca);padding:10px 16px;min-height:44px;font-weight:600}.enviar-cupon:disabled{opacity:.6}.cumples li{align-items:center}.cumple-listo{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%}.cumple-listo img{width:56px;height:70px;object-fit:cover;border-radius:10px;border:1px solid var(--linea)}.cumple-acciones{display:flex;gap:8px;width:100%}.cumple-acciones .enviar-cupon{flex:1;justify-content:center;padding:10px 8px;font-size:14px;white-space:nowrap}a.enviar-cupon{text-decoration:none;display:inline-flex;align-items:center}.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cifra{border-radius:24px;padding:22px;background:#fff;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A}.rot,.val,.pie{display:block}.rot{font-weight:600}.val{font-size:38px;font-weight:650;margin:6px 0}.pie{font-size:16px}
 .equipo{list-style:none;padding:0;margin:0;display:grid;gap:12px}.persona{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:#F8F9FA}.avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--marca) 10%,white);color:var(--marca);font-weight:700}.persona .nombre{flex:1;min-width:0;overflow-wrap:anywhere}.persona small{display:block;font-size:16px;color:var(--tinta-2)}.persona.lider{background:color-mix(in srgb,var(--marca) 6%,white)}.sin-dato{color:var(--tinta-2)}.persona strong{white-space:nowrap}.medalla{color:var(--marca)}
 .segmentos{display:flex;height:22px;overflow:hidden;border-radius:99px;margin:22px 0}.segmentos i{background:var(--marca)}.segmentos i:nth-child(2){background:#6A627D}.segmentos i:nth-child(3){background:#26736C}.leyenda{list-style:none;padding:0;margin:0;display:grid;gap:12px}.leyenda li{display:flex;align-items:center;gap:10px}.punto{width:12px;height:12px;border-radius:50%;flex-shrink:0}.leyenda strong{margin-left:auto;white-space:nowrap}.leyenda small{font-size:16px;color:var(--tinta-2)}
 .tendencia{position:relative}.tendencia svg{display:block;width:100%;height:150px}.eje{display:flex;justify-content:space-between;color:var(--tinta-2);margin-top:12px}.globo{position:absolute;pointer-events:none;background:var(--tinta);color:white;padding:8px 12px;border-radius:12px;transform:translate(-50%,-100%);opacity:0;font-size:14px}.globo.visible{opacity:1}.tabla-oculta{position:absolute;display:block;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;padding:0;margin:-1px}
@@ -234,6 +234,7 @@ function pintar(){
   var pendientes=Math.max(0,(d.insatisfechos||0)-(d.atendidos||0));
   var html=pendientes?'<aside class="aviso-pendientes" aria-label="Clientes por atender"><strong>'+pendientes+(pendientes===1?' cliente necesita':' clientes necesitan')+' tu atención</strong><a href="#por-atender">Ver comentario</a></aside>':'';
   html+=avisoCupones(d.cuponesPendientes);
+  html+=avisoCumples(d.cumplesPorSaludar);
   html+='<div class="historia">'+tarjeta('calificacion','¿Cómo te califican?',
     '<div class="heroe"><span class="numero">'+coma(d.promedio.toFixed(1))+'</span><div><div class="estrellas" aria-label="'+coma(d.promedio)+' de 5 estrellas">'+'★'.repeat(llenas)+'☆'.repeat(5-llenas)+'</div><span class="detalle">'+d.total+' respuestas</span></div></div><p class="frase">'+fraseNota(d.promedio)+'</p><ul class="desglose escala-fija">'+distribucion+'</ul>','nota','ancha');
   html+='<div class="cifras ancha" aria-label="Números clave">'+cifra('Felices',d.felices||0,'Con 4 o 5 estrellas')+cifra('Fueron a Google',d.aGoogle||0,'Abrieron el enlace de reseña')+cifra('Clientes nuevos',d.nuevos||0,'Vinieron por primera vez')+cifra('Dejaron su WhatsApp',d.conContacto||0,'Para seguir en contacto')+'</div>';
@@ -259,6 +260,68 @@ function avisoCupones(pendientes){
   return '<details class="aviso-pendientes aviso-cupones"><summary>'+esc(TABLERO.INCENTIVO.emoji||'🎁')+' '+pendientes.length+(pendientes.length===1?' cupón por enviar':' cupones por enviar')+'</summary><ul class="cupones">'+pendientes.map(function(c){
     return '<li><span>'+esc(fechaCupon(c.fecha,c.hora))+' · ★'+esc(c.nota || c.calificacion || '')+'</span><button class="enviar-cupon" data-id="'+esc(c.id)+'">Enviar por WhatsApp</button></li>';
   }).join('')+'</ul></details>';
+}
+/* Cumpleaños: el panel arma la imagen con el nombre y abre el chat con el mensaje. */
+var cumplesListos={};
+function avisoCumples(lista){
+  if (!TABLERO.CUMPLE) return '';
+  var ids={};(lista||[]).forEach(function(c){ids[c.id]=1;});
+  var filas=(lista||[]).slice();
+  Object.keys(cumplesListos).forEach(function(id){if(!ids[id])filas.push(cumplesListos[id].item);});
+  if (!filas.length) return '';
+  var abierto=Object.keys(cumplesListos).length?' open':'';
+  return '<details class="aviso-pendientes aviso-cupones"'+abierto+'><summary>🎂 '+filas.length+' cumpleaños por saludar'+'</summary><ul class="cupones cumples">'+filas.map(function(c){
+    var listo=cumplesListos[c.id];
+    var cuando=c.faltan===0?'Cumple hoy':c.faltan===1?'Cumple mañana':'Cumple el '+c.dia;
+    if (!listo) return '<li><span>'+esc(cuando)+'</span><button class="enviar-cupon preparar-cumple" data-id="'+esc(c.id)+'">Preparar saludo</button></li>';
+    return '<li><div class="cumple-listo"><img src="'+esc(listo.imagen)+'" alt="Feliz cumple, '+esc(listo.nombre)+'"><span>'+esc(listo.nombre)+' · '+esc(cuando.replace('Cumple ','').replace(/^el /,''))+'</span>'+
+      '<span class="cumple-acciones"><button class="enviar-cupon guardar-cumple" data-id="'+esc(c.id)+'">1 · Guardar imagen</button>'+
+      '<a class="enviar-cupon" href="'+esc(listo.url)+'" target="_blank" rel="noopener">2 · Abrir chat</a></span></div></li>';
+  }).join('')+'</ul></details>';
+}
+function tituloCumple(nombre){var n=String(nombre||'').trim().split(/\s+/)[0];return (n?'¡Feliz cumple, '+n+'!':'¡Feliz cumple!').toUpperCase();}
+/* Mismo molde que imagen-cumple.py: 78 px hacia abajo hasta caber en 960 px, corte más parejo, desde y=135. */
+function imagenCumple(nombre){
+  var cfg=TABLERO.CUMPLE, fuente=new FontFace('MarcaCumple','url('+cfg.fuente+')');
+  var base=new Image();
+  var carga=new Promise(function(ok,mal){base.onload=ok;base.onerror=mal;base.src=cfg.base;});
+  return Promise.all([fuente.load().then(function(f){document.fonts.add(f);}),carga]).then(function(){
+    var lienzo=document.createElement('canvas');lienzo.width=1080;lienzo.height=1350;
+    var c=lienzo.getContext('2d');c.drawImage(base,0,0,1080,1350);
+    var titulo=tituloCumple(nombre),palabras=titulo.split(' '),eleccion=null,tam=78;
+    for(;tam>=28&&!eleccion;tam--){
+      c.font=tam+'px MarcaCumple';
+      var opciones=[[titulo]];for(var i=1;i<palabras.length;i++)opciones.push([palabras.slice(0,i).join(' '),palabras.slice(i).join(' ')]);
+      opciones=opciones.filter(function(ls){return Math.max.apply(null,ls.map(function(l){return c.measureText(l).width;}))<=960;});
+      if(opciones.length)eleccion=opciones.sort(function(a,b){
+        var da=Math.max.apply(null,a.map(function(l){return c.measureText(l).width;}))-Math.min.apply(null,a.map(function(l){return c.measureText(l).width;}));
+        var db=Math.max.apply(null,b.map(function(l){return c.measureText(l).width;}))-Math.min.apply(null,b.map(function(l){return c.measureText(l).width;}));
+        return da-db;})[0];
+    }
+    tam++;c.font=tam+'px MarcaCumple';c.fillStyle=cfg.color;c.textAlign='center';c.textBaseline='top';
+    var y=135;(eleccion||[titulo]).forEach(function(l){c.fillText(l,540,y);y+=tam+26;});
+    return new Promise(function(ok){lienzo.toBlob(function(b){ok(b);},'image/png');});
+  });
+}
+function prepararCumple(b){
+  if (b.disabled) return;
+  b.disabled=true;b.textContent='Preparando…';
+  var id=b.getAttribute('data-id'),item=(datos.cumplesPorSaludar||[]).filter(function(c){return c.id===id;})[0];
+  fetch(TABLERO.ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({accion:'cumple',clave:clave(),id:id})})
+  .then(function(r){return r.json();}).then(function(j){
+    if (!j.ok || typeof j.url!=='string' || !/^https:\/\/wa\.me\//.test(j.url)) throw new Error('No se preparó el saludo');
+    return imagenCumple(j.nombre).then(function(blob){
+      cumplesListos[id]={item:item,url:j.url,nombre:j.nombre,blob:blob,imagen:URL.createObjectURL(blob)};
+      pintar();
+    });
+  }).catch(function(){b.disabled=false;b.textContent='Reintentar';});
+}
+function guardarCumple(b){
+  var listo=cumplesListos[b.getAttribute('data-id')];if(!listo)return;
+  var nombreArchivo='feliz-cumple-'+String(listo.nombre||'').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'')+'.png';
+  var archivo=new File([listo.blob],nombreArchivo,{type:'image/png'});
+  if (navigator.canShare && navigator.canShare({files:[archivo]})) { navigator.share({files:[archivo]}).catch(function(){}); return; }
+  var a=document.createElement('a');a.href=listo.imagen;a.download=nombreArchivo;document.body.appendChild(a);a.click();a.remove();
 }
 function fechaCupon(fecha,hora){
   var hoy=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Lima',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
@@ -394,7 +457,10 @@ function marcarLeidos(ids){
 document.addEventListener("click", function(e){
   var leer = e.target.closest ? e.target.closest('.leer, .leer-todos') : null;
   if (leer){ marcarLeidos(leer.classList.contains('leer-todos') ? null : [leer.getAttribute('data-id')]); return; }
+  var cumple = e.target.closest ? e.target.closest(".preparar-cumple, .guardar-cumple") : null;
+  if (cumple){ (cumple.classList.contains('guardar-cumple') ? guardarCumple : prepararCumple)(cumple); return; }
   var cupon = e.target.closest ? e.target.closest(".enviar-cupon") : null;
+  if (cupon && cupon.tagName==='A') return;
   if (cupon){ enviarCupon(cupon); return; }
   var b = e.target.closest ? e.target.closest(".atender") : null;
   if (!b) return;
