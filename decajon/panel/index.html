@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es-PE">
 <head>
+<meta name="color-scheme" content="light">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>De Cajón · Lo que dicen tus comensales</title>
@@ -15,13 +16,13 @@
 <script>
 const PANEL = {
   ENDPOINT: "https://script.google.com/macros/s/AKfycbznkET1poHP26-Wg8sk1Ct7JXMCTJAhD55byiOBJTAWUkSV3K_XIIw6H9rubgQJb7kA/exec",
-  CLAVE: "ivWd-peWnvoF",
   NEGOCIO: "De Cajón"
 };
 </script>
 
 <style>
 :root{
+  color-scheme: light;
   --marca:#00392A;
   --sobre-marca:#FDF9EE;
   --acento:#FE9E26;
@@ -95,6 +96,11 @@ h2 .de{font-weight:400;color:var(--tinta-suave)}
 }
 .cargando{padding:60px 0;text-align:center;color:var(--tinta-suave);font-family:var(--mono);font-size:13px}
 .error{background:#FDECEC;border:1px solid #F0C0C0;color:#8A2020;border-radius:12px;padding:18px 20px}
+.acceso{max-width:360px;margin:40px auto;background:var(--panel);border:1px solid var(--linea);border-radius:16px;padding:26px 22px;display:flex;flex-direction:column;gap:12px;text-align:center}
+.acceso h2{margin:0;font-size:20px}
+.acceso input{font:inherit;font-size:16px;padding:12px 14px;border:1px solid var(--linea);border-radius:10px;width:100%;box-sizing:border-box}
+.acceso button{font:inherit;font-weight:700;padding:12px 16px;border:0;border-radius:999px;background:var(--marca);color:var(--sobre-marca);cursor:pointer}
+.acceso .aviso{margin:0;min-height:1.2em;color:#8A2020;font-size:14px}
 
 .nota{
   margin-top:34px;padding-top:16px;border-top:1px solid var(--linea);
@@ -118,7 +124,7 @@ h2 .de{font-weight:400;color:var(--tinta-suave)}
 
 <main>
   <h1>Lo que dicen tus comensales</h1>
-  <p class="bajada">Se actualiza solo, cada vez que alguien responde el formulario de la mesa.</p>
+  <p class="bajada">Se actualiza cada minuto y al volver a esta pestaña.</p>
   <div id="lienzo"><div class="cargando">Cargando tus datos…</div></div>
 </main>
 
@@ -162,7 +168,7 @@ function pintar(d){
       + 'En cuanto el primer comensal escanee el QR de la mesa, sus datos aparecen acá.</div>';
     return;
   }
-  $("#cuando").textContent = "Actualizado " + d.actualizado;
+
 
   var estrellas = [];
   for(var i = 4; i >= 0; i--){
@@ -227,17 +233,61 @@ function pintar(d){
   $("#lienzo").innerHTML = html;
 }
 
-fetch(PANEL.ENDPOINT + "?datos=" + encodeURIComponent(PANEL.CLAVE))
+// La clave nunca va escrita en esta página (cream es público): llega con #k=,
+// queda guardada en este navegador o el dueño la escribe una vez.
+var GUARDADA = "panel_clave:" + location.pathname;
+function leerClave(){
+  var m = location.hash.match(/k=([^&]+)/);
+  if (m) {
+    var k = decodeURIComponent(m[1]);
+    try { localStorage.setItem(GUARDADA, k); } catch(e) {}
+    history.replaceState(null, "", location.pathname + location.search);
+    return k;
+  }
+  try { return localStorage.getItem(GUARDADA) || ""; } catch(e) { return ""; }
+}
+var CLAVE = leerClave();
+function pedirClave(aviso){
+  $("#lienzo").innerHTML = '<form class="acceso" id="acceso"><h2>Escribe tu clave</h2>'
+    + '<input id="clave-panel" type="password" autocomplete="current-password" aria-label="Clave" required>'
+    + '<p class="aviso" role="alert">' + (aviso || "") + '</p><button type="submit">Entrar</button></form>';
+  $("#acceso").addEventListener("submit", function(ev){
+    ev.preventDefault();
+    CLAVE = $("#clave-panel").value.trim();
+    if (!CLAVE) return;
+    try { localStorage.setItem(GUARDADA, CLAVE); } catch(e) {}
+    cargar();
+  });
+}
+
+var cargando = false, tieneDatos = false;
+function cargar(){
+if (!CLAVE) { if (!$("#acceso")) pedirClave(""); return Promise.resolve(); }
+if (cargando) return Promise.resolve();
+cargando = true;
+return fetch(PANEL.ENDPOINT + "?datos=" + encodeURIComponent(CLAVE))
   .then(function(r){ return r.json(); })
   .then(function(d){
+    if (d && d.ok && !("total" in d)) {
+      // El script responde sin datos cuando la clave no coincide.
+      CLAVE = ""; tieneDatos = false;
+      try { localStorage.removeItem(GUARDADA); } catch(e) {}
+      pedirClave("Esa clave no es correcta");
+      return;
+    }
     if(!d || !d.ok) throw new Error("respuesta inesperada");
-    pintar(d);
+    pintar(d); tieneDatos = true;
+    $("#cuando").textContent = "Actualizado " + new Date().toLocaleTimeString("es-PE", {timeZone:"America/Lima"});
   })
   .catch(function(err){
-    $("#lienzo").innerHTML = '<div class="error"><strong>No pudimos cargar tus datos.</strong><br>'
+    if (!tieneDatos) $("#lienzo").innerHTML = '<div class="error"><strong>No pudimos cargar tus datos.</strong><br>'
       + 'Vuelve a intentarlo en un minuto. Si sigue igual, avísanos.</div>';
-    console.warn("[panel]", err);
-  });
+
+  }).finally(function(){ cargando = false; });
+}
+cargar();
+setInterval(cargar, 60000);
+document.addEventListener("visibilitychange", function(){ if(document.visibilityState === "visible") cargar(); });
 
 })();
 </script>
