@@ -169,7 +169,7 @@ function pintar(){
 function avisoCupones(pendientes){
   if (!TABLERO.INCENTIVO || !Array.isArray(pendientes) || !pendientes.length) return '';
   return '<details class="aviso-pendientes aviso-cupones"><summary>'+esc(TABLERO.INCENTIVO.emoji||'🎁')+' '+pendientes.length+(pendientes.length===1?' cupón por enviar':' cupones por enviar')+'</summary><ul class="cupones">'+pendientes.map(function(c){
-    return '<li><span>'+esc(c.codigo)+' · '+esc(fechaCupon(c.fecha,c.hora))+'</span><button class="enviar-cupon" data-id="'+esc(c.id)+'">Enviar por WhatsApp</button></li>';
+    return '<li><span>'+esc(fechaCupon(c.fecha,c.hora))+' · ★'+esc(c.nota || c.calificacion || '')+'</span><button class="enviar-cupon" data-id="'+esc(c.id)+'">Enviar por WhatsApp</button></li>';
   }).join('')+'</ul></details>';
 }
 function fechaCupon(fecha,hora){

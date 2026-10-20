@@ -32,7 +32,9 @@ const CONFIG = {
     "premio": "una porción extra de papitas",
     "corto": "papitas",
     "emoji": "🍟",
-    "codigo": "PAPAS"
+    "vigencia_dias": 15,
+    "imagen": "assets-bendita/cupon.png",
+    "ilustracion": "assets-bendita/premio.svg"
   }
 };
 </script>
@@ -277,7 +279,6 @@ header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:1
         </div>
         <h2 id="titulo-fin">¡Gracias!</h2>
         <p class="bajada" id="texto-fin">Gracias por contarnos. ¡Te esperamos pronto!</p>
-        <span id="codigo-cupon" hidden style="display:none;padding:10px 16px;border:1px solid var(--linea);border-radius:999px;font-weight:600"></span>
       </div>
 
     </div>
@@ -332,13 +333,17 @@ function nuevoId(){
   if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
   return "id-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
 }
-function codigoCupon(id, prefijo){
-  var alfabeto="23456789ABCDEFGHJKLMNPQRSTUVWXYZ", hash=2166136261;
-  id=String(id || "");
-  for(var i=0;i<id.length;i++) hash=Math.imul(hash ^ id.charCodeAt(i),16777619) >>> 0;
-  var sufijo="";
-  for(var j=0;j<4;j++){ sufijo=alfabeto[hash % alfabeto.length]+sufijo; hash=Math.floor(hash/alfabeto.length); }
-  return prefijo+"-"+sufijo;
+function fechaVigencia(fecha, dias){
+  // Fecha civil de Lima; operar en UTC evita cambios de día por la zona del dispositivo.
+  var partes = new Intl.DateTimeFormat("en-CA", {timeZone:"America/Lima",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date(fecha));
+  var valores = {};
+  partes.forEach(function(p){ valores[p.type] = p.value; });
+  var dia = new Date(Date.UTC(Number(valores.year), Number(valores.month)-1, Number(valores.day) + Number(dias == null ? 15 : dias)));
+  return ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"][dia.getUTCDay()] + " " + String(dia.getUTCDate()).padStart(2,"0") + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][dia.getUTCMonth()];
+}
+function finalizar(){
+  if (!estado.fechaFinal) estado.fechaFinal = new Date().toISOString();
+  estado.final = true;
 }
 function escapar(s){
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
@@ -438,7 +443,7 @@ function celularValido(d){
 }
 function carga(actualizar){
   var d = {
-    id: estado.id, fecha: new Date().toISOString(),
+    id: estado.id, fecha: estado.fechaFinal || new Date().toISOString(),
     primera_vez: estado.respuestas.primera_vez || "", como_conocio: estado.respuestas.como_conocio || "",
     lo_mejor: estado.respuestas.lo_mejor || "", atendido_por: estado.respuestas.atendido_por || "",
     calificacion: estado.estrellas, comentario: estado.comentario,
@@ -449,6 +454,7 @@ function carga(actualizar){
   if (estado.acepta && estado.celular){
     d.nombre = estado.nombre; d.whatsapp = PAIS.prefijo + estado.celular; d.acepta_contacto = "SI";
   }
+  if (estado.final) d.final = true;
   if (actualizar) d.actualizar = true;
   return d;
 }
@@ -527,6 +533,7 @@ function urlGoogle(){
 function irAGoogle(){
   if (estado.estrellas !== 5 || !CONFIG.PLACE_ID) return;
   estado.fueAGoogle = true;
+  finalizar();
   guardar();
   return mandar(true, true).then(function(){ sellar(); location.href = urlGoogle(); });
 }
@@ -537,7 +544,8 @@ function calificar(n){
   estado.estrellas = n;
   calificado = true;
   // Marcar antes del primer envío evita una fila inicial sin la señal Google.
-  if (n === 5 && CONFIG.PLACE_ID) estado.fueAGoogle = true;
+  if (n === 5 && CONFIG.PLACE_ID){ estado.fueAGoogle = true; finalizar(); }
+  else if (n === 5 && INCENTIVO) finalizar();
   if (!correccion){ estado.enviadoOk = true; mandar(false); }   // enviadoOk antes de salir: el id no se reusa
   else if (cambio) mandar(true);
   guardar();
@@ -558,11 +566,8 @@ function siguienteAlContacto(){
 }
 function terminar(){
   var conCupon = INCENTIVO && estado.acepta && estado.nombre && estado.celular;
-  $("#titulo-fin").textContent = conCupon ? "¡Listo, " + estado.nombre + "!" : "¡Gracias!";
-  $("#texto-fin").textContent = conCupon ? "Tus " + INCENTIVO.corto + " extra te esperan en tu siguiente visita. En un ratito te llega el cupón a tu WhatsApp." : "Gracias por contarnos. ¡Te esperamos pronto!";
-  $("#codigo-cupon").hidden = !conCupon;
-  $("#codigo-cupon").style.display = conCupon ? "inline-block" : "none";
-  $("#codigo-cupon").textContent = conCupon ? codigoCupon(estado.id, INCENTIVO.codigo) : "";
+  $("#titulo-fin").textContent = conCupon ? "¡Listo, " + estado.nombre.split(" ")[0] + "!" : "¡Gracias!";
+  $("#texto-fin").textContent = conCupon ? "¡Gracias por tu opinión! Recibirás tu premio por WhatsApp. Reclama tus " + INCENTIVO.corto + " hasta el día " + fechaVigencia(estado.fechaFinal, INCENTIVO.vigencia_dias) + ". Solo enseña el mensaje. ¡Que lo disfrutes!" : "Gracias por contarnos. ¡Te esperamos pronto!";
   irA(PASO_FIN);
   sellar();
 }
@@ -632,10 +637,11 @@ function conectar(){
     estado.comentario = $("#comentario").value.trim();
     $("#nombre").value = estado.nombre || "";
     $("#celular").value = estado.celular || "";
-    if (estado.comentario) mandar(true);
+    finalizar();
+    mandar(true);
     siguienteAlContacto();
   });
-  $("#btn-sin-comentario").addEventListener("click", function(){ siguienteAlContacto(); });
+  $("#btn-sin-comentario").addEventListener("click", function(){ finalizar(); mandar(true); siguienteAlContacto(); });
 
   $("#btn-contacto").addEventListener("click", function(){
     var d = soloDigitos($("#celular").value);
@@ -658,8 +664,7 @@ function conectar(){
     Promise.race([mandar(true), esperar(5000)]).then(terminar);
   });
   $("#btn-sin-contacto").addEventListener("click", function(){
-    if (INCENTIVO){ estado.nombre=""; estado.celular=""; estado.acepta=false; guardar(); irA(PRIMERA_PREGUNTA); }
-    else terminar();
+    if (!INCENTIVO) terminar();
   });
 
   var botonGoogle = $("#btn-google");
@@ -680,7 +685,7 @@ function arrancar(){
     $("#contador-contacto").textContent="1 de 6";
     $("#etiqueta-whatsapp").textContent="¿A qué WhatsApp te mandamos el cupón?";
     $("#btn-contacto").textContent="Seguir";
-    $("#btn-sin-contacto").textContent="Seguir sin " + INCENTIVO.corto;
+    $("#btn-sin-contacto").remove();
   }
   prepararContacto();
   pintarPreguntas();
