@@ -110,6 +110,20 @@ a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
   @keyframes sube{from{opacity:.001;transform:translateY(8px)}}
 }
 .icono-sprite{position:absolute;width:0;height:0;overflow:hidden}
+/* Claro: composición hermana de la encuesta; sin portada ni resplandor. */
+.claro .cabecera{padding-top:32px}
+.claro .cabecera::before,.claro .plato{display:none}
+.claro .panel{margin:0;padding:0;background:transparent}
+.claro .logo{width:180px;max-width:100%;top:0;margin:0 auto}
+.claro .lema{margin-top:24px;color:var(--marca);font-size:24px;line-height:1.15}
+.claro .lugar{margin-top:10px}
+.claro .acciones{margin-top:24px}
+.claro .boton{min-height:60px}
+.claro .borde{background:#FFFFFF}
+.claro .lista{border:1px solid var(--linea)}
+.claro .redes a{background:#FFFFFF}
+.claro .pie .firma{opacity:1}
+
 </style>
 
 </head>
@@ -120,12 +134,12 @@ a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
     <img class="plato" src="portada.webp" width="443" height="472" alt="Hamburguesa Bendita con queso fundido" fetchpriority="high">
     <h1 class="titulo"><img class="logo" src="logo.webp" width="236" height="86" alt="La Bendita Comida" fetchpriority="high"></h1>
     <p class="lema">Alitas, salchipapas y hamburguesas</p>
-    <p class="lugar">Santa Victoria · Chiclayo</p>
+    <p class="lugar">Chiclayo · Perú</p>
   </header>
   <nav class="acciones" aria-label="Enlaces de La Bendita Comida">
     <div class="principales">
-      <a class="boton lleno" href="carta/" data-boton="carta" data-evento="ViewContent"><svg aria-hidden="true"><use href="#i-carta"/></svg><span class="texto"><b>Ver la carta</b><small>Alitas, salchipapas, combos y bebidas</small></span></a>
-      <a class="boton borde" href="https://wa.me/51938572949?text=Hola%2C%20Bendita.%20Quiero%20reservar%20una%20mesa%20para%20___%20personas%20el%20d%C3%ADa%20___%20a%20las%20___." data-boton="reservar" data-evento="Lead"><svg aria-hidden="true"><use href="#i-calendario"/></svg><span class="texto"><b>Reservar mesa</b><small>Te confirmamos por WhatsApp</small></span></a>
+      <a class="boton lleno" href="carta/" data-boton="carta" data-evento="ViewContent"><svg aria-hidden="true"><use href="#i-carta"/></svg><span class="texto"><b>Ver la carta</b></span></a>
+      <a class="boton borde" href="https://wa.me/51938572949?text=Hola%2C%20Bendita.%20Quiero%20reservar%20una%20mesa%20para%20___%20personas%20el%20d%C3%ADa%20___%20a%20las%20___." data-boton="reservar" data-evento="Lead"><svg aria-hidden="true"><use href="#i-calendario"/></svg><span class="texto"><b>Reservar mesa</b></span></a>
     </div>
     <ul class="lista">
       <li><a class="fila" href="https://wa.me/51938572949?text=Hola%2C%20Bendita.%20Quiero%20hacer%20un%20pedido%20de%20delivery." data-boton="delivery" data-evento="Contact"><span class="ico"><svg aria-hidden="true"><use href="#i-moto"/></svg></span><span class="texto"><b>Pedir delivery</b><small>938 572 949</small></span><svg class="flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></li>
@@ -139,8 +153,6 @@ a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
   </ul>
   <footer class="pie">
     <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=955850295646281&amp;ev=PageView&amp;noscript=1"></noscript>
-    <p>Esta página cuenta visitas y clics con el píxel de Meta.</p>
-    <p>Calle Los Pinos 236, Urb. Santa Victoria, Chiclayo</p>
     <p class="firma"><a href="https://cream.pe/" data-boton="cream" data-evento="">hecho por CREAM</a></p>
   </footer>
 </main>

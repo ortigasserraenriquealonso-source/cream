@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<!-- link-bio CREAM · generado por construir.py; no editar a mano -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Bendita Comida · Carta, reservas y delivery</title>
+<meta name="description" content="Alitas, salchipapas y hamburguesas en Santa Victoria, Chiclayo. Mira la carta, reserva tu mesa o pide delivery por WhatsApp.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="canonical" href="https://cream.pe/bendita/claro/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PE">
+<meta property="og:site_name" content="La Bendita Comida">
+<meta property="og:title" content="La Bendita Comida · Carta, reservas y delivery">
+<meta property="og:description" content="Alitas, salchipapas y hamburguesas en Santa Victoria, Chiclayo. Mira la carta, reserva tu mesa o pide delivery por WhatsApp.">
+<meta property="og:url" content="https://cream.pe/bendita/claro/">
+<meta property="og:image" content="https://cream.pe/bendita/claro/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="icono.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="t-alfaslabone-400.woff2" crossorigin>
+<style>
+@font-face{font-family:'Alfa Slab One';font-style:normal;font-weight:400;font-display:swap;src:url(t-alfaslabone-400.woff2) format('woff2')}
+:root{
+  --fondo:#FFFFFF;--superficie:#FFFFFF;--tinta:#202020;--tinta-suave:#595959;
+  --marca:#D50013;--marca-ico:#D50013;--marca-alto:#B00010;--sobre-marca:#FFFFFF;--acento:#D50013;--linea:#E5E5E5;
+  --radio:28px;--titulos:'Alfa Slab One',Rockwell, "Roboto Slab", Georgia, serif;--texto:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;min-height:100vh;min-height:100dvh;background:var(--fondo);color:var(--tinta);
+  font:500 16px/1.4 var(--texto);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+img{display:block;max-width:100%}
+a{color:inherit}
+.pagina{width:100%;max-width:440px;margin:0 auto;padding:0 16px calc(28px + env(safe-area-inset-bottom))}
+
+/* Cabecera */
+.cabecera{text-align:center}
+.titulo{margin:0;line-height:0}
+.logo{margin:0 auto;height:auto}
+.lema{margin:12px 0 0;font:400 clamp(23px,6.6vw,28px)/1.08 var(--titulos);letter-spacing:.01em;text-transform:uppercase;text-wrap:balance}
+.lema em{font-style:normal;color:var(--acento)}
+.lugar{margin:6px 0 0;color:var(--tinta-suave);font-size:14px}
+
+/* Portada recortada (plato sin fondo sobre el color de la marca) */
+.recorte .cabecera{position:relative;padding-top:18px}
+.recorte .cabecera::before{content:"";position:absolute;inset:-40px -16px auto;height:420px;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 52% at 50% 58%,color-mix(in srgb,var(--marca) 46%,transparent),transparent 72%)}
+.recorte .plato{width:auto;height:clamp(148px,27vh,236px);margin:6px auto 0;filter:drop-shadow(0 18px 22px rgba(0,0,0,.55))}
+.recorte .logo{margin-top:6px}
+
+/* Portada con foto (plato servido) y panel que la monta */
+.foto .cabecera{margin:0 -16px;padding:0 16px}
+.foto .plato{width:calc(100% + 32px);max-width:none;margin:0 -16px;height:clamp(150px,27vh,280px);object-fit:cover;object-position:50% 50%}
+.foto .panel{position:relative;margin:-30px -16px 0;padding:0 16px;background:var(--fondo);border-radius:30px 30px 0 0}
+.foto .logo{position:relative;top:-50px;margin-bottom:-50px}
+
+/* Acciones */
+.acciones{margin-top:20px}
+.principales{display:grid;gap:10px}
+.boton{display:flex;align-items:center;gap:14px;min-height:58px;padding:10px 18px;border-radius:var(--radio);text-decoration:none;
+  transition:transform .12s ease,background-color .15s ease,box-shadow .15s ease;touch-action:manipulation}
+.boton:active{transform:scale(.98)}
+.boton svg{flex:none;width:24px;height:24px}
+.boton .texto{display:grid;text-align:left;flex:1;min-width:0}
+.boton b{font:700 17px/1.2 var(--texto)}
+.boton small{font-size:13px;line-height:1.25;opacity:.82}
+.lleno{background:var(--marca);color:var(--sobre-marca);box-shadow:0 8px 20px -10px var(--marca)}
+.lleno:hover{background:var(--marca-alto)}
+.borde{border:1.5px solid color-mix(in srgb,var(--tinta) 32%,transparent);color:var(--tinta)}
+.borde:hover{border-color:var(--tinta)}
+.claro .borde{border-color:var(--marca);color:var(--marca)}
+.claro .borde small{color:var(--tinta-suave);opacity:1}
+
+.lista{list-style:none;margin:16px 0 0;padding:0 16px;background:var(--superficie);border-radius:var(--radio)}
+.lista li+li{border-top:1px solid var(--linea)}
+.fila{display:flex;align-items:center;gap:14px;min-height:64px;padding:10px 0;text-decoration:none;touch-action:manipulation}
+.fila:active{opacity:.7}
+.fila .ico{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;
+  background:color-mix(in srgb,var(--marca) 14%,transparent);color:var(--marca-ico)}
+.fila .ico svg{width:20px;height:20px}
+.fila .texto{display:grid;flex:1;min-width:0}
+.fila b{font:700 16px/1.25 var(--texto)}
+.fila small{color:var(--tinta-suave);font-size:13px;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fila .flecha{flex:none;width:18px;height:18px;color:var(--tinta-suave)}
+
+a:focus-visible{outline:3px solid var(--acento);outline-offset:3px}
+.claro a:focus-visible{outline-color:var(--marca)}
+
+/* Redes y pie */
+.redes{display:flex;justify-content:center;gap:12px;margin:22px 0 0;padding:0;list-style:none}
+.redes a{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;border:1px solid var(--linea);color:var(--tinta);text-decoration:none}
+.redes a:active{transform:scale(.94)}
+.redes svg{width:21px;height:21px}
+.pie{margin-top:26px;text-align:center;color:var(--tinta-suave);font-size:12px;line-height:1.5}
+.pie p{margin:0}
+.pie .firma{margin-top:6px;opacity:.8}
+.pie a{text-decoration:none;border-bottom:1px solid var(--linea)}
+
+/* Entrada: solo si el usuario no pidió reducir el movimiento */
+/* El plato y el logo no se animan: son lo primero que se pinta y no deben esperar. */
+@media (prefers-reduced-motion:no-preference){
+  .principales>*,.lista,.redes{animation:sube .32s cubic-bezier(.2,.7,.2,1) both}
+  .principales>:nth-child(2){animation-delay:.04s}.lista{animation-delay:.08s}.redes{animation-delay:.12s}
+  @keyframes sube{from{opacity:.001;transform:translateY(8px)}}
+}
+.icono-sprite{position:absolute;width:0;height:0;overflow:hidden}
+/* Claro: composición hermana de la encuesta; sin portada ni resplandor. */
+.claro .cabecera{padding-top:32px}
+.claro .cabecera::before,.claro .plato{display:none}
+.claro .panel{margin:0;padding:0;background:transparent}
+.claro .logo{width:180px;max-width:100%;top:0;margin:0 auto}
+.claro .lema{margin-top:24px;color:var(--marca);font-size:24px;line-height:1.15}
+.claro .lugar{margin-top:10px}
+.claro .acciones{margin-top:24px}
+.claro .boton{min-height:60px}
+.claro .borde{background:#FFFFFF}
+.claro .lista{border:1px solid var(--linea)}
+.claro .redes a{background:#FFFFFF}
+.claro .pie .firma{opacity:1}
+body{background-image:url(patron.svg);background-repeat:repeat;background-size:560px 560px}
+</style>
+<meta name="robots" content="noindex,nofollow">
+</head>
+<body class="claro recorte">
+<svg class="icono-sprite" aria-hidden="true" focusable="false"><symbol id="i-calendario" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol><symbol id="i-carta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h10.5A2.5 2.5 0 0 1 18 7v12.5H7.5A2.5 2.5 0 0 1 5 17z"/><path d="M8.5 9h6M8.5 12.5h6M8.5 16h3.5"/></symbol><symbol id="i-facebook" viewBox="0 0 24 24"><path fill="currentColor" d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07z"/></symbol><symbol id="i-flecha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"/></symbol><symbol id="i-instagram" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></symbol><symbol id="i-moto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="17" r="2.6"/><circle cx="18" cy="17" r="2.6"/><path d="M8.6 17h6.8l2.6-5.5M14 6.5h2.4L19 13M3.5 13.5h7.5l1.5-4h-6"/></symbol><symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></symbol><symbol id="i-tiktok" viewBox="0 0 24 24"><path fill="currentColor" d="M12.53.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03a10.6 10.6 0 0 1-4.2-.97c-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75a7.66 7.66 0 0 1-1.35 3.94 7.47 7.47 0 0 1-5.91 3.21 7.32 7.32 0 0 1-4.08-1.03 7.54 7.54 0 0 1-3.65-5.71c-.02-.5-.03-1-.01-1.49a7.53 7.53 0 0 1 8.73-6.68c.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37a3.43 3.43 0 0 0-1.36 1.75c-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87a3.36 3.36 0 0 0 2.77-1.61c.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol></svg>
+<main class="pagina">
+  <header class="cabecera">
+    <h1 class="titulo"><img class="logo" src="logo.webp" width="236" height="86" alt="La Bendita Comida" fetchpriority="high"></h1>
+    <p class="lema">Alitas, salchipapas y hamburguesas</p>
+    <p class="lugar">Chiclayo · Perú</p>
+  </header>
+  <nav class="acciones" aria-label="Enlaces de La Bendita Comida">
+    <div class="principales">
+      <a class="boton lleno" href="carta/" data-boton="carta" data-evento="ViewContent"><svg aria-hidden="true"><use href="#i-carta"/></svg><span class="texto"><b>Ver la carta</b></span></a>
+      <a class="boton borde" href="https://wa.me/51938572949?text=Hola%2C%20Bendita.%20Quiero%20reservar%20una%20mesa%20para%20___%20personas%20el%20d%C3%ADa%20___%20a%20las%20___." data-boton="reservar" data-evento="Lead"><svg aria-hidden="true"><use href="#i-calendario"/></svg><span class="texto"><b>Reservar mesa</b></span></a>
+    </div>
+    <ul class="lista">
+      <li><a class="fila" href="https://wa.me/51938572949?text=Hola%2C%20Bendita.%20Quiero%20hacer%20un%20pedido%20de%20delivery." data-boton="delivery" data-evento="Contact"><span class="ico"><svg aria-hidden="true"><use href="#i-moto"/></svg></span><span class="texto"><b>Pedir delivery</b><small>938 572 949</small></span><svg class="flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></li>
+      <li><a class="fila" href="https://www.google.com/maps/search/?api=1&amp;query=La%20Bendita%20Comida%2C%20Calle%20Los%20Pinos%20236%2C%20Santa%20Victoria%2C%20Chiclayo" data-boton="ubicacion" data-evento="FindLocation"><span class="ico"><svg aria-hidden="true"><use href="#i-pin"/></svg></span><span class="texto"><b>Cómo llegar</b><small>Calle Los Pinos 236, Santa Victoria</small></span><svg class="flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a></li>
+    </ul>
+  </nav>
+  <ul class="redes">
+    <li><a href="https://www.instagram.com/labenditacomida.cix/" data-boton="red-instagram" data-evento="" aria-label="La Bendita Comida en Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+    <li><a href="https://www.tiktok.com/@labenditacomida.cix" data-boton="red-tiktok" data-evento="" aria-label="La Bendita Comida en TikTok"><svg aria-hidden="true"><use href="#i-tiktok"/></svg></a></li>
+    <li><a href="https://www.facebook.com/labenditacomida.cix/" data-boton="red-facebook" data-evento="" aria-label="La Bendita Comida en Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
+  </ul>
+  <footer class="pie">
+    <p class="firma"><a href="https://cream.pe/" data-boton="cream" data-evento="">hecho por CREAM</a></p>
+  </footer>
+</main>
+<script>
+
+</script>
+</body>
+</html>
