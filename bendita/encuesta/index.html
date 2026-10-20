@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bendita Comida · ¿Cómo te fue hoy?</title>
-<meta name="description" content="4 preguntas, menos de un minuto. Lo lee el dueño.">
+<meta name="description" content="Cuéntanos cómo te fue y llévate papitas extra en tu siguiente visita.">
 <link rel="canonical" href="https://cream.pe/bendita/encuesta/">
 <meta property="og:url" content="https://cream.pe/bendita/encuesta/">
 <meta name="robots" content="noindex">
@@ -27,6 +27,12 @@ const CONFIG = {
     "digitos": 9,
     "empieza": "9",
     "ejemplo": "999 999 999"
+  },
+  "INCENTIVO": {
+    "premio": "una porción extra de papitas",
+    "corto": "papitas",
+    "emoji": "🍟",
+    "codigo": "PAPAS"
   }
 };
 </script>
@@ -201,10 +207,10 @@ header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:1
     <div class="bienvenida">
       <img class="logo-bienvenida" src="logo.png" alt="Bendita Comida">
       <h1>¿Cómo te fue hoy?</h1>
-      <p class="bajada">Menos de un minuto. Solo para nosotros.</p>
+      <p class="bajada">Cuéntanos tu experiencia, ¡y recibe una porción extra de papitas en tu siguiente visita!</p>
     </div>
     <div class="acciones">
-      <button class="btn btn-principal" id="btn-empezar">Empezar</button>
+      <button class="btn btn-principal" id="btn-empezar">¡Quiero mis papitas!</button>
     </div>
   </section>
 
@@ -229,24 +235,25 @@ header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:1
   <!-- 6 · Comentario privado (1 a 4 estrellas) -->
   <section class="paso" data-paso="6">
     <button class="atras" data-atras="5">← Cambiar mi calificación</button>
-    <h2 id="titulo-comentario">¿Qué pasó?</h2>
-    <p class="bajada">Le llega directo al dueño. No se publica en ningún lado.</p>
+    <h2 id="titulo-comentario">¿Qué pasó? Cuéntanos y lo arreglamos</h2>
+    <p class="bajada">Te escuchamos. Queremos que tu próxima visita sea mejor.</p>
     <textarea id="comentario" maxlength="1000" placeholder="Cuéntanos con confianza…" enterkeyhint="done"></textarea>
     <div class="acciones">
-      <button class="btn btn-principal" id="btn-comentario">Enviar</button>
+      <button class="btn btn-principal" id="btn-comentario">Contarles</button>
       <button class="btn btn-texto" id="btn-sin-comentario">Prefiero no escribir</button>
     </div>
   </section>
 
-  <!-- 7 · Contacto opcional, con consentimiento expreso -->
+  <!-- Contacto: primero con premio, al final sin incentivo. -->
   <section class="paso" data-paso="7">
+    <div class="contador" id="contador-contacto"></div>
     <h2 id="titulo-contacto">¿Te avisamos cuando haya algo nuevo?</h2>
     <div class="campo">
       <label for="nombre">Tu nombre</label>
       <input type="text" id="nombre" autocomplete="given-name" maxlength="60" enterkeyhint="next" placeholder="Nombre">
     </div>
     <div class="campo">
-      <label for="celular">Tu WhatsApp</label>
+      <label for="celular" id="etiqueta-whatsapp">Tu WhatsApp</label>
       <div class="prefijo">
         <span class="pais" id="pais"></span>
         <input type="tel" id="celular" inputmode="numeric" autocomplete="tel-national" maxlength="14" enterkeyhint="done">
@@ -269,7 +276,8 @@ header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:1
           </svg>
         </div>
         <h2 id="titulo-fin">¡Gracias!</h2>
-        <p class="bajada" id="texto-fin">Nos ayuda muchísimo saber cómo te fue.</p>
+        <p class="bajada" id="texto-fin">Gracias por contarnos. ¡Te esperamos pronto!</p>
+        <span id="codigo-cupon" hidden style="display:none;padding:10px 16px;border:1px solid var(--linea);border-radius:999px;font-weight:600"></span>
       </div>
 
     </div>
@@ -289,17 +297,19 @@ header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:1
    incómodo va cuando ya hay inercia. */
 var NOMBRE = "Bendita Comida";
 var PREGUNTAS = [
-  { id:"primera_vez", titulo:"¿Es tu primera vez en " + NOMBRE + "?",
+  { id:"primera_vez", titulo:"¿Primera vez por aquí?",
     opciones:["Sí, es mi primera vez", "Ya había venido antes", "Vengo seguido"] },
-  { id:"como_conocio", titulo:"¿Cómo nos conociste?",
+  { id:"como_conocio", titulo:"¿Cómo llegaste a nosotros?",
     opciones:["Instagram", "TikTok", "Facebook", "Me lo recomendaron", "Pasaba por aquí", "Google o Maps", "Otro"] },
-  { id:"lo_mejor", titulo:"¿Qué fue lo mejor de hoy?",
+  { id:"lo_mejor", titulo:"¿Qué fue lo que más te gustó?",
     opciones:["La sazón", "La atención", "El ambiente", "La rapidez", "El precio"] },
-  { id:"atendido_por", titulo:"¿Quién te atendió?", bajada:"Nos sirve para reconocer al equipo.",
+  { id:"atendido_por", titulo:"¿Quién te atendió?", bajada:"Queremos felicitarle.",
     libre:true, placeholder:"Nombre de quien te atendió" }
 ];
 
-var PASO_ESTRELLAS = 5, PASO_COMENTARIO = 6, PASO_CONTACTO = 7, PASO_FIN = 8;
+var INCENTIVO = CONFIG.INCENTIVO || null;
+var PRIMERA_PREGUNTA = INCENTIVO ? 2 : 1;
+var PASO_ESTRELLAS = INCENTIVO ? 6 : 5, PASO_COMENTARIO = INCENTIVO ? 7 : 6, PASO_CONTACTO = INCENTIVO ? 1 : 7, PASO_FIN = 8;
 var LECTURAS = ["", "Muy mala", "Mala", "Regular", "Buena", "¡Excelente!"];
 var LLAVE = "bendita_encuesta_v2";
 var PREFIJO_COLA = "bendita_pend2_";
@@ -321,6 +331,14 @@ var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAl
 function nuevoId(){
   if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
   return "id-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+}
+function codigoCupon(id, prefijo){
+  var alfabeto="23456789ABCDEFGHJKLMNPQRSTUVWXYZ", hash=2166136261;
+  id=String(id || "");
+  for(var i=0;i<id.length;i++) hash=Math.imul(hash ^ id.charCodeAt(i),16777619) >>> 0;
+  var sufijo="";
+  for(var j=0;j<4;j++){ sufijo=alfabeto[hash % alfabeto.length]+sufijo; hash=Math.floor(hash/alfabeto.length); }
+  return prefijo+"-"+sufijo;
 }
 function escapar(s){
   return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
@@ -351,14 +369,17 @@ function sellar(){ terminado = true; try { localStorage.removeItem(LLAVE); } cat
 /* ── Navegación ───────────────────────────────────────────── */
 function irA(n){
   pasoActual = n;
-  if (n === PASO_ESTRELLAS){ toqueEnCurso = false; if (estado.estrellas) marcarEstrellas(estado.estrellas); }
+  if (n === PASO_ESTRELLAS){
+    $('.paso[data-paso="' + PASO_ESTRELLAS + '"] h2').textContent = (estado.nombre ? estado.nombre.split(" ")[0] + ", ¿cuántas" : "¿Cuántas") + " estrellas nos das?";
+    toqueEnCurso = false; if (estado.estrellas) marcarEstrellas(estado.estrellas); }
   var activa = null;
   $$(".paso").forEach(function(s){
     var esta = Number(s.getAttribute("data-paso")) === n;
     s.classList.toggle("activo", esta);
     if (esta) activa = s;
   });
-  $("#barra").style.width = Math.min(100, Math.round(n / PASO_FIN * 100)) + "%";
+  var progreso = INCENTIVO ? (n <= PASO_ESTRELLAS ? n / 6 : 1) : n / PASO_FIN;
+  $("#barra").style.width = Math.min(100, Math.round(progreso * 100)) + "%";
   window.scrollTo(0, 0);
   // Sin esto, un lector de pantalla no anuncia que cambió la pregunta.
   var titulo = activa && activa.querySelector("h1, h2");
@@ -368,14 +389,14 @@ function irA(n){
 
 function pintarPreguntas(){
   PREGUNTAS.forEach(function(p, i){
-    var paso = i + 1, html = '<button class="atras" data-atras>← Atrás</button>'
-      + '<div class="contador">' + paso + ' de 5</div><h2>' + escapar(p.titulo) + '</h2>'
+    var paso = i + PRIMERA_PREGUNTA, html = '<button class="atras" data-atras>← Atrás</button>'
+      + '<div class="contador">' + paso + ' de ' + (INCENTIVO ? 6 : 5) + '</div><h2>' + escapar(p.titulo) + '</h2>'
       + (p.bajada ? '<p class="bajada">' + escapar(p.bajada) + '</p>' : '');
     var mozos = CONFIG.MOZOS || [];
     if (p.libre && !mozos.length){
       html += '<div class="campo"><input type="text" id="libre-' + p.id + '" maxlength="60" autocomplete="off" '
             + 'enterkeyhint="done" placeholder="' + escapar(p.placeholder) + '" aria-label="' + escapar(p.titulo) + '"></div>'
-            + '<div class="acciones"><button class="btn btn-principal" data-sigue="' + p.id + '">Continuar</button>'
+            + '<div class="acciones"><button class="btn btn-principal" data-sigue="' + p.id + '">Seguir</button>'
             + '<button class="btn btn-texto" data-salta="' + p.id + '">No lo recuerdo</button></div>';
     } else {
       var lista = p.libre ? mozos : p.opciones;
@@ -522,23 +543,26 @@ function calificar(n){
   guardar();
 
   if (n === 5 && CONFIG.PLACE_ID){ irAGoogle(); return; }
-  if (n === 5){ prepararContacto(); irA(PASO_CONTACTO); return; }
-  $("#titulo-comentario").textContent = n === 4 ? "¿Cómo podemos mejorar?" : "¿Qué pasó?";
+  if (n === 5){ siguienteAlContacto(); return; }
+  $("#titulo-comentario").textContent = n === 4 ? "¿Cómo podemos mejorar?" : "¿Qué pasó? Cuéntanos y lo arreglamos";
   $("#btn-sin-comentario").textContent = n === 4 ? "Nada, todo bien" : "Prefiero no escribir";
   irA(PASO_COMENTARIO);
 }
 
 function prepararContacto(){
-  if (insatisfecho()){
-    $("#titulo-contacto").textContent = "¿Quieres que el dueño te escriba?";
-  } else {
-    $("#titulo-contacto").textContent = "¿Te avisamos cuando haya algo nuevo?";
-  }
+  $("#titulo-contacto").textContent = INCENTIVO ? "¿A nombre de quién van las " + INCENTIVO.corto + "?" : "¿Seguimos en contacto?";
 }
-
+function siguienteAlContacto(){
+  if (INCENTIVO){ terminar(); return; }
+  prepararContacto(); irA(PASO_CONTACTO);
+}
 function terminar(){
-  $("#titulo-fin").textContent = "¡Gracias!";
-  $("#texto-fin").textContent = "Nos ayuda muchísimo saber cómo te fue.";
+  var conCupon = INCENTIVO && estado.acepta && estado.nombre && estado.celular;
+  $("#titulo-fin").textContent = conCupon ? "¡Listo, " + estado.nombre + "!" : "¡Gracias!";
+  $("#texto-fin").textContent = conCupon ? "Tus " + INCENTIVO.corto + " extra te esperan en tu siguiente visita. En un ratito te llega el cupón a tu WhatsApp." : "Gracias por contarnos. ¡Te esperamos pronto!";
+  $("#codigo-cupon").hidden = !conCupon;
+  $("#codigo-cupon").style.display = conCupon ? "inline-block" : "none";
+  $("#codigo-cupon").textContent = conCupon ? codigoCupon(estado.id, INCENTIVO.codigo) : "";
   irA(PASO_FIN);
   sellar();
 }
@@ -606,25 +630,37 @@ function conectar(){
   $("#comentario").addEventListener("input", function(e){ estado.comentario = e.target.value; guardar(); });
   $("#btn-comentario").addEventListener("click", function(){
     estado.comentario = $("#comentario").value.trim();
+    $("#nombre").value = estado.nombre || "";
+    $("#celular").value = estado.celular || "";
     if (estado.comentario) mandar(true);
-    prepararContacto(); irA(PASO_CONTACTO);
+    siguienteAlContacto();
   });
-  $("#btn-sin-comentario").addEventListener("click", function(){ prepararContacto(); irA(PASO_CONTACTO); });
+  $("#btn-sin-comentario").addEventListener("click", function(){ siguienteAlContacto(); });
 
   $("#btn-contacto").addEventListener("click", function(){
     var d = soloDigitos($("#celular").value);
-    if (!d){ terminar(); return; }   // sin número no hay nada que guardar
+    if (!d && !INCENTIVO){ terminar(); return; }   // sin número no hay nada que guardar
+    var nombre = $("#nombre").value.trim().slice(0, 60);
+    if (INCENTIVO && !nombre){
+      $("#aviso-celular").textContent = "Cuéntanos tu nombre y déjanos un WhatsApp válido para mandarte el cupón.";
+      $("#aviso-celular").classList.add("visible"); $("#nombre").focus(); return;
+    }
+    $("#aviso-celular").textContent = "Revisa tu WhatsApp para que el cupón llegue bien: " + PAIS.digitos + " dígitos" + (PAIS.empieza ? ", empezando en " + PAIS.empieza : "") + ".";
     var malCel = !celularValido(d);
     $("#aviso-celular").classList.toggle("visible", malCel);
     $("#celular").classList.toggle("error", malCel);
     if (malCel){ $("#celular").focus(); return; }
     estado.nombre = $("#nombre").value.trim().slice(0, 60);
     estado.celular = d; estado.acepta = true;
+    if (INCENTIVO){ guardar(); irA(PRIMERA_PREGUNTA); return; }
     var boton = this; boton.disabled = true; boton.textContent = "Guardando…";
     // Con el wifi lento nadie se queda mirando "Guardando…": a los 5 s sigue.
     Promise.race([mandar(true), esperar(5000)]).then(terminar);
   });
-  $("#btn-sin-contacto").addEventListener("click", terminar);
+  $("#btn-sin-contacto").addEventListener("click", function(){
+    if (INCENTIVO){ estado.nombre=""; estado.celular=""; estado.acepta=false; guardar(); irA(PRIMERA_PREGUNTA); }
+    else terminar();
+  });
 
   var botonGoogle = $("#btn-google");
   if (botonGoogle) botonGoogle.addEventListener("click", irAGoogle);
@@ -633,6 +669,20 @@ function conectar(){
 }
 
 function arrancar(){
+  if (INCENTIVO){
+    // Guardar referencias antes de reasignar números evita cruzar los pasos 1 y 7.
+    var contacto = $('.paso[data-paso="7"]'), comentario = $('.paso[data-paso="6"]'), estrellas = $('.paso[data-paso="5"]');
+    var preguntas = [1,2,3,4].map(function(n){ return $('.paso[data-paso="' + n + '"]'); });
+    preguntas.forEach(function(p,i){ p.setAttribute("data-paso", String(i+2)); });
+    contacto.setAttribute("data-paso", "1"); comentario.setAttribute("data-paso", "7"); estrellas.setAttribute("data-paso", "6");
+    estrellas.querySelector(".contador").textContent="6 de 6";
+    comentario.querySelector("[data-atras]").setAttribute("data-atras", "6");
+    $("#contador-contacto").textContent="1 de 6";
+    $("#etiqueta-whatsapp").textContent="¿A qué WhatsApp te mandamos el cupón?";
+    $("#btn-contacto").textContent="Seguir";
+    $("#btn-sin-contacto").textContent="Seguir sin " + INCENTIVO.corto;
+  }
+  prepararContacto();
   pintarPreguntas();
   pintarEstrellas();
   recuperar();
@@ -644,6 +694,8 @@ function arrancar(){
       });
       var libre = $("#libre-" + id); if (libre && estado.respuestas[id]) libre.value = estado.respuestas[id];
     });
+    $("#nombre").value = estado.nombre || "";
+    $("#celular").value = estado.celular || "";
     if (estado.comentario) $("#comentario").value = estado.comentario;
   } catch(err){ console.warn("[" + NOMBRE + "] no se pudo repoblar:", err); }
 

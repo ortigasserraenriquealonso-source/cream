@@ -18,7 +18,7 @@
    La clave NO está escrita acá (este archivo vive en un repositorio
    público): llega en el enlace del dueño, después del #, que el navegador
    nunca envía a ningún servidor. */
-const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycbzzHsVS9FGdRrVbpAGHfy2OKnNR57IHpB8z4qwf-KQJRJxOGhZiYdbqIhTQdN-3s7HZAQ/exec", NEGOCIO: "Doña Martha", SLUG: "donamartha" };
+const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycbzzHsVS9FGdRrVbpAGHfy2OKnNR57IHpB8z4qwf-KQJRJxOGhZiYdbqIhTQdN-3s7HZAQ/exec", NEGOCIO: "Doña Martha", SLUG: "donamartha", INCENTIVO: null };
 </script>
 
 <style>
@@ -47,7 +47,7 @@ main{max-width:1120px;margin:auto;padding:24px 16px calc(env(safe-area-inset-bot
 h2{font-size:23px;line-height:1.25;margin:0 0 22px;display:flex;align-items:center;gap:10px}h2 svg{width:24px;height:24px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 p{margin:10px 0}.base,.pie,.meta,.detalle{color:var(--tinta-2)}.heroe{display:flex;align-items:center;gap:20px}.numero{font-size:72px;line-height:1;letter-spacing:-3px}.estrellas{color:var(--marca);font-size:23px;letter-spacing:2px}.frase{font-weight:600;margin:8px 0 24px}.detalle{font-size:16px}
 .desglose{list-style:none;padding:0;margin:0}.desglose li{margin-top:18px}.fila{display:flex;align-items:center;gap:12px}.etiqueta{flex:1;overflow-wrap:anywhere}.valor{white-space:nowrap;display:flex;gap:10px;font-variant-numeric:tabular-nums}.valor span:last-child{color:var(--tinta-2)}.pista{height:12px;background:#F1F3F4;border-radius:99px;overflow:hidden;margin-top:8px}.pista i{display:block;height:100%;background:var(--marca);border-radius:99px}
-.aviso-pendientes{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding:14px 20px;border:1px solid var(--linea);border-radius:18px;background:#F6F7F8}.aviso-pendientes a{padding:10px 16px;background:var(--marca);color:var(--sobre-marca);border-radius:99px;text-decoration:none;font-weight:600}.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cifra{border-radius:24px;padding:22px;background:#fff;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A}.rot,.val,.pie{display:block}.rot{font-weight:600}.val{font-size:38px;font-weight:650;margin:6px 0}.pie{font-size:16px}
+.aviso-pendientes{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding:14px 20px;border:1px solid var(--linea);border-radius:18px;background:#F6F7F8}.aviso-pendientes a{padding:10px 16px;background:var(--marca);color:var(--sobre-marca);border-radius:99px;text-decoration:none;font-weight:600}.aviso-cupones{display:block}.aviso-cupones summary{cursor:pointer;font-weight:600}.cupones{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}.cupones li{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}.enviar-cupon{border:0;border-radius:99px;background:var(--marca);color:var(--sobre-marca);padding:10px 16px;min-height:44px;font-weight:600}.enviar-cupon:disabled{opacity:.6}.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cifra{border-radius:24px;padding:22px;background:#fff;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A}.rot,.val,.pie{display:block}.rot{font-weight:600}.val{font-size:38px;font-weight:650;margin:6px 0}.pie{font-size:16px}
 .equipo{list-style:none;padding:0;margin:0;display:grid;gap:12px}.persona{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:#F8F9FA}.avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--marca) 10%,white);color:var(--marca);font-weight:700}.persona .nombre{flex:1;min-width:0;overflow-wrap:anywhere}.persona small{display:block;font-size:16px;color:var(--tinta-2)}.persona.lider{background:color-mix(in srgb,var(--marca) 6%,white)}.sin-dato{color:var(--tinta-2)}.persona strong{white-space:nowrap}.medalla{color:var(--marca)}
 .segmentos{display:flex;height:22px;overflow:hidden;border-radius:99px;margin:22px 0}.segmentos i{background:var(--marca)}.segmentos i:nth-child(2){background:#6A627D}.segmentos i:nth-child(3){background:#26736C}.leyenda{list-style:none;padding:0;margin:0;display:grid;gap:12px}.leyenda li{display:flex;align-items:center;gap:10px}.punto{width:12px;height:12px;border-radius:50%;flex-shrink:0}.leyenda strong{margin-left:auto;white-space:nowrap}.leyenda small{font-size:16px;color:var(--tinta-2)}
 .tendencia{position:relative}.tendencia svg{display:block;width:100%;height:150px}.eje{display:flex;justify-content:space-between;color:var(--tinta-2);margin-top:12px}.globo{position:absolute;pointer-events:none;background:var(--tinta);color:white;padding:8px 12px;border-radius:12px;transform:translate(-50%,-100%);opacity:0;font-size:14px}.globo.visible{opacity:1}.tabla-oculta{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
@@ -150,6 +150,7 @@ function pintar(){
   for(var n=5;n>=1;n--){var cantidad=(d.estrellas||[])[n-1]||0;distribucion+=filaOpcion(n+' ★',cantidad,pct(cantidad,d.total)+'%',pct(cantidad,d.total));}
   var pendientes=Math.max(0,(d.insatisfechos||0)-(d.atendidos||0));
   var html=pendientes?'<aside class="aviso-pendientes" aria-label="Clientes por atender"><strong>'+pendientes+(pendientes===1?' cliente necesita':' clientes necesitan')+' tu atención</strong><a href="#comentarios">Ver comentario</a></aside>':'';
+  html+=avisoCupones(d.cuponesPendientes);
   html+='<div class="historia">'+tarjeta('calificacion','¿Cómo te califican?',
     '<div class="heroe"><span class="numero">'+coma(d.promedio.toFixed(1))+'</span><div><div class="estrellas" aria-label="'+coma(d.promedio)+' de 5 estrellas">'+'★'.repeat(llenas)+'☆'.repeat(5-llenas)+'</div><span class="detalle">'+d.total+' respuestas</span></div></div><p class="frase">'+fraseNota(d.promedio)+'</p><ul class="desglose">'+distribucion+'</ul>','nota','ancha');
   html+='<div class="cifras ancha" aria-label="Números clave">'+cifra('Felices',d.felices||0,'Con 4 o 5 estrellas')+cifra('Fueron a Google',d.aGoogle||0,'Abrieron el enlace de reseña')+cifra('Clientes nuevos',d.nuevos||0,'Vinieron por primera vez')+cifra('Dejaron su WhatsApp',d.conContacto||0,'Para seguir en contacto')+'</div>';
@@ -164,6 +165,16 @@ function pintar(){
   lienzo.innerHTML=html;conectarGrafico();
   var m=$('#mas');if(m)m.onclick=function(){mostrar+=10;pintar();};
   if(destacado){var e=document.getElementById('c-'+destacado);if(e)e.scrollIntoView({block:'center'});}
+}
+function avisoCupones(pendientes){
+  if (!TABLERO.INCENTIVO || !Array.isArray(pendientes) || !pendientes.length) return '';
+  return '<details class="aviso-pendientes aviso-cupones"><summary>'+esc(TABLERO.INCENTIVO.emoji||'🎁')+' '+pendientes.length+(pendientes.length===1?' cupón por enviar':' cupones por enviar')+'</summary><ul class="cupones">'+pendientes.map(function(c){
+    return '<li><span>'+esc(c.codigo)+' · '+esc(fechaCupon(c.fecha,c.hora))+'</span><button class="enviar-cupon" data-id="'+esc(c.id)+'">Enviar por WhatsApp</button></li>';
+  }).join('')+'</ul></details>';
+}
+function fechaCupon(fecha,hora){
+  var hoy=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Lima',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  return fecha===hoy?'hoy '+(hora||''):cuando(fecha,hora);
 }
 function filaOpcion(nombre,n,valor,ancho){
   return '<li><div class="fila"><span class="etiqueta">'+esc(nombre)+'</span><span class="valor"><span>'+n+'</span><span>'+esc(valor)+'</span></span></div><div class="pista" aria-hidden="true"><i style="width:'+ancho+'%"></i></div></li>';
@@ -247,8 +258,29 @@ function conectarGrafico(){
   svg.addEventListener("pointerleave", function(){ globo.classList.remove("visible"); });
 }
 
+/* Abrir durante el gesto evita el bloqueo del navegador mientras llega la URL. */
+function enviarCupon(b){
+  if (b.disabled) return;
+  var ventana=window.open('about:blank','_blank');
+  if (!ventana){ b.textContent='Permite la ventana y reintenta'; return; }
+  ventana.opener=null;
+  b.disabled=true;b.textContent='Preparando…';
+  var id=b.getAttribute('data-id');
+  fetch(TABLERO.ENDPOINT,{
+    method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({accion:'cupon',clave:clave(),id:id})
+  }).then(function(r){return r.json();}).then(function(j){
+    if (!j.ok || typeof j.url!=='string' || !/^https:\/\/wa\.me\//.test(j.url)) throw new Error('No se preparó el cupón');
+    ventana.location.href=j.url;
+    datos.cuponesPendientes=(datos.cuponesPendientes||[]).filter(function(c){return c.id!==id;});
+    pintar();
+  }).catch(function(){ventana.close();b.disabled=false;b.textContent='Reintentar envío';});
+}
+
 /* Marcar atendido: el botón se apaga hasta que la hoja confirma. */
 document.addEventListener("click", function(e){
+  var cupon = e.target.closest ? e.target.closest(".enviar-cupon") : null;
+  if (cupon){ enviarCupon(cupon); return; }
   var b = e.target.closest ? e.target.closest(".atender") : null;
   if (!b) return;
   b.disabled = true; b.textContent = "Guardando…";
