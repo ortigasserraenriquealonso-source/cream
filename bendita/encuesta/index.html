@@ -184,6 +184,13 @@ textarea{min-height:128px;resize:vertical;line-height:1.5}
   .sello{width:58px;height:58px;margin-bottom:12px}
   .firma{display:none}
 }
+
+/* D13: todas las filas siguen disponibles dentro de la misma tarjeta. */
+.filas-limitadas{display:grid!important;grid-template-columns:minmax(0,1fr);grid-auto-rows:var(--alto-fila);gap:12px!important;max-height:calc(3 * var(--alto-fila) + 24px);overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-behavior:smooth;scroll-snap-type:y mandatory;min-width:0;scrollbar-width:thin;scrollbar-gutter:stable}
+.filas-limitadas>*{margin:0!important;min-width:0;scroll-snap-align:start;scroll-margin:0;scroll-snap-stop:always;overflow-wrap:anywhere}
+.filas-limitadas:focus-visible{outline:3px solid var(--marca);outline-offset:3px}
+.pista-filas{font-size:14px;color:var(--tinta-2);margin:8px 0 0}
+@media(prefers-reduced-motion:reduce){.filas-limitadas{scroll-behavior:auto}}
 @font-face{font-family:"Alfa Slab One";src:url("alfaslabone.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 :root{--superficie:#FFFFFF;--fondo:#FFFFFF;--tinta:#2B201D;--tinta-2:#69554F;--tinta-3:#69554F;--tinta-suave:#69554F;--linea:#E5E7EB;--fondo-suave:#FFFFFF;--titular:"Alfa Slab One",Georgia,serif;color-scheme:light}
 body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:400}h1,h2{text-transform:uppercase}
@@ -389,8 +396,35 @@ function irA(n){
   // Sin esto, un lector de pantalla no anuncia que cambió la pregunta.
   var titulo = activa && activa.querySelector("h1, h2");
   if (titulo){ titulo.setAttribute("tabindex", "-1"); try { titulo.focus({ preventScroll:true }); } catch(_){ titulo.focus(); } }
+  limitarFilas();
   guardar();
 }
+
+
+function limitarFilas(){
+  // D13 en la encuesta: solo las listas que crecen con el negocio (el equipo).
+  // Las preguntas de opciones fijas se ven completas: ocultarlas sesga la respuesta.
+  document.querySelectorAll('.opciones[data-pregunta="atendido_por"]').forEach(function(lista){
+    var filas=Array.prototype.slice.call(lista.children);
+    if(filas.length<=3 || !lista.getBoundingClientRect().width)return;
+    var anterior=lista.scrollTop;
+    // Medir con el ancho final, incluido el canal de la barra de scroll.
+    lista.classList.add('filas-limitadas');
+    lista.style.setProperty('--alto-fila','auto');
+    var alto=Math.ceil(Math.max.apply(null,filas.map(function(f){return f.getBoundingClientRect().height;})));
+    lista.style.setProperty('--alto-fila',alto+'px');
+    lista.setAttribute('tabindex','0');
+    lista.setAttribute('aria-label', (lista.getAttribute('data-etiqueta') || 'Opciones') + ': '+filas.length+' elementos. Desliza o usa las flechas para ver más.');
+    var pista=lista.nextElementSibling;
+    if(!pista || !pista.classList.contains('pista-filas')){
+      pista=document.createElement('p');pista.className='pista-filas';lista.after(pista);
+    }
+    pista.textContent='+'+(filas.length-3)+' más · Desliza para ver todos';
+    lista.scrollTop=anterior;
+  });
+}
+window.addEventListener('resize',limitarFilas);
+if(document.fonts)document.fonts.ready.then(limitarFilas);
 
 function pintarPreguntas(){
   PREGUNTAS.forEach(function(p, i){
@@ -405,7 +439,7 @@ function pintarPreguntas(){
             + '<button class="btn btn-texto" data-salta="' + p.id + '">No lo recuerdo</button></div>';
     } else {
       var lista = p.libre ? mozos : p.opciones;
-      html += '<div class="opciones" role="group" aria-label="' + escapar(p.titulo) + '">'
+      html += '<div class="opciones" role="group" data-pregunta="' + escapar(p.id) + '" data-etiqueta="' + escapar(p.titulo) + '" aria-label="' + escapar(p.titulo) + '">'
             + lista.map(function(v){
                 return '<button class="opcion" aria-pressed="false" data-preg="' + p.id + '" data-valor="' + escapar(v) + '">' + escapar(v) + '</button>';
               }).join("") + '</div>'
@@ -558,7 +592,7 @@ function calificar(n){
 }
 
 function prepararContacto(){
-  $("#titulo-contacto").textContent = INCENTIVO ? "¿A nombre de quién van las " + INCENTIVO.corto + "?" : "¿Seguimos en contacto?";
+  $("#titulo-contacto").textContent = INCENTIVO ? "¿A nombre de quién " + (INCENTIVO.singular ? "va el " : "van las ") + INCENTIVO.corto + "?" : "¿Seguimos en contacto?";
 }
 function siguienteAlContacto(){
   if (INCENTIVO){ terminar(); return; }
@@ -567,7 +601,7 @@ function siguienteAlContacto(){
 function terminar(){
   var conCupon = INCENTIVO && estado.acepta && estado.nombre && estado.celular;
   $("#titulo-fin").textContent = conCupon ? "¡Listo, " + estado.nombre.split(" ")[0] + "!" : "¡Gracias!";
-  $("#texto-fin").textContent = conCupon ? "¡Gracias por tu opinión! Recibirás tu premio por WhatsApp. Reclama tus " + INCENTIVO.corto + " hasta el día " + fechaVigencia(estado.fechaFinal, INCENTIVO.vigencia_dias) + ". Solo enseña el mensaje. ¡Que lo disfrutes!" : "Gracias por contarnos. ¡Te esperamos pronto!";
+  $("#texto-fin").textContent = conCupon ? "¡Gracias por tu opinión! Recibirás tu premio por WhatsApp. Reclama " + (INCENTIVO.singular ? "tu " : "tus ") + INCENTIVO.corto + " hasta el día " + fechaVigencia(estado.fechaFinal, INCENTIVO.vigencia_dias) + ". Solo enseña el mensaje. ¡Que lo disfrutes!" : "Gracias por contarnos. ¡Te esperamos pronto!";
   irA(PASO_FIN);
   sellar();
 }
