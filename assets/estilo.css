@@ -1329,6 +1329,9 @@ html.menu-abierto { overflow: hidden; }
 .pie__arriba-icono svg { width: 1.6rem; height: 1.6rem; }
 .pie__arriba:hover { color: var(--acento); }
 .pie__derechos { grid-column: 1; margin-top: 2.4rem; }
+/* «Política legal» (BOSS-LEGAL, 25/09): hereda el color de la línea de derechos, y el subrayado lo distingue como enlace. */
+.pie__legal { text-decoration: underline; text-underline-offset: .2em; transition: color .2s ease; }
+.pie__legal:hover { color: var(--acento); }
 .pie__base .pie__arriba { grid-column: 1; grid-row: 1; }
 .pie__lugar { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
 .pie__redes { grid-column: 3; grid-row: 1 / span 2; align-self: center; display: flex; gap: .8rem; margin: 0; padding: 0; list-style: none; }

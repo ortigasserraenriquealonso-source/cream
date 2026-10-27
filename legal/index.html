@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacidad y términos · CREAM</title>
+<meta name="description" content="Privacidad, términos, devoluciones y reclamos de BOSS. WAVE STUDIO S.A.C.S, RUC 20615952517.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://cream.pe/legal/">
+
+<style>
+:root{
+  --fondo:#f7f5fa; --alto:#fbfafd; --carta:#ffffff;
+  --linea:#ece8f2; --linea-suave:#f3f0f7;
+   /* Las tres tintas del panel, y las tres pasan AA. El porque esta escrito en el panel. */ 
+  --tinta:#2c2a2b; --tinta2:#5a5362; --tinta3:#726b79;
+  /*
+    --morado-tinte-- SE QUEDA aunque terminos y devoluciones no lo usen: este --:root--
+    es el marco de TRES paginas, y el Libro de Reclamaciones --que se sirve dentro de
+    este mismo marco-- lo usa en el halo de foco y en la opcion marcada. El 10-set se
+    quito por «sin uso» mirando solo este archivo, y el guard de variables huerfanas
+    lo cazo en el Libro: el uso de un token se mide por PAGINA SERVIDA, no por el
+    archivo donde se declara. --morado-borde-- si esta fuera: no lo usa ninguna de las tres.
+  */
+  --morado:#8b2fd6; --morado-hover:#7526b8; --morado-tinte:#f6effe;
+  --alerta:#be123c; --alerta-suave:#fff1f4; --alerta-borde:#fbd0db;
+  --verde:#067647; --verde-suave:#f1fbf6; --verde-borde:#c2e9d6;
+  --radio:12px;
+
+   /*
+    La escala de espaciado y la rampa tipografica, las mismas del panel. Esta pagina
+    y el panel las comparten porque un cliente pasa de una a otra en el mismo minuto,
+    y dos escalas distintas se notan justo en ese salto. El porque de cada paso esta
+    escrito donde se midio, en el panel.
+  */ 
+  --e0:2px; --e1:4px; --e2:8px; --e3:12px; --e4:16px; --e5:20px; --e6:24px; --e7:32px; --e8:40px; --t1:12px; --t2:13px; --t3:15px; --t4:17px; --t5:20px; --t6:26px;
+  /*
+    --t7 (29 px), el escalon de los titulares, desde el 10-set-2026 (CRM-4): es el titulo
+    de las tres paginas de este marco. Y aca abajo habia una segunda declaracion de --e5,
+    --e6 y --e7 con la nota «no hay --e8» justo debajo de un --e8 declarado: se fue la
+    repetida, y la nota con ella, que decia lo contrario de este mismo :root.
+  */
+  --t7:29px;
+}
+*{box-sizing:border-box}
+html{overflow-x:hidden;scroll-behavior:smooth;scroll-padding-top:84px}
+body{margin:0;background:var(--fondo);color:var(--tinta);
+  font:400 var(--t3)/1.68 Inter,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--morado);text-decoration:none}
+a:hover{color:var(--morado-hover);text-decoration:underline}
+img,svg{max-width:100%}
+h1,h2,h3,p,dl,dd{margin:0;text-wrap:pretty}
+.salta{position:absolute;left:-9999px;top:0;background:var(--carta);padding:var(--e2) var(--e3);z-index:20}
+.salta:focus{left:12px;top:12px}
+header{position:sticky;top:0;z-index:10;background:rgba(247,245,250,.92);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--linea)}
+header>div{max-width:820px;margin:0 auto;padding:var(--e3) var(--e5);display:flex;align-items:center;gap:var(--e3)}
+.marca{display:block;width:96px;color:var(--tinta);flex:none}
+.marca svg{display:block;width:100%}
+ /* 24 px de alto: era 23 y es el unico control de la cabecera (WCAG 2.5.8). */ 
+.volver{margin-left:auto;min-height:24px;font-size:var(--t2);color:var(--tinta2);
+  display:flex;align-items:center;gap:var(--e1)}
+.volver:hover{color:var(--morado)}
+main{max-width:820px;margin:0 auto;padding:var(--e8) var(--e5) 72px}
+h1{font-size:var(--t7);line-height:1.25;letter-spacing:-.02em;font-weight:600}
+.sub{color:var(--tinta3);font-size:var(--t2);margin-top:var(--e2)}
+.entrada{margin-top:var(--e5);font-size:var(--t4);color:var(--tinta2)}
+/*
+  🔴 EL h2 PASO DE 19 A 20 px CON LA RAMPA --19 no esta en ella-- Y A 390 px DOS TITULOS
+  SE PARTIERON EN DOS LINEAS: «Antes que nada: los 14 dias de prueba» en devoluciones y
+  «9. Cuando podemos cortar el servicio» en los terminos. Lo midio
+  el instrumento que cuenta las lineas de cada texto, y el arreglo se eligio midiendo candidatos: con
+  -.01em todavia envolvia uno; -.02em deja los dos en una linea sin tocar el tamaño en
+  ningun ancho, que es lo que mas se parece a como estaba.
+*/
+h2{font-size:var(--t5);font-weight:600;margin:var(--e8) 0 var(--e3);padding-top:var(--e6);border-top:1px solid var(--linea);
+  letter-spacing:-.02em}
+h3{font-size:var(--t3);font-weight:600;margin:var(--e5) 0 var(--e2)}
+p{color:var(--tinta2);margin:var(--e3) 0}
+ul,ol{color:var(--tinta2);padding-left:var(--e5);margin:var(--e3) 0}
+li{margin:var(--e1) 0}
+strong,b{color:var(--tinta);font-weight:600}
+.destaca{background:var(--carta);border:1px solid var(--linea);border-left:3px solid var(--morado);
+  border-radius:var(--radio);padding:var(--e4) var(--e4);margin:var(--e5) 0}
+.destaca p:first-child{margin-top:0}
+.destaca p:last-child{margin-bottom:0}
+.ojo{background:var(--alerta-suave);border:1px solid var(--alerta-borde);border-left:3px solid var(--alerta);
+  border-radius:var(--radio);padding:var(--e4) var(--e4);margin:var(--e5) 0}
+.ojo p:first-child{margin-top:0}
+.ojo p:last-child{margin-bottom:0}
+.si{background:var(--verde-suave);border:1px solid var(--verde-borde);border-left:3px solid var(--verde);
+  border-radius:var(--radio);padding:var(--e4) var(--e4);margin:var(--e5) 0}
+.si p:first-child{margin-top:0}
+.si p:last-child{margin-bottom:0}
+.datos{background:var(--carta);border:1px solid var(--linea);border-radius:var(--radio);
+  padding:var(--e1) var(--e4);margin:var(--e5) 0}
+.datos div{display:flex;gap:var(--e3);padding:var(--e3) 0;border-bottom:1px solid var(--linea-suave);
+  flex-wrap:wrap;font-size:var(--t3)}
+.datos div:last-child{border-bottom:0}
+.datos dt{color:var(--tinta3);width:150px;flex:none}
+.datos dd{color:var(--tinta);font-weight:500;margin:0;min-width:0;overflow-wrap:anywhere}
+.tabla{width:100%;overflow-x:auto;margin:var(--e5) 0}
+table{border-collapse:collapse;width:100%;min-width:420px;font-size:var(--t3);background:var(--carta);
+  border:1px solid var(--linea);border-radius:var(--radio)}
+th,td{text-align:left;padding:var(--e3) var(--e3);border-bottom:1px solid var(--linea-suave);color:var(--tinta2)}
+th{color:var(--tinta);font-weight:600;font-size:var(--t1);letter-spacing:.04em;text-transform:uppercase}
+tr:last-child td{border-bottom:0}
+td b{color:var(--tinta)}
+footer{border-top:1px solid var(--linea);background:var(--alto)}
+footer>div{max-width:820px;margin:0 auto;padding:var(--e7) var(--e5) 44px;font-size:var(--t1);color:var(--tinta3)}
+.pie-legal{color:var(--tinta2);line-height:1.75}
+.pie-enlaces{display:flex;flex-wrap:wrap;gap:var(--e2) var(--e4);margin-top:var(--e4)}
+.pie-enlaces a{font-size:var(--t1)}
+@media(max-width:560px){
+  main{padding:var(--e6) var(--e4) 56px}
+  h1{font-size:var(--t6)}
+  .datos dt{width:100%}
+  .datos div{gap:var(--e0)}
+}
+</style>
+
+<style>
+html{scroll-behavior:auto}
+.indice{background:var(--carta);border:1px solid var(--linea);border-radius:var(--radio);
+  padding:var(--e4) var(--e5);margin:var(--e6) 0 0}
+.indice p{margin:0 0 var(--e2);color:var(--tinta);font-weight:600}
+.indice ol{margin:0;padding-left:var(--e5)}
+.indice ul{margin:var(--e1) 0;padding-left:var(--e5)}
+h3.parte{font-size:var(--t4);margin-top:var(--e7);letter-spacing:-.01em}
+h4{font-size:var(--t3);font-weight:600;color:var(--tinta);margin:var(--e5) 0 var(--e1)}
+.marca.boss{width:auto;font-size:var(--t5);font-weight:900;letter-spacing:.08em;text-decoration:none}
+</style>
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="salta" href="#contenido">Saltar al contenido</a>
+<header>
+  <div>
+    <a class="marca" href="/" aria-label="CREAM, inicio">CREAM</a>
+    <a class="volver" href="/">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6l-6 6 6 6"/></svg>Volver a la web
+    </a>
+  </div>
+</header>
+<main id="contenido">
+  <h1>Política legal</h1>
+  <p class="sub">Última actualización: 11 de octubre de 2026</p>
+  <p class="entrada">Aquí está todo lo legal de Boss: cómo tratamos tus datos, las
+  condiciones para usar Boss, qué pasa con tu dinero si cancelas o eliminas tu cuenta,
+  y cómo te contactamos.</p>
+  
+  <nav class="indice" aria-labelledby="en-esta-pagina">
+    <p id="en-esta-pagina">En esta página</p>
+    <ol>
+      <li><a href="#quienes-somos">Quiénes somos</a></li>
+      <li><a href="#privacidad">Privacidad</a>
+        <ul>
+          <li><a href="#si-le-escribes">Si le escribes a un negocio por WhatsApp</a></li>
+          <li><a href="#si-tienes-una-cuenta">Si tienes una cuenta en Boss</a></li>
+          <li><a href="#eliminar-cuenta">Eliminar tu cuenta</a></li>
+          <li><a href="#proteccion-de-datos">Cómo protegemos tus datos</a></li>
+          <li><a href="#tus-derechos">Tus derechos</a></li>
+        </ul>
+      </li>
+      <li><a href="#como-te-contactamos">Cómo te contactamos</a></li>
+      <li><a href="#terminos">Términos del servicio</a></li>
+      <li><a href="#devoluciones">Cambios y devoluciones</a></li>
+      <li><a href="#reclamos">Reclamos</a></li>
+      <li><a href="#ley-aplicable">Ley aplicable</a></li>
+    </ol>
+  </nav>
+  
+  <h2 id="quienes-somos">1. Quiénes somos</h2>
+  
+    <dl class="datos">
+      <div><dt>Razón social</dt><dd>WAVE STUDIO S.A.C.S</dd></div>
+      <div><dt>RUC</dt><dd>20615952517</dd></div>
+      <div><dt>Domicilio fiscal</dt><dd>Cal. Río Chotano 463, Urb. Federico Villarreal, Chiclayo, Lambayeque</dd></div>
+      <div><dt>Marca comercial</dt><dd>BOSS</dd></div>
+      <div><dt>Correo</dt><dd>hola@cream.pe</dd></div>
+      <div><dt>WhatsApp</dt><dd>932 744 258</dd></div>
+    </dl>
+  <p>En esta página, «nosotros» o «CREAM» somos WAVE STUDIO S.A.C.S, la empresa que
+  hace Boss. Si creas una cuenta o contratas Boss para tu negocio, en las partes de la
+  cuenta y de los términos te hablamos a ti.</p>
+  
+  <h2 id="privacidad">2. Privacidad</h2>
+  <p>Esta parte explica qué datos tratan el asistente de WhatsApp y el panel de Boss, que
+  CREAM provee a clínicas, consultorios y otros negocios, para qué los usa y con quién
+  los comparte. Tiene dos partes: la primera es para quien le escribe a un negocio por
+  WhatsApp; la segunda, «Si tienes una cuenta en Boss», es para quien usa el panel.
+  Está escrita para que la entienda cualquier persona, no solo un abogado.</p>
+  
+  <h3 class="parte" id="si-le-escribes">Si le escribes a un negocio por WhatsApp</h3>
+
+  <h4>Quién responde por tus datos</h4>
+  <p>La <strong>clínica que te atiende es la responsable</strong> de tus datos: es
+  quien decide para qué se usan. CREAM actúa como <strong>encargado del
+  tratamiento</strong>: provee la herramienta y trata los datos siguiendo las
+  instrucciones de la clínica.</p>
+  <ul>
+    <li>Encargado: WAVE STUDIO S.A.C.S, RUC 20615952517</li>
+    <li>Domicilio: Cal. Río Chotano 463, Urb. Federico Villarreal, Chiclayo, Lambayeque</li>
+    <li>Contacto: hola@cream.pe</li>
+  </ul>
+
+  <h4>Qué datos se tratan</h4>
+  <ul>
+    <li><strong>Tu número de WhatsApp y tu nombre</strong>, tal como aparecen en tu perfil.</li>
+    <li><strong>El contenido de la conversación</strong> con el asistente: texto, audios e
+    imágenes que envíes.</li>
+    <li><strong>Tus citas</strong>: fecha, hora, sede y tratamiento consultado.</li>
+    <li><strong>De qué anuncio llegaste</strong>, si escribiste desde un anuncio.</li>
+  </ul>
+  <p>Si en la conversación mencionas un dato de salud —un tratamiento, una molestia,
+  una condición—, ese dato es <strong>sensible</strong> y recibe el tratamiento
+  reforzado que exige la Ley 29733.</p>
+
+  <h4>Para qué se usan</h4>
+  <ul>
+    <li>Responder tus consultas y darte precios e información de tratamientos.</li>
+    <li>Agendar, confirmar y recordarte tus citas.</li>
+    <li>Avisar al equipo de la clínica cuando hace falta que te atienda una persona.</li>
+    <li>Que la clínica sepa cuántas consultas recibe y de dónde vienen.</li>
+  </ul>
+  <p><strong>No se usan para publicidad de terceros ni se venden a nadie.</strong></p>
+
+  <h4>Con quién se comparten</h4>
+  <ul>
+    <li><strong>Meta (WhatsApp)</strong>: es el canal por el que llega y sale tu mensaje.</li>
+    <li><strong>Google</strong>: la agenda de la clínica, cuando la usa para tus citas.</li>
+    <li><strong>Proveedores de inteligencia artificial</strong>: redactan las respuestas del
+    asistente y leen la captura cuando envías un pago. Hoy son <strong>OpenAI</strong> y,
+    solo en los negocios que usan su modelo, <strong>Anthropic</strong>. Podemos usar otros
+    proveedores de inteligencia artificial que cumplan las mismas condiciones: que traten
+    tus datos de forma confidencial, solo por encargo, y que no los usen para entrenar sus
+    sistemas.</li>
+    <li><strong>Google Cloud</strong>: donde se alojan los servidores y la base de datos.</li>
+    <li><strong>Telegram</strong>: por ahí se le avisa al equipo de la clínica cuando hace
+    falta que te atienda una persona. Ese aviso lleva tu nombre y tu número.</li>
+  </ul>
+  <p>Ninguno de ellos usa tus datos para fines propios: los tratan por encargo, para
+  que el servicio funcione.</p>
+  <p>Los servidores de CREAM están en Estados Unidos (Google Cloud), y también están
+  fuera del Perú Meta, Google, Telegram y los proveedores de inteligencia artificial que
+  usamos (hoy, OpenAI y Anthropic). Por eso tus datos viajan a otros países para que el
+  servicio funcione.</p>
+
+  <h4>Cuánto tiempo se guardan</h4>
+  <p>El texto de tus mensajes se guarda 180 días, y el de las
+  respuestas del asistente y del equipo de la clínica, 730 días,
+  salvo que la clínica haya configurado otro plazo. Pasado ese plazo, el texto se borra.
+  Los datos que das para tu cita, como tu nombre y tu documento, se borran en el mismo
+  plazo que el texto de tus mensajes, contado desde la última actividad de la conversación.
+  Los avisos al equipo de la clínica llevan tu nombre o tu número, y pueden llevar lo que
+  escribiste o los datos de tu pago y de tu cita: se borran en el mismo plazo que el texto
+  de tus mensajes, o antes.
+  Tu nombre y tu número de WhatsApp se guardan mientras la clínica tenga su cuenta en
+  Boss, salvo que antes la clínica borre la conversación. Si la clínica elimina su cuenta,
+  se guardan 24 meses más y después se borran.
+  Tus citas quedan en la agenda de la clínica hasta que la clínica borre la conversación.
+  Puedes pedir que se borre antes.
+  Si pagas un adelanto y envías la captura, guardamos el número de operación, el monto y
+  una huella de la imagen, para que el mismo comprobante no se use dos veces. Lo que
+  anotamos de la captura de tu pago se guarda mientras la clínica tenga su cuenta en
+  Boss, aunque se borre la conversación o pidas que borren tus datos. Si la clínica
+  elimina su cuenta, se guarda 24 meses más y después se borra.</p>
+
+  <h4>El asistente es automático</h4>
+  <p>Quien te responde primero es un <strong>asistente automático</strong>, no una
+  persona. Te saluda con el nombre de la clínica. Si le preguntas quién es, te dice que
+  es un asistente de la clínica, y si le preguntas si es un bot o una persona, te dice
+  que es un asistente automático. Nunca dice que es una persona. En cualquier momento
+  puedes pedir hablar con alguien del equipo. El asistente <strong>no da diagnósticos
+  ni indicaciones médicas</strong>: eso lo hace el profesional en consulta.</p>
+
+  <div class="destaca">
+    <p><strong>Cómo pedir que borren tus datos.</strong> Escribe «quiero que borren mis
+    datos» en la misma conversación de WhatsApp, o al correo de contacto. No hace
+    falta que expliques por qué.</p>
+  </div>
+  
+  <h3 class="parte" id="si-tienes-una-cuenta">Si tienes una cuenta en Boss</h3>
+  <p>Esta parte es para quien usa Boss: tu cuenta, tus finanzas, tus redes
+  y tu plan. Aquí <strong>CREAM es el responsable de tus datos</strong>: decide para qué
+  se usan y responde por ellos. Nuestros datos de contacto están en
+  <a href="#quienes-somos">«Quiénes somos»</a>.</p>
+
+  <h4>Tu cuenta</h4>
+  <p>Si creas tu cuenta con Google, Google nos da tu correo y tu nombre. En su pantalla
+  también aparece tu foto de perfil, pero no la guardamos. Si la creas con tu correo,
+  guardamos tu correo, tu nombre y tu contraseña, que se guarda de forma que nadie la
+  puede leer, ni siquiera nosotros. También guardamos el nombre de tu negocio y de tus
+  sedes, y lo que contestas al crear tu cuenta: qué quieres ver primero, si pones
+  anuncios, quién lleva tu marketing, dónde llevas tus números, un rango de tus ventas
+  del mes y cómo prefieres que te avisemos. Tu sesión dura 8 horas.</p>
+
+  <h4>La seguridad de tu cuenta</h4>
+  <p>Para proteger tu cuenta, cuando alguien intenta entrar sin éxito o pide una
+  contraseña nueva, guardamos la dirección IP desde donde lo hizo y el correo que usó
+  (o una huella de él). Cuando alguien escribe bien su contraseña, también anotamos su
+  correo y su dirección IP. Cada nuevo intento o pedido borra los que tienen más de 24
+  horas. Como cualquier sitio web, nuestros servidores también registran la dirección
+  IP y la página pedida en cada visita. Esos registros se guardan 30 días. Todo lo que
+  viaja entre tu navegador, CREAM y Google va cifrado. Lo que guardamos está en Google
+  Cloud, que lo guarda cifrado, y las llaves que nos da Google, además, las ciframos
+  nosotros.</p>
+
+  <h4>Los correos que te enviamos</h4>
+  <p>Te escribimos, con el nombre «BOSS», para confirmar tu correo, para que cambies tu
+  contraseña o para confirmar un correo nuevo. Esos correos salen por Google Workspace
+  y llevan solo tu dirección y un enlace que sirve una vez. También podemos escribirte
+  por lo que dice <a href="#como-te-contactamos">«Cómo te contactamos»</a>.</p>
+  <p>Cuando pasa algo importante en tu cuenta, como un alta, una compra, una baja o un
+  error, el equipo de CREAM recibe un aviso por correo.</p>
+
+  <h4>Tus finanzas</h4>
+  <p>Si llevas tus finanzas en Boss, sea escribiéndolas en nuestra plantilla, subiendo
+  un Excel o conectando una hoja de Google, guardamos cada movimiento: la fecha, el
+  monto, la categoría y la descripción tal como la escribiste, hasta 500 caracteres. Si
+  en la descripción pones el nombre de un cliente o de un paciente, ese nombre queda
+  guardado. Te recomendamos usar un código y no escribir datos de salud: si lo haces,
+  tú eres el responsable de esos datos y nosotros los guardamos por encargo tuyo. El
+  archivo que subes no se guarda: lo leemos y guardamos solo los movimientos, el nombre
+  del archivo y una huella para reconocerlo.</p>
+  <p>Si conectas una hoja de Google, Google te pide permiso solo para los archivos que
+  elijas: no vemos el resto de tu Google Drive. Leemos esa hoja cuando la conectas,
+  cada vez que pides actualizarla y, de forma automática, una vez al día, y nunca
+  escribimos en ella. Tus finanzas no van a
+  ningún sistema de inteligencia artificial. Las ven las personas a las que diste
+  acceso a tu negocio y el contador que invites, que solo ve lo que él mismo sube. Si al
+  invitar a tu contador escribes su correo, lo guardamos, aunque la invitación venza o la
+  anules.</p>
+  <p>Tus movimientos se guardan mientras tu cuenta exista, también los de una hoja que
+  desconectes. Si eliminas tu negocio, se borran con todo lo demás, como dice
+  <a href="#eliminar-cuenta">«Eliminar tu cuenta»</a>.</p>
+  <p>Para leer tu hoja, Google nos da una llave que guardamos cifrada. Cuando desconectas
+  tu última hoja, la borramos y le pedimos a Google que anule el permiso, salvo que esa
+  misma cuenta de Google siga conectada a Boss por otro lado, como tu calendario u otro
+  negocio: ahí no lo anulamos, para no cortar lo que sigue conectado.</p>
+
+  <h4>Tu Google Calendar</h4>
+  <p>Si conectas tu Google Calendar, te mostramos tu agenda en tu panel. Google te pide
+  permiso para ver los eventos de los calendarios que son tuyos, y de ellos solo leemos
+  tu calendario principal: el
+  título, la hora de inicio y la de fin de cada evento, y el enlace para abrirlo en tu
+  Google Calendar. No leemos invitados, descripciones ni lugares, y con ese permiso no
+  creamos, cambiamos ni borramos ningún evento. Lo que leemos, incluido ese enlace, se
+  consulta cada vez que miras tu agenda en tu panel y no se guarda, y solo lo ve la
+  persona que conectó el calendario. Si Google también te pidió permiso para tus
+  hojas de cálculo o para archivos de tu Drive, con esos permisos no leemos ni
+  escribimos nada. Si lo conectaste antes del 29 de setiembre de 2026, Google te pidió
+  permiso para ver y editar tus eventos; con ese permiso también solo leemos, y al volver
+  a conectar se cambia por el nuevo.</p>
+  <p>Guardamos cifrada la llave que da Google, y además el correo de la cuenta conectada,
+  qué permisos diste, quién la conectó y cuándo.
+  Si desconectas, borramos la llave y le pedimos a Google que anule el permiso, salvo que
+  esa misma cuenta de Google siga conectada a Boss por otro lado, como tus finanzas u
+  otro negocio. Si Google no lo anula, te avisamos para que lo quites desde tu cuenta de
+  Google, en la página de apps conectadas
+  (<a href="https://myaccount.google.com/connections" rel="noopener">myaccount.google.com/connections</a>).
+  Si eliminas tu negocio, el día en que se elimina de verdad le pedimos a Google que lo
+  anule, salvo que esa misma cuenta de Google siga conectada a otro negocio en Boss.</p>
+  <p>Si compartes el calendario de tu negocio con CREAM para que el asistente agende citas,
+  eso va por otro camino, sin tu llave: el asistente y tu equipo crean, mueven y borran
+  ahí las citas, con el nombre del paciente, su WhatsApp (salvo que la cita tenga
+  invitados), el tratamiento, quién atiende, la sede y el correo de los invitados.
+  Anotamos qué calendario conectaste, quién lo hizo y cuándo; esa nota se queda aunque lo
+  desconectes, para que ningún otro negocio pueda usarlo. Para
+  cortarlo, deja de compartir ese calendario con CREAM desde tu Google Calendar.</p>
+
+  <h4>Si conectas tu Facebook e Instagram</h4>
+  <p>Con tu permiso leemos las estadísticas de tu página, de tu Instagram y de tu cuenta de anuncios, tus publicaciones, los comentarios que recibes y los formularios de clientes potenciales, para mostrártelos en tu panel. Solo publicamos lo que tú escribes o apruebas, cuando nos lo pides desde tu panel y en las cuentas que conectaste, como una respuesta a un comentario. Nunca publicamos ni respondemos por nuestra cuenta. Del texto de tus respuestas no guardamos nada: anotamos quién respondió, a qué comentario y si salió. Si nos lo pides desde tu panel, también podemos pausar un anuncio o cambiar su presupuesto o su fecha de fin; nunca lo hacemos sin que lo ordenes. Si nos lo pides desde tu panel, también podemos ocultar un comentario de tu página o de tu Instagram, o borrar uno de tu Instagram; nunca lo hacemos sin que lo ordenes. De cada cambio en tus anuncios anotamos quién lo pidió, qué cambió, cómo estaba antes, cómo quedó y si Meta lo aceptó. Cuando ocultas o borras un comentario, anotamos quién lo pidió, qué comentario y si salió; el texto del comentario no lo guardamos. Si conectas tu Meta y alguien llena tu formulario de clientes potenciales, guardamos lo que esa persona escribió en el formulario, como su nombre, su teléfono o su correo, para avisarte al instante y mostrártelo en tu panel. Si conectas tu Meta, guardamos los comentarios nuevos en tus publicaciones y las menciones a tu cuenta, con el nombre o el usuario de quien los escribió, para avisarte y mostrártelos en tu Inicio. Si conectas tu Meta, guardamos las conversaciones de Messenger y de Instagram de tu página: el nombre o el usuario de quien te escribe, su foto, el identificador que Meta le da para tu página y el texto de los mensajes, también el de tus respuestas, para mostrártelos y que respondas desde tu panel. Si CREAM maneja tus redes, su equipo ve y responde esos mensajes desde Boss con el acceso de CREAM. Puedes desconectar cuando quieras desde tu panel o desde la configuración de tu negocio en Meta; al desconectar borramos el acceso que nos diste.</p>
+
+  <h4>Si conectas tu TikTok</h4>
+  <p>Con tu permiso, TikTok nos deja leer de tu cuenta el identificador que TikTok le da,
+  tu nombre, tu usuario y tus seguidores. De tus videos públicos de los últimos
+  90 días leemos el título y la descripción, la fecha, el enlace y cuántas
+  vistas tuvo cada uno. Si en esos 90 días no publicaste ninguno, leemos lo
+  mismo de tus 4 videos públicos más recientes y te los mostramos. Con
+  eso te mostramos en tu panel tu cuenta, tus seguidores y tus videos más vistos. No
+  publicamos, no comentamos ni enviamos mensajes por ti, y a TikTok no le mandamos nada
+  de tu negocio ni de tus clientes.</p>
+  <p>Lo que leemos de tu TikTok se consulta cuando abres tu panel y no se guarda. Solo
+  guardamos, protegido en Google Cloud, el permiso que nos diste, y anotamos qué
+  permisos aceptaste, cuándo conectaste y, si la conexión se cae, desde cuándo. Puedes
+  desconectar cuando quieras desde tu panel: al desconectar le pedimos a TikTok que
+  anule el permiso y lo borramos. También puedes quitarlo desde la configuración de tu
+  cuenta de TikTok. Si eliminas tu negocio, el día en que se elimina de verdad borramos
+  el permiso; para anularlo también en TikTok, quítalo desde tu cuenta de TikTok.</p>
+
+  <h4>Si pagas un plan</h4>
+  <p>Para facturarte guardamos tu nombre o razón social, tu DNI o RUC y el correo al que enviamos tus comprobantes. No guardamos el número de tu tarjeta: solo su marca y sus últimos 4 dígitos, para que la reconozcas; el resto lo recibe la pasarela de pago. Usamos estos datos solo para cobrarte y emitir tus comprobantes, y los conservamos el tiempo que exige la ley tributaria.</p>
+
+  <h4>Si CREAM es tu agencia</h4>
+  <p>Si CREAM es tu agencia de marketing y vinculas tu cuenta, tu panel muestra lo que
+  publicamos para ti y lo que tenemos en producción. Esa información sale de nuestra
+  herramienta interna de trabajo, que usa ClickUp y nuestra hoja de cobranzas, y no se
+  guarda en tu cuenta. Para hacer el vínculo, nuestra herramienta puede consultar si tu
+  correo tiene una cuenta y en qué estado está. Guardamos con qué correo se hizo el
+  vínculo y quién lo hizo. También anotamos si ese correo estaba confirmado. Cada mes te
+  proponemos tus honorarios con el monto
+  facturado. Si los aceptas o los cambias, guardamos el monto y quién decidió. Si
+  quitas el vínculo, se borran los honorarios que no aceptaste; los aceptados se quedan
+  en tus finanzas. Si CREAM creó tu cuenta por ti, lo dejamos anotado. Esa nota guarda
+  el correo con el que la creamos, aunque después lo cambies.</p>
+  <p>Si CREAM maneja tu publicidad o tus redes desde sus propias cuentas de Meta o de
+  TikTok, tu panel también te las muestra con el acceso de CREAM, sin que conectes nada.
+  Guardamos lo mismo que si las conectaras tú. De TikTok guardamos tu gasto de cada día y
+  tus campañas, con su nombre, su objetivo, su gasto y sus resultados. Si respondes un
+  comentario de esas cuentas desde tu panel, la respuesta sale con el acceso de CREAM.</p>
+
+  <h4>Quién atiende en tu negocio</h4>
+  <p>Si nos das el nombre del médico o de quien atiende en tu negocio, lo guardamos y el
+  asistente lo dice cuando le preguntan quién atiende. Si lo cambiamos, el nombre
+  anterior puede quedar anotado en el historial de cambios de tu negocio. Si en tu
+  agenda cargas a las personas que atienden, guardamos su nombre y, si lo pones, su
+  correo, para anotarlas en tus citas. Si das de baja a alguien, no se borra: sus citas
+  pasadas lo siguen nombrando. Si a una cita le sumas invitados, guardamos su correo con
+  la cita. Si marcas una venta en una conversación, guardamos el monto, lo que se vendió
+  tal como lo escribes, quién atendió y quién la marcó.</p>
+
+  <h4>El Yape de tu negocio</h4>
+  <p>Si cobras un adelanto por Yape, guardamos el número y el nombre del titular de ese
+  Yape, y el asistente se los da a tus clientes para que paguen. Si los cambias, el dato
+  anterior puede quedar anotado en el historial de cambios de tu negocio. Cuando el
+  asistente revisa la captura de un pago, anotamos a nombre de quién estaba tu Yape ese
+  día y los 3 últimos dígitos de su número.</p>
+
+  <h4>Quién ve tus datos</h4>
+  <p>Las personas a las que das acceso a tu negocio ven lo mismo que tú, también tus
+  finanzas, tu publicidad y tus clientes potenciales. Solo el dueño de la cuenta puede
+  cancelar el plan, quitar accesos y borrar una conversación para siempre, y solo quien
+  creó el negocio puede eliminarlo. El personal de soporte de CREAM puede entrar a tu
+  panel para ayudarte: cada cambio que hace queda firmado con su correo, y en
+  Configuración, en Accesos, ves la última vez que entró.</p>
+  <p>Los cambios que tú o tu equipo hacen en tu negocio, como un precio o un horario,
+  quedan firmados con el correo de quien los hizo, en el historial de cambios. Si borras
+  una conversación para siempre, anotamos quién la borró y cuándo, sin nada de lo que
+  decía. Los avisos de tu panel pueden nombrar a un cliente y, cuando alguien da o quita
+  un acceso, dicen quién lo hizo y a quién, con sus correos.</p>
+
+  <h4>Con quién compartimos los datos de tu cuenta</h4>
+  <ul>
+    <li><strong>Google:</strong> para entrar con tu cuenta de Google; tus hojas y tu
+    calendario, si los conectas; los correos que te enviamos (Google Workspace); y las
+    tipografías de nuestras páginas, que tu navegador descarga de Google.</li>
+    <li><strong>Google Cloud:</strong> donde están nuestros servidores y la base de datos.</li>
+    <li><strong>Mercado Pago:</strong> cobra tu plan. Recibe el correo de quien paga y una
+    referencia con el correo de tu cuenta. Los datos de tu tarjeta los escribes en su
+    ventana, no en la nuestra.</li>
+    <li><strong>Meta:</strong> si conectas tu Facebook e Instagram (arriba).</li>
+    <li><strong>TikTok:</strong> si conectas tu TikTok (arriba). De ahí solo leemos; no le
+    mandamos datos de tu cuenta ni de tus clientes.</li>
+    <li><strong>ClickUp:</strong> donde organizamos el trabajo, si CREAM es tu agencia.</li>
+    <li><strong>Proveedores de inteligencia artificial</strong>: hoy, <strong>OpenAI</strong>,
+    y <strong>Anthropic</strong> solo en los negocios que usan su modelo; solo si usas el
+    asistente de WhatsApp o nos pides leer tu web. Reciben lo que le enseñas al asistente
+    sobre tu negocio, las páginas de tu web que nos pides leer y las conversaciones con tus
+    clientes. Tus finanzas, lo que contestaste al crear tu cuenta, tus honorarios y los
+    datos de tu cuenta no les llegan. Podemos usar otros proveedores de inteligencia
+    artificial que cumplan las mismas condiciones: que traten tus datos de forma
+    confidencial, solo por encargo, y que no los usen para entrenar sus sistemas.</li>
+    <li><strong>Telegram:</strong> por ahí le avisamos al equipo de CREAM cuando un cobro se
+    rechaza o hay que emitir un comprobante. El aviso lleva el nombre de tu negocio o tu
+    razón social, el monto y el correo de facturación.</li>
+  </ul>
+  <p>Ellos tratan tus datos por encargo nuestro, para que el servicio funcione. No
+  usamos tus datos para entrenar sistemas de inteligencia artificial.</p>
+  <p>El uso que CREAM hace de la información recibida de las APIs de Google cumple la
+  <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Política
+  de Datos de Usuario de los Servicios de API de Google</a>, incluidos los
+  <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes" rel="noopener">requisitos
+  de Uso Limitado</a>. Lo que leemos de tu Google Calendar y de tus hojas de
+  Google lo usamos solo para mostrártelo en tu panel y llevar tus finanzas. No lo usamos
+  para publicidad ni lo vendemos. No se lo pasamos a otros, salvo a quienes nos ayudan a
+  darte el servicio, como Google Cloud, o si la ley lo exige. No lo mandamos a ningún
+  sistema de inteligencia artificial ni lo usamos para entrenarlos. Y nadie de CREAM lo
+  mira, salvo que nos pidas ayuda con eso, por seguridad o porque la ley lo exija.</p>
+  <p>En inglés, como lo pide Google: <span lang="en">"The use of information received from
+  Google Workspace scopes will adhere to the Google User Data Policy, including the
+  Limited Use requirements."</span></p>
+
+  <h4>Dónde están tus datos</h4>
+  <p>Nuestros servidores están en Estados Unidos, y también están fuera del Perú Google,
+  Meta, TikTok, ClickUp, Telegram y los proveedores de inteligencia artificial que usamos
+  (hoy, OpenAI y Anthropic). Al usar tu cuenta, tus datos viajan a
+  otros países para que el servicio funcione.</p>
+
+  <h4>Las cookies</h4>
+  <p>Usamos cookies solo para que tu sesión funcione, para recordar en qué paso del
+  registro vas y para mostrarte un aviso justo después de una acción. No usamos cookies
+  de publicidad ni de analítica.</p>
+
+  <h4>Cuánto tiempo guardamos lo de tu cuenta</h4>
+  <ul>
+    <li>Tu cuenta, tu negocio y sus sedes, lo que contestaste al crear tu cuenta, tus
+    finanzas, tus honorarios aceptados, los enlaces de confirmación y los de contraseña
+    que te mandamos por WhatsApp: mientras tu cuenta exista.</li>
+    <li>El nombre y el número de WhatsApp de tus clientes: mientras tu cuenta exista,
+    salvo que antes borres su conversación para siempre.</li>
+    <li>El nombre del médico, las personas de tu agenda y el correo de tu contador:
+    mientras tu cuenta exista, aunque des de baja a alguien o anules la invitación.</li>
+    <li>El correo con el que se hizo el vínculo con CREAM como tu agencia y el correo con
+    el que CREAM creó tu cuenta: mientras tu cuenta exista, aunque se quite el vínculo.</li>
+    <li>El historial de cambios de tu negocio, que guarda el dato de antes y el nuevo, como
+    el nombre del médico: mientras tu cuenta exista.</li>
+    <li>Los correos de los invitados de una cita: hasta que se quite la cita o se borre su
+    conversación para siempre; si no, mientras tu cuenta exista.</li>
+    <li>Las ventas que marcas en una conversación: mientras tu cuenta exista, salvo que
+    antes la desmarques o borres esa conversación para siempre.</li>
+    <li>El número y el titular de tu Yape, y lo que anotamos de ellos en cada pago
+    revisado: mientras tu cuenta exista, aunque se borre la conversación del pago.</li>
+    <li>Qué calendario conectaste para el asistente y quién lo conectó: mientras tu cuenta
+    exista, aunque lo desconectes.</li>
+    <li>La nota de quién borró una conversación para siempre: mientras tu cuenta exista.</li>
+    <li>Los avisos de tu panel: 180 días, o el plazo que pongas para el texto
+    de los mensajes de tus clientes, salvo que los borres antes.</li>
+    <li>Las estadísticas, el gasto y el texto de tus publicaciones de Facebook e
+    Instagram que ya leímos: mientras tu cuenta exista, aunque desconectes. Si quieres
+    que los borremos, escríbenos.</li>
+    <li>El permiso que nos diste en TikTok: mientras sigas conectado. Lo que leemos de tu
+    TikTok no se guarda.</li>
+    <li>Si CREAM maneja tu publicidad en TikTok, tu gasto de cada día y tus campañas:
+    mientras tu cuenta exista.</li>
+    <li>La nota de cada respuesta que envías a un comentario, sin su texto: mientras tu
+    cuenta exista.</li>
+    <li>La nota de cada cambio en tus anuncios y de cada comentario que ocultas o borras: mientras tu cuenta exista.</li>
+    <li>Los clientes potenciales de tus formularios de Meta: 90 días desde que llegan, o hasta que desconectes tu Meta.</li>
+    <li>Los comentarios y menciones de tus redes: 30 días desde que llegan, o hasta que desconectes tu Meta; si Facebook avisa que un comentario se borró o se ocultó, lo borramos al toque.</li>
+    <li>Los mensajes de Messenger y de Instagram: 30 días desde el último mensaje de cada conversación; si los leemos con tu propio Meta, también se borran cuando lo desconectas.</li>
+    <li>Los intentos de entrar y los pedidos de contraseña: hasta que un intento o pedido
+    nuevo los borra, pasadas 24 horas.</li>
+    <li>Los enlaces de contraseña que pediste desde «¿La olvidaste?»: 48
+    horas, y se borran en la madrugada siguiente.</li>
+    <li>Los registros de visitas de nuestros servidores: 30 días.</li>
+    <li>Tus datos de pago: mientras tu cuenta exista. Tus comprobantes no se guardan en
+    el panel: los guarda la contabilidad de CREAM el tiempo que exige la ley tributaria.</li>
+    <li>Si eliminas tu negocio, todo lo anterior se guarda 24 meses desde el día en que
+    el negocio se elimina de verdad, y después se borra, salvo lo que cuenta
+    <a href="#eliminar-cuenta">«Eliminar tu cuenta»</a>.</li>
+  </ul>
+  
+  <h3 class="parte" id="eliminar-cuenta">Eliminar tu cuenta</h3>
+  <p>«Eliminar cuenta» elimina solo el negocio que tienes abierto: si tienes otros
+  negocios en Boss, siguen igual. Solo quien creó el negocio puede eliminarlo, y antes
+  de hacerlo te pedimos confirmar. Si CREAM creó tu cuenta por ti, pídenos que la
+  eliminemos.</p>
+  <ul>
+    <li><strong>Al confirmar, pierdes tu plan en ese momento.</strong> No se devuelven los
+    días que ya pagaste, y el asistente deja de contestar. Si solo quieres dejar de
+    pagar, cancela tu plan: el servicio sigue hasta que termine el mes pagado.</li>
+    <li><strong>Tu negocio queda 30 días en pausa.</strong> Se cierran todas las sesiones
+    abiertas. Tus datos y tus conexiones con Google, Meta y TikTok quedan como estaban.</li>
+    <li><strong>Si en esos 30 días alguien de tu negocio vuelve a entrar</strong>, sea quien
+    lo creó o una persona a la que diste acceso, la eliminación se anula sola y tu
+    negocio sigue como siempre, sin plan. No te avisamos: al entrar encuentras todo como
+    estaba.</li>
+    <li><strong>Si nadie entra, a los 30 días tu negocio se elimina de verdad.</strong> Nadie
+    puede volver a entrar a él. Le pedimos a Google que anule los permisos que nos diste,
+    salvo que esa misma cuenta de Google siga conectada a otro negocio en Boss, y borramos
+    el acceso a Meta y a TikTok. Tu número de WhatsApp queda libre para conectarlo en otro negocio, y
+    si CREAM es tu agencia, se suelta el vínculo con tu negocio. Si no te queda otro
+    negocio, tu correo queda libre para crear otra cuenta.</li>
+    <li><strong>Desde ese día guardamos sus datos 24 meses</strong>, sin que nadie los vea
+    ni los use, y después los borramos, también tus finanzas, tus conversaciones y tus
+    cobros. Solo queda anotado que el negocio existió y sus fechas, sin nombres ni
+    correos.</li>
+  </ul>
+  <p>Hay datos que no están atados a tu negocio y tienen su propio plazo:</p>
+  <ul>
+    <li>La referencia de tu compra con la pasarela de pago, que lleva tu correo: no tiene
+    plazo, se queda guardada.</li>
+    <li>Los enlaces de contraseña que pediste desde «¿La olvidaste?»: los borramos cuando
+    pasan 48 horas, en la madrugada siguiente.</li>
+    <li>La huella de tu correo en los pedidos de contraseña: se borra cuando llega un
+    pedido nuevo, pasadas 24 horas.</li>
+    <li>Las hojas del Libro de Reclamaciones: no tienen plazo, se quedan guardadas.</li>
+    <li>Algunos registros técnicos que no quedan atados a tu negocio, como el
+    identificador que Meta le da a tu número de WhatsApp cuando aparece en un error: no
+    tienen plazo.</li>
+    <li>Los registros de nuestros servidores en Google Cloud: 30 días.</li>
+    <li>Las copias de seguridad de la base de datos, en Google Cloud: 7 días. Lo que se
+    borra sigue en ellas hasta 7 días después.</li>
+  </ul>
+  
+  <h3 class="parte" id="proteccion-de-datos">Cómo protegemos tus datos</h3>
+  <p>Tratamos como sensibles los datos que nos das al conectar tus cuentas, en especial los de Google (tu Google Calendar y tus hojas de cálculo). Así los protegemos:</p>
+  <ul>
+    <li><strong>Cifrado en tránsito.</strong> Todo lo que viaja entre tu navegador, CREAM y Google va cifrado por HTTPS (TLS).</li>
+    <li><strong>Cifrado en reposo.</strong> Lo que guardamos está en Google Cloud, que lo cifra. Las llaves de acceso que nos da Google, además, las ciframos nosotros con AES-256-GCM. La clave de ese cifrado no está en la base de datos: está guardada aparte, en Google Secret Manager.</li>
+    <li><strong>Acceso mínimo.</strong> De Google pedimos solo lo indispensable. De tu Calendar solo leemos los eventos de tus propios calendarios, sin invitados, descripciones ni lugares. No podemos crear, cambiar ni borrar nada en tu Calendar.</li>
+    <li><strong>Tu cuenta, con inicio de sesión.</strong> Para ver tus datos hay que iniciar sesión en tu cuenta.</li>
+    <li><strong>Desconectar borra el acceso.</strong> Cuando desconectas Google, borramos la llave de nuestra base en ese momento y le pedimos a Google que anule el permiso. Si Google no confirma la anulación, te lo decimos para que lo quites desde tu cuenta de Google.</li>
+    <li><strong>Plazos cortos.</strong> Los registros de los servidores se guardan 30 días, y las copias de seguridad, 7 días.</li>
+    <li><strong>Uso limitado.</strong> Los datos de Google se usan solo para mostrarte tu información en tu panel. No se venden, no se usan para publicidad y no se usan para entrenar sistemas de inteligencia artificial. Cumplimos la Política de datos de usuario de los servicios de API de Google, incluidos sus requisitos de Uso Limitado.</li>
+  </ul>
+  <div lang="en">
+    <h4>How we protect your data</h4>
+    <p>We treat the data you give us when you connect your accounts as sensitive, especially Google user data (your Google Calendar and your spreadsheets). This is how we protect it:</p>
+    <ul>
+      <li><strong>Encryption in transit.</strong> Everything between your browser, CREAM and Google travels encrypted over HTTPS (TLS).</li>
+      <li><strong>Encryption at rest.</strong> What we store lives in Google Cloud, which encrypts it. On top of that, we encrypt the access tokens Google gives us with AES-256-GCM. The encryption key is not in the database: it is stored separately, in Google Secret Manager.</li>
+      <li><strong>Minimum access.</strong> We request only the Google scopes we need. From your Calendar we only read events from calendars you own, without attendees, descriptions or locations. We cannot create, change or delete anything in your Calendar.</li>
+      <li><strong>Sign-in required.</strong> Your data can only be viewed after signing in to your account.</li>
+      <li><strong>Disconnecting removes access.</strong> When you disconnect Google, we delete the token from our database immediately and ask Google to revoke the permission. If Google does not confirm the revocation, we tell you so you can remove it from your Google Account.</li>
+      <li><strong>Short retention.</strong> Server logs are kept for 30 days and database backups for 7 days.</li>
+      <li><strong>Limited Use.</strong> Google user data is used only to show you your information in your dashboard. It is not sold, not used for advertising and not used to train artificial intelligence models. Our use of Google user data complies with the Google API Services User Data Policy, including the Limited Use requirements.</li>
+    </ul>
+  </div>
+  
+  <h3 class="parte" id="tus-derechos">Tus derechos</h3>
+  <p>Puedes pedir en cualquier momento <strong>acceder</strong> a tus datos,
+  <strong>rectificarlos</strong>, <strong>cancelarlos</strong> u <strong>oponerte</strong>
+  a que se usen — son los derechos ARCO de la Ley 29733. Escribe a la clínica que te
+  atiende o al correo de arriba; se responde en un máximo de 20 días.</p>
+  <p>Si consideras que no se respetaron, puedes reclamar ante la
+  <strong>Autoridad Nacional de Protección de Datos Personales</strong> del Ministerio
+  de Justicia.</p>
+  
+  <h2 id="como-te-contactamos">3. Cómo te contactamos</h2>
+  <p>Al crear tu cuenta en Boss, nos autorizas a usar los medios de contacto que nos
+  diste, como tu correo, para avisarte de asuntos de importancia, de relevancia o de
+  beneficio para ti. Eso incluye publicidad de CREAM.</p>
+  
+  <h2 id="terminos">4. Términos del servicio</h2>
+  <p>Estos términos rigen si creas una cuenta o contratas <b>BOSS</b> para
+  tu negocio. Están escritos para que se entiendan sin abogado, y dicen lo que el
+  sistema hace de verdad.</p>
+
+  <h3>Qué contratas</h3>
+  <p>Un asistente que atiende el WhatsApp de tu negocio y un panel para verlo: el
+  asistente contesta consultas con los precios que cargas, cotiza, agenda citas y
+  avisa a tu equipo cuando hace falta que responda una persona.</p>
+  
+    <div class="tabla">
+      <table>
+        <thead><tr><th>Plan</th><th>Precio al mes, sin IGV</th><th>Se cobra al mes, en soles con IGV</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>Para empezar</b></td>
+            <td>US$ 97</td>
+            <td>S/ 386.76</td>
+          </tr>
+          <tr>
+            <td><b>Destacado</b></td>
+            <td>US$ 197</td>
+            <td>S/ 785.48</td>
+          </tr>
+          <tr>
+            <td><b>Para mucho volumen</b></td>
+            <td>US$ 397</td>
+            <td>S/ 1,582.93</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Lo que trae cada plan:</p>
+    <ul id="lo-que-trae">
+      <li><b>Para empezar</b>: 1 número de WhatsApp conectado y 2,000 mensajes al mes.</li>
+      <li><b>Destacado</b>: 3 números de WhatsApp conectados y 4,500 mensajes al mes.</li>
+      <li><b>Para mucho volumen</b>: 5 números de WhatsApp conectados y 9,000 mensajes al mes.</li>
+    </ul>
+    <p id="cobro-en-soles" style="overflow-wrap:anywhere">Los precios se publican en dólares y <b>se cobran en soles</b>, con el
+    18 % de IGV, al tipo de cambio fijado: hoy S/ 3.379 por
+    dólar, fijado el 16/09/2026. Fuente: SUNAT, tipo de cambio venta publicado para el 16/09/2026 (cierre SBS del 15/09/2026): https://e-consulta.sunat.gob.pe/cl-at-ittipcam/tcS01Alias. El cambio con el que
+    se contrata queda fijo para esa suscripción: los meses siguientes se cobra el mismo monto en soles.</p>
+  <p><b>El tope es del mes y no es decoración.</b> Pasado el tope de tu plan, el
+  asistente deja de contestar y quienes escriban después quedan esperando a una
+  persona de tu equipo. No se cobra ningún excedente: el servicio se detiene, no se
+  factura de más.</p>
+  <div class="si">
+    <p><b>La cuenta es gratis; lo que se contrata es el asistente.</b> Crear una cuenta
+    no cuesta nada, no pide tarjeta y no vence. <b>Mientras no actives un plan, el
+    asistente no contesta a nadie.</b></p>
+  </div>
+  <div class="ojo">
+    <p><b>Para que el asistente conteste hace falta el WhatsApp conectado.</b> Conectas
+    tu número desde tu panel.</p>
+  </div>
+
+  <h3>Los 14 días de prueba</h3>
+  <p>Activar un plan incluye <b>14 días sin costo</b> del asistente: registras la
+  tarjeta, no se cobra nada y puedes cancelar sin pagar.</p>
+  <div class="ojo">
+    <p>🔴 <b>Los 14 días cuentan desde el día en que activas el plan, no desde que el
+    asistente empieza a contestar.</b> Si se acaban sin el número conectado, escríbenos
+    antes del primer cobro y lo vemos caso por caso.</p>
+  </div>
+  <p>La prueba es una por negocio, con hasta 100 respuestas. Si el asistente llega a
+  las 100 antes de que terminen los 14 días, deja de contestar hasta tu primer
+  cobro. Si tu negocio ya usó su prueba, el primer cobro sale el día en que activas el
+  plan.</p>
+
+  <h3>Precio, cobro y facturación</h3>
+  <ul>
+    <li>El precio es <b>mensual</b> y es el que figura arriba para el plan que contrataste.</li>
+    <li><b>El precio se congela el día en que activas el plan.</b> Si mañana subimos la
+    tarifa publicada, se te sigue cobrando lo que contrataste. Un cambio de precio solo
+    lo puedes aplicar tú, cambiando de plan.</li>
+    <li>El primer cobro sale a los 14 días de activar el plan, y después uno cada mes.</li>
+    <li>Se emite comprobante de pago a los datos que pusiste al activar el plan.</li>
+  </ul>
+  <p><b>El pago es con tarjeta</b>, por la pasarela que ofrezca la pantalla del plan. Es
+  una suscripción y se cobra sola cada mes: por eso no se paga por Yape ni por
+  transferencia, que exigirían una gestión manual todos los meses.</p>
+
+  <h3>Mes a mes, sin plazo forzoso</h3>
+  <div class="si">
+    <p><b>No hay permanencia mínima, ni penalidad, ni preaviso.</b> Funciona como una
+    suscripción de streaming: cancelas cuando quieras, desde tu panel o escribiéndonos
+    por WhatsApp, y no tienes que dar explicaciones ni avisar con antelación.</p>
+  </div>
+  <p>Al cancelar, <b>el servicio sigue funcionando hasta que termine el mes ya
+  pagado</b> y no se renueva. Después, la cuenta sigue gratis con todo lo cargado, sin
+  el asistente. Lo que pasa con el dinero ya cobrado está en
+  <a href="#devoluciones">«Cambios y devoluciones»</a>.</p>
+  <p>Eliminar tu cuenta es otra cosa: el plan se pierde en ese momento, como dice
+  <a href="#eliminar-cuenta">«Eliminar tu cuenta»</a>.</p>
+
+  <h3>Soporte</h3>
+  <p>El soporte es <b>por WhatsApp al 932 744 258</b>, y el compromiso es responder de
+  inmediato en horario de trabajo.</p>
+  <div class="destaca">
+    <p><b>No prometemos un porcentaje de disponibilidad.</b> No publicamos una cifra de
+    tiempo activo porque no la medimos, y un número que no se mide no es un compromiso:
+    es una frase. Lo que sí comprometemos es el canal y que se responde.</p>
+  </div>
+
+  <h3>De quién son los datos</h3>
+  <p>Los datos de las personas que le escriben a tu negocio <b>son tuyos</b>. Nosotros los
+  tratamos por tu encargo, para que el servicio funcione, y no los usamos para
+  publicidad de terceros ni los vendemos. El detalle está en
+  <a href="#privacidad">«Privacidad»</a>.</p>
+
+  <h3>Qué NO hace el asistente</h3>
+  <ul>
+    <li><b>No da diagnósticos ni indicaciones médicas.</b> Eso lo hace el profesional en
+    consulta, y así se lo dice a la paciente.</li>
+    <li><b>No dice que es una persona.</b> Saluda en nombre de tu negocio y, si le
+    preguntan si es un bot o una persona, dice que es un asistente automático.</li>
+    <li>Cuando una paciente reporta una molestia o una complicación, el asistente deja de
+    responder y avisa a tu equipo para que la atienda una persona.</li>
+  </ul>
+  <p>Eres responsable de los precios, promociones y horarios que cargas, y de que tu
+  equipo atienda lo que el asistente le deriva.</p>
+
+  <h3>Cuándo podemos cortar el servicio</h3>
+  <p>Podemos suspender o terminar el servicio si hay una factura impagada, si se usa el
+  sistema para algo ilegal, o si se usa de una forma que ponga en riesgo la cuenta de
+  WhatsApp de tu propio negocio. Antes de cortar por falta de pago, te escribimos.</p>
+
+  <h3>Cambios en estos términos</h3>
+  <p>Si cambiamos estos términos, la fecha del último cambio está arriba. <b>Un cambio no
+  se aplica hacia atrás</b>: lo que contrataste se rige por los términos que estaban
+  publicados el día en que activaste el plan.</p>
+  
+  <h2 id="devoluciones">5. Cambios y devoluciones</h2>
+  <p>Qué pasa con tu dinero cuando cancelas, cambias de plan, eliminas tu cuenta o se te
+  cobra algo que no correspondía. Es un servicio por suscripción, así que las reglas
+  son las de una suscripción, no las de un producto que se devuelve.</p>
+
+  <h3>Antes que nada: los 14 días de prueba</h3>
+  <div class="si">
+    <p><b>Durante los primeros 14 días no se cobra nada.</b> Si cancelas dentro de
+    la prueba, no pagas y no hay nada que devolver. Es la forma de probar el servicio
+    sin riesgo, y por eso existe.</p>
+  </div>
+  <p>El primer cobro sale a los 14 días exactos de activar el plan. Después de ese
+  cobro aplica lo que sigue.</p>
+
+  <h3>Si cancelas la suscripción</h3>
+  <p><b>El mes ya pagado no se devuelve: se agota.</b> El servicio sigue funcionando
+  hasta el final del periodo que ya se cobró, y al terminar no se renueva. No hay
+  prorrateo por los días que queden sin usar.</p>
+  <div class="destaca">
+    <p>Es el mismo criterio de cualquier suscripción mensual: se paga un mes de servicio
+    y ese mes se entrega completo. A cambio, <b>no hay permanencia mínima, ni penalidad
+    por cancelar, ni preaviso</b>: cancelas cuando quieras y no se te vuelve a cobrar.</p>
+  </div>
+  <p>Cancelas desde tu panel o escribiendo al WhatsApp 932 744 258. Te confirmamos por
+  escrito la fecha hasta la que queda activo el servicio.</p>
+
+  <h3>Cuándo SÍ devolvemos el dinero</h3>
+  <p>Hay tres casos, y en los tres la devolución es del monto completo:</p>
+  <ul>
+    <li><b>Cobro duplicado.</b> Si un mes se cobró dos veces, se devuelve el segundo cobro.</li>
+    <li><b>Cobro después de cancelar.</b> Si cancelaste y aun así salió un cobro del
+    periodo siguiente, se devuelve.</li>
+    <li><b>Cobro por un monto distinto al contratado.</b> Se devuelve la diferencia. El
+    precio contratado es el que se congeló el día en que activaste el plan.</li>
+  </ul>
+  <div class="si">
+    <p><b>Plazo:</b> se devuelve dentro de los <b>7 días hábiles</b> de reportado, por la
+    misma vía por la que pagaste. Si pagaste con tarjeta, el banco puede demorar unos
+    días más en reflejarlo; esa parte no depende de nosotros y lo decimos por
+    adelantado.</p>
+  </div>
+
+  <h3>Cuándo no hay devolución</h3>
+  <ul>
+    <li>Por cancelar a mitad del periodo ya pagado. Ese mes se agota, como dice arriba.</li>
+    <li><b>Por eliminar tu cuenta.</b> El plan se pierde en ese momento y no se devuelven
+    los días pagados.</li>
+    <li>Por haber usado poco el servicio en un mes que estuvo disponible.</li>
+    <li>Por un mes en el que el asistente no atendió porque el WhatsApp no estaba
+    conectado. Si pasa, escríbenos <b>antes del cobro</b> y se revisa caso por caso; no
+    es una devolución automática.</li>
+  </ul>
+
+  <h3>Cambios de plan</h3>
+  <ul>
+    <li><b>Subir de plan:</b> lo pides por WhatsApp y lo cambiamos; el nuevo precio corre
+    desde tu siguiente cobro.</li>
+    <li><b>Bajar de plan</b> aplica desde el periodo siguiente, para no cortar un tope que
+    ya se está usando en el mes en curso.</li>
+  </ul>
+  <p>Un cambio de plan se pide por WhatsApp y te lo confirmamos por escrito.</p>
+
+  <h3>Cómo se pide</h3>
+  <p>Por WhatsApp al <b>932 744 258</b> o por correo a <b>hola@cream.pe</b>,
+  diciendo el RUC o el correo con el que contrataste. Si no quedas conforme con la
+  respuesta, puedes registrarlo en el <a href="https://clinica.cream.pe/reclamaciones">Libro de
+  Reclamaciones</a>, donde el plazo de respuesta es de
+  15 días hábiles.</p>
+
+  <h3>Sobre el derecho de desistimiento</h3>
+  <p>La ley peruana no obliga a un plazo de desistimiento para un servicio digital ya
+  prestado. Los 14 días de prueba cumplen esa función, y con más margen:
+  permiten usar el servicio completo antes de que se cobre nada.</p>
+  
+  <h2 id="reclamos">6. Reclamos</h2>
+  <p>Cualquier disconformidad la puedes registrar en nuestro
+  <a href="https://clinica.cream.pe/reclamaciones">Libro de Reclamaciones</a>, que está en esta misma web. Se
+  responde en un máximo de 15 días hábiles. Al registrar una
+  hoja, te mandamos una copia de ella al correo que dejaste.</p>
+  <p>Esto no impide acudir a INDECOPI: registrar un reclamo con nosotros no es un paso
+  previo obligatorio ni limita ningún derecho del consumidor.</p>
+  <p>En cada hoja guardamos lo que se escribe en ella: el nombre, el documento, el
+  domicilio, el teléfono y el correo de quien reclama y, si es menor de edad, el nombre,
+  el teléfono y el correo de su padre, madre o representante. También guardamos el
+  servicio, el monto, lo que cuenta, lo que pide y la dirección IP desde donde se envió.
+  Cuando llega una hoja, le avisamos al equipo de CREAM por Telegram con el nombre y el
+  correo de quien reclama y el servicio.</p>
+  <p>Las hojas no tienen plazo para borrarse: se quedan guardadas. El reglamento del Libro
+  pide conservarlas al menos 2 años desde que se registran.</p>
+
+  <h2 id="ley-aplicable">7. Ley aplicable</h2>
+  <p>Esta página se rige por las leyes del Perú, incluidos el Código de Protección y
+  Defensa del Consumidor (Ley 29571) y la Ley de Protección de Datos Personales (Ley
+  29733). Para cualquier controversia son competentes los jueces de Lima, sin perjuicio
+  de tu derecho a acudir a INDECOPI.</p>
+</main>
+<footer>
+  <div>
+    <p class="pie-legal">BOSS, un producto de CREAM — herramienta de atención por WhatsApp y panel para negocios.<br>
+    Esta página se actualiza cuando cambia lo que el sistema hace. La fecha de arriba es
+    la de la última revisión real, no una fecha automática.</p>
+    <p class="pie-legal"><b>WAVE STUDIO S.A.C.S</b> · RUC 20615952517 · hola@cream.pe</p>
+    <div class="pie-enlaces">
+      <a href="/legal/">Política legal</a>
+      <a href="https://clinica.cream.pe/reclamaciones">Libro de Reclamaciones</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
