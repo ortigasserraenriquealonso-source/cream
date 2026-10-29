@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta name="color-scheme" content="light">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Caserío · ¿Cómo te fue hoy?</title>
+<meta name="description" content="Cuéntanos tu experiencia y recibe un cóctel de cortesía en tu siguiente visita.">
+<link rel="canonical" href="https://cream.pe/caserio/encuesta/">
+<meta property="og:url" content="https://cream.pe/caserio/encuesta/">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#836C5F">
+<link rel="icon" href="favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preload" as="image" href="logo.png">
+<!-- La tipografía no bloquea el dibujado: con el wifi del local lento, un
+     <link> normal deja la pantalla en blanco. Si nunca llega, no pasa nada. -->
+<script>
+/* Encuesta v2 · generada por resenas-qr/construir.py — no editar a mano. */
+const CONFIG = {
+  "ENDPOINT": "",
+  "PLACE_ID": "ChIJZYFPyj7vTJARKdJEC2O2Utw",
+  "MOZOS": [],
+  "PAIS": {
+    "prefijo": "51",
+    "bandera": "🇵🇪",
+    "digitos": 9,
+    "empieza": "9",
+    "ejemplo": "999 999 999"
+  },
+  "INCENTIVO": {
+    "premio": "un cóctel de cortesía",
+    "corto": "cóctel",
+    "singular": true,
+    "articulo": "el",
+    "emoji": "🍸",
+    "vigencia_dias": 15,
+    "imagen": "assets-caserio-v2/cupon.png",
+    "ilustracion": "assets-caserio-v2/premio.svg"
+  },
+  "CUMPLE": false
+};
+</script>
+
+<style>
+:root{
+  color-scheme: light;
+  --marca:#836C5F;
+  --marca-alto:#6E5B4F;
+  --sobre-marca:#FFFFFF;
+  --fondo:#FFFFFF;
+  --acento:#EBDCCE;
+  --tinta:#2A231F;
+  --tinta-suave:#6B5C53;
+  --linea:#E0D9D3;
+  --radio:14px;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --titular:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--fondo);color:var(--tinta);font-family:var(--sans);
+  font-size:17px;line-height:1.5;min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;-webkit-font-smoothing:antialiased
+}
+
+header{
+  background:var(--marca);text-align:center;
+  padding:calc(env(safe-area-inset-top) + 16px) 20px 14px
+}
+header img{width:172px;max-width:56vw;height:auto;display:inline-block}
+header .respaldo{font-family:var(--titular);font-size:28px;color:var(--sobre-marca);display:none}
+.progreso{height:3px;background:var(--linea)}
+.progreso i{display:block;height:100%;width:0;background:var(--marca);transition:width .35s cubic-bezier(.4,0,.2,1)}
+
+.preparacion{
+  background:var(--tinta);color:var(--fondo);font-size:13px;line-height:1.4;
+  text-align:center;padding:9px 16px
+}
+
+main{
+  flex:1;width:100%;max-width:520px;margin:0 auto;
+  padding:26px 20px calc(env(safe-area-inset-bottom) + 28px);
+  display:flex;flex-direction:column
+}
+.paso{display:none;animation:entra .3s ease both}
+.paso.activo{display:flex;flex-direction:column;flex:1}
+@keyframes entra{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.paso{animation:none}.progreso i{transition:none}}
+
+.contador{font-size:13px;font-weight:600;color:var(--tinta-suave);margin-bottom:8px;font-variant-numeric:tabular-nums}
+h1,h2{font-family:var(--titular);color:var(--marca);font-weight:400;text-wrap:balance;margin:0}
+h1{font-size:34px;line-height:1.1;margin-bottom:12px;letter-spacing:-.005em}
+h2{font-size:27px;line-height:1.15;margin-bottom:20px}
+h1:focus,h2:focus{outline:none}
+p.bajada{margin:0 0 22px;color:var(--tinta-suave);font-size:16px}
+
+/* D2: bienvenida sin foto, decisión de Enrique 19/10/2026. */
+body:has([data-paso="0"].activo) header,body:has([data-paso="0"].activo) .progreso{display:none}
+[data-paso="0"].activo{flex:initial;margin:auto 0;gap:28px;text-align:center;padding:20px 0 50px}
+.bienvenida{display:flex;flex-direction:column;align-items:center;gap:24px}
+.logo-bienvenida{width:180px;max-height:180px;object-fit:contain}
+.bienvenida h1{margin:0}.bienvenida .bajada{margin:0;max-width:310px}
+[data-paso="0"] .acciones{margin:0;padding:0}
+
+.opciones{display:flex;flex-direction:column;gap:10px}
+.opcion{
+  display:flex;align-items:center;width:100%;padding:15px 17px;min-height:56px;
+  font:inherit;font-size:17px;color:var(--tinta);text-align:left;background:#fff;
+  border:1.5px solid var(--linea);border-radius:var(--radio);cursor:pointer;
+  transition:border-color .15s,box-shadow .15s,transform .1s
+}
+.opcion:active{transform:scale(.985)}
+.opcion.elegida{border-color:var(--marca);box-shadow:inset 0 0 0 1px var(--marca)}
+
+.campo{margin-bottom:14px}
+label{display:block;font-size:14px;font-weight:600;margin-bottom:7px;color:var(--tinta)}
+label .opc{font-weight:400;color:var(--tinta-suave)}
+input[type=text],input[type=tel],textarea{
+  width:100%;padding:14px 16px;font:inherit;font-size:17px;color:var(--tinta);background:#fff;
+  border:1.5px solid var(--linea);border-radius:var(--radio);-webkit-appearance:none;appearance:none;
+  transition:border-color .15s
+}
+input:focus,textarea:focus{outline:none;border-color:var(--marca)}
+input.error{border-color:#B3261E}
+textarea{min-height:128px;resize:vertical;line-height:1.5}
+.prefijo{display:flex;gap:8px}
+.prefijo .pais{
+  display:flex;align-items:center;padding:0 13px;font-size:16px;color:var(--tinta-suave);
+  background:#fff;border:1.5px solid var(--linea);border-radius:var(--radio);white-space:nowrap
+}
+.prefijo input{flex:1;min-width:0}
+.nota-cumple{font-size:13.5px;color:var(--tinta-suave);margin:7px 2px 0;font-style:italic}
+.aviso{font-size:13.5px;color:#B3261E;margin-top:6px;display:none}
+.aviso.visible{display:block}
+
+.bloque-estrellas{margin:auto 0;padding-bottom:8%}
+.estrellas{display:flex;justify-content:space-between;gap:2px;margin:6px auto 8px;max-width:316px}
+.estrella{background:none;border:none;padding:6px 3px;cursor:pointer;line-height:0;transition:transform .12s}
+.estrella:active{transform:scale(.9)}
+.estrella svg{width:48px;height:48px;display:block}
+.estrella svg path{fill:none;stroke:var(--marca);stroke-width:1.6;transition:fill .18s}
+.estrella.on svg path{fill:var(--marca)}
+.etiquetas{display:flex;justify-content:space-between;font-size:13px;color:var(--tinta-suave);max-width:304px;margin:0 auto 12px}
+.lectura{text-align:center;font-family:var(--titular);font-size:22px;color:var(--marca);min-height:32px}
+
+.acciones{margin-top:auto;padding-top:22px;display:flex;flex-direction:column;gap:6px}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  padding:16px 20px;min-height:56px;font:inherit;font-size:17px;font-weight:600;
+  border:none;border-radius:var(--radio);cursor:pointer;transition:background .15s,opacity .15s,transform .1s
+}
+.btn:active{transform:scale(.99)}
+.btn-principal{background:var(--marca);color:var(--sobre-marca)}
+.btn-principal:hover{background:var(--marca-alto)}
+.btn-principal:disabled{opacity:.45;cursor:default}
+.btn-texto{background:none;color:var(--tinta-suave);font-weight:500;font-size:15.5px;min-height:46px;padding:10px}
+.atras{
+  background:none;border:none;padding:8px 2px;margin-bottom:10px;font:inherit;font-size:15px;
+  color:var(--tinta-suave);cursor:pointer;align-self:flex-start;min-height:40px
+}
+
+.cierre{text-align:center;flex:1;display:flex;flex-direction:column}
+.cierre .centro{margin:auto 0;padding-bottom:6%}
+.sello{width:72px;height:72px;margin:0 auto 20px;border-radius:50%;background:var(--marca);display:grid;place-items:center}
+.sello svg{width:34px;height:34px}
+.firma{
+  text-align:center;font-size:12px;letter-spacing:.04em;color:var(--tinta-suave);
+  opacity:.75;padding:14px 20px calc(env(safe-area-inset-bottom) + 14px)
+}
+
+@media (max-height:740px){
+  header{padding-top:calc(env(safe-area-inset-top) + 10px);padding-bottom:9px}
+  header img{width:144px}
+  main{padding:16px 18px calc(env(safe-area-inset-bottom) + 14px)}
+  h1{font-size:29px}
+  h2{font-size:23px;margin-bottom:14px}
+  p.bajada{margin-bottom:14px;font-size:15px}
+  .opcion{min-height:50px;padding:12px 15px;font-size:16px}
+  .opciones{gap:8px}
+  .acciones{padding-top:12px}
+  .btn{min-height:50px;padding:13px 18px}
+  .estrella svg{width:43px;height:43px}
+  textarea{min-height:96px}
+  input[type=text],input[type=tel]{padding:11px 14px;font-size:16px}
+  .campo{margin-bottom:10px}
+  .sello{width:58px;height:58px;margin-bottom:12px}
+  .firma{display:none}
+}
+
+/* D13: todas las filas siguen disponibles dentro de la misma tarjeta. */
+.filas-limitadas{display:grid!important;grid-template-columns:minmax(0,1fr);grid-auto-rows:var(--alto-fila);gap:12px!important;max-height:calc(3 * var(--alto-fila) + 24px);overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-behavior:smooth;scroll-snap-type:y mandatory;min-width:0;scrollbar-width:thin;scrollbar-gutter:stable}
+.filas-limitadas>*{margin:0!important;min-width:0;scroll-snap-align:start;scroll-margin:0;scroll-snap-stop:always;overflow-wrap:anywhere}
+.filas-limitadas:focus-visible{outline:3px solid var(--marca);outline-offset:3px}
+.pista-filas{font-size:14px;color:var(--tinta-2);margin:8px 0 0}
+@media(prefers-reduced-motion:reduce){.filas-limitadas{scroll-behavior:auto}}
+@font-face{font-family:"Archivo";src:url("archivo-bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+:root{--superficie:#FFFFFF;--fondo:#FFFFFF;--tinta:#2A231F;--tinta-2:#6B5C53;--tinta-3:#6B5C53;--tinta-suave:#6B5C53;--linea:#E0D9D3;--fondo-suave:#FFFFFF;--titular:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
+body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:700}h1,h2{text-transform:uppercase}
+header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--marca)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais{background:var(--superficie)}.globo{color:var(--fondo)}
+body{background-image:url("patron.svg");background-repeat:repeat;background-size:560px 560px}header{background:transparent}
+header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
+.item.malo .nota,.item.destacado{background:var(--superficie)}
+</style>
+<meta property="og:image" content="https://cream.pe/caserio/encuesta/logo.png">
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="Caserío" width="172" height="93"
+       onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+  <div class="respaldo">Caserío</div>
+</header>
+<div class="progreso" aria-hidden="true"><i id="barra"></i></div>
+
+<main id="app">
+
+  <!-- 0 · Bienvenida -->
+  <section class="paso activo" data-paso="0">
+    <div class="bienvenida">
+      <img class="logo-bienvenida" src="logo.png" alt="Caserío">
+      <h1>¿Cómo te fue hoy?</h1>
+      <p class="bajada">Cuéntanos tu experiencia, ¡y recibe un cóctel de cortesía en tu siguiente visita!</p>
+    </div>
+    <div class="acciones">
+      <button class="btn btn-principal" id="btn-empezar">¡Quiero mi cóctel!</button>
+    </div>
+  </section>
+
+  <!-- 1..4 · Preguntas (se pintan solas) -->
+  <section class="paso" data-paso="1"></section>
+  <section class="paso" data-paso="2"></section>
+  <section class="paso" data-paso="3"></section>
+  <section class="paso" data-paso="4"></section>
+
+  <!-- 5 · Estrellas -->
+  <section class="paso" data-paso="5">
+    <button class="atras" data-atras>← Atrás</button>
+    <div class="contador">5 de 5</div>
+    <h2>¿Cuántas estrellas nos das?</h2>
+    <div class="bloque-estrellas">
+      <div class="estrellas" id="estrellas"></div>
+      <div class="etiquetas"><span>Mala</span><span>Excelente</span></div>
+      <div class="lectura" id="lectura" role="status" aria-live="polite">&nbsp;</div>
+    </div>
+  </section>
+
+  <!-- 6 · Comentario privado (1 a 4 estrellas) -->
+  <section class="paso" data-paso="6">
+    <button class="atras" data-atras="5">← Cambiar mi calificación</button>
+    <h2 id="titulo-comentario">¿Qué pasó? Cuéntanos y lo arreglamos</h2>
+    <p class="bajada">Te escuchamos. Queremos que tu próxima visita sea mejor.</p>
+    <textarea id="comentario" maxlength="1000" placeholder="Cuéntanos con confianza…" enterkeyhint="done"></textarea>
+    <div class="acciones">
+      <button class="btn btn-principal" id="btn-comentario">Contarles</button>
+      <button class="btn btn-texto" id="btn-sin-comentario">Prefiero no escribir</button>
+    </div>
+  </section>
+
+  <!-- Contacto: primero con premio, al final sin incentivo. -->
+  <section class="paso" data-paso="7">
+    <div class="contador" id="contador-contacto"></div>
+    <h2 id="titulo-contacto">¿Te avisamos cuando haya algo nuevo?</h2>
+    <div class="campo">
+      <label for="nombre">Tu nombre</label>
+      <input type="text" id="nombre" autocomplete="given-name" maxlength="60" enterkeyhint="next" placeholder="Nombre">
+    </div>
+    <div class="campo">
+      <label for="celular" id="etiqueta-whatsapp">Tu WhatsApp</label>
+      <div class="prefijo">
+        <span class="pais" id="pais"></span>
+        <input type="tel" id="celular" inputmode="numeric" autocomplete="tel-national" maxlength="14" enterkeyhint="done">
+      </div>
+      <div class="aviso" id="aviso-celular" role="alert"></div>
+    </div>
+    <div class="campo" id="campo-cumple">
+      <label for="cumple">¿Cuándo es tu cumpleaños?</label>
+      <input type="text" id="cumple" inputmode="numeric" autocomplete="bday" maxlength="10" enterkeyhint="done" placeholder="dd/mm/aaaa">
+      <p class="nota-cumple">Aquí los cumpleañeros siempre tienen sorpresa 🎂</p>
+      <div class="aviso" id="aviso-cumple" role="alert">Revisa tu cumpleaños: día, mes y año, como 14/03/1992.</div>
+    </div>
+    <div class="acciones">
+      <button class="btn btn-principal" id="btn-contacto">Guardar</button>
+      <button class="btn btn-texto" id="btn-sin-contacto">Ahora no</button>
+    </div>
+  </section>
+
+  <!-- 8 · Cierre sin invitación a Google (D4, decisión de Enrique 19/10/2026) -->
+  <section class="paso" data-paso="8">
+    <div class="cierre">
+      <div class="centro">
+        <div class="sello">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 12.5l5.2 5.2L20 7" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 id="titulo-fin">¡Gracias!</h2>
+        <p class="bajada" id="texto-fin">Gracias por contarnos. ¡Te esperamos pronto!</p>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<div class="firma">Caserío · Restaurante Bar</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ── Preguntas ─────────────────────────────────────────────
+   Primero lo más fácil y lo que el contrato promete medir (cliente nuevo o
+   recompra), después adquisición y fortaleza, y al final el mozo: el dato más
+   incómodo va cuando ya hay inercia. */
+var NOMBRE = "Caserío";
+var PREGUNTAS = [
+  { id:"primera_vez", titulo:"¿Primera vez por aquí?",
+    opciones:["Sí, es mi primera vez", "Ya había venido antes", "Vengo seguido"] },
+  { id:"como_conocio", titulo:"¿Cómo llegaste a nosotros?",
+    opciones:["Instagram", "TikTok", "Facebook", "Me lo recomendaron", "Pasaba por aquí", "Google o Maps", "Otro"] },
+  { id:"lo_mejor", titulo:"¿Qué fue lo que más te gustó?",
+    opciones:["La sazón", "La atención", "El ambiente", "La rapidez", "El precio"] },
+  { id:"atendido_por", titulo:"¿Quién te atendió?", bajada:"Queremos felicitarle.",
+    libre:true, placeholder:"Nombre de quien te atendió" }
+];
+
+var INCENTIVO = CONFIG.INCENTIVO || null;
+var PRIMERA_PREGUNTA = INCENTIVO ? 2 : 1;
+var PASO_ESTRELLAS = INCENTIVO ? 6 : 5, PASO_COMENTARIO = INCENTIVO ? 7 : 6, PASO_CONTACTO = INCENTIVO ? 1 : 7, PASO_FIN = 8;
+var LECTURAS = ["", "Muy mala", "Mala", "Regular", "Buena", "¡Excelente!"];
+var LLAVE = "caserio-v2_encuesta_v2";
+var PREFIJO_COLA = "caserio-v2_pend2_";
+var PAIS = CONFIG.PAIS || { prefijo:"51", bandera:"🇵🇪", digitos:9, empieza:"9", ejemplo:"999 999 999" };
+
+var estado = {
+  id:null, respuestas:{}, estrellas:0, comentario:"", nombre:"", celular:"", cumple:"", acepta:false,
+  fueAGoogle:false, enviadoOk:false,
+  fuente: new URLSearchParams(location.search).get("f") || "", inicio: Date.now()
+};
+var pasoActual = 0;
+var calificado = false;    // ya salió la fila: lo demás corrige la MISMA fila
+var toqueEnCurso = false;  // evita el doble toque en las estrellas
+var terminado = false;     // estado sellado: el siguiente comensal arranca de cero
+
+var $ = function(s){ return document.querySelector(s); };
+var $$ = function(s){ return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+function nuevoId(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "id-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+}
+function fechaVigencia(fecha, dias){
+  // Fecha civil de Lima; operar en UTC evita cambios de día por la zona del dispositivo.
+  var partes = new Intl.DateTimeFormat("en-CA", {timeZone:"America/Lima",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date(fecha));
+  var valores = {};
+  partes.forEach(function(p){ valores[p.type] = p.value; });
+  var dia = new Date(Date.UTC(Number(valores.year), Number(valores.month)-1, Number(valores.day) + Number(dias == null ? 15 : dias)));
+  return ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"][dia.getUTCDay()] + " " + String(dia.getUTCDate()).padStart(2,"0") + " de " + ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][dia.getUTCMonth()];
+}
+function finalizar(){
+  if (!estado.fechaFinal) estado.fechaFinal = new Date().toISOString();
+  estado.final = true;
+}
+function escapar(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+                  .replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+function esperar(ms){ return new Promise(function(ok){ setTimeout(ok, ms); }); }
+function insatisfecho(){ return estado.estrellas > 0 && estado.estrellas <= 3; }
+
+/* ── Autoguardado: si se le apaga la pantalla, no pierde nada ── */
+function guardar(){
+  if (terminado) return;
+  try { localStorage.setItem(LLAVE, JSON.stringify({ e:estado, p:pasoActual, t:Date.now() })); } catch(_){}
+}
+function recuperar(){
+  try {
+    var g = JSON.parse(localStorage.getItem(LLAVE) || "null");
+    if (!g) return;
+    // Más de media hora ya no es "se apagó la pantalla": es otra persona.
+    // Y una encuesta que ya salió no se retoma: el siguiente empieza de cero.
+    if (!g.t || Date.now() - g.t > 30*60*1000 || !g.e || g.e.enviadoOk ||
+        typeof g.e.respuestas !== "object") { localStorage.removeItem(LLAVE); return; }
+    estado = g.e;
+    estado.fuente = new URLSearchParams(location.search).get("f") || estado.fuente || "";
+  } catch(_) { try { localStorage.removeItem(LLAVE); } catch(__){} }
+}
+function sellar(){ terminado = true; try { localStorage.removeItem(LLAVE); } catch(_){} }
+
+/* ── Navegación ───────────────────────────────────────────── */
+function irA(n){
+  pasoActual = n;
+  if (n === PASO_ESTRELLAS){
+    $('.paso[data-paso="' + PASO_ESTRELLAS + '"] h2').textContent = (estado.nombre ? estado.nombre.split(" ")[0] + ", ¿cuántas" : "¿Cuántas") + " estrellas nos das?";
+    toqueEnCurso = false; if (estado.estrellas) marcarEstrellas(estado.estrellas); }
+  var activa = null;
+  $$(".paso").forEach(function(s){
+    var esta = Number(s.getAttribute("data-paso")) === n;
+    s.classList.toggle("activo", esta);
+    if (esta) activa = s;
+  });
+  var progreso = INCENTIVO ? (n <= PASO_ESTRELLAS ? n / 6 : 1) : n / PASO_FIN;
+  $("#barra").style.width = Math.min(100, Math.round(progreso * 100)) + "%";
+  window.scrollTo(0, 0);
+  // Sin esto, un lector de pantalla no anuncia que cambió la pregunta.
+  var titulo = activa && activa.querySelector("h1, h2");
+  if (titulo){ titulo.setAttribute("tabindex", "-1"); try { titulo.focus({ preventScroll:true }); } catch(_){ titulo.focus(); } }
+  limitarFilas();
+  guardar();
+}
+
+
+function limitarFilas(){
+  // D13 en la encuesta: solo las listas que crecen con el negocio (el equipo).
+  // Las preguntas de opciones fijas se ven completas: ocultarlas sesga la respuesta.
+  document.querySelectorAll('.opciones[data-pregunta="atendido_por"]').forEach(function(lista){
+    var filas=Array.prototype.slice.call(lista.children);
+    if(filas.length<=3 || !lista.getBoundingClientRect().width)return;
+    var anterior=lista.scrollTop;
+    // Medir con el ancho final, incluido el canal de la barra de scroll.
+    lista.classList.add('filas-limitadas');
+    lista.style.setProperty('--alto-fila','auto');
+    var alto=Math.ceil(Math.max.apply(null,filas.map(function(f){return f.getBoundingClientRect().height;})));
+    lista.style.setProperty('--alto-fila',alto+'px');
+    lista.setAttribute('tabindex','0');
+    lista.setAttribute('aria-label', (lista.getAttribute('data-etiqueta') || 'Opciones') + ': '+filas.length+' elementos. Desliza o usa las flechas para ver más.');
+    var pista=lista.nextElementSibling;
+    if(!pista || !pista.classList.contains('pista-filas')){
+      pista=document.createElement('p');pista.className='pista-filas';lista.after(pista);
+    }
+    pista.textContent='+'+(filas.length-3)+' más · Desliza para ver todos';
+    lista.scrollTop=anterior;
+  });
+}
+window.addEventListener('resize',limitarFilas);
+if(document.fonts)document.fonts.ready.then(limitarFilas);
+
+function pintarPreguntas(){
+  PREGUNTAS.forEach(function(p, i){
+    var paso = i + PRIMERA_PREGUNTA, html = '<button class="atras" data-atras>← Atrás</button>'
+      + '<div class="contador">' + paso + ' de ' + (INCENTIVO ? 6 : 5) + '</div><h2>' + escapar(p.titulo) + '</h2>'
+      + (p.bajada ? '<p class="bajada">' + escapar(p.bajada) + '</p>' : '');
+    var mozos = CONFIG.MOZOS || [];
+    if (p.libre && !mozos.length){
+      html += '<div class="campo"><input type="text" id="libre-' + p.id + '" maxlength="60" autocomplete="off" '
+            + 'enterkeyhint="done" placeholder="' + escapar(p.placeholder) + '" aria-label="' + escapar(p.titulo) + '"></div>'
+            + '<div class="acciones"><button class="btn btn-principal" data-sigue="' + p.id + '">Seguir</button>'
+            + '<button class="btn btn-texto" data-salta="' + p.id + '">No lo recuerdo</button></div>';
+    } else {
+      var lista = p.libre ? mozos : p.opciones;
+      html += '<div class="opciones" role="group" data-pregunta="' + escapar(p.id) + '" data-etiqueta="' + escapar(p.titulo) + '" aria-label="' + escapar(p.titulo) + '">'
+            + lista.map(function(v){
+                return '<button class="opcion" aria-pressed="false" data-preg="' + p.id + '" data-valor="' + escapar(v) + '">' + escapar(v) + '</button>';
+              }).join("") + '</div>'
+            + (p.libre ? '<div class="acciones"><button class="btn btn-texto" data-salta="' + p.id + '">No lo recuerdo</button></div>' : '');
+    }
+    $('.paso[data-paso="' + paso + '"]').innerHTML = html;
+  });
+}
+
+var TRAZO = "M12 2.6l2.95 5.98 6.6.96-4.78 4.66 1.13 6.58L12 17.68l-5.9 3.1 1.13-6.58L2.45 9.54l6.6-.96L12 2.6z";
+function pintarEstrellas(){
+  $("#estrellas").innerHTML = [1,2,3,4,5].map(function(n){
+    return '<button class="estrella" aria-pressed="false" data-n="' + n + '" aria-label="' + n + ' de 5 estrellas">'
+         + '<svg viewBox="0 0 24 24"><path d="' + TRAZO + '" stroke-linejoin="round"/></svg></button>';
+  }).join("");
+}
+function marcarEstrellas(n){
+  $$("#estrellas .estrella").forEach(function(b){
+    var on = Number(b.getAttribute("data-n")) <= n;
+    b.classList.toggle("on", on);
+    b.setAttribute("aria-pressed", on ? "true" : "false");
+  });
+  $("#lectura").textContent = LECTURAS[n] || " ";
+}
+
+/* ── Envío ──────────────────────────────────────────────────
+   La primera vez sale apenas califica (si se va sin escribir, lo esencial ya
+   está guardado). Lo que agregue después —comentario, contacto, el clic a
+   Google— viaja con el mismo id y `actualizar`: el servidor completa la MISMA
+   fila. Cada envío lleva el estado entero, así el orden en que lleguen no
+   importa. */
+function soloDigitos(s){ return (s || "").replace(/\D/g, ""); }
+function celularValido(d){
+  return d.length === PAIS.digitos && (!PAIS.empieza || d.indexOf(PAIS.empieza) === 0);
+}
+/* "14/03/1992" (o "1992-03-14" del autocompletado) → "1992-03-14"; inválida → "". */
+function cumpleISO(valor){
+  var v = String(valor || "").trim(), m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v);
+  var a, mes, dia;
+  if (m){ a = +m[1]; mes = +m[2]; dia = +m[3]; }
+  else {
+    m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(v);
+    if (!m) return "";
+    dia = +m[1]; mes = +m[2]; a = +m[3];
+  }
+  var f = new Date(a, mes - 1, dia), hoy = new Date();
+  if (f.getFullYear() !== a || f.getMonth() !== mes - 1 || f.getDate() !== dia) return "";
+  if (a < hoy.getFullYear() - 110 || a > hoy.getFullYear() - 5) return "";
+  return a + "-" + ("0" + mes).slice(-2) + "-" + ("0" + dia).slice(-2);
+}
+function cumpleVisible(iso){
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || "");
+  return m ? m[3] + "/" + m[2] + "/" + m[1] : "";
+}
+function carga(actualizar){
+  var d = {
+    id: estado.id, fecha: estado.fechaFinal || new Date().toISOString(),
+    primera_vez: estado.respuestas.primera_vez || "", como_conocio: estado.respuestas.como_conocio || "",
+    lo_mejor: estado.respuestas.lo_mejor || "", atendido_por: estado.respuestas.atendido_por || "",
+    calificacion: estado.estrellas, comentario: estado.comentario,
+    fue_a_google: estado.fueAGoogle ? "SI" : "", fuente: estado.fuente,
+    segundos: Math.round((Date.now() - estado.inicio) / 1000)
+  };
+  // D3: Guardar con número válido expresa aceptación; mantiene contrato del Apps Script.
+  if (estado.acepta && estado.celular){
+    d.nombre = estado.nombre; d.whatsapp = PAIS.prefijo + estado.celular; d.acepta_contacto = "SI";
+    if (estado.cumple) d.cumpleanos = estado.cumple;
+  }
+  if (estado.final) d.final = true;
+  if (actualizar) d.actualizar = true;
+  return d;
+}
+
+/* Solo cuenta como guardado un {ok:true}: el script responde 200 aunque falle. */
+function postear(cuerpo){
+  return fetch(CONFIG.ENDPOINT, {
+    method:"POST", mode:"cors", keepalive:true,
+    headers:{ "Content-Type":"text/plain;charset=utf-8" }, body:cuerpo
+  }).then(function(r){ return r.json(); })
+    .then(function(j){ return !!(j && j.ok); })
+    .catch(function(){ return false; });
+}
+function postearConReintentos(cuerpo, intentos){
+  return postear(cuerpo).then(function(bien){
+    if (bien){ borrarPendiente(cuerpo); return true; }
+    if (intentos <= 0) return false;
+    return esperar(intentos === 3 ? 800 : 2500).then(function(){ return postearConReintentos(cuerpo, intentos - 1); });
+  });
+}
+/* Al salir, Beacon encola el envío; fetch keepalive es el respaldo.
+   El servidor actualiza por id sin borrar un SI recibido antes. */
+function mandar(actualizar, navegaEnseguida){
+  var cuerpo = JSON.stringify(carga(actualizar));
+  guardarPendiente(cuerpo);
+  if (!CONFIG.ENDPOINT) return Promise.resolve(false);
+  if (navegaEnseguida && navigator.sendBeacon){
+    try {
+      if (navigator.sendBeacon(CONFIG.ENDPOINT, new Blob([cuerpo], { type:"text/plain;charset=utf-8" }))) return Promise.resolve(true);
+    } catch(_){}
+  }
+  return postearConReintentos(cuerpo, navegaEnseguida ? 0 : (actualizar ? 2 : 3));
+}
+
+/* Cola de respaldo: cada pendiente en su propia clave (con un array
+   compartido, guardar y borrar se pisan y quedan huérfanos). */
+function guardarPendiente(cuerpo){
+  try {
+    localStorage.setItem(PREFIJO_COLA + Date.now() + "_" + Math.random().toString(36).slice(2, 8), cuerpo);
+    var k = clavesPendientes();
+    while (k.length > 20) localStorage.removeItem(k.shift());
+  } catch(_){}
+}
+function borrarPendiente(cuerpo){
+  try { clavesPendientes().forEach(function(k){ if (localStorage.getItem(k) === cuerpo) localStorage.removeItem(k); }); } catch(_){}
+}
+function clavesPendientes(){
+  var s = [];
+  try { for (var i = 0; i < localStorage.length; i++){ var k = localStorage.key(i); if (k && k.indexOf(PREFIJO_COLA) === 0) s.push(k); } } catch(_){}
+  return s.sort();
+}
+/* En serie: veinte peticiones de golpe atoran el script de la hoja. */
+function reintentarCola(){
+  if (!CONFIG.ENDPOINT) return;
+  var claves = clavesPendientes();
+  (function siguiente(i){
+    if (i >= claves.length) return;
+    var cuerpo = localStorage.getItem(claves[i]);
+    if (!cuerpo) return siguiente(i + 1);
+    postear(cuerpo).then(function(bien){
+      if (bien){ try { localStorage.removeItem(claves[i]); } catch(_){} }
+      esperar(400).then(function(){ siguiente(i + 1); });
+    });
+  })(0);
+}
+
+/* Píxel de Meta (pixel.js, solo si el cliente tiene pixel_meta): viajan el
+   nombre del momento y las estrellas; nunca nombre, WhatsApp ni cumpleaños. */
+function medir(momento){
+  return window.medirEncuesta ? window.medirEncuesta(momento, estado.estrellas || 0) : Promise.resolve();
+}
+
+function urlGoogle(){
+  return CONFIG.PLACE_ID ? "https://search.google.com/local/writereview?placeid=" + encodeURIComponent(CONFIG.PLACE_ID) : "";
+}
+/* D4, decisión de Enrique 19/10/2026: solo 5 estrellas van a Google.
+   Enrique conoce que Google desaconseja pedir reseñas solo a los felices
+   y asume ese riesgo: «es mi decisión, está decidido».
+   Mismo camino para el salto automático y cualquier botón de Google.
+   Beacon encola antes de navegar; no equivale a confirmación de la hoja.
+   Si no se puede encolar, fetch keepalive completa su intento antes del salto. */
+function irAGoogle(){
+  if (estado.estrellas !== 5 || !CONFIG.PLACE_ID) return;
+  estado.fueAGoogle = true;
+  finalizar();
+  guardar();
+  return Promise.all([mandar(true, true), medir("terminar")]).then(function(){ sellar(); location.href = urlGoogle(); });
+}
+
+/* ── Después de las estrellas ─────────────────────────────── */
+function calificar(n){
+  var correccion = calificado, cambio = correccion && estado.estrellas !== n;
+  estado.estrellas = n;
+  calificado = true;
+  // Marcar antes del primer envío evita una fila inicial sin la señal Google.
+  if (n === 5 && CONFIG.PLACE_ID){ estado.fueAGoogle = true; finalizar(); }
+  else if (n === 5 && INCENTIVO) finalizar();
+  if (!correccion){ estado.enviadoOk = true; mandar(false); }   // enviadoOk antes de salir: el id no se reusa
+  else if (cambio) mandar(true);
+  guardar();
+
+  if (n === 5 && CONFIG.PLACE_ID){ irAGoogle(); return; }
+  if (n === 5){ siguienteAlContacto(); return; }
+  $("#titulo-comentario").textContent = n === 4 ? "¿Cómo podemos mejorar?" : "¿Qué pasó? Cuéntanos y lo arreglamos";
+  $("#btn-sin-comentario").textContent = n === 4 ? "Nada, todo bien" : "Prefiero no escribir";
+  irA(PASO_COMENTARIO);
+}
+
+function prepararContacto(){
+  $("#titulo-contacto").textContent = INCENTIVO ? "¿A nombre de quién " + (INCENTIVO.singular ? "va " : "van ") + (INCENTIVO.articulo || (INCENTIVO.singular ? "el" : "las")) + " " + INCENTIVO.corto + "?" : "¿Seguimos en contacto?";
+}
+function siguienteAlContacto(){
+  if (INCENTIVO){ terminar(); return; }
+  prepararContacto(); irA(PASO_CONTACTO);
+}
+function terminar(){
+  var conCupon = INCENTIVO && estado.acepta && estado.nombre && estado.celular;
+  $("#titulo-fin").textContent = conCupon ? "¡Listo, " + estado.nombre.split(" ")[0] + "!" : "¡Gracias!";
+  $("#texto-fin").textContent = conCupon ? "¡Gracias por tu opinión! Recibirás tu premio por WhatsApp. Reclama " + (INCENTIVO.singular ? "tu " : "tus ") + INCENTIVO.corto + " hasta el día " + fechaVigencia(estado.fechaFinal, INCENTIVO.vigencia_dias) + ". Solo enseña el mensaje. ¡Que lo disfrutes!" : "Gracias por contarnos. ¡Te esperamos pronto!";
+  irA(PASO_FIN);
+  sellar();
+  medir("terminar");
+}
+
+/* ── Eventos ──────────────────────────────────────────────── */
+function conectar(){
+  $("#pais").textContent = PAIS.bandera + " +" + PAIS.prefijo;
+  $("#celular").placeholder = PAIS.ejemplo || "";
+  $("#aviso-celular").textContent = "Revisa el número: deben ser " + PAIS.digitos + " dígitos" +
+    (PAIS.empieza ? " y empezar en " + PAIS.empieza : "") + ".";
+
+  $("#btn-empezar").addEventListener("click", function(){ medir("empezar"); irA(1); });
+
+  $("#celular").addEventListener("input", function(e){
+    var d = soloDigitos(e.target.value);
+    if (d.length > PAIS.digitos && d.indexOf(PAIS.prefijo) === 0) d = d.slice(PAIS.prefijo.length);
+    d = d.slice(0, PAIS.digitos);
+    e.target.value = d.replace(/(\d{3})(?=\d)/g, "$1 ").trim();
+    if (celularValido(d)){ $("#aviso-celular").classList.remove("visible"); e.target.classList.remove("error"); }
+  });
+  // Se escribe solo con números; las barras salen solas.
+  $("#cumple").addEventListener("input", function(e){
+    if (/^\d{4}-\d{2}-\d{2}$/.test(e.target.value)) e.target.value = cumpleVisible(e.target.value);
+    var d = soloDigitos(e.target.value).slice(0, 8);
+    e.target.value = d.length > 4 ? d.slice(0,2) + "/" + d.slice(2,4) + "/" + d.slice(4) : d.length > 2 ? d.slice(0,2) + "/" + d.slice(2) : d;
+    if (cumpleISO(e.target.value)){ $("#aviso-cumple").classList.remove("visible"); e.target.classList.remove("error"); }
+  });
+
+
+  document.addEventListener("click", function(ev){
+    var t = ev.target.closest ? ev.target.closest("button") : null;
+    if (!t) return;
+
+    if (t.hasAttribute("data-atras")){
+      var a = t.getAttribute("data-atras");
+      irA(a ? Number(a) : Math.max(0, pasoActual - 1));
+      return;
+    }
+    if (t.classList.contains("opcion")){
+      $$('.opcion[data-preg="' + t.getAttribute("data-preg") + '"]').forEach(function(b){
+        b.classList.remove("elegida"); b.setAttribute("aria-pressed", "false");
+      });
+      t.classList.add("elegida"); t.setAttribute("aria-pressed", "true");
+      estado.respuestas[t.getAttribute("data-preg")] = t.getAttribute("data-valor");
+      guardar();
+      // El destino se fija ahora: un doble toque no salta una pregunta.
+      var destino = pasoActual + 1;
+      setTimeout(function(){ if (pasoActual < destino) irA(destino); }, 200);
+      return;
+    }
+    if (t.hasAttribute("data-sigue")){
+      var campo = $("#libre-" + t.getAttribute("data-sigue"));
+      estado.respuestas[t.getAttribute("data-sigue")] = campo ? campo.value.trim() : "";
+      irA(pasoActual + 1);
+      return;
+    }
+    if (t.hasAttribute("data-salta")){
+      estado.respuestas[t.getAttribute("data-salta")] = "";
+      irA(pasoActual + 1);
+      return;
+    }
+    if (t.classList.contains("estrella")){
+      if (toqueEnCurso) return;
+      toqueEnCurso = true;
+      var n = Number(t.getAttribute("data-n"));
+      marcarEstrellas(n);
+      setTimeout(function(){ calificar(n); }, 280);
+      return;
+    }
+  });
+
+  $("#comentario").addEventListener("input", function(e){ estado.comentario = e.target.value; guardar(); });
+  $("#btn-comentario").addEventListener("click", function(){
+    estado.comentario = $("#comentario").value.trim();
+    $("#nombre").value = estado.nombre || "";
+    $("#celular").value = estado.celular || "";
+    $("#cumple").value = cumpleVisible(estado.cumple);
+    finalizar();
+    mandar(true);
+    siguienteAlContacto();
+  });
+  $("#btn-sin-comentario").addEventListener("click", function(){ finalizar(); mandar(true); siguienteAlContacto(); });
+
+  $("#btn-contacto").addEventListener("click", function(){
+    var d = soloDigitos($("#celular").value);
+    if (!d && !INCENTIVO){ terminar(); return; }   // sin número no hay nada que guardar
+    var nombre = $("#nombre").value.trim().slice(0, 60);
+    if (INCENTIVO && !nombre){
+      $("#aviso-celular").textContent = "Cuéntanos tu nombre y déjanos un WhatsApp válido para mandarte el cupón.";
+      $("#aviso-celular").classList.add("visible"); $("#nombre").focus(); return;
+    }
+    $("#aviso-celular").textContent = "Revisa tu WhatsApp para que el cupón llegue bien: " + PAIS.digitos + " dígitos" + (PAIS.empieza ? ", empezando en " + PAIS.empieza : "") + ".";
+    var malCel = !celularValido(d);
+    $("#aviso-celular").classList.toggle("visible", malCel);
+    $("#celular").classList.toggle("error", malCel);
+    if (malCel){ $("#celular").focus(); return; }
+    var cumple = cumpleISO($("#cumple").value);
+    var malCumple = !cumple && (INCENTIVO || $("#cumple").value.trim());
+    $("#aviso-cumple").classList.toggle("visible", !!malCumple);
+    $("#cumple").classList.toggle("error", !!malCumple);
+    if (malCumple){ $("#cumple").focus(); return; }
+    estado.cumple = cumple;
+    estado.nombre = $("#nombre").value.trim().slice(0, 60);
+    estado.celular = d; estado.acepta = true;
+    if (INCENTIVO){ guardar(); irA(PRIMERA_PREGUNTA); return; }
+    var boton = this; boton.disabled = true; boton.textContent = "Guardando…";
+    // Con el wifi lento nadie se queda mirando "Guardando…": a los 5 s sigue.
+    Promise.race([mandar(true), esperar(5000)]).then(terminar);
+  });
+  $("#btn-sin-contacto").addEventListener("click", function(){
+    if (!INCENTIVO) terminar();
+  });
+
+  var botonGoogle = $("#btn-google");
+  if (botonGoogle) botonGoogle.addEventListener("click", irAGoogle);
+
+  document.addEventListener("visibilitychange", function(){ if (document.visibilityState === "hidden") guardar(); });
+}
+
+function arrancar(){
+  if (INCENTIVO){
+    // Guardar referencias antes de reasignar números evita cruzar los pasos 1 y 7.
+    var contacto = $('.paso[data-paso="7"]'), comentario = $('.paso[data-paso="6"]'), estrellas = $('.paso[data-paso="5"]');
+    var preguntas = [1,2,3,4].map(function(n){ return $('.paso[data-paso="' + n + '"]'); });
+    preguntas.forEach(function(p,i){ p.setAttribute("data-paso", String(i+2)); });
+    contacto.setAttribute("data-paso", "1"); comentario.setAttribute("data-paso", "7"); estrellas.setAttribute("data-paso", "6");
+    estrellas.querySelector(".contador").textContent="6 de 6";
+    comentario.querySelector("[data-atras]").setAttribute("data-atras", "6");
+    $("#contador-contacto").textContent="1 de 6";
+    $("#etiqueta-whatsapp").textContent="¿A qué WhatsApp te mandamos el cupón?";
+    $("#btn-contacto").textContent="Seguir";
+    $("#btn-sin-contacto").remove();
+  }
+  // La sorpresa de cumpleaños solo se promete si el cliente definió su regalo.
+  if (!CONFIG.CUMPLE){ var nota = $(".nota-cumple"); if (nota) nota.remove(); }
+  prepararContacto();
+  pintarPreguntas();
+  pintarEstrellas();
+  recuperar();
+  if (!estado.id) estado.id = nuevoId();
+  try {
+    Object.keys(estado.respuestas || {}).forEach(function(id){
+      $$('.opcion[data-preg="' + id + '"]').forEach(function(b){
+        if (b.getAttribute("data-valor") === String(estado.respuestas[id])){ b.classList.add("elegida"); b.setAttribute("aria-pressed", "true"); }
+      });
+      var libre = $("#libre-" + id); if (libre && estado.respuestas[id]) libre.value = estado.respuestas[id];
+    });
+    $("#nombre").value = estado.nombre || "";
+    $("#celular").value = estado.celular || "";
+    $("#cumple").value = cumpleVisible(estado.cumple);
+    if (estado.comentario) $("#comentario").value = estado.comentario;
+  } catch(err){ console.warn("[" + NOMBRE + "] no se pudo repoblar:", err); }
+
+  // Siempre desde la bienvenida: si el celular pasó a otra persona, que no
+  // aterrice en mitad del cuestionario ajeno. Lo elegido queda marcado.
+  irA(0);
+  if (!CONFIG.ENDPOINT) avisarPreparacion();
+  reintentarCola();
+}
+
+/* Sin ENDPOINT la encuesta se ve, pero no guarda: se dice, discreto. */
+function avisarPreparacion(){
+  var b = document.createElement("div");
+  b.className = "preparacion"; b.setAttribute("role", "status");
+  b.textContent = "Vista previa: esta encuesta todavía no guarda respuestas.";
+  document.body.insertBefore(b, document.body.firstChild);
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function(){ conectar(); arrancar(); });
+else { conectar(); arrancar(); }
+})();
+</script>
+</body>
+</html>
