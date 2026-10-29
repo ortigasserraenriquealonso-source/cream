@@ -1,9 +1,9 @@
 # Activos de Caserío
 
-29/10/2026. Logo oficial: `resenas-qr/assets-caserio/logo-marron.png`; favicon: `resenas-qr/sitios/caserio/favicon.png`. Copias sin modificación.
+29/10/2026. Logo oficial: `resenas-qr/assets-caserio/logo-marron.png` (copiado como `logo.png`); favicon: `resenas-qr/sitios/caserio/favicon.png`. Copias sin modificación.
 
-29/10/2026 (tarde): el hub toma la piel de la encuesta de Caserío (`plantilla-caserio.html`), por pedido de Enrique. Logo en la banda: `logo-blanco.png`, copia sin modificar de `resenas-qr/assets-caserio/logo-blanco-puro.png`.
+El hub usa la plantilla común, igual que Bendita (pedido de Enrique, 29/10/2026 tarde).
 
-Archivo (latin, pesos 500-700), de Omnibus-Type, SIL Open Font License 1.1: `archivo.woff2`, descargada de Google Fonts el 29/10/2026. Es la misma familia que usa la encuesta (`cream.pe/caserio/`); sustituto libre de Trade Gothic, no equivalencia. `OFL.txt` trae el texto de la licencia.
+Archivo Bold (latin), de Omnibus-Type, SIL Open Font License 1.1: `archivo-bold.woff2`, descargada de Google Fonts el 29/10/2026. Es la familia de la encuesta de Caserío (`cream.pe/caserio/`) y el sustituto libre de su Trade Gothic, sin ser equivalente. El texto de la licencia está en `OFL.txt`.
 
-`patron.png`: serigrafiado creado para el hub el 29/10/2026 con el isotipo oficial de Caserío (`resenas-qr/assets-caserio/isotipo-marron.png`), seis copias dispersas al 14 % de opacidad sobre transparente. `compartir.jpg`: generado antes del cambio de piel con `imagen-compartir.py` (logo marrón sobre blanco); no se regenera porque ese script solo lee patrones SVG.
+`patron.svg`: serigrafiado original dibujado para el hub el 29/10/2026, a una tinta (#836C5F al 10 %): casitas del isotipo, copa, cóctel, rueda de queso, paella, pasta, rama de olivo y botella. Se generó con semilla fija (823). `compartir.jpg` se genera con `imagen-compartir.py caserio`.

@@ -19,51 +19,36 @@
 <meta property="og:image:alt" content="Caserío">
 <meta name="twitter:card" content="summary_large_image">
 <style>
-/* Caserío: la misma piel que su encuesta (cream.pe/caserio/): banda marrón con el logo
-   en blanco, títulos en Archivo, rótulos en monoespaciada y hueso con el serigrafiado
-   de sus casitas. */
-@font-face{font-family:"Archivo";src:url("archivo.woff2") format("woff2");font-weight:500 700;font-style:normal;font-display:swap}
-:root{--marca:#836C5F;--marca-alto:#6E5B4F;--acento:#EBDCCE;--tinta:#2A231F;--suave:#6B5C53;--linea:#E0D9D3;--fondo:#F4F3F1;--tarjeta:#ffffff;
---titulo:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+@font-face{font-family:"Archivo";src:url("archivo-bold.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+:root{--marca:#836C5F;--tinta:#1d1a1a;--suave:#6b6363;--linea:#ece7e7;--fondo:#ffffff;--tarjeta:#ffffff}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--fondo) url("patron.png") repeat;background-size:560px;color:var(--tinta);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
-.banda{background:var(--marca);padding:28px 16px 26px;text-align:center}
-.banda img{width:180px;height:auto;display:inline-block}
-main{max-width:560px;margin:0 auto;padding:30px 16px 56px;display:flex;flex-direction:column;gap:14px}
-header{padding:0 4px 8px}
-.rotulo{display:block;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--suave);margin-bottom:10px}
-h1,h2{font-family:var(--titulo);font-weight:700;letter-spacing:-.01em;margin:0;text-wrap:pretty}
-h1{font-size:31px;line-height:1.15;color:var(--marca)}
-header p{margin:8px 0 0;color:var(--suave);font-size:17px}
-section{position:relative;overflow:hidden;background:var(--tarjeta);border:1px solid var(--linea);border-radius:18px;padding:22px 20px}
-.n{display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--marca);margin-bottom:8px}
-h2{font-size:22px;line-height:1.2;color:var(--tinta)}
+body{margin:0;background:var(--fondo) url("patron.svg") repeat;background-size:560px;color:var(--tinta);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:560px;margin:0 auto;padding:32px 16px 56px;display:flex;flex-direction:column;gap:16px}
+header{text-align:center;padding:8px 0 12px}
+header img{width:180px;height:auto}
+h1,h2{font-family:"Archivo",Georgia,serif;font-weight:400;text-transform:uppercase;letter-spacing:.01em;margin:0}
+h1{font-size:26px;line-height:1.15;margin-top:18px}
+header p{margin:8px 0 0;color:var(--suave)}
+section{background:var(--tarjeta);border:1px solid var(--linea);border-radius:28px;padding:22px 20px;box-shadow:0 6px 24px rgba(0,0,0,.05)}
+.n{display:inline-block;font-size:13px;font-weight:700;color:var(--marca);margin-bottom:6px;letter-spacing:.04em}
+h2{font-size:19px;line-height:1.2}
 section p{margin:8px 0 0;color:var(--suave)}
 .acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-a.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:14px;background:var(--marca);color:#fff;text-decoration:none;font-weight:600;font-size:16px}
-a.btn.borde{background:transparent;color:var(--marca);border:1.5px solid var(--marca)}
-a.btn:focus-visible{outline:2px solid var(--tinta);outline-offset:2px}
-.img{display:block;width:100%;height:auto;border-radius:14px;margin-top:16px;border:1px solid var(--linea)}
+a.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 20px;border-radius:999px;background:var(--marca);color:#fff;text-decoration:none;font-weight:700}
+a.btn.borde{background:transparent;color:var(--marca);border:2px solid var(--marca)}
+.img{display:block;width:100%;height:auto;border-radius:20px;margin-top:16px;border:1px solid var(--linea)}
 .par{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
-.par img{width:100%;height:auto;border-radius:12px;border:1px solid var(--linea)}
+.par img{width:100%;height:auto;border-radius:14px;border:1px solid var(--linea)}
 .wa{margin-top:16px;background:#e7ffdb;border-radius:18px 18px 18px 4px;padding:14px 16px;color:#111;font-size:15px;white-space:pre-line}
-/* La primera tarjeta (la carpeta de Drive) va como la cortesía de la encuesta: marrón con su círculo. */
-section:first-of-type{background:var(--marca);border-color:var(--marca)}
-section:first-of-type::after{content:"";position:absolute;right:-46px;bottom:-56px;width:150px;height:150px;border-radius:50%;background:var(--acento);opacity:.14;pointer-events:none}
-section:first-of-type .n{color:var(--acento)}
-section:first-of-type h2{color:#fff}
-section:first-of-type p{color:rgba(255,255,255,.86)}
-section:first-of-type a.btn{background:#fff;color:var(--marca)}
-.pend{background:rgba(255,255,255,.55);border-style:dashed}
-footer{text-align:center;color:var(--suave);font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;padding-top:10px}
+.pend{border-color:#f3c6cb;background:#fff7f8}
+footer{text-align:center;color:var(--suave);font-size:13px;padding-top:8px}
 </style>
 </head>
 <body>
-<div class="banda"><img src="logo-blanco.png" alt="Caserío" width="180"></div>
 <main>
 <header>
-  <span class="rotulo">Caserío · Restaurante Bar</span>
+  <img src="logo.png" alt="Caserío" width="180">
   <h1>Tu hub digital</h1>
   <p>Todo tu material, en un solo lugar.</p>
 </header>
