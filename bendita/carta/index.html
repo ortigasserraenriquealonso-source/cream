@@ -32,15 +32,16 @@ h1{margin:0;font:400 20px/1 var(--titulos);text-transform:uppercase;letter-spaci
 .nota{margin:12px 16px 0;color:var(--tinta-suave);font-size:13px;text-align:center}
 .paginas{display:grid;gap:12px;max-width:900px;margin:12px auto 0;padding:0 8px calc(96px + env(safe-area-inset-bottom))}
 .paginas img{display:block;width:100%;height:auto;border-radius:10px;background:var(--superficie)}
-.acciones{position:fixed;left:0;right:0;bottom:0;z-index:2;display:flex;gap:8px;max-width:520px;margin:0 auto;
-  padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:color-mix(in srgb,var(--fondo) 94%,transparent);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--linea)}
-.acciones a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:var(--radio);
+/* Franja de todo el ancho que se desvanece hacia arriba: sin caja ni línea encima de la carta; botones centrados a 520 px. */
+.acciones{position:fixed;left:0;right:0;bottom:0;z-index:2;display:flex;gap:8px;pointer-events:none;
+  padding:28px max(12px,calc(50% - 248px)) calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(to top,var(--fondo) 45%,color-mix(in srgb,var(--fondo) 0%,transparent))}
+.acciones a{pointer-events:auto;flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;border-radius:var(--radio);
   font:700 16px/1 var(--texto);text-decoration:none;touch-action:manipulation}
 .acciones a:active{transform:scale(.98)}
 .acciones svg{width:20px;height:20px}
 .lleno{background:var(--marca);color:var(--sobre-marca)}
-.borde{border:1.5px solid color-mix(in srgb,var(--tinta) 32%,transparent);color:var(--tinta)}
+.borde{border:1.5px solid color-mix(in srgb,var(--tinta) 32%,transparent);color:var(--tinta);background:var(--fondo)}
 a:focus-visible{outline:3px solid var(--marca);outline-offset:3px}
 .icono-sprite{position:absolute;width:0;height:0;overflow:hidden}
 
