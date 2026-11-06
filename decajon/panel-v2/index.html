@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta name="color-scheme" content="light">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>De Cajón · Tu encuesta</title>
+<link rel="canonical" href="https://cream.pe/decajon/panel-v2/">
+<meta property="og:url" content="https://cream.pe/decajon/panel-v2/">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="../encuesta/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="../encuesta/favicon.png">
+
+<script>
+/* Tablero v2 · generado por resenas-qr/construir.py — no editar a mano.
+   La clave NO está escrita acá (este archivo vive en un repositorio
+   público): llega en el enlace del dueño, después del #, que el navegador
+   nunca envía a ningún servidor. */
+const TABLERO = { ENDPOINT: "https://script.google.com/macros/s/AKfycbzCiXPgFDm2HpJgPvYx6i_qmjmWYnngs-3HYtRnLjj1fvPCWblJr1ay-XmTBlRXK5U2/exec", NEGOCIO: "De Cajón", SLUG: "decajon-v2", INCENTIVO: {"premio": "un mocktail de cortesía", "corto": "mocktail", "singular": true, "articulo": "el", "emoji": "🍹", "vigencia_dias": 15, "imagen": "assets-decajon-v2/cupon.png", "ilustracion": "assets-decajon-v2/premio.svg"}, CUMPLE: null };
+</script>
+
+<style>
+:root{
+  --marca:#00392A;
+  --sobre-marca:#FFFFFF;
+  --tinta:#1F1F1F;
+  --tinta-2:#5F6368;
+  --tinta-3:#80868B;
+  --linea:#E3E3E3;
+  --superficie:#FFFFFF;
+  --fondo-suave:#F6F7F8;
+  --bien:#137333;
+  --mal:#B3261E;
+  --sans:"Google Sans Text","Google Sans",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:#FFFFFF;color:var(--tinta);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,a{font:inherit}button{color:inherit;cursor:pointer}a{color:var(--marca)}
+.barra{padding:calc(env(safe-area-inset-top) + 12px) 20px 12px;background:var(--superficie)}
+.cinta{max-width:1120px;margin:auto;display:flex;align-items:center;gap:16px}.barra img{height:44px;max-width:160px;object-fit:contain}.respaldo{display:none;font-weight:700}
+main{max-width:1120px;margin:auto;padding:24px 16px calc(env(safe-area-inset-bottom) + 40px)}
+.historia{display:grid;gap:20px;align-items:start}.tarjeta{background:#fff;border-radius:24px;padding:24px;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A;min-width:0}.ancha{grid-column:1/-1}
+h2{font-size:23px;line-height:1.25;margin:0 0 22px;display:flex;align-items:center;gap:10px}h2 svg{width:24px;height:24px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+p{margin:10px 0}.base,.pie,.meta,.detalle{color:var(--tinta-2)}.heroe{display:flex;align-items:center;gap:20px}.numero{font-size:72px;line-height:1;letter-spacing:-3px}.estrellas{color:var(--marca);font-size:23px;letter-spacing:2px}.frase{font-weight:600;margin:8px 0 24px}.detalle{font-size:16px}
+.desglose{list-style:none;padding:0;margin:0}.desglose li{margin-top:18px}.fila{display:flex;align-items:center;gap:12px}.etiqueta{flex:1;overflow-wrap:anywhere}.valor{white-space:nowrap;display:flex;gap:10px;font-variant-numeric:tabular-nums}.valor span:last-child{color:var(--tinta-2)}.pista{height:12px;background:#F1F3F4;border-radius:99px;overflow:hidden;margin-top:8px}.pista i{display:block;height:100%;background:var(--marca);border-radius:99px}
+.aviso-pendientes{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding:14px 20px;border:1px solid var(--linea);border-radius:18px;background:#F6F7F8}.aviso-pendientes a{padding:10px 16px;background:var(--marca);color:var(--sobre-marca);border-radius:99px;text-decoration:none;font-weight:600}.aviso-cupones{display:block}.aviso-cupones summary{cursor:pointer;font-weight:600}.cupones{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}.cupones li{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}.enviar-cupon{border:0;border-radius:99px;background:var(--marca);color:var(--sobre-marca);padding:10px 16px;min-height:44px;font-weight:600}.enviar-cupon:disabled{opacity:.6}.cumples li{align-items:center}.cumple-listo{display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%}.cumple-listo img{width:56px;height:70px;object-fit:cover;border-radius:10px;border:1px solid var(--linea)}.cumple-acciones{display:flex;gap:8px;width:100%}.cumple-acciones .enviar-cupon{flex:1;justify-content:center;padding:10px 8px;font-size:14px;white-space:nowrap}a.enviar-cupon{text-decoration:none;display:inline-flex;align-items:center}.cifras{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.cifra{border-radius:24px;padding:22px;background:#fff;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A}.rot,.val,.pie{display:block}.rot{font-weight:600}.val{font-size:38px;font-weight:650;margin:6px 0}.pie{font-size:16px}
+.equipo{list-style:none;padding:0;margin:0;display:grid;gap:12px}.persona{display:flex;align-items:center;gap:12px;padding:14px;border-radius:18px;background:#F8F9FA}.avatar{width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:color-mix(in srgb,var(--marca) 10%,white);color:var(--marca);font-weight:700}.persona .nombre{flex:1;min-width:0;overflow-wrap:anywhere}.persona small{display:block;font-size:16px;color:var(--tinta-2)}.persona.lider{background:color-mix(in srgb,var(--marca) 6%,white)}.sin-dato{color:var(--tinta-2)}.persona strong{white-space:nowrap}.medalla{color:var(--marca)}
+.segmentos{display:flex;height:22px;overflow:hidden;border-radius:99px;margin:22px 0}.segmentos i{background:var(--marca)}.segmentos i:nth-child(2){background:#6A627D}.segmentos i:nth-child(3){background:#26736C}.leyenda{list-style:none;padding:0;margin:0;display:grid;gap:12px}.leyenda li{display:flex;align-items:center;gap:10px}.punto{width:12px;height:12px;border-radius:50%;flex-shrink:0}.leyenda strong{margin-left:auto;white-space:nowrap}.leyenda small{font-size:16px;color:var(--tinta-2)}
+.tendencia{position:relative}.tendencia svg{display:block;width:100%;height:150px}.eje{display:flex;justify-content:space-between;color:var(--tinta-2);margin-top:12px}.globo{position:absolute;pointer-events:none;background:var(--tinta);color:white;padding:8px 12px;border-radius:12px;transform:translate(-50%,-100%);opacity:0;font-size:14px}.globo.visible{opacity:1}.tabla-oculta{position:absolute;display:block;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;padding:0;margin:-1px}
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:16px}.item{display:grid;grid-template-columns:auto 1fr;gap:12px;background:#F6F7F8;border-radius:20px 20px 20px 6px;padding:20px;scroll-margin-top:20px}.nota{width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:#fff;font-weight:600;color:var(--marca)}.texto{overflow-wrap:anywhere}.meta{grid-column:2;display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:16px}.chip{border-radius:99px;padding:3px 10px;background:#fff}.hecho{color:var(--bien)}.atender{border:0;border-radius:99px;padding:12px 16px;min-height:44px;background:white;color:var(--marca);font-weight:600}.atender:disabled{opacity:.6}.item.malo{background:#F6F7F8}.item.destacado{outline:2px solid var(--marca)}.mas{display:block;margin:16px auto 0;border:0;background:transparent;padding:12px;color:var(--marca)}
+.estado{text-align:center;padding:40px 24px;max-width:620px;margin:auto;background:#fff;border-radius:24px}.estado strong{display:block;font-size:24px;margin-bottom:12px}.cargando{display:grid;gap:20px}.esqueleto{height:180px;border-radius:24px;background:#ECEFF1;animation:late 1.2s ease-in-out infinite}.pie-pagina{background:#FFFFFF;border-radius:12px;padding:8px 12px;color:var(--tinta-2);font-size:16px;margin:24px 4px}button:focus-visible,a:focus-visible{outline:3px solid var(--marca);outline-offset:4px}
+.conclusiones-lista{margin:0;padding-left:1.5em;display:grid;gap:16px}.conclusiones-lista li{padding-left:6px;overflow-wrap:anywhere}
+.acceso{max-width:400px;border:1px solid var(--linea);box-shadow:0 4px 24px #2020200A}.acceso img{display:block;width:160px;max-height:140px;object-fit:contain;margin:0 auto 24px}.acceso h2{display:block}.acceso input{width:100%;min-height:52px;border:1.5px solid var(--linea);border-radius:14px;padding:12px 16px;font:inherit;background:#fff;color:var(--tinta)}.acceso button{width:100%;min-height:52px;border:0;border-radius:99px;background:var(--marca);color:var(--sobre-marca);font:inherit;font-weight:600;cursor:pointer}.acceso button:disabled{opacity:.6}.acceso p{color:var(--mal);font-size:15px}.acceso input:focus-visible{outline:2px solid var(--marca);outline-offset:2px}
+@keyframes late{50%{opacity:.5}}@media(prefers-reduced-motion:reduce){.esqueleto{animation:none}}@media(min-width:800px){.historia{grid-template-columns:repeat(2,minmax(0,1fr))}.cifras{grid-template-columns:repeat(4,minmax(0,1fr))}.tarjeta{padding:30px}.cargando{grid-template-columns:1fr 1fr}}
+
+/* D13: todas las filas siguen disponibles dentro de la misma tarjeta. */
+.filas-limitadas{display:grid!important;grid-template-columns:minmax(0,1fr);grid-auto-rows:var(--alto-fila);gap:12px!important;max-height:calc(3 * var(--alto-fila) + 24px);overflow-y:auto;overflow-x:hidden;overscroll-behavior-y:contain;scroll-behavior:smooth;scroll-snap-type:y mandatory;min-width:0;scrollbar-width:thin;scrollbar-gutter:stable}
+.filas-limitadas>*{margin:0!important;min-width:0;scroll-snap-align:start;scroll-margin:0;scroll-snap-stop:always;overflow-wrap:anywhere}
+.filas-limitadas:focus-visible{outline:3px solid var(--marca);outline-offset:3px}
+.pista-filas{font-size:14px;color:var(--tinta-2);margin:8px 0 0}
+@media(prefers-reduced-motion:reduce){.filas-limitadas{scroll-behavior:auto}}
+@font-face{font-family:"Alfa Slab One";src:url("../encuesta/alfaslabone.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+:root{--superficie:#FFFFFF;--fondo:#FFFFFF;--tinta:#1A1D1A;--tinta-2:#5A6159;--tinta-3:#5A6159;--tinta-suave:#5A6159;--linea:#DCDED6;--fondo-suave:#FFFFFF;--titular:"Alfa Slab One",Rockwell,Georgia,serif;color-scheme:light}
+body{background:var(--fondo)}h1,h2,.heroe .numero{font-family:var(--titular);font-weight:400}h1,h2{text-transform:uppercase}
+header,.barra{background:var(--fondo)}h1,h2,.lectura{color:var(--marca)}.opcion,input[type=text],input[type=tel],textarea,.prefijo .pais{background:var(--superficie)}.globo{color:var(--fondo)}
+body{background-image:url("../encuesta/patron.svg");background-repeat:repeat;background-size:560px 560px}header{background:transparent}
+header img{max-height:84px;object-fit:contain}.barra img{height:58px;max-width:180px;object-fit:contain}
+.item.malo .nota,.item.destacado{background:var(--superficie)}
+</style>
+</head>
+<body>
+
+<div class="barra">
+  <div class="cinta">
+    <img src="../encuesta/logo-claro.png" alt="De Cajón" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="respaldo">De Cajón</span>
+  </div>
+</div>
+
+<main id="lienzo">
+  <div class="cargando" aria-label="Cargando">
+    <div class="esqueleto"></div><div class="esqueleto"></div><div class="esqueleto"></div>
+  </div>
+</main>
+
+<script>
+(function(){
+"use strict";
+var $ = function(s){ return document.querySelector(s); };
+var lienzo = $("#lienzo");
+var LLAVE = TABLERO.SLUG + "_tablero_clave";
+var claveSesion = "";
+var datos = null, destacado = null, reloj = null;
+var lecturasPendientes = new Set(), avisoLectura = "", revisionLecturas = 0;
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function pct(n, t){ return t ? Math.round(n / t * 100) : 0; }
+function coma(n){ return String(n).replace(".", ","); }
+
+/* La clave llega en #k=… o se escribe y valida; después se recuerda en este celular
+   y se borra de la barra de direcciones para que no quede a la vista. */
+function leerHash(){
+  var h = new URLSearchParams(location.hash.slice(1));
+  if (h.get("k")) { try { localStorage.setItem(LLAVE, h.get("k")); } catch(_){} }
+  destacado = h.get("atender");
+  if (h.get("k") || h.get("atender")) history.replaceState(null, "", location.pathname + location.search);
+}
+function clave(){ try { return claveSesion || localStorage.getItem(LLAVE) || ""; } catch(_){ return claveSesion; } }
+
+function estado(titulo, texto){
+  lienzo.innerHTML = '<div class="estado"><strong>' + esc(titulo) + '</strong>' + esc(texto) + '</div>';
+}
+
+/* "hace 2 h", "ayer 20:15", "12 oct" — como lo diría una persona. */
+var MESES = ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+function cuando(fecha, hora){
+  if (!fecha) return "";
+  var p = fecha.split("-").map(Number), h = (hora || "00:00").split(":").map(Number);
+  var f = new Date(p[0], p[1] - 1, p[2], h[0], h[1]), ahora = new Date();
+  var min = Math.round((ahora - f) / 60000);
+  var hoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
+  var dias = Math.round((hoy - new Date(p[0], p[1] - 1, p[2])) / 86400000);
+  if (min >= 0 && min < 60) return min <= 1 ? "recién" : "hace " + min + " min";
+  if (dias === 0) return "hoy " + hora;
+  if (dias === 1) return "ayer " + hora;
+  if (dias < 7) return "hace " + dias + " días";
+  return p[2] + " " + MESES[p[1] - 1];
+}
+function semanaTexto(desde){
+  var p = desde.split("-").map(Number);
+  return p[2] + " " + MESES[p[1] - 1];
+}
+
+/* Promedio de las últimas 4 semanas frente a las 4 anteriores. */
+function delta(semanas){
+  function prom(lista){
+    var s = 0, n = 0;
+    lista.forEach(function(x){ if (x.promedio !== null){ s += x.promedio * x.n; n += x.n; } });
+    return n ? s / n : null;
+  }
+  var a = prom(semanas.slice(-4)), b = prom(semanas.slice(-8, -4));
+  if (a === null || b === null) return null;
+  return Math.round((a - b) * 10) / 10;
+}
+
+function titulo(texto, icono){
+  var trazos={nota:'M12 3l3 6 6 1-4.5 4.5 1 6.5-5.5-3-5.5 3 1-6.5L3 10l6-1z',hoy:'M9 12l2 2 4-4 M5 4h14v17H5z',equipo:'M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8 M2 21v-3a6 6 0 0 1 12 0v3 M17 5a3 3 0 0 1 0 6 M18 15a4 4 0 0 1 4 4v2',visitas:'M3 11l9-8 9 8 M5 10v11h14V10 M10 21v-7h4v7',barras:'M4 20V10 M12 20V4 M20 20v-7',comentarios:'M4 4h16v13H9l-5 4z'};
+  return '<h2><svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+(trazos[icono]||trazos.barras)+'"/></svg>'+esc(texto)+'</h2>';
+}
+function tarjeta(id, texto, contenido, icono, clases){return '<section id="'+id+'" class="tarjeta '+(clases||'')+'">'+titulo(texto,icono)+contenido+'</section>';}
+function fraseNota(n){return n>=4.5?'¡Excelente! Tus clientes están felices':n>=4?'Muy bien':n>=3?'Hay cosas por mejorar':'Atención: hay clientes molestos';}
+/* Reglas canónicas: CONCLUSIONES-CREAM.md. No lee DOM, reloj ni datos personales. */
+function conclusiones(d){
+  if (d.total === 0) return ['Cuando lleguen las primeras respuestas, aquí verás lo más importante de tu negocio.'];
+  var candidatas=[], orden=0;
+  function agregar(cumple, tema, prioridad, texto){if(cumple)candidatas.push({tema:tema,prioridad:prioridad,orden:orden,texto:texto});orden++;}
+  function decimal(n){return Number(n).toFixed(1).replace('.',',');}
+  function porcentaje(n,t){return Math.round(n/t*100)+' %';}
+  function opcionesPositivas(obj){return Object.keys(obj||{}).map(function(k,i){return {nombre:k,n:obj[k],orden:i};}).filter(function(x){return x.n>0;}).sort(function(a,b){return b.n-a.n||a.orden-b.orden;});}
+  function suma(lista){return lista.reduce(function(n,x){return n+x.n;},0);}
+  var x=(d.insatisfechos||0)-(d.atendidos||0), premios=(d.cuponesPendientes||[]).length;
+  agregar(x>0,'urgente',100,'Tienes '+x+(x===1?' cliente que se fue molesto y aún no lo atiendes.':' clientes que se fueron molestos y aún no los atiendes.')+(x===1?' Escríbele':' Escríbeles')+' hoy: uno bien atendido después de una mala experiencia suele volver.');
+  agregar(premios>0,'urgente',95,premios+(premios===1?' premio espera':' premios esperan')+' su WhatsApp. '+(premios===1?'Envíalo':'Envíalos')+' desde “Cupones por enviar” para cumplir lo prometido.');
+  var semanas=d.semanas||[], indice=-1;
+  semanas.forEach(function(s,i){if(s.n>=5&&s.promedio!=null)indice=i;});
+  var anteriores=semanas.slice(0,Math.max(0,indice)).filter(function(s){return s.n>0&&s.promedio!=null;}).slice(-4);
+  var n=suma(anteriores), antes=n?anteriores.reduce(function(t,s){return t+s.n*s.promedio;},0)/n:null;
+  var ahora=indice>=0?semanas[indice].promedio:null;
+  agregar(antes!==null&&ahora!==null&&antes-ahora>=0.5-1e-9,'tendencia',85,'Tu calificación bajó esta semana: de '+decimal(antes)+'★ a '+decimal(ahora)+'★. Lee “Lo que te dijeron” y corrige lo que más se repita.');
+  agregar(antes!==null&&ahora!==null&&ahora-antes>=0.3-1e-9,'tendencia',55,'Vas mejorando: esta semana te calificaron con '+decimal(ahora)+'★, frente a '+decimal(antes)+'★ de antes. Lo que cambiaste está funcionando.');
+  agregar(d.total<10,'muestra',80,'Llevas '+d.total+(d.total===1?' respuesta.':' respuestas.')+' Desde las 10, estas conclusiones se vuelven firmes: que la tarjeta con QR vaya en cada cuenta.');
+  var equipo=Object.keys(d.personal||{}).filter(function(k){return k.trim().toLowerCase()!=='sin dato'&&d.personal[k].n>=5;}).map(function(k,i){return {nombre:k,n:d.personal[k].n,promedio:d.personal[k].promedio,orden:i};});
+  var bajos=equipo.filter(function(p){return p.promedio<=3.5;}).sort(function(a,b){return a.promedio-b.promedio||a.orden-b.orden;}), bajo=bajos[0]||{};
+  agregar(!!bajos.length,'equipo',75,bajo.nombre+' tiene '+decimal(bajo.promedio)+'★ en '+bajo.n+' atenciones. Conviene acompañarlo y ver qué está pasando en sus mesas.');
+  agregar(d.total>=10&&d.promedio<4,'calidad',70,'Tu promedio es '+decimal(d.promedio)+'★, todavía bajo para Google. Lo que más se repite en las quejas te dice por dónde empezar.');
+  agregar(d.total>=10&&d.promedio>=4.5,'calidad',50,'Te califican con '+decimal(d.promedio)+'★: estás en lo que la gente busca en Google. Mantén la encuesta en cada mesa para seguir sumando reseñas.');
+  agregar(d.aGoogle>=1,'google',45,d.aGoogle+(d.aGoogle===1?' cliente feliz fue':' clientes felices fueron')+' a dejarte su reseña de 5★ en Google. Cada una te ayuda a aparecer primero.');
+  var canales=opcionesPositivas(d.canales), canal=canales[0]||{}, nc=suma(canales);
+  agregar(nc>=5&&canal.n/nc>=0.4,'canales',48,canal.nombre+' es por donde más te encuentran ('+porcentaje(canal.n,nc)+'). Ahí conviene poner más contenido y publicidad.');
+  var visitas=opcionesPositivas(d.visitas), nv=suma(visitas), primera=visitas.filter(function(v){return /primera/i.test(v.nombre);}).reduce(function(n,v){return n+v.n;},0);
+  agregar(nv>=5&&primera/nv>=0.6,'clientes',46,porcentaje(primera,nv)+' venía por primera vez: tu publicidad está trayendo gente nueva. Ahora el reto es que vuelvan, y el premio ayuda.');
+  agregar(nv>=5&&primera/nv<=0.3,'clientes',46,'La mayoría ya te conocía ('+porcentaje(nv-primera,nv)+' repite). Tienes clientes fieles; conviene invertir en atraer gente nueva.');
+  var productos=opcionesPositivas(d.destacan), producto=productos[0]||{}, np=suma(productos);
+  agregar(np>=5&&producto.n/np>=0.3,'producto',44,'Lo que más te elogian es '+producto.nombre+' ('+porcentaje(producto.n,np)+'). Úsalo como mensaje principal en tus publicaciones.');
+  var altos=equipo.filter(function(p){return p.promedio>=4.7;}).sort(function(a,b){return b.promedio-a.promedio||b.n-a.n||a.orden-b.orden;}), alto=altos[0]||{};
+  agregar(!!altos.length,'equipo',35,alto.nombre+' es quien mejor califican ('+decimal(alto.promedio)+'★ en '+alto.n+' atenciones). Reconócelo delante del equipo.');
+  var temas=new Set(), resultado=[];
+  candidatas.sort(function(a,b){return b.prioridad-a.prioridad||a.orden-b.orden;}).forEach(function(c){if(resultado.length<3&&!temas.has(c.tema)){temas.add(c.tema);resultado.push(c.texto);}});
+  var relleno=['Cada encuesta es un cliente que te dijo la verdad. Mientras más respondan, mejores decisiones tomas.','Revisa este panel una vez por semana; las conclusiones cambian con tus números.','Responder rápido a quien se fue molesto es lo que más protege tu reputación.'];
+  return resultado.concat(relleno.slice(0,3-resultado.length));
+}
+function tarjetaConclusiones(d){
+  var textos=conclusiones(d);
+  return '<section id="conclusiones" class="tarjeta ancha">'+titulo('Conclusiones','barras')+(d.total===0?'<p>'+esc(textos[0])+'</p>':'<ol class="conclusiones-lista">'+textos.map(function(t){return '<li>'+esc(t)+'</li>';}).join('')+'</ol>')+'</section>';
+}
+
+
+function limitarFilas(){
+  // D13: listas que crecen con los datos. La escala de 5★ a 1★ es fija y se ve completa.
+  document.querySelectorAll('.tarjeta ul:not(.escala-fija), .tarjeta ol, .cupones').forEach(function(lista){
+    var filas=Array.prototype.slice.call(lista.children);
+    if(filas.length<=3 || !lista.getBoundingClientRect().width)return;
+    var anterior=lista.scrollTop;
+    // Medir con el ancho final, incluido el canal de la barra de scroll.
+    lista.classList.add('filas-limitadas');
+    lista.style.setProperty('--alto-fila','auto');
+    var alto=Math.ceil(Math.max.apply(null,filas.map(function(f){return f.getBoundingClientRect().height;})));
+    lista.style.setProperty('--alto-fila',alto+'px');
+    lista.setAttribute('tabindex','0');
+    lista.setAttribute('aria-label', (lista.getAttribute('data-etiqueta') || 'Lista del panel') + ': '+filas.length+' elementos. Desliza o usa las flechas para ver más.');
+    var pista=lista.nextElementSibling;
+    if(!pista || !pista.classList.contains('pista-filas')){
+      pista=document.createElement('p');pista.className='pista-filas';lista.after(pista);
+    }
+    pista.textContent='+'+(filas.length-3)+' más · Desliza para ver todos';
+    lista.scrollTop=anterior;
+  });
+}
+window.addEventListener('resize',limitarFilas);
+if(document.fonts)document.fonts.ready.then(limitarFilas);
+document.addEventListener('toggle',limitarFilas,true);
+
+function pintar(){
+  var d=datos;
+  if (!d.total){estado('Todavía no hay respuestas.','Aparecen aquí apenas el primer cliente escanee el QR.');lienzo.innerHTML+=tarjetaConclusiones(d);return;}
+  var llenas=Math.round(d.promedio), distribucion='';
+  for(var n=5;n>=1;n--){var cantidad=(d.estrellas||[])[n-1]||0;distribucion+=filaOpcion(n+' ★',cantidad,pct(cantidad,d.total)+'%',pct(cantidad,d.total));}
+  var pendientes=Math.max(0,(d.insatisfechos||0)-(d.atendidos||0));
+  var html=pendientes?'<aside class="aviso-pendientes" aria-label="Clientes por atender"><strong>'+pendientes+(pendientes===1?' cliente necesita':' clientes necesitan')+' tu atención</strong><a href="#por-atender">Ver comentario</a></aside>':'';
+  html+=avisoCupones(d.cuponesPendientes);
+  html+=avisoCumples(d.cumplesPorSaludar);
+  html+='<div class="historia">'+tarjeta('calificacion','¿Cómo te califican?',
+    '<div class="heroe"><span class="numero">'+coma(d.promedio.toFixed(1))+'</span><div><div class="estrellas" aria-label="'+coma(d.promedio)+' de 5 estrellas">'+'★'.repeat(llenas)+'☆'.repeat(5-llenas)+'</div><span class="detalle">'+d.total+' respuestas</span></div></div><p class="frase">'+fraseNota(d.promedio)+'</p><ul class="desglose escala-fija">'+distribucion+'</ul>','nota','ancha');
+  html+='<div class="cifras ancha" aria-label="Números clave">'+cifra('Felices',d.felices||0,'Con 4 o 5 estrellas')+cifra('Fueron a Google',d.aGoogle||0,'Abrieron el enlace de reseña')+cifra('Clientes nuevos',d.nuevos||0,'Vinieron por primera vez')+cifra('Dejaron su WhatsApp',d.conContacto||0,'Para seguir en contacto')+'</div>';
+  if(d.personal) html+=equipo(d.personal);
+  if(d.visitas) html+=visitas(d.visitas);
+  html+=opciones('canales','¿Cómo te encontraron?',d.canales,'trae al');
+  html+=opciones('destacan','¿Qué es lo que más les gusta?',d.destacan,'destaca para el');
+  if((d.semanas||[]).length) html+=tarjeta('semanas','Respuestas por semana',grafico(d.semanas),'barras');
+  var pendientesLista=(d.clientesPorAtender||[]).concat((d.comentarios||[]).filter(function(c){return c.insatisfecho&&!c.atendida;}));
+  if(pendientesLista.length) html+=tarjeta('por-atender','Clientes por atender','<ul class="lista">'+pendientesLista.map(item).join('')+'</ul>','comentarios','ancha');
+  var lista=(d.comentarios||[]).filter(function(c){return !(c.insatisfecho&&!c.atendida)&&!lecturasPendientes.has(c.id);}).slice().sort(function(a,b){return ((b.fecha||'')+' '+(b.hora||'')).localeCompare((a.fecha||'')+' '+(a.hora||''));});
+  html+=tarjeta('comentarios','Lo que te dijeron · '+lista.length,
+    (lista.length?'<ul class="lista" data-etiqueta="Comentarios no leídos">'+lista.map(item).join('')+'</ul>':'<p>Leíste todo. Cada comentario queda guardado en tu hoja de respuestas.</p>')+
+    (lista.length>=2?'<button class="mas leer-todos">Marcar todo como leído</button>':'')+
+    '<p role="status" class="aviso-lectura">'+esc(avisoLectura)+'</p>','comentarios','ancha');
+  html+=tarjetaConclusiones(d);
+  html+='</div><p class="pie-pagina">Los nombres y teléfonos de tus clientes están solo en tu hoja de respuestas.</p>';
+  lienzo.innerHTML=html;limitarFilas();conectarGrafico();
+  if(destacado){var e=document.getElementById('c-'+destacado);if(e)e.scrollIntoView({block:'center'});}
+}
+function avisoCupones(pendientes){
+  if (!TABLERO.INCENTIVO || !Array.isArray(pendientes) || !pendientes.length) return '';
+  return '<details class="aviso-pendientes aviso-cupones"><summary>'+esc(TABLERO.INCENTIVO.emoji||'🎁')+' '+pendientes.length+(pendientes.length===1?' cupón por enviar':' cupones por enviar')+'</summary><ul class="cupones">'+pendientes.map(function(c){
+    return '<li><span>'+esc(fechaCupon(c.fecha,c.hora))+' · ★'+esc(c.nota || c.calificacion || '')+'</span><button class="enviar-cupon" data-id="'+esc(c.id)+'">Enviar por WhatsApp</button></li>';
+  }).join('')+'</ul></details>';
+}
+/* Cumpleaños: el panel arma la imagen con el nombre y abre el chat con el mensaje. */
+var cumplesListos={};
+function avisoCumples(lista){
+  if (!TABLERO.CUMPLE) return '';
+  var ids={};(lista||[]).forEach(function(c){ids[c.id]=1;});
+  var filas=(lista||[]).slice();
+  Object.keys(cumplesListos).forEach(function(id){if(!ids[id])filas.push(cumplesListos[id].item);});
+  if (!filas.length) return '';
+  var abierto=Object.keys(cumplesListos).length?' open':'';
+  return '<details class="aviso-pendientes aviso-cupones"'+abierto+'><summary>🎂 '+filas.length+' cumpleaños por saludar'+'</summary><ul class="cupones cumples">'+filas.map(function(c){
+    var listo=cumplesListos[c.id];
+    var cuando=c.faltan===0?'Cumple hoy':c.faltan===1?'Cumple mañana':'Cumple el '+c.dia;
+    if (!listo) return '<li><span>'+esc(cuando)+'</span><button class="enviar-cupon preparar-cumple" data-id="'+esc(c.id)+'">Preparar saludo</button></li>';
+    return '<li><div class="cumple-listo"><img src="'+esc(listo.imagen)+'" alt="Feliz cumple, '+esc(listo.nombre)+'"><span>'+esc(listo.nombre)+' · '+esc(cuando.replace('Cumple ','').replace(/^el /,''))+'</span>'+
+      '<span class="cumple-acciones"><button class="enviar-cupon guardar-cumple" data-id="'+esc(c.id)+'">1 · Guardar imagen</button>'+
+      '<a class="enviar-cupon" href="'+esc(listo.url)+'" target="_blank" rel="noopener">2 · Abrir chat</a></span></div></li>';
+  }).join('')+'</ul></details>';
+}
+function tituloCumple(nombre){var n=String(nombre||'').trim().split(/\s+/)[0];return (n?'¡Feliz cumple, '+n+'!':'¡Feliz cumple!').toUpperCase();}
+/* Mismo molde que imagen-cumple.py: 78 px hacia abajo hasta caber en 960 px, corte más parejo, desde y=135. */
+function imagenCumple(nombre){
+  var cfg=TABLERO.CUMPLE, fuente=new FontFace('MarcaCumple','url('+cfg.fuente+')');
+  var base=new Image();
+  var carga=new Promise(function(ok,mal){base.onload=ok;base.onerror=mal;base.src=cfg.base;});
+  return Promise.all([fuente.load().then(function(f){document.fonts.add(f);}),carga]).then(function(){
+    var lienzo=document.createElement('canvas');lienzo.width=1080;lienzo.height=1350;
+    var c=lienzo.getContext('2d');c.drawImage(base,0,0,1080,1350);
+    var titulo=tituloCumple(nombre),palabras=titulo.split(' '),eleccion=null,tam=78;
+    for(;tam>=28&&!eleccion;tam--){
+      c.font=tam+'px MarcaCumple';
+      var opciones=[[titulo]];for(var i=1;i<palabras.length;i++)opciones.push([palabras.slice(0,i).join(' '),palabras.slice(i).join(' ')]);
+      opciones=opciones.filter(function(ls){return Math.max.apply(null,ls.map(function(l){return c.measureText(l).width;}))<=960;});
+      if(opciones.length)eleccion=opciones.sort(function(a,b){
+        var da=Math.max.apply(null,a.map(function(l){return c.measureText(l).width;}))-Math.min.apply(null,a.map(function(l){return c.measureText(l).width;}));
+        var db=Math.max.apply(null,b.map(function(l){return c.measureText(l).width;}))-Math.min.apply(null,b.map(function(l){return c.measureText(l).width;}));
+        return da-db;})[0];
+    }
+    tam++;c.font=tam+'px MarcaCumple';c.fillStyle=cfg.color;c.textAlign='center';c.textBaseline='top';
+    var y=135;(eleccion||[titulo]).forEach(function(l){c.fillText(l,540,y);y+=tam+26;});
+    return new Promise(function(ok){lienzo.toBlob(function(b){ok(b);},'image/png');});
+  });
+}
+function prepararCumple(b){
+  if (b.disabled) return;
+  b.disabled=true;b.textContent='Preparando…';
+  var id=b.getAttribute('data-id'),item=(datos.cumplesPorSaludar||[]).filter(function(c){return c.id===id;})[0];
+  fetch(TABLERO.ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({accion:'cumple',clave:clave(),id:id})})
+  .then(function(r){return r.json();}).then(function(j){
+    if (!j.ok || typeof j.url!=='string' || !/^https:\/\/wa\.me\//.test(j.url)) throw new Error('No se preparó el saludo');
+    return imagenCumple(j.nombre).then(function(blob){
+      cumplesListos[id]={item:item,url:j.url,nombre:j.nombre,blob:blob,imagen:URL.createObjectURL(blob)};
+      pintar();
+    });
+  }).catch(function(){b.disabled=false;b.textContent='Reintentar';});
+}
+function guardarCumple(b){
+  var listo=cumplesListos[b.getAttribute('data-id')];if(!listo)return;
+  var nombreArchivo='feliz-cumple-'+String(listo.nombre||'').toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'')+'.png';
+  var archivo=new File([listo.blob],nombreArchivo,{type:'image/png'});
+  if (navigator.canShare && navigator.canShare({files:[archivo]})) { navigator.share({files:[archivo]}).catch(function(){}); return; }
+  var a=document.createElement('a');a.href=listo.imagen;a.download=nombreArchivo;document.body.appendChild(a);a.click();a.remove();
+}
+function fechaCupon(fecha,hora){
+  var hoy=new Intl.DateTimeFormat('en-CA',{timeZone:'America/Lima',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+  return fecha===hoy?'hoy '+(hora||''):cuando(fecha,hora);
+}
+function filaOpcion(nombre,n,valor,ancho){
+  return '<li><div class="fila"><span class="etiqueta">'+esc(nombre)+'</span><span class="valor"><span>'+n+'</span><span>'+esc(valor)+'</span></span></div><div class="pista" aria-hidden="true"><i style="width:'+ancho+'%"></i></div></li>';
+}
+function opciones(id,tituloTexto,valores,verbo){
+  var lista=Object.keys(valores||{}).map(function(k){return {nombre:k,n:valores[k]};}).filter(function(x){return x.n>0;}).sort(function(a,b){return b.n-a.n||a.nombre.localeCompare(b.nombre,'es');});
+  var total=lista.reduce(function(n,x){return n+x.n;},0);if(!total)return '';
+  var ganador=lista[0];
+  return tarjeta(id,tituloTexto,'<p class="frase">'+esc(ganador.nombre)+' '+verbo+' '+pct(ganador.n,total)+' %</p><ul class="desglose">'+lista.map(function(x){return filaOpcion(x.nombre,x.n,pct(x.n,total)+'%',pct(x.n,total));}).join('')+'</ul>','barras');
+}
+function equipo(personal){
+  var lista=Object.keys(personal).map(function(k){return {nombre:k,n:personal[k].n,promedio:personal[k].promedio};}).filter(function(x){return x.nombre.trim().toLowerCase()!=='sin dato'&&x.n>0&&typeof x.promedio==='number'&&isFinite(x.promedio);}).sort(function(a,b){return b.promedio-a.promedio||b.n-a.n||a.nombre.localeCompare(b.nombre,'es');});
+  if(!lista.length)return '';
+  return tarjeta('equipo','Tu equipo','<ol class="equipo">'+lista.map(function(x,i){return '<li class="persona '+(i===0?'lider':'')+'">'+('<span class="avatar" aria-hidden="true">'+esc(x.nombre.charAt(0))+'</span>')+'<span class="nombre">'+esc(x.nombre)+(i===0?' <span class="medalla" aria-label="Mejor promedio">♛</span>':'')+'<small>'+x.n+(x.n===1?' calificación':' calificaciones')+'</small></span><strong>'+coma(x.promedio.toFixed(1))+' ★</strong></li>';}).join('')+'</ol>','equipo');
+}
+function visitas(valores){
+  var etiquetas=['Sí, es mi primera vez','Ya había venido antes','Vengo seguido'];
+  var nombres=['Primera vez','Ya habían venido','Vienen seguido'],colores=['var(--marca)','#6A627D','#26736C'];
+  var total=etiquetas.reduce(function(n,k){return n+(valores[k]||0);},0);if(!total)return '';
+  var nuevos=pct(valores[etiquetas[0]]||0,total),frase=nuevos===50?'La mitad viene por primera vez':nuevos>50?'La mayoría viene por primera vez':'La mayoría ya te conoce';
+  return tarjeta('visitas','¿Quiénes te visitan?','<p class="frase">'+frase+'</p><div class="segmentos" aria-hidden="true">'+etiquetas.map(function(k){return '<i style="flex:'+(valores[k]||0)+'"></i>';}).join('')+'</div><ul class="leyenda">'+etiquetas.map(function(k,i){var n=valores[k]||0;return n?'<li><i class="punto" aria-hidden="true" style="background:'+colores[i]+'"></i>'+nombres[i]+'<strong>'+n+' <small>· '+pct(n,total)+'%</small></strong></li>':'';}).join('')+'</ul>','visitas');
+}
+
+function cifra(rot, val, pie){
+  return '<div class="cifra"><span class="rot">' + esc(rot) + '</span><span class="val">' + esc(val) + '</span><span class="pie">' + pie + '</span></div>';
+}
+
+function item(c){
+  var malo = c.insatisfecho;
+  var meta = '<span>' + esc(cuando(c.fecha, c.hora)) + '</span>'
+    + (c.primera ? '<span class="chip">Primera vez</span>' : '')
+    + (c.contacto ? '<span class="chip">Dejó WhatsApp</span>' : '');
+  if (malo) meta += c.atendida
+    ? '<span class="hecho">✓ Atendido</span><button class="atender" data-id="' + esc(c.id) + '" data-deshacer="1">Deshacer</button>'
+    : '<button class="atender" data-id="' + esc(c.id) + '">Ya lo atendí</button>';
+  if (!malo || c.atendida) meta += '<button class="atender leer" data-id="'+esc(c.id)+'">Leído ✓</button>';
+  return '<li class="item' + (malo ? ' malo' : '') + (c.id === destacado ? ' destacado' : '') + '" id="c-' + esc(c.id) + '">'
+    + '<span class="nota" aria-label="' + c.nota + ' de 5 estrellas">' + (c.nota || "–") + '★</span>'
+    + (c.texto ? '<span class="texto">' + esc(c.texto) + '</span>' : '<span class="texto vacio">Sin comentario escrito</span>')
+    + '<span class="meta">' + meta + '</span></li>';
+}
+
+/* Columnas de una sola serie: sin leyenda, el título dice qué es. Etiqueta
+   solo en la semana actual; el resto va en el globo y en la tabla oculta. */
+function grafico(semanas){
+  var W = 600, H = 150, base = H - 4, alto = H - 26;
+  var max = Math.max(1, Math.max.apply(null, semanas.map(function(s){ return s.n; })));
+  var paso = W / semanas.length, ancho = Math.min(24, paso * 0.56);
+  var barras = semanas.map(function(s, i){
+    var h = s.n ? Math.max(4, s.n / max * alto) : 0;
+    var x = i * paso + (paso - ancho) / 2, y = base - h, r = Math.min(4, h);
+    var forma = h ? '<path d="M' + x + ' ' + base + 'V' + (y + r) + 'Q' + x + ' ' + y + ' ' + (x + r) + ' ' + y
+      + 'H' + (x + ancho - r) + 'Q' + (x + ancho) + ' ' + y + ' ' + (x + ancho) + ' ' + (y + r) + 'V' + base + 'Z" fill="var(--marca)"'
+      + (i === semanas.length - 1 ? '' : ' fill-opacity=".55"') + '/>' : '';
+    var etiqueta = i === semanas.length - 1 && s.n
+      ? '<text x="' + (x + ancho / 2) + '" y="' + (y - 6) + '" text-anchor="middle" font-size="13" font-weight="600" fill="var(--tinta)">' + s.n + '</text>' : '';
+    return forma + etiqueta + '<rect class="blanco" data-i="' + i + '" x="' + (i * paso) + '" y="0" width="' + paso + '" height="' + H + '" fill="transparent"/>';
+  }).join("");
+  var tabla = '<table class="tabla-oculta"><caption>Respuestas por semana</caption><tr><th>Semana del</th><th>Respuestas</th><th>Promedio</th><th>Insatisfechos</th></tr>'
+    + semanas.map(function(s){ return '<tr><td>' + semanaTexto(s.desde) + '</td><td>' + s.n + '</td><td>' + (s.promedio === null ? "–" : coma(s.promedio)) + '</td><td>' + s.malas + '</td></tr>'; }).join("") + '</table>';
+  return '<div class="tendencia"><svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" role="img" aria-label="Respuestas por semana, últimas 12 semanas">'
+    + barras + '</svg><div class="globo" id="globo"></div>'
+    + '<div class="eje"><span>' + semanaTexto(semanas[0].desde) + '</span><span>Esta semana</span></div>' + tabla + '</div>';
+}
+
+function conectarGrafico(){
+  var svg = document.querySelector(".tendencia svg"), globo = $("#globo");
+  if (!svg) return;
+  function mostrarGlobo(e){
+    var t = e.target.closest ? e.target.closest(".blanco") : null;
+    if (!t){ globo.classList.remove("visible"); return; }
+    var s = datos.semanas[Number(t.getAttribute("data-i"))];
+    var caja = svg.getBoundingClientRect(), x = (Number(t.getAttribute("x")) + Number(t.getAttribute("width")) / 2) / 600 * caja.width;
+    globo.innerHTML = '<b>Semana del ' + semanaTexto(s.desde) + '</b><br>' + s.n + (s.n === 1 ? ' respuesta' : ' respuestas')
+      + (s.promedio !== null ? ' · ' + coma(s.promedio) + '★' : '') + (s.malas ? '<br>' + s.malas + ' insatisfecho' + (s.malas > 1 ? 's' : '') : '');
+    globo.style.left = Math.max(70, Math.min(caja.width - 70, x)) + "px";
+    globo.style.top = "8px";
+    globo.classList.add("visible");
+  }
+  svg.addEventListener("pointermove", mostrarGlobo);
+  svg.addEventListener("pointerdown", mostrarGlobo);
+  svg.addEventListener("pointerleave", function(){ globo.classList.remove("visible"); });
+}
+
+/* Abrir durante el gesto evita el bloqueo del navegador mientras llega la URL. */
+function enviarCupon(b){
+  if (b.disabled) return;
+  var ventana=window.open('about:blank','_blank');
+  if (!ventana){ b.textContent='Permite la ventana y reintenta'; return; }
+  ventana.opener=null;
+  b.disabled=true;b.textContent='Preparando…';
+  var id=b.getAttribute('data-id');
+  fetch(TABLERO.ENDPOINT,{
+    method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({accion:'cupon',clave:clave(),id:id})
+  }).then(function(r){return r.json();}).then(function(j){
+    if (!j.ok || typeof j.url!=='string' || !/^https:\/\/wa\.me\//.test(j.url)) throw new Error('No se preparó el cupón');
+    ventana.location.href=j.url;
+    datos.cuponesPendientes=(datos.cuponesPendientes||[]).filter(function(c){return c.id!==id;});
+    pintar();
+  }).catch(function(){ventana.close();b.disabled=false;b.textContent='Reintentar envío';});
+}
+
+/* Optimista por ID; reintento idempotente y protección ante refrescos concurrentes. */
+function marcarLeidos(ids){
+  ids=(ids || (datos.comentarios||[]).filter(function(c){return !(c.insatisfecho&&!c.atendida);}).map(function(c){return c.id;})).filter(function(id){return !lecturasPendientes.has(id);});
+  if(!ids.length)return Promise.resolve();
+  revisionLecturas++;
+  var originales=(datos.comentarios||[]).filter(function(c){return ids.indexOf(c.id)>=0;});
+  ids.forEach(function(id){lecturasPendientes.add(id);});avisoLectura='';
+  ids.forEach(function(id){var fila=document.getElementById('c-'+id);if(fila&&fila.animate)fila.animate([{opacity:1},{opacity:0,transform:'translateX(-16px)'}],{duration:matchMedia('(prefers-reduced-motion: reduce)').matches?0:140});});
+  // Repintar al terminar la salida; las lecturas pendientes ya están excluidas.
+  var saliendo=true;
+  setTimeout(function(){saliendo=false;pintar();},140);
+  function guardar(intento){
+    return fetch(TABLERO.ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({accion:'leido',clave:clave(),ids:ids})})
+      .then(function(r){return r.json();}).then(function(j){if(!j.ok)throw new Error('lectura');})
+      .catch(function(error){if(intento===0)return new Promise(function(resolve){setTimeout(resolve,700);}).then(function(){return guardar(1);});throw error;});
+  }
+  return guardar(0).then(function(){
+    datos.comentarios=(datos.comentarios||[]).filter(function(c){return ids.indexOf(c.id)<0;});
+  }).catch(function(){
+    originales.forEach(function(c){if(!(datos.comentarios||[]).some(function(x){return x.id===c.id;}))datos.comentarios.push(c);});
+    avisoLectura='No se guardó la lectura. Vuelve a intentarlo.';
+  }).finally(function(){ids.forEach(function(id){lecturasPendientes.delete(id);});datos.noLeidos=(datos.comentarios||[]).length;if(!saliendo)pintar();});
+}
+
+/* Marcar atendido: el botón se apaga hasta que la hoja confirma. */
+document.addEventListener("click", function(e){
+  var leer = e.target.closest ? e.target.closest('.leer, .leer-todos') : null;
+  if (leer){ marcarLeidos(leer.classList.contains('leer-todos') ? null : [leer.getAttribute('data-id')]); return; }
+  var cumple = e.target.closest ? e.target.closest(".preparar-cumple, .guardar-cumple") : null;
+  if (cumple){ (cumple.classList.contains('guardar-cumple') ? guardarCumple : prepararCumple)(cumple); return; }
+  var cupon = e.target.closest ? e.target.closest(".enviar-cupon") : null;
+  if (cupon && cupon.tagName==='A') return;
+  if (cupon){ enviarCupon(cupon); return; }
+  var b = e.target.closest ? e.target.closest(".atender") : null;
+  if (!b) return;
+  b.disabled = true; b.textContent = "Guardando…";
+  fetch(TABLERO.ENDPOINT, {
+    method:"POST", headers:{ "Content-Type":"text/plain;charset=utf-8" },
+    body: JSON.stringify({ accion:"atender", clave:clave(), id:b.getAttribute("data-id"), deshacer: !!b.getAttribute("data-deshacer") })
+  }).then(function(r){ return r.json(); }).then(function(j){
+    if (!j.ok) throw new Error(j.error || "no se guardó");
+    return cargar();
+  }).catch(function(){ b.disabled = false; b.textContent = "No se guardó, reintentar"; });
+});
+
+var cargando = false;
+function pedirClave(error){
+  lienzo.innerHTML = '<form class="estado acceso" id="acceso"><h2>Escribe tu clave</h2><label class="tabla-oculta" for="clave-panel">Clave</label><input id="clave-panel" type="password" autocomplete="current-password" required aria-describedby="error-clave"><p id="error-clave" role="alert">'+esc(error || '')+'</p><button class="entrar" type="submit">Entrar</button></form>';
+  $('#acceso').addEventListener('submit', function(event){
+    event.preventDefault();
+    var intento = $('#clave-panel').value.trim();
+    if (!intento || cargando) return;
+    $('#acceso button').disabled = true;
+    cargar(intento);
+  });
+  $('#clave-panel').focus();
+}
+function cargar(intento){
+  if (cargando || lecturasPendientes.size) return Promise.resolve();
+  var candidata = intento || clave();
+  if (!candidata) return Promise.resolve();
+  var revision = revisionLecturas;
+  cargando = true;
+  return fetch(TABLERO.ENDPOINT + "?datos=" + encodeURIComponent(candidata))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.error === "clave"){
+        claveSesion = ""; datos = null;
+        try { localStorage.removeItem(LLAVE); } catch(_){}
+        pedirClave("Esa clave no es correcta");
+        return;
+      }
+      if (!d || !d.ok) throw new Error("respuesta inesperada");
+      claveSesion = candidata;
+      try { localStorage.setItem(LLAVE, candidata); } catch(_){}
+      if (lecturasPendientes.size || revision !== revisionLecturas) return;
+      datos = d;
+      pintar();
+    })
+    .catch(function(){
+      if (intento) pedirClave("No pudimos conectar. Vuelve a intentar.");
+      else if (!datos) estado("No pudimos cargar tus datos", "Revisa tu conexión y vuelve a abrir esta página en un minuto.");
+      // Conserva los datos pintados si falla un refresco.
+    }).finally(function(){ cargando = false; });
+}
+
+function arrancar(){
+  leerHash();
+  if (!TABLERO.ENDPOINT){ estado("Tu panel está casi listo", "Se activa cuando la encuesta de la mesa empiece a guardar respuestas."); return; }
+  if (!clave()) pedirClave();
+  else cargar();
+  // Se refresca solo cada minuto mientras está a la vista.
+  reloj = setInterval(function(){ if (document.visibilityState === "visible") cargar(); }, 60000);
+  document.addEventListener("visibilitychange", function(){ if (document.visibilityState === "visible") cargar(); });
+  window.addEventListener("hashchange", function(){ leerHash(); claveSesion = ""; cargar(); });
+}
+arrancar();
+})();
+</script>
+</body>
+</html>
